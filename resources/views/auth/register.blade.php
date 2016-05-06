@@ -66,7 +66,7 @@
                     <input type="@{{ pwdType }}" name='password' placeholder="{{trans('labels.pwd')}}">
                     <a class="input-group-addon" id="login-addon" @click="iconToggle" data-toggle="tooltip"
                     data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
-                    <button type="submit" id="login-button">{{trans('labels.register')}}</button>
+                    <button type="submit" id="login-button"  @click='waitLogin' >{{ trans('labels.register') }}</button>
                 </form>
             </div>
 
@@ -104,6 +104,9 @@
                     methods: {
                         iconToggle() {
                             this.openEye = !this.openEye;
+                        },
+                        waitLogin() {
+
                         }
                     },
 
