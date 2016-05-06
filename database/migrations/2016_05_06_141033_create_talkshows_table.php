@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLessonsTable extends Migration
+class CreateTalkshowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,13 @@ class CreateLessonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('talkshows', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('topic_id')->unsigned();
-            $table->integer('title');
+            $table->string('title');
             $table->string('description');
-            $table->integer('order');
+            $table->string('avatar');
             $table->integer('likes');
             $table->integer('views');
-            $table->string('avatar');
-            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateLessonsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lessons');
+        Schema::drop('talkshows');
     }
 }

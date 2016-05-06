@@ -68,10 +68,6 @@
   text-align: center;
 }
 
-.topics {
-  height : 300px;
-}
-
 .topic img {
   border-radius: 2px 2px 2px 2px;
   -moz-border-radius: 2px 2px 2px 2px;
@@ -129,7 +125,7 @@ ul {
 
 #footer-copyright {
   position: relative;
-  margin: -7px 0 0;
+  margin: 10px 0 0;
   font-size: 12px;
   float: left;
 }
@@ -170,7 +166,6 @@ ul {
 
 .Classes .Economy {
   margin-top: -84px;
-  height: 267px;
 }
 
 .Classes .Class {
@@ -187,7 +182,6 @@ ul {
   display: block;
   margin: 184px 0 0;
   width: auto;
-  height: auto;
   /*font: 700 26px/26px latobold,sans-serif!important;*/
   color: #FFF;
   text-align: center;

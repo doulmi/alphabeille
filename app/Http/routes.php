@@ -12,6 +12,12 @@ Route::group(['middleware' => 'web'], function () {
     });
 
     Route::resource('/chat', 'ChatController');
+    Route::resource('api/topics', 'API\TopicController');
+    Route::resource('api/talkshows', 'API\TalkshowController');
+
+    Route::get('topics', function() {
+        return view('topics');
+    });
 
     Route::auth();
 });
