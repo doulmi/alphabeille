@@ -7,7 +7,10 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "overtrue/laravel-lang": "1.0.*"
+        "overtrue/laravel-lang": "1.0.*",
+        "barryvdh/laravel-ide-helper": "^2.1",
+        "predis/predis": "^1.0",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

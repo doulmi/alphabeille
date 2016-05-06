@@ -18,6 +18,5 @@
 <script src="/js/all.js"></script>
 @yield('otherjs')
 
-
 </body>
 </html>

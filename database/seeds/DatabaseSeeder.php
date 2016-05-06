@@ -11,8 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run() {
         factory(\App\User::class, 50)->create();
+//
         factory(\App\Topic::class, 100)->create();
         factory(\App\Lesson::class, 800)->create();
+        factory(\App\Talkshow::class, 400)->create();
 
         \App\Subscription::create([ 'name' => '6month', 'duration' => '6', 'price' => '520', 'description' => '6monthDesc' ]);
         \App\Subscription::create([ 'name' => '12month', 'duration' => '12', 'price' => '960', 'description' => '12monthDesc' ]);
