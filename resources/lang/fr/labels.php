@@ -11,5 +11,7 @@ return [
     'forgetPwd' => 'Mot de passe oublié?' ,
     'topics' => 'Topics',
     'talkshows' => 'Talkshows',
-    'more' => 'Plus'
+    'more' => 'Plus',
+    'profile' => 'Profile',
+    'disconnect' => 'Déconnexion',
 ];

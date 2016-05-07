@@ -14,10 +14,10 @@
             <div class="container topics">
                 <div class="row">
                     <h3 class="white pull-left">{{ trans('labels.topics') }}</h3>
-                    <h3 class="white  pull-right"><a class="more" href="{{url('topics')}}">{{ trans('labels.more') }}</a></h3>
+                    <h3 class="white  pull-right"><a class="more" href="{{url('/topics')}}">{{ trans('labels.more') }}</a></h3>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-6" v-for="topic in topics">
+                    <div class="col-md-3 col-sm-4 col-xs-6" v-for="topic in topics">
                         <div class="topic">
                             <img src="@{{topic['avatar']}}">
                             <div class="topic-content">
@@ -26,7 +26,7 @@
                                 <div class="topic-footer">
                                     <span class="topic-audio-count ">@{{ topic['lessons'] }} 个文件</span>
 
-                                    <div class="topic-right hidden-xs ">
+                                   <div class="topic-right hidden-xs ">
                                         <span class="topic-view">
                                             <span class="glyphicon glyphicon-eye-open"><span class="g-font">@{{ topic['views'] }} </span></span>
                                         </span>
@@ -156,12 +156,12 @@
             },
 
             ready() {
-                this.$http.get('{{url('/api/topics?num=8' )}}', function(data) {
-                    this.topics = data;
+                this.$http.get('{{url('/api/topics?num=8' )}}', function(response) {
+                    this.topics = response['data'];
                 }.bind(this));
 
-                this.$http.get('{{url('/api/talkshows?num=8')}}', function(data) {
-                    this.talkshows = data;
+                this.$http.get('{{url('/api/talkshows?num=8')}}', function(response) {
+                    this.talkshows = response['data'];
                 }.bind(this));
             }
         });

@@ -29,15 +29,6 @@ $factory->define(App\Topic::class, function (Faker\Generator $faker) {
     ];
 });
 
-/**
-$table->integer('topic_id')->unsigned();
-$table->integer('title');
-$table->integer('order');
-$table->integer('likes');
-$table->integer('views');
-$table->string('avatar');
-$table->boolean('talkshow');
- */
 $lesson_order = 1;
 $factory->define(App\Lesson::class, function (Faker\Generator $faker) use (&$lesson_order) {
     $topicIds = \App\Topic::lists('id')->toArray();
@@ -45,8 +36,8 @@ $factory->define(App\Lesson::class, function (Faker\Generator $faker) use (&$les
         'title' => $faker->name,
         'order' => $lesson_order ++,
         'avatar' => $faker->imageUrl(200, 153),
-        'views' => $faker->randomNumber,
-        'likes' => $faker->randomNumber,
+        'views' => $faker->numberBetween(0, 300),
+        'likes' => $faker->numberBetween(0, 300),
         'topic_id' => $faker->randomElement($topicIds),
     ];
 });
@@ -114,7 +105,7 @@ $factory->define(App\Talkshow::class, function (Faker\Generator $faker) {
         'title' => $faker->text(10),
         'description' => $faker->text(50),
         'avatar' => $faker->imageUrl(256, 256),
-        'likes' => $faker->numberBetween(0, 1000),
-        'views' => $faker->numberBetween(0, 1000),
+        'likes' => $faker->numberBetween(0, 200),
+        'views' => $faker->numberBetween(0, 200),
     ];
 });

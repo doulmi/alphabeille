@@ -1,5 +1,11 @@
 <?php
 
 return [
-    'index' => 'Acceuill'
+    'index' => 'Acceuil',
+    'topics' => 'Tous les sujets',
+    'talkshows' => 'Tous les talkshows',
+    'login' => 'Connexion',
+    'register' => 'Inscription',
+    'home' => 'Profile',
+    'chatroom' => 'Chatroom'
 ];

@@ -11,5 +11,8 @@ return [
     'forgetPwd' => '忘记密码了?',
     'topics' => '主题',
     'talkshows' => '脱口秀',
-    'more' => '更多'
+    'more' => '更多',
+    'profile' => '个人信息',
+    'disconnect' => '退出登录',
+
 ];

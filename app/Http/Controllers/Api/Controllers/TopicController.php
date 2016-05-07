@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Talkshow;
+use App\Http\Controllers\Api\Transformers\TopicTransformer;
+use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 
-class TalkshowController extends Controller
+class TopicController extends BaseApiController
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,10 @@ class TalkshowController extends Controller
      */
     public function index()
     {
-        $num = Input::get('num', 8);
-        $data = Talkshow::latest()->limit($num)->get();
-        return $data;
+//        $num = Input::get('num', 8);
+        $topics = Topic::latest()->paginate(8);
+        return $this->response->paginator($topics, new TopicTransformer());
+//        return $this->response->collection($topics, new TopicTransformer());
     }
 
     /**
@@ -52,7 +53,13 @@ class TalkshowController extends Controller
      */
     public function show($id)
     {
-        //
+        $talkshow = Topic::findOrFail($id);
+
+        if (!$talkshow) {
+            $this->response->errorNotFound();
+        } else {
+            return $this->response->item($talkshow, new TopicTransformer());
+        }
     }
 
     /**
