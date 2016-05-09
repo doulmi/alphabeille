@@ -15,11 +15,12 @@ class CreateLessonsTable extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('topic_id')->unsigned();
-            $table->integer('title');
+            $table->string('title');
             $table->string('description');
             $table->integer('order');
-            $table->integer('likes');
-            $table->integer('views');
+            $table->integer('likes')->default(0);
+            $table->boolean('free')->default(false);
+            $table->integer('views')->default(0);
             $table->string('avatar');
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();

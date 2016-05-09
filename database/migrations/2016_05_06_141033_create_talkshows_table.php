@@ -17,8 +17,9 @@ class CreateTalkshowsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('avatar');
-            $table->integer('likes');
-            $table->integer('views');
+            $table->integer('likes')->default(0);
+            $table->boolean('free')->default(false);
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

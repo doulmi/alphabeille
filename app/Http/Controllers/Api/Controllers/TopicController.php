@@ -24,6 +24,7 @@ class TopicController extends BaseApiController
 //        return $this->response->collection($topics, new TopicTransformer());
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

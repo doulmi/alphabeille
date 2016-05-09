@@ -12,7 +12,21 @@ return [
     'topics' => '主题',
     'talkshows' => '脱口秀',
     'more' => '更多',
+    'lessons' => '课',
     'profile' => '个人信息',
     'disconnect' => '退出登录',
-
+    'resetPwd' => '重置密码',
+    'hasCount' => '已经有账号了？点我点我',
+    'noCount' => '没有账号？快点我',
+    'updated' => '冷饭已炒',
+    'new' => '新鲜出炉',
+    'intermediate' => '中级',
+    'beginner' => '初级',
+    'advanced' => '高级',
+    'learnSlagon' => '听乃学习外语之道',
+    'joinus' => 'o O ？你竟然还没有加入Alphabeille？',
+    '6month' => '6个月',
+    '12month' => '1年',
+    '24month' => '2年',
+    'buy' => '马上加入'
 ];

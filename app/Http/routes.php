@@ -7,13 +7,13 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
 
-    Route::get('/', function () {
-        return view('index');
-    });
+    Route::get('/', 'PostController@index');
 
     Route::resource('chat', 'ChatController');
     Route::resource('topics', 'TopicController');
-    Route::resource('talkshow', 'TalkshowController');
+    Route::resource('lessons', 'LessonController');
+    Route::resource('talkshows', 'TalkshowController');
+    Route::get('menus', 'PostController@menus');
 
     Route::auth();
 });

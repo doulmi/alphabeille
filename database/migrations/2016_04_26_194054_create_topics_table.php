@@ -17,6 +17,7 @@ class CreateTopicsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('avatar');
+            $table->enum('level', ['beginner', 'intermediate', 'advanced']);
             $table->timestamps();
         });
     }

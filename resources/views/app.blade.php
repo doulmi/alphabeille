@@ -6,11 +6,7 @@
 @endsection
 
 @section('text')
-    @if(Auth::guest())
-        @include('navbar')
-    @else
-        @include('navbar_login')
-    @endif
+    @include('navbar')
 
     @yield('content')
 

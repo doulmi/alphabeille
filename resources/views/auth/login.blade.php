@@ -4,17 +4,7 @@
 @section('text')
     @include('navbar')
     <div class="login fullscreen">
-        {{--<div class="rainbow-preloader" style="position:absolute">--}}
-            {{--<div class="rainbow-stripe"></div>--}}
-            {{--<div class="rainbow-stripe"></div>--}}
-            {{--<div class="rainbow-stripe"></div>--}}
-            {{--<div class="rainbow-stripe"></div>--}}
-            {{--<div class="rainbow-stripe"></div>--}}
-            {{--<div class="shadow"></div>--}}
-            {{--<div class="shadow"></div>--}}
-        {{--</div>--}}
-
-        <div class="sky" style="float:left">
+        <div class="sky">
             <div class="cloud variant-1"></div>
             <div class="cloud variant-2"></div>
             <div class="cloud variant-3"></div>
@@ -41,7 +31,7 @@
                     {!! csrf_field() !!}
                     <input type="email" name='email' placeholder="{{trans('labels.email')}}" value="{{ old('email') }}">
                     <input type="@{{ pwdType }}" name='password' placeholder="{{trans('labels.pwd')}}">
-                    <a class="input-group-addon" id="login-addon" @click="iconToggle" data-toggle="tooltip"
+                    <a class="input-group-addon" id="login-addon" href="" @click.stop="iconToggle" data-toggle="tooltip"
                     data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
                     <button type="submit" id="login-button">
                         {{trans('labels.login')}}
@@ -56,7 +46,8 @@
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-link" href="{{ url('/password/reset') }}">{{trans('labels.forgetPwd')}}</a>
+                    <a class="link link-left" href="{{ url('/password/reset') }}">{{trans('labels.forgetPwd')}}</a>
+                    <a class="link link-right" @click.stop.prevent="toRegister" href="">{{ trans('labels.noCount') }}</a>
                 </form>
 
                 {{--register--}}
@@ -64,9 +55,12 @@
                     {!! csrf_field() !!}
                     <input type="email" name='email' placeholder="{{trans('labels.email')}}" value="{{ old('email') }}">
                     <input type="@{{ pwdType }}" name='password' placeholder="{{trans('labels.pwd')}}">
-                    <a class="input-group-addon" id="login-addon" @click="iconToggle" data-toggle="tooltip"
+                    <a class="input-group-addon" href="" id="login-addon" @click.stop="iconToggle" data-toggle="tooltip"
                     data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
                     <button type="submit" id="login-button">{{trans('labels.register')}}</button>
+                    <br/>
+                    <br/>
+                    <a class="link" @click.stop.prevent="toLogin" href="" >{{trans('labels.hasCount')}}</a>
                 </form>
             </div>
 
@@ -76,23 +70,8 @@
 
         @section('otherjs')
             <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+            <script src="/js/fullscreen.js"></script>
             <script>
-                $(document).ready(function () {
-                    fullscreenSupport();
-                });
-
-                $(window).resize(function () {
-                    fullscreenSupport();
-                    resizeFont();
-                    navbar.toggleConnectBtn();
-                });
-
-                var fullscreenSupport = function () {
-                    var height = $(window).height();
-                    var width = $(window).width();
-                    $(".fullscreen").css('min-height', height);
-                };
-
                 new Vue({
                     el: 'body',
 
@@ -104,6 +83,14 @@
                     methods: {
                         iconToggle() {
                             this.openEye = !this.openEye;
+                        },
+                        toRegister() {
+                            this.isLogin = false;
+                            console.log(this.isLogin);
+                        },
+                        toLogin() {
+                            this.isLogin = true;
+                            console.log(this.isLogin);
                         }
                     },
 

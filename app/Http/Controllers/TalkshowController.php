@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Talkshow;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class TalkshowController extends Controller
 {
+    private $pageLimit = 48;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +17,13 @@ class TalkshowController extends Controller
      */
     public function index()
     {
-        //
+        $talkshows = Talkshow::latest()->paginate($this->pageLimit);
+        return view('talkshows.talkshows', compact('talkshows'));
+    }
+
+    public function latest($num) {
+        $talkshows = Talkshow::latest()->limit($num)->get();
+        return $talkshows;
     }
 
     /**

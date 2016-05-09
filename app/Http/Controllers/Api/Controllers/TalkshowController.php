@@ -31,6 +31,11 @@ class TalkshowController extends BaseApiController
         return $this->response->collection($talkshows, new TalkshowTransformer());
     }
 
+    public function latest($num) {
+        $talkshows = Talkshow::latest()->limit($num)->get();
+        return $this->response->collection($talkshows, new TalkshowTransformer());
+    }
+
     /**
      * Show the form for creating a new resource.
      *

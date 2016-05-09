@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserRegister;
 use App\User;
+use Faker\Generator;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -11,6 +12,9 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+
+    protected $redirectPath = '';
+    protected $registerView = 'auth.login';
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -63,10 +67,14 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        /**
+         * 'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nightlife',
+         *  'fashion', 'people', 'nature', 'sports', 'technics', 'transport'
+         */
         $user = User::create([
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'avatar' => '/images/default-avatar.jpg',
+            'avatar' => '/img/default_avatar/' . strtoupper($data['email'][0]) . '.png',
             'confirmation_code' => str_random(64),
             'remember_token' => str_random(10),
         ]);

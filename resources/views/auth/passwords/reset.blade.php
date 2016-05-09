@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('content')
 <div class="container">
@@ -67,4 +67,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('otherjs')
+    <script src="/js/fullscreen.js"></script>
 @endsection

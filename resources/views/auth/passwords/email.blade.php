@@ -1,47 +1,53 @@
-@extends('layouts.app')
+@extends('app')
 
-<!-- Main Content -->
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
+
+@extends('base')
+
+{{--<link rel="stylesheet" href="/css/app.css">--}}
+@section('text')
+    @include('navbar')
+    <div class="login fullscreen">
+        <div class="sky">
+            <div class="cloud variant-1"></div>
+            <div class="cloud variant-2"></div>
+            <div class="cloud variant-3"></div>
+            <div class="cloud variant-4"></div>
+            <div class="cloud variant-5"></div>
+            <div class="cloud variant-6"></div>
+            <div class="cloud variant-7"></div>
+            <div class="cloud variant-8"></div>
+        </div>
+        <div class="wrapper">
+            <div class="login-container">
+                <div class="container">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
+                </div>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
-                        {!! csrf_field() !!}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                    {!! csrf_field() !!}
+                    <input type="email" name='email' placeholder="{{trans('labels.email')}}" value="{{ old('email') }}">
+                    @if ($errors->has('email'))
+                        <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-envelope"></i>Send Password Reset Link
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    @endif
+                    <a class="input-group-addon" href="" id="login-addon" data-toggle="tooltip"
+                       data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
+                    <button type="submit" id="login-button">
+                        <span class="glyphicon glyphicon-send"></span>
+                        {{trans('labels.resetPwd')}}
+                    </button>
+                </form>
             </div>
         </div>
-    </div>
-</div>
+        @endsection
+
+        @section('otherjs')
+            <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+            <script src="/js/fullscreen.js"></script>
+
 @endsection
