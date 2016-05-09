@@ -12,7 +12,7 @@
                                 </span>
                 @endif
                 <div class="Card-image">
-                    <a href="{{ url('talkshows/') . '/' .$talkshow->id }}">
+                    <a href="{{ url('talkshows/' .$talkshow->id) }}">
                         <img src="{{$talkshow->avatar}}" class="Card-image" alt="{{$talkshow->title}}">
                         <div class="Card-overlay">
                             <i class="material-icons">play_circle_outline</i>

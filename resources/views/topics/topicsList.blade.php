@@ -25,7 +25,7 @@
                 </div>
                 <div class="Card-details">
                     <h3 class="Card-title">
-                        <a href="{{ url('/topics/') . $topic->id }}">{{$topic->title}}</a>
+                        <a href="{{ url('/topics/' . $topic->id) }}">{{$topic->title}}</a>
                     </h3>
                     <div class="Card-count">{{ $topic->lessonCount() }} <span
                                 class="utility-muted"> {{trans('labels.lessons')}}</span>

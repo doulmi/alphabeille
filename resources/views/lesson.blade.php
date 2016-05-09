@@ -19,8 +19,8 @@
                             <p class="loading"></p>
                             <p class="error"></p></div>
                         <div class="scrubber">
-                            <div class="progress" style="width: 0px;"></div>
-                            <div class="loaded" style="width: 233.016px;"></div>
+                            <div class="progress"></div>
+                            <div class="loaded"></div>
                         </div>
                         <div class="time"><em class="played">00:00</em>/<strong class="duration">03:56</strong></div>
                         <div class="error-message"></div>
@@ -33,7 +33,7 @@
                 <div class="Video-buttons Box">
                     <ul class="utility-naked-list">
                         <li>
-                            <a href="" title="Download Video" class="Button Button-with-icon ">
+                            <a href="{{ url('audios/' . $lesson->id) }}" title="Download Video" class="Button Button-with-icon ">
                                 <i class="material-icons">cloud_download</i>
                                 <span>Download fr</span>
                             </a>
@@ -65,22 +65,15 @@
                 <div class="Video-details Box Box-Large">
                     <div class="Video-body">
                         <h2 class="mar-t-z">
-                            <a href="/series/whats-new-in-laravel-5-1">What's New in Laravel 5.1:</a>
-
-                            Adopting PSR-2
+                            <a href="/series/whats-new-in-laravel-5-1">{{ $lesson->topic->title }} : </a>
+                            {{ $lesson->title }}
                         </h2>
 
-                        <p>Upon installing Laravel 5.1, the first thing you'll notice is that the style guide is a bit
-                            different. Laravel now adopts the <a href="http://www.php-fig.org/psr/psr-2/">PSR-2 coding
-                                standard</a>. If you're not familiar, this is nothing more than a set of style
-                            guidelines
-                            for writing code.</p>
+                        <p>{{ $lesson->description }}</p>
 
                         <p class="mar-t">
                             <strong>
-                                Published on Jun. 8th 2015
-
-                                <!- The associated tool versions for the lesson ->
+                                {{trans('labels.publishOn') . ' ' . $lesson->created_at->diffForHumans()}}
                             </strong>
                         </p>
 

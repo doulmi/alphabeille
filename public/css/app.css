@@ -1269,11 +1269,10 @@ ul {
     padding: 8px 12px;
     display: -webkit-box;
     display: flex;
+    height: 70px;
     -webkit-box-align: center;
     align-items: center;
 }
-
-
 
 .list-lans {
     display : inline-block;
@@ -1635,11 +1634,11 @@ ul {
 
 .Video-player-wrap {
     position: relative;
+    margin-left:auto;
+    margin-right:auto;
     border-radius: 0;
     border: none;
     padding: 0;
-    width: 75%;
-    background: #000;
 }
 
 
@@ -1773,3 +1772,4 @@ ul {
     font-size: 15px;
     vertical-align: text-bottom;
 }
+

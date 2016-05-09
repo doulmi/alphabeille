@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 
 class Language
 {
+    //TODO Carbon localisation
     public function handle($request, Closure $next)
     {
         if (Session::has('applocale') AND array_key_exists(Session::get('applocale'), Config::get('languages'))) {

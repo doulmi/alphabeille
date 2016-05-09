@@ -23,4 +23,5 @@ return [
     'intermediate' => 'intermediate',
     'beginner' => 'beginner',
     'advanced' => 'advanced',
+    'publishOn' => 'Published on',
 ];
