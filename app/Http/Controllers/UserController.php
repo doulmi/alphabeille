@@ -26,4 +26,8 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
         return $user == null ? false : true;
     }
+
+    public function index() {
+        return User::latest()->paginate();
+    }
 }

@@ -12,10 +12,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-
-    protected $redirectPath = '';
-    protected $registerView = 'auth.login';
-    /*
+/*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
     |--------------------------------------------------------------------------
@@ -27,6 +24,8 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+    protected $registerView = 'auth.login';
 
     /**
      * Where to redirect users after login / registration.

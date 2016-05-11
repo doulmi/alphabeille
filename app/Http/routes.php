@@ -15,7 +15,17 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('talkshows', 'TalkshowController');
     Route::get('menus', 'PostController@menus');
 
+    Route::get('checkEmail', function() {
+        return view('emails.checkEmail');
+    })->name('checkEmail');
+
     Route::auth();
+
+//    Auth::loginUsingId(1);
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+
+    });
 });
 
 $api = app('Dingo\Api\Routing\Router');

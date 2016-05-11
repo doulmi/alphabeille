@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'wechat', 'QQ', 'confirmed', 'confirmation_code'
+        'name', 'email', 'password', 'avatar', 'wechat', 'QQ', 'isAdmin', 'confirmed', 'confirmation_code'
     ];
 
     /**
@@ -23,4 +23,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+//    public function roles() {
+//        return $this->belongsToMany(Role::class);
+//    }
+
+//    public function hasRole($role) {
+//        if( is_string($role) ) {
+//            return $this->roles->contains('name', $role);
+//        } else {
+//            return !! $role->intersect($this->roles)->count();
+//        }
+//        //$user->attach($role)
+//        //$user->detach($role)
+//        //
+//    }
 }

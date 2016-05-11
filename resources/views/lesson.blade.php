@@ -9,67 +9,65 @@
         <div class="Header"></div>
         <div class="Header"></div>
 
+        {{--<div class="sky">--}}
+            {{--<div class="cloud variant-1"></div>--}}
+            {{--<div class="cloud variant-2"></div>--}}
+            {{--<div class="cloud variant-3"></div>--}}
+            {{--<div class="cloud variant-4"></div>--}}
+            {{--<div class="cloud variant-5"></div>--}}
+            {{--<div class="cloud variant-6"></div>--}}
+            {{--<div class="cloud variant-7"></div>--}}
+            {{--<div class="cloud variant-8"></div>--}}
+        {{--</div>--}}
+
         <div class="Card-Collection">
             <div class="Video-player Box">
                 <div class="Video-player-wrap">
-                    <div class="audiojs " classname="audiojs" id="audiojs_wrapper0">
-                        <audio src="http://kolber.github.io/audiojs/demos/mp3/juicy.mp3" preload="auto"></audio>
-                        <div class="play-pause"><p class="play"></p>
-                            <p class="pause"></p>
-                            <p class="loading"></p>
-                            <p class="error"></p></div>
-                        <div class="scrubber">
-                            <div class="progress"></div>
-                            <div class="loaded"></div>
-                        </div>
-                        <div class="time"><em class="played">00:00</em>/<strong class="duration">03:56</strong></div>
-                        <div class="error-message"></div>
-                    </div>
+                    <audio src="https://raw.githubusercontent.com/kolber/audiojs/master/mp3/bensound-dubstep.mp3" preload="auto"></audio>
                 </div>
-
             </div>
 
             <div class="Video-information">
                 <div class="Video-buttons Box">
                     <ul class="utility-naked-list">
                         <li>
-                            <a href="{{ url('audios/' . $lesson->id) }}" title="Download Video" class="Button Button-with-icon ">
-                                <i class="material-icons">cloud_download</i>
-                                <span>Download fr</span>
+                            <a href="{{ url('audios/' . $lesson->id) }}"  class="Button Button-with-icon ">
+                                <i class="material-icons" >cloud_download</i>
+                                <span>{{ trans('labels.downloadFr') }}</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="" title="Download Video" class="Button Button-with-icon ">
+                            <a href="" class="Button Button-with-icon ">
                                 <i class="material-icons">cloud_download</i>
-                                <span>Download ch</span>
+                                <span>{{ trans('labels.downloadZh') }}</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="" title="Download Video" class="Button Button-with-icon ">
+                            <a href=""  class="Button Button-with-icon ">
                                 <i class="material-icons">cloud_download</i>
-                                <span>Download PDF</span>
+                                <span>{{ trans('labels.downloadPdf') }}</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="#disqus_thread" class="Button Button-with-icon">
                                 <i class="material-icons">comment</i>
-                                <span>Discuss Lesson</span>
+                                <span>{{ trans('labels.discuss') }}</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="Video-details Box Box-Large">
+                <div class="Video-details Box Box-Large hidden-xs">
                     <div class="Video-body">
                         <h2 class="mar-t-z">
-                            <a href="/series/whats-new-in-laravel-5-1">{{ $lesson->topic->title }} : </a>
+                            <a href="{{url('topics/' / $lesson->topic->id) }}">{{ $lesson->topic->title }} : </a>
                             {{ $lesson->title }}
                         </h2>
 
-                        <p>{{ $lesson->description }}</p>
+                        <p class="Lesson-decription">{{ $lesson->description }}</p>
 
                         <p class="mar-t">
                             <strong>
@@ -108,14 +106,57 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="Header"></div>
+        <div class="Header"></div>
+        <div class="Header"></div>
+    </div>
+
+
+    <div class="small-beach">
+        <ul>
+            <li class="layer umbra"><img src="/img/umbra.png"></li>
+            <li class="layer cloud1"><img src="/img/cloud1.png"></li>
+            <li class="layer cloud2"><img src="/img/cloud2.png"></li>
+        </ul>
     </div>
 @endsection
 
 @section('otherjs')
     <script src="/js/audio.min.js"></script>
     <script>
-        audiojs.events.ready(function () {
-            var as = audiojs.createAll();
+        $(function() {
+            var audio = audiojs.createAll()[0];
+
+            $(document).keydown(function(e) {
+                var unicode = e.charCode ? e.charCode : e.keyCode;
+                switch(unicode) {
+                    case 13:
+                        audio.playPause();
+                        break;
+                    case 39:
+                        avance(5);
+                        break;
+                    case 37:
+                        back(5);
+                        break;
+                }
+            });
+
+            var avance = function(time) {
+//                console.log(audio.element.currentTime);
+//                console.log(audio.loadedPercent);
+//                console.log(audio.duration);
+//                audio.skipTo(0.8);
+                audio.element.currentTime += time;
+//                audio.setVolume(1);
+            };
+
+            var back = function(time) {
+                audio.element.currentTime -= time;
+//                audio.skipTo(0.4);
+            };
         });
+
     </script>
 @endsection

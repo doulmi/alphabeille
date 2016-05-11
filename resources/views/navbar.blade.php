@@ -17,7 +17,7 @@
             <div class="form-group">
                 <div class="input-group navbar-search">
                     <input type="text" class="navbar-search-input form-control"
-                           aria-label="Amount (to the nearest dollar)">
+                           aria-label="Amount (to the nearest dollar)" placeholder="{{trans('labels.whatuwant')}}">
                     <span class="input-group-addon navbar-search-btn"><span class="glyphicon glyphicon-search "></span></span>
                 </div>
             </div>

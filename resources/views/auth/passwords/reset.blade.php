@@ -1,74 +1,70 @@
-@extends('app')
+@extends('base')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
-                        {!! csrf_field() !!}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-refresh"></i>Reset Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+{{--<link rel="stylesheet" href="/css/app.css">--}}
+@section('text')
+@include('navbar')
+<div class="login fullscreen">
+    <div class="sky">
+        <div class="cloud variant-1"></div>
+        <div class="cloud variant-2"></div>
+        <div class="cloud variant-3"></div>
+        <div class="cloud variant-4"></div>
+        <div class="cloud variant-5"></div>
+        <div class="cloud variant-6"></div>
+        <div class="cloud variant-7"></div>
+        <div class="cloud variant-8"></div>
+    </div>
+    <div class="wrapper">
+        <div class="login-container">
+            <div class="container">
+                @if ($errors->has('email'))
+                    <div class="alert alert-danger"
+                         role="alert">{{ trans('labels.email') . ' ' . $errors->first('email') }}</div>
+                @endif
+                @if ($errors->has('password'))
+                    <div class="alert alert-danger"
+                         role="alert">{{ trans('labels.pwd') . ' ' . $errors->first('password') }}</div>
+                @endif
             </div>
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}" id="register-form"  v-else>
+                {!! csrf_field() !!}
+                <input type="email" name='email' value="{{ old('email') }}">
+                <input type="@{{ pwdType }}" name='password' placeholder="{{trans('labels.pwd')}}">
+               <a class="input-group-addon eye" href="" id="login-addon" @click.stop.prevent="iconToggle" ><span :class="eyeIcon"></span></a>
+                <button type="submit" id="login-button">{{trans('labels.resetPwd')}}</button>
+            </form>
         </div>
     </div>
 </div>
 @endsection
 
 @section('otherjs')
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
     <script src="/js/fullscreen.js"></script>
+    <script>
+        new Vue({
+            el: 'body',
+
+            data: {
+                openEye: false
+            },
+
+            methods: {
+                iconToggle() {
+                    this.openEye = !this.openEye;
+                }
+            },
+
+            computed: {
+                eyeIcon() {
+                    return this.openEye ? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close';
+                },
+
+                pwdType() {
+                    return this.openEye ? 'text' : 'password';
+                }
+            }
+        });
+    </script>
 @endsection
+
