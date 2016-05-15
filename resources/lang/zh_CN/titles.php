@@ -9,4 +9,5 @@ return [
     'home' => '个人主页',
     'chatroom' => '聊天室',
     'menus' => '加入Alphabeille',
+    'info' => '个人信息',
 ];

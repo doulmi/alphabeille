@@ -19,6 +19,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('emails.checkEmail');
     })->name('checkEmail');
 
+    Route::get('profile/{userId}', 'UserController@profile');
     Route::auth();
 
 //    Auth::loginUsingId(1);
@@ -33,6 +34,7 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function($api) {
         $api->get('topics/{id}', 'TopicController@show');
         $api->get('topics', 'TopicController@index');
+        $api->get('talkshows/random', 'TalkshowController@random');
         $api->get('talkshows/{id}', 'TalkshowController@show');
         $api->get('talkshows', 'TalkshowController@index');
     });

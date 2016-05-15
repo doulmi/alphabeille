@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -29,5 +31,20 @@ class UserController extends Controller
 
     public function index() {
         return User::latest()->paginate();
+    }
+
+    public function profile($id) {
+        $targetUser = User::findOrFail($id);
+
+        if($targetUser) {
+            $loginUser = Auth::user();
+            if($loginUser && $loginUser->id == $targetUser->id) {
+                return view('user.profile', compact('targetUser'));
+            } else {
+                return view('user.info', compact('targetUser'));
+            }
+        } else {
+            abort('404');
+        }
     }
 }

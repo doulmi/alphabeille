@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Controllers;
 
 use App\Http\Controllers\Api\Transformers\TalkshowTransformer;
 use App\Talkshow;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -29,6 +30,18 @@ class TalkshowController extends BaseApiController
         $num = Input::get('num', 8);
         $talkshows = Talkshow::latest()->limit($num)->get();
         return $this->response->collection($talkshows, new TalkshowTransformer());
+    }
+
+    /**
+     * 从最新的100个里面随机取出的n条数据
+     * @return \Dingo\Api\Http\Response
+     */
+    public function random() {
+        $num = Input::get('num', 4);
+        $max = Input::get('max', 100);
+        $talkshows = Talkshow::latest()->limit($max)->get();
+
+        return $this->response->collection($talkshows->random($num), new TalkshowTransformer());
     }
 
     public function latest($num) {

@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    {{ trans('titles.topics') }}
+    @lang('titles.topics')
 @endsection
 
 @section('content')

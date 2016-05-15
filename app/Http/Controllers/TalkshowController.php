@@ -6,6 +6,7 @@ use App\Talkshow;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
 
 class TalkshowController extends Controller
 {
@@ -15,8 +16,7 @@ class TalkshowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $talkshows = Talkshow::latest()->paginate($this->pageLimit);
         return view('talkshows.talkshows', compact('talkshows'));
     }
@@ -47,6 +47,11 @@ class TalkshowController extends Controller
         //
     }
 
+    public function random($num = 4, $max = 100) {
+        $talkshows = Talkshow::latest()->limit($max)->get();
+        return $talkshows->random($num);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -55,7 +60,14 @@ class TalkshowController extends Controller
      */
     public function show($id)
     {
-        //
+        $talkshow = Talkshow::findOrFail($id);
+        if( !$talkshow ) {
+            abort(404);
+        } else {
+            $topics = App::make('App\Http\Controllers\TopicController')->random();
+            $talkshows = App::make('App\Http\Controllers\TalkshowController')->random();
+            return view('talkshows.talkshow', compact(['talkshow', 'topics', 'talkshows']));
+        }
     }
 
     /**

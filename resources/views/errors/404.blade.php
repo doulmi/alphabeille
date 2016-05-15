@@ -17,7 +17,7 @@
         </div>
 
         <center>
-            <h3 class="white">Don't find this page</h3>
+            <h3 class="white">@lang('labels.404')</h3>
             <img src="/img/404.png" alt="404"/>
         </center>
     </div>

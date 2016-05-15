@@ -3,23 +3,23 @@
         <div class="col-md-3 col-xs-6 col-sm-4">
             <div class="Card">
                     <span class="Card-difficulty">
-                        {{ trans('labels.' . $topic->level) }}
+                        @lang('labels.' . $topic->level)
                     </span>
 
-                @if($topic->isNew())
+                @if($topic->isNew)
                     <span class="Card-new-status Label Label-x-small">
-                        {{trans('labels.new')}}
+                        @lang('labels.new')
                     </span>
-                @elseif($topic->isUpdated())
+                @elseif($topic->isUpdated)
                     <span class="Card-updated-status Label Label-x-small">
-                        {{ trans('labels.updated') }}
+                        @lang('labels.updated')
                     </span>
                 @endif
                 <div class="Card-image">
                     <a href="{{ url('topics/' . $topic->id) }}">
                         <img src="{{$topic->avatar}}" class="Card-image" alt="{{$topic->title}}">
                         <div class="Card-overlay">
-                            <i class="material-icons">play_circle_outline</i>
+                            <i class="glyphicon glyphicon-play-circle"></i>
                         </div>
                     </a>
                 </div>
@@ -28,7 +28,7 @@
                         <a href="{{ url('/topics/' . $topic->id) }}">{{$topic->title}}</a>
                     </h3>
                     <div class="Card-count">{{ $topic->lessonCount() }} <span
-                                class="utility-muted"> {{trans('labels.lessons')}}</span>
+                                class="utility-muted"> @lang('labels.lessons')</span>
                     </div>
                 </div>
                 <div class="Card-footer">

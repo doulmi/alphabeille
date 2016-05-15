@@ -13,7 +13,7 @@ class Talkshow extends Model
     ];
 
     public function isNew() {
-        $lesson = Talkshow::orderBy('created_at', 'desc')->limit(1)->first();
-        return (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
+//        $lesson = Talkshow::orderBy('created_at', 'desc')->limit(1)->first();
+        return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
     }
 }

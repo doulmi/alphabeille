@@ -23,10 +23,21 @@ class TopicController extends Controller
         return view('topics.topics', compact('topics'));
     }
 
+
     public function latest($num)
     {
         $topics = Topic::latest()->limit($num)->get();
+        foreach($topics as $topic) {
+            $states = $topic->getState();
+            $topic->isUpdated = $states['isUpdated'];
+            $topic->isNew = $states['isNew'];
+        }
         return $topics;
+    }
+
+    public function random($num = 4, $max = 100) {
+        $topics = Topic::latest()->limit($max)->get();
+        return $topics->random($num);
     }
 
     /**

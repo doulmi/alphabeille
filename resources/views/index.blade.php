@@ -17,28 +17,27 @@
         </div>
 
         <h2 class="Heading-Fancy row">
-            <span class='title'>{{ trans('labels.topics') }}</span>
+            <span class='title'>@lang('labels.topics')</span>
         </h2>
 
         <div class="Card-Collection">
             @include('topics.topicsList')
             <h2 class="row">
-                <a class="btn btn-default more" href="{{url('/topics')}}">{{trans('labels.more')}}</a>
+                <a class="btn btn-default more" href="{{url('/topics')}}">@lang('labels.more')</a>
             </h2>
         </div>
 
 
         <h2 class="Heading-Fancy row">
-            <span class='title'>{{ trans('labels.talkshows') }}</span>
+            <span class='title'>@lang('labels.talkshows')</span>
         </h2>
 
         <div class="Card-Collection">
             @include('talkshows.talkshowsList')
             <h2 class="row">
-                <a class="btn btn-default more" href="{{url('/talkshows')}}">{{trans('labels.more')}}</a>
+                <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
             </h2>
         </div>
-
 
         @include('menusList')
     </div>

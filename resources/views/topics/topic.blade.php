@@ -24,7 +24,7 @@
                         <ul class="Banner-bullets">
                             <li>
                                 <strong>{{$topic->lessonCount()}}</strong>
-                                {{trans('labels.lessons')}}
+                                @lang('labels.lessons')
                             </li>
 
                             <li>
@@ -40,12 +40,12 @@
 
         <h2 class="Heading-Fancy row">
             <span class="Heading-Fancy-subtitle">
-                {{trans('labels.learnSlagon')}}
+                @lang('labels.learnSlagon')
             </span>
             <span class='title'>{{ $topic->title }}</span>
         </h2>
 
-        @include('lessonsList')
+        @include('lessons.lessonsList')
     </div>
 @endsection
 

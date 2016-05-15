@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Session;
 
 class Language
 {
+
     //TODO Carbon localisation
     public function handle($request, Closure $next)
     {
         if (Session::has('applocale') AND array_key_exists(Session::get('applocale'), Config::get('languages'))) {
             App::setLocale(Session::get('applocale'));
-            Carbon::setLocale(substr(Session::get('applocale'), 0, 2));
+            Carbon::setLocale(substr(Session::get('applocale', Config::get('app')['fallback_locale']), 0, 2));
         }
         else { // This is optional as Laravel will automatically set the fallback language if there is none specified
             App::setLocale(Config::get('app.fallback_locale'));

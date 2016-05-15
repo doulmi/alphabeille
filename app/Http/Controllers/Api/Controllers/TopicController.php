@@ -26,6 +26,18 @@ class TopicController extends BaseApiController
 
 
     /**
+     * 从最新的100个里面随机取出的n条数据
+     * @return \Dingo\Api\Http\Response
+     */
+    public function random() {
+        $num = Input::get('num', 4);
+        $max = Input::get('max', 100);
+        $topics = Topic::latest()->limit($max)->get();
+
+        return $this->response->collection($topics->random($num), new TopicTransformer());
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -15,12 +15,12 @@
             <div class="col-md-3 col-sm-4 col-xs-6">
             @endif
                 <div class="menu month-{{$menu->duration}}">
-                    <h3 class="menu-title buy-{{$menu->duration}}-title">{{trans('labels.' . $menu->name)}}</h3>
+                    <h3 class="menu-title buy-{{$menu->duration}}-title">@lang('labels.' . $menu->name)</h3>
                     <h3 class="menu-price menu-{{$menu->duration}}-price">
-                        <span class="symbol">￥</span>{{$menu->price}}
+                        <span class="symbol">￥</span><span class="price-label">@lang($menu->price)</span>
                     </h3>
                     <div class="buy-btn-div">
-                        <a href='{{url('subscript/' . $menu->id)}}' class="buy-btn buy-{{$menu->duration}}-btn">{{trans('labels.buy')}}</a>
+                        <a href='{{url('subscript/' . $menu->id)}}' class="buy-btn buy-{{$menu->duration}}-btn">@lang('labels.buy')</a>
                     </div>
                 </div>
             </div>

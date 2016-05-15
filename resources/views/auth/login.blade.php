@@ -17,22 +17,22 @@
         <div class="wrapper">
             <div class="login-container">
                 @if ($errors->has('email'))
-                    <div class="errors" >{{ trans($errors->first('email'), ['attribute' => trans('labels.email')] ) }}</div>
+                    <div class="errors" >@lang($errors->first('email'), ['attribute' => trans('labels.email')] )</div>
                 @endif
                 @if ($errors->has('password'))
-                    <div class="errors">{{ trans($errors->first('password'), ['attribute' => trans('labels.pwd')] ) }}</div>
+                    <div class="errors">@lang($errors->first('password'), ['attribute' => trans('labels.pwd')] )</div>
                 @endif
                 {{--login--}}
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}" id="login-form"
                       v-if="isLogin">
                     {!! csrf_field() !!}
-                    <input type="email" id='login-email' name='email' placeholder="{{trans('labels.email')}}" value="{{ old('email') }}">
-                    <input type="@{{ pwdType }}" id='login-pwd' name='password' placeholder="{{trans('labels.pwd')}}">
+                    <input type="email" id='login-email' name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
+                    <input type="@{{ pwdType }}" id='login-pwd' name='password' placeholder="@lang('labels.pwd')">
                     <a class="input-group-addon eye" id="login-addon" href="" @click.stop.prevent="iconToggle"
                        data-toggle="tooltip"
                        data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
                     <button type="submit" id="login-button">
-                        {{trans('labels.login')}}
+                        @lang('labels.login')
                     </button>
 
                     {{--<div class="form-group">--}}
@@ -46,24 +46,24 @@
                     {{--</div>--}}
                     <br/>
                     <br/>
-                    <a class="link link-left" href="{{ url('/password/reset') }}">{{trans('labels.forgetPwd')}}</a>
+                    <a class="link link-left" href="{{ url('/password/reset') }}">@lang('labels.forgetPwd')</a>
                     <a class="link link-right" id="toRegister" @click.stop.prevent="toRegister"
-                       href="">{{ trans('labels.noCount') }}</a>
+                       href="">@lang('labels.noCount')</a>
                 </form>
 
                 {{--register--}}
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}"
                       id="register-form" v-else>
                     {!! csrf_field() !!}
-                    <input type="email" id="reg-email" name='email' placeholder="{{trans('labels.email')}}" value="{{ old('email') }}">
-                    <input type="@{{ pwdType }}" id='reg-pwd' name='password' placeholder="{{trans('labels.pwd')}}">
+                    <input type="email" id="reg-email" name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
+                    <input type="@{{ pwdType }}" id='reg-pwd' name='password' placeholder="@lang('labels.pwd')">
                     <a class="input-group-addon eye" href="" id="login-addon" @click.stop.prevent="iconToggle"
                        data-toggle="tooltip"
                        data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
-                    <button type="submit" id="register-button">{{trans('labels.register')}}</button>
+                    <button type="submit" id="register-button">@lang('labels.register')</button>
                     <br/>
                     <br/>
-                    <a class="link" id="toLogin" @click.stop.prevent="toLogin" href="">{{trans('labels.hasCount')}}</a>
+                    <a class="link" id="toLogin" @click.stop.prevent="toLogin" href="">@lang('labels.hasCount')</a>
 
                 </form>
             </div>
@@ -96,44 +96,41 @@
                 }
             }
 
-            registerBtn.prop('disabled', true);
-            loginBtn.prop('disabled', true);
+//            registerBtn.prop('disabled', true);
+//            loginBtn.prop('disabled', true);
 
-            var loginEmail = $('#login-email');
-            var loginPwd = $('#login-pwd');
-            validBtn(loginEmail.val(), loginPwd.val(), loginBtn);
+//            var loginEmail = $('#login-email');
+//            var loginPwd = $('#login-pwd');
+//            validBtn(loginEmail.val(), loginPwd.val(), loginBtn);
 
-            loginEmail.focusout(function() {
-                validBtn(loginEmail.val(), loginPwd.val(), loginBtn);
-            });
+//            loginEmail.focusout(function() {
+//                validBtn(loginEmail.val(), loginPwd.val(), loginBtn);
+//            });
 
-            loginPwd.focusout(function() {
-                validBtn();
-            });
+//            loginPwd.focusout(function() {
+//                validBtn();
+//            });
 
             var regEmail = $('#reg-email');
             var regPwd = $('#reg-pwd');
             validBtn(regEmail.val(), regPwd.val(), registerBtn);
 
             regEmail.focusout(function() {
-
                 validBtn(regEmail.val(), regPwd.val(), registerBtn);
             });
 
             regPwd.focusout(function() {
-
                 validBtn(regEmail.val(), regPwd.val(), registerBtn);
             });
 
-
             registerBtn.click(function () {
-                $(this).html('{{trans('labels.onRegister')}}<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
+                $(this).html('@lang('labels.onRegister')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
                 registerForm.submit();
                 $(this).prop('disabled', true);
             });
 
             loginBtn.click(function () {
-                $(this).html('{{trans('labels.onLogin')}}<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
+                $(this).html('@lang('labels.onLogin')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
                 loginForm.submit();
                 $(this).prop('disabled', true);
             });

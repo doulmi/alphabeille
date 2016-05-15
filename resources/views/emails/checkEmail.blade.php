@@ -19,11 +19,11 @@
         </div>
         <div class="wrapper">
             <div class="login-container">
-                <h3 class="white">{{trans('labels.plsCheckEmail') }}</h3>
+                <h3 class="white">@lang('labels.plsCheckEmail')</h3>
                 <div>
-                    {{trans('labels.checkEmailDesc')}}
+                    @lang('labels.checkEmailDesc')
                 </div>
-                <button type="button" class="btn">{{trans('labels.resetPwd')}}</button>
+                <button type="button" class="btn">@lang('labels.resetPwd')</button>
             </div>
         </div>
     </div>

@@ -18,20 +18,21 @@
         <div class="login-container">
             <div class="container">
                 @if ($errors->has('email'))
-                    <div class="alert alert-danger"
-                         role="alert">{{ trans('labels.email') . ' ' . $errors->first('email') }}</div>
+                    {{--<div class="alert alert-danger" role="alert">{{ trans('labels.email') . ' ' . $errors->first('email') }}</div>--}}
+                    <div class="error">@lang($errors->first('email'), ['attribute' => trans('labels.email')])</div>
                 @endif
                 @if ($errors->has('password'))
-                    <div class="alert alert-danger"
-                         role="alert">{{ trans('labels.pwd') . ' ' . $errors->first('password') }}</div>
+                        <div class="error">@lang($errors->first('password'), ['attribute' => trans('labels.pwd')])</div>
+                    {{--<div class="alert alert-danger"--}}
+                         {{--role="alert">{{ trans('labels.pwd') . ' ' . $errors->first('password') }}</div>--}}
                 @endif
             </div>
             <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}" id="register-form"  v-else>
                 {!! csrf_field() !!}
                 <input type="email" name='email' value="{{ old('email') }}">
-                <input type="@{{ pwdType }}" name='password' placeholder="{{trans('labels.pwd')}}">
+                <input type="@{{ pwdType }}" name='password' placeholder="@lang('labels.pwd')">
                <a class="input-group-addon eye" href="" id="login-addon" @click.stop.prevent="iconToggle" ><span :class="eyeIcon"></span></a>
-                <button type="submit" id="login-button">{{trans('labels.resetPwd')}}</button>
+                <button type="submit" id="login-button">@lang('labels.resetPwd')</button>
             </form>
         </div>
     </div>

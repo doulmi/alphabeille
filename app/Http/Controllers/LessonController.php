@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Lesson;
+use App\Talkshow;
+use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Input;
 
 class LessonController extends Controller
 {
@@ -48,12 +52,18 @@ class LessonController extends Controller
      */
     public function show($id)
     {
-        $lesson = Lesson::findOrFail($id);
-        $topic = $lesson->topic()->first();
+        $lesson = Lesson::with('topic')->findOrFail($id);
+        $topic = $lesson->topic;
+
         if($lesson) {
-            return view('lesson', compact(['lesson', 'topic', 'id']));
+            $topicController = new TopicController();
+            $talkshowController = new TalkshowController();
+
+            $topics = $topicController ->random();
+            $talkshows = $talkshowController->random();
+            return view('lessons.lesson', compact(['lesson', 'topic', 'id', 'topics', 'talkshows']));
         } else {
-            return view('errors.404');
+            abort(404);
         }
     }
 

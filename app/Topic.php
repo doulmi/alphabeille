@@ -28,14 +28,13 @@ class Topic extends Model
         return Lesson::where('topic_id', $this->id)->count();
     }
 
-    public function isUpdated() {
-        $lesson = Lesson::where('topic_id', $this->id)->latest()->limit(1)->first();
-        dd($lesson);
-        return (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
-    }
-
-    public function isNew() {
-        $lesson = Lesson::where('topic_id', $this->id)->orderBy('created_at', 'desc')->limit(1)->first();
-        return (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
+    public function getState() {
+        $lesson = Lesson::where('topic_id', $this->id)->latest()->first();
+        $isUpdated = (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
+        $isNew = (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
+        return [
+            'isUpdated' => $isUpdated,
+            'isNew' => $isNew
+        ];
     }
 }
