@@ -42,6 +42,7 @@ $factory->define(App\Lesson::class, function (Faker\Generator $faker) use (&$les
         'avatar' => $faker->imageUrl(200, 153),
         'views' => $faker->numberBetween(0, 300),
         'likes' => $faker->numberBetween(0, 300),
+        'free' => $faker->boolean,
         'topic_id' => $faker->randomElement($topicIds),
     ];
 });
@@ -109,7 +110,19 @@ $factory->define(App\Talkshow::class, function (Faker\Generator $faker) {
         'title' => $faker->text(10),
         'description' => $faker->text(50),
         'avatar' => $faker->imageUrl(256, 256),
+        'free' => $faker->boolean,
         'likes' => $faker->numberBetween(0, 200),
         'views' => $faker->numberBetween(0, 200),
+    ];
+});
+
+$factory->define(App\Message::class, function (Faker\Generator $faker) {
+    $userIds = \App\User::lists('id')->toArray();
+    return [
+        'to' => $faker->randomElement($userIds),
+        'from' => $faker->randomElement($userIds),
+        'title' => $faker->text(50),
+        'isRead' => $faker->boolean,
+        'content' => $faker->text(300),
     ];
 });

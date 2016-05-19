@@ -4,16 +4,7 @@
 @section('text')
 @include('navbar')
 <div class="login fullscreen">
-    <div class="sky">
-        <div class="cloud variant-1"></div>
-        <div class="cloud variant-2"></div>
-        <div class="cloud variant-3"></div>
-        <div class="cloud variant-4"></div>
-        <div class="cloud variant-5"></div>
-        <div class="cloud variant-6"></div>
-        <div class="cloud variant-7"></div>
-        <div class="cloud variant-8"></div>
-    </div>
+
     <div class="wrapper">
         <div class="login-container">
             <div class="container">

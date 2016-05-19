@@ -50,7 +50,6 @@
                 </div>
             </div>
         </div>
-
         @include('sugguest')
 
         <div class="Header"></div>

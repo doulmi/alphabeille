@@ -10,4 +10,5 @@ return [
     'chatroom' => '聊天室',
     'menus' => '加入Alphabeille',
     'info' => '个人信息',
+    'messageBox' => '信箱',
 ];

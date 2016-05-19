@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Controllers;
 
 use App\Http\Controllers\Api\Transformers\TalkshowTransformer;
 use App\Talkshow;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

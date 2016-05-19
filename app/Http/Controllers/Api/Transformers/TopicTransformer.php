@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Transformers;
 
-use App\Talkshow;
 use App\Topic;
 use League\Fractal\TransformerAbstract;
 

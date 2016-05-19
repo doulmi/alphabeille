@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+@include('admin.navbar')
+
+<div class="Header">
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-3 sidebar">
+        <div class="list-group">
+            <a class="list-group-item category" href="{{url('/')}}">
+                <i class="glyphicon glyphicon-home"></i>@lang('titles.index')
+            </a>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item category">
+                <i class="glyphicon glyphicon-cog"></i>
+                @lang('labels.managePermissions')
+                <i class="glyphicon glyphicon-menu-right pull-right"></i>
+            </a>
+            <a href="{{route('adminUsers')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-user"></i>
+                @lang('labels.manageUsers')
+            </a>
+            <a href="{{url('admin/roles')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-lock"></i>
+                @lang('labels.manageRoles')
+            </a>
+            <a href="#" class="list-group-item item">
+                <i class="glyphicon glyphicon-wrench"></i>
+                @lang('labels.manageOperations')
+            </a>
+        </div>
+
+        <div class="list-group">
+            <a class="list-group-item category">
+                <i class="glyphicon glyphicon-cog"></i>
+                @lang('labels.manageContent')
+                <i class="glyphicon glyphicon-menu-right pull-right"></i>
+            </a>
+            <a href="#" class="list-group-item item">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                @lang('labels.manageTopics')
+            </a>
+            <a href="#" class="list-group-item item">
+                <i class="glyphicon glyphicon-file"></i>
+                @lang('labels.manageLessons')
+            </a>
+            <a href="#" class="list-group-item item">
+                <i class="glyphicon glyphicon-volume-up"></i>
+                @lang('labels.manageTalkshows')
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        @yield('content')
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+@yield('otherjs')
+</body>
+</html>

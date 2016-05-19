@@ -21,8 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_code', 64)->nullable();
             $table->string('avatar');
             $table->string('wechat');
-            $table->boolean('isAdmin');
             $table->string('QQ');
+            $table->integer('download')->default(6);
+            $table->integer('downloadMax')->default(6);
             $table->rememberToken();
             $table->timestamps();
         });

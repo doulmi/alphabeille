@@ -4,16 +4,7 @@
 @section('text')
     @include('navbar')
     <div class="login fullscreen">
-        <div class="sky">
-            <div class="cloud variant-1"></div>
-            <div class="cloud variant-2"></div>
-            <div class="cloud variant-3"></div>
-            <div class="cloud variant-4"></div>
-            <div class="cloud variant-5"></div>
-            <div class="cloud variant-6"></div>
-            <div class="cloud variant-7"></div>
-            <div class="cloud variant-8"></div>
-        </div>
+
         <div class="wrapper">
             <div class="login-container">
                 @if ($errors->has('email'))
@@ -26,11 +17,11 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}" id="login-form"
                       v-if="isLogin">
                     {!! csrf_field() !!}
-                    <input type="email" id='login-email' name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
+                    <input type="email" id='login-email' autofocus name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
                     <input type="@{{ pwdType }}" id='login-pwd' name='password' placeholder="@lang('labels.pwd')">
                     <a class="input-group-addon eye" id="login-addon" href="" @click.stop.prevent="iconToggle"
                        data-toggle="tooltip"
-                       data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
+                       data-placement="right" title="@lang('labels.togglePwd')"><span :class="eyeIcon"></span></a>
                     <button type="submit" id="login-button">
                         @lang('labels.login')
                     </button>
@@ -55,11 +46,12 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}"
                       id="register-form" v-else>
                     {!! csrf_field() !!}
-                    <input type="email" id="reg-email" name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
-                    <input type="@{{ pwdType }}" id='reg-pwd' name='password' placeholder="@lang('labels.pwd')">
+                    <input type="email" id="reg-email" autofocus name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
+                    <input type="@{{ pwdType }}"  data-toggle="tooltip"
+                           data-placement="right" id='reg-pwd' name='password' placeholder="@lang('labels.pwd')">
                     <a class="input-group-addon eye" href="" id="login-addon" @click.stop.prevent="iconToggle"
                        data-toggle="tooltip"
-                       data-placement="right" title="Tooltip on left"><span :class="eyeIcon"></span></a>
+                       data-placement="right" title="@lang('labels.togglePwd')"><span :class="eyeIcon"></span></a>
                     <button type="submit" id="register-button">@lang('labels.register')</button>
                     <br/>
                     <br/>
@@ -113,6 +105,7 @@
 
             var regEmail = $('#reg-email');
             var regPwd = $('#reg-pwd');
+
             validBtn(regEmail.val(), regPwd.val(), registerBtn);
 
             regEmail.focusout(function() {
@@ -120,10 +113,12 @@
             });
 
             regPwd.focusout(function() {
+                regPwd.attr('title', '');
                 validBtn(regEmail.val(), regPwd.val(), registerBtn);
             });
 
             registerBtn.click(function () {
+{{--                $(this).html('@lang('labels.onRegister')<img src="/css/svg-loaders/rings.svg" width="30px" alt=""/>');--}}
                 $(this).html('@lang('labels.onRegister')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
                 registerForm.submit();
                 $(this).prop('disabled', true);

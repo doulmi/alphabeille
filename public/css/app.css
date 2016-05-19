@@ -79,7 +79,7 @@ a, button {
 }
 
 .navbar-search-input {
-    min-width: 500px;
+    min-width: 300px;
     height: 36px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -324,6 +324,7 @@ ul {
 .sky {
     overflow: hidden;
     position: absolute;
+    top : 0;
     width: 100%;
 }
 
@@ -650,6 +651,7 @@ ul {
 }
 
 .login-container {
+    position: relative;
     max-width: 600px;
     margin: 0 auto;
     text-align: center;
@@ -865,6 +867,7 @@ ul {
 
 .Card-Collection {
     height: auto;
+    position:relative;
     padding-right: 10%;
     padding-left: 10%;
     margin-right: auto;
@@ -1478,7 +1481,9 @@ ul {
 
 .Video-details {
     float: right;
-    width: 60%;
+
+    margin-right: 2%;
+    width: 65%;
 }
 
 .Video-body {
@@ -1492,7 +1497,7 @@ ul {
 }
 
 .Lesson-decription {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
 @media only screen and (min-width: 400px) and (max-width: 1050px) {
@@ -1508,6 +1513,7 @@ ul {
 .Video-buttons {
     float : left;
     width: 25%;
+    margin-left: 2%;
     height: 100%
 }
 
@@ -2133,4 +2139,234 @@ ul {
         padding: 1.25em; /* 20 */
         margin: 0;
     }
+}
+
+.info-panel {
+    background-color: #fff;
+    padding: 20px ;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.glyphicon {
+    margin-right: 5px;
+}
+
+.eye {
+    cursor: pointer;
+}
+
+.btn-save {
+    width: 100%;
+}
+
+.btn-save:hover,
+.btn-save:active{
+    background-color: hsl(0,0%,76%);
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    margin-top: 15px;
+    color: white;
+    background-color:hsl(45,100%,63%);
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color:hsl(45,100%,53%);
+    color: white;
+}
+
+.inputfile + label {
+    cursor: pointer;
+}
+
+.limit-label{
+    margin-top : 15px;
+}
+
+.series-label {
+    margin-top : 15px;
+    color : red;
+}
+
+.orange {
+    color : red;
+}
+
+.right-clip {
+    margin-right: 10px;
+}
+
+.green {
+    color : green;
+}
+
+.msg-badge {
+    margin-left:-30px;
+    margin-top:-25px;
+    background-color: hsl(45,100%,53%);
+}
+
+.dropdown-msg {
+    padding : 10px 20px 10px 20px;
+}
+
+.message .title {
+    font-size: 2rem;
+    font-weight: 700;
+    color : gray;
+}
+
+.message .content {
+    color: #a6a6a6;
+}
+
+.message {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}
+
+.message:hover {
+    background-color: #dddddd;
+}
+
+.message-icon {
+    font-size: 2rem;
+    color: white;
+}
+
+.tips-list li {
+    color : white;
+    font-size : 1.5rem;
+}
+
+.free-label {
+    background-color: #99c93d;
+    padding: 3px 4px;
+    font-size: 12px;
+    color : white;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 2px;
+    margin-left: 12px;
+}
+
+.new-label {
+    background-color: #99c93d;
+    padding: 3px 4px;
+    font-size: 10px;
+    color : white;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-top: -2px;
+    margin-left: 10px;
+}
+
+.msg-panel {
+    padding: 20px ;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-top:20px;
+    position:relative;
+    height: 100%;
+    background-color: #f5f5f5;
+
+}
+.back-to-learn {
+    /*background: hsl(45,100%,43%);;*/
+    background-color: grey;
+
+    /*background-image: url(../img/pay_bg.jpg);*/
+    /*background-color: #fff;*/
+    color : white;
+    text-align: center;
+    padding: 50px 50px 50px 50px;
+    font-size: 20px;
+    width: 100%;
+    margin-bottom : 40px;
+}
+
+.black {
+    color : black;
+}
+
+.btn-ads {
+    margin: 30px 0 30px 0;
+    background: #f68459;
+    padding: 10px 35px;
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+
+.btn-ads:hover {
+    background: hsl(16,89%,55%) ;
+    color : #fff;
+}
+
+.btn-ads-login {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.btn-ads-login:hover {
+    color: white;
+}
+
+.inbox {
+    padding: 20px ;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    height: 100%;
+
+}
+
+.msg-contact{
+    padding: 20px ;
+    background: white;
+    font-size: 1.5rem;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+.msg-header {
+    padding: 20px ;
+    background: white;
+    font-size: 1.5rem;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.msg-body {
+     padding: 20px ;
+    background: white;
+    font-size: 1.5rem;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    height: 80%;
+}
+
+.msg-panel #loader {
+    /*margin-top : 200px;*/
 }

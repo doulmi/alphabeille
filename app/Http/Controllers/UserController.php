@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+use Pingpp\RedEnvelope;
 
 class UserController extends Controller
 {
@@ -33,15 +39,78 @@ class UserController extends Controller
         return User::latest()->paginate();
     }
 
-    public function profile($id) {
+    public function uploadAvatar(Request $request) {
+        $user = $request->user();
+
+        $avatar = $request->file('avatar');
+
+        //判断上传文件是否是图片
+        $input = ['image' => $avatar];
+        $rules = ['image' => 'image'];
+
+        $validator = Validator::make($input, $rules);
+
+        if($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+            ]);
+        }
+
+        $destinationPath = 'img/avatar/';
+        $filename = 'avatar-' . $user->id . '-' . time() . '.jpg';
+        $avatar->move($destinationPath, $filename);
+        Image::make($destinationPath . $filename)->fit(200)->save();
+        $user->avatar = '/' . $destinationPath . $filename;
+        $user->save();
+
+        return response()->json(
+            [
+                'success' => true,
+                'avatar' => asset($destinationPath . $filename),
+            ]
+        );
+    }
+
+    public function update(Request $request) {
+        $user = $request->user();
+
+        $user->name = $request->get('name', $user->name);
+        $user->QQ = $request->get('qq', $user->qq);
+        $user->wechat = $request->get('wechat', $user->wechat);
+
+        $user->save();
+        Session::flash('saveSuccess', 'saveSuccess');
+        return Redirect::back();
+    }
+
+    public function modifyPwd(Request $request) {
+        $user = $request->user();
+
+        $oldPwd = $request->get('oldPwd');
+        $newPwd = $request->get('newPwd');
+
+        if(bcrypt($oldPwd) == $user->password) {
+            $user->password = bcrypt($newPwd);
+
+            $user->save();
+            Session::flash('saveSuccess', 'saveSuccess');
+            return Redirect::back();
+        } else {
+            Session::flash('error', 'wrongOldMessage');
+            return Redirect::back();
+        }
+    }
+
+    public function show($id) {
         $targetUser = User::findOrFail($id);
 
         if($targetUser) {
             $loginUser = Auth::user();
             if($loginUser && $loginUser->id == $targetUser->id) {
-                return view('user.profile', compact('targetUser'));
+                return view('users.user', ['user' => $targetUser]);
             } else {
-                return view('user.info', compact('targetUser'));
+                return view('users.info', ['user' => $targetUser]);
             }
         } else {
             abort('404');

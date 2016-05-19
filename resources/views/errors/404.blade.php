@@ -5,21 +5,26 @@
     @include('navbar')
     <div class="login fullscreen">
         <div class="Header"></div>
-        <div class="sky">
-            <div class="cloud variant-1"></div>
-            <div class="cloud variant-2"></div>
-            <div class="cloud variant-3"></div>
-            <div class="cloud variant-4"></div>
-            <div class="cloud variant-5"></div>
-            <div class="cloud variant-6"></div>
-            <div class="cloud variant-7"></div>
-            <div class="cloud variant-8"></div>
+
+        <div class="container" style="position:relative" >
+            <center>
+                <img src="/img/404.png" width="500px" alt="404"/>
+                <h2 class="white">@lang('labels.404')</h2>
+
+            </center>
+
+            <div class="Card-Collection">
+                <ul class="tips-list">
+                    <li>1. @lang('labels.404tip1', ['url' => '<a href="/">Alphabeille</a>'])</li>
+                    <li>2. @lang('labels.404tip2', ['mailto' => '<a href="mailto:alphabeille64@gmail.com" target="_top">Alphabeille</a>'])</li>
+                </ul>
+            </div>
+
+            <div class="Header"></div>
+
+            <h4 class="white center">@lang('labels.welcomeJoinUs') @lang('labels.copyright')</h4>
         </div>
 
-        <center>
-            <h3 class="white">@lang('labels.404')</h3>
-            <img src="/img/404.png" alt="404"/>
-        </center>
     </div>
 @endsection
 

@@ -32,6 +32,6 @@ $(document).ready(function(){
 
     var sky = $('.sky');
     var skyHeight = $(document).height();
-    sky.css('height', skyHeight - 200);
+    sky.css('height', skyHeight - 120);
 });
 

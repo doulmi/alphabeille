@@ -16,9 +16,10 @@ class MustBeAdmin
      */
     public function handle($request, Closure $next)
     {
-        if($request->user() && $request->user()->isAdmin) {
+        $user = $request->user();
+        if($user && ($user->isAdmin() || $user->isContentadmin())) {
             return $next($request);
         }
-        return redirect('/');
+        abort(404);
     }
 }

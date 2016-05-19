@@ -11,11 +11,11 @@
         <div class="Header"> </div>
 
         <h2 class="Heading-Fancy row">
-            <span class='title'>{{$targetUser->name}}</span>
+            <span class='title'>{{$user->name}}</span>
         </h2>
 
         <div class="Card-Collection">
-            <span>@lang('labels.join_at') {{$targetUser->created_at->diffForHumans()}}</span>
+            <span>@lang('labels.join_at') {{$user->created_at->diffForHumans()}}</span>
         </div>
 
         <div class="header-container"></div>

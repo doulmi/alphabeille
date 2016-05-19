@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegister' => [
             'App\Listeners\SendVerificationEmail',
         ],
+        'App\Events\UserLogin' => [
+            'App\Listeners\UserLoginEvent',
+        ],
+        'App\Events\UserLogout' => [
+            'App\Listeners\UserLogoutEvent',
+        ]
     ];
 
     /**
@@ -28,6 +34,8 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        $events->listen('auth.login', function () {
+            dd('1');
+        });
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddBlockToUsersTable extends Migration
+class AddLastLoginDateToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class AddBlockToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('isBlock');
+            $table->timestamp('last_login_at');
+            $table->boolean('isLogin');
         });
     }
 
@@ -24,8 +25,6 @@ class AddBlockToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

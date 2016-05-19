@@ -1,0 +1,48 @@
+
+.Header {
+    height: 20px;
+}
+
+.sidebar .category{
+    background: #fffffd;
+    width: 100%;
+}
+
+.sidebar .category::after {
+    /*font-family: "Glyphicons Halflings";*/
+    /*content: "\e080";*/
+}
+
+
+.sidebar .item {
+    width: 95%;
+    margin-left: 5%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.sidebar .list-group{
+    margin-top : 1px;
+    margin-bottom : 1px;
+    margin-left:0;
+    margin-right:0;
+}
+
+.center {
+    text-align: center;
+}
+
+.item-active {
+    background-color: #e5fffc;
+}
+
+.fullscreen {
+    overflow-y: scroll;
+}
+
+.icon {
+    margin-top: -7px;
+    width: 35px;
+}

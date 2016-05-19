@@ -3,7 +3,11 @@
         <div class="col-md-3 col-xs-6 col-sm-4">
             <div class="Card">
 
-                @if($talkshow->isNew())
+                @if($talkshow->free)
+                    <span class="Card-new-status Label Label-x-small">
+                        @lang('labels.free')
+                    </span>
+                @elseif($talkshow->isNew())
                     <span class="Card-new-status Label Label-x-small">
                         @lang('labels.new')
                     </span>
@@ -36,7 +40,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     @endforeach
 </div>
