@@ -17,12 +17,31 @@ class UserController extends Controller
 {
     public function index()
     {
+        $orderBy = Input::get('orderBy', 'created_at');
+        $dir = Input::get('dir', 'DESC');
         $limit = Input::get('limit', 50);
-        $users = User::with('roles')->latest()->paginate($limit);
+        $search = trim(Input::get('search', ''));
+        $searchField = trim(Input::get('searchField', ''));
+
+        if ($orderBy == 'level') {
+        } else {
+            if($searchField != '' && $search != '') {
+                if( $searchField != 'role') {
+                    $users = User::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
+                } else {
+                    $users = User::with('roles')->get();
+                    $filters = $users->filter(function($item) use ($search) {
+                        $item->is(strtolower($search));
+                    });
+
+                    $users = $filters->paginate($limit);;
+                }
+            } else {
+                $users = User::orderBy($orderBy, $dir)->paginate($limit);
+            }
+        }
         $loginUser = Auth::user();
-
         $roles = Role::all();
-
         return view('admin.users', compact(['users', 'roles', 'loginUser']));
     }
 

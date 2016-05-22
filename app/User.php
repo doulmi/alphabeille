@@ -11,13 +11,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements HasRoleAndPermissionContract {
     use HasRoleAndPermission;
 
+    protected $dates = ['last_login_at'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'wechat', 'QQ', 'isAdmin', 'confirmed', 'confirmation_code', 'download', 'downloadMax', 'remember_token'
+        'name', 'email', 'password', 'avatar', 'wechat', 'QQ', 'confirmed', 'confirmation_code', 'download', 'downloadMax', 'remember_token'
     ];
 
     /**

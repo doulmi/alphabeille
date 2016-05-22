@@ -25,6 +25,10 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{url('discussions')}}">@lang('titles.forum')</a></li>
+                <li><a href="{{url('chatroom')}}">@lang('titles.chatroom')</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right" id="menu-xs">
                 @if(!Auth::guest())
                 <li>
@@ -105,7 +109,8 @@
                 </li>
                 <li data-toggle="tooltip" data-placement="bottom" title="@lang('labels.series')"><i class="glyphicon glyphicon-fire series-label"></i><span class="orange right-clip">{{Auth::user()->download}}</span></li>
 
-                <li data-toggle="tooltip" data-placement="bottom" title="@lang('labels.downloadLimit')"><i class="glyphicon glyphicon-paperclip limit-label green"></i><span class="green">{{Auth::user()->download}}</span></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="@lang('labels.downloadLimit')"><i class="glyphicon glyphicon-cloud-download
+ limit-label green"></i><span class="green">{{Auth::user()->download}}</span></li>
                 @endif
 
 

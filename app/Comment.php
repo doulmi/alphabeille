@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $fillable = [
-        'aricle_id', 'content', 'user_id'
+        'discussion_id', 'content', 'user_id'
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function likes() {
+        return $this->hasMany(UserCommentLike::class, 'comment_id');
+    }
 }

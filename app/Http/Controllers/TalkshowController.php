@@ -18,7 +18,7 @@ class TalkshowController extends Controller
      */
     public function index() {
         $talkshows = Talkshow::latest()->paginate($this->pageLimit);
-        return view('talkshows.talkshows', compact('talkshows'));
+        return view('talkshows.index', compact('talkshows'));
     }
 
     public function latest($num) {
@@ -66,7 +66,7 @@ class TalkshowController extends Controller
         } else {
             $topics = App::make('App\Http\Controllers\TopicController')->random();
             $talkshows = App::make('App\Http\Controllers\TalkshowController')->random();
-            return view('talkshows.talkshow', compact(['talkshow', 'topics', 'talkshows']));
+            return view('talkshows.show', compact(['talkshow', 'topics', 'talkshows']));
         }
     }
 

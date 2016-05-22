@@ -64,11 +64,13 @@ $factory->define(App\UserSubscription::class, function (Faker\Generator $faker) 
 
 //$table->text('content');
 //$table->integer('user_id')->unsigned();
-$factory->define(App\Article::class, function (Faker\Generator $faker) {
+$factory->define(App\Discussion::class, function (Faker\Generator $faker) {
     $userIds = \App\User::lists('id')->toArray();
     return [
         'user_id' => $faker->randomElement($userIds),
-        'content' => $faker->text
+        'content' => $faker->text,
+        'last_answer_by' => $faker->randomElement($userIds),
+
     ];
 });
 
@@ -80,12 +82,12 @@ $table->text('content');
  */
 $factory->define(App\Comment::class, function (Faker\Generator $faker) {
     $userIds = \App\User::lists('id')->toArray();
-    $articleIds = \App\Article::lists('id')->toArray();
+    $discussionleIds = \App\Discussion::lists('id')->toArray();
 
     return [
         'user_id' => $faker->randomElement($userIds),
         'content' => $faker->text,
-        'article_id' => $faker->randomElement($articleIds)
+        'discussion_id' => $faker->randomElement($discussionleIds)
     ];
 });
 

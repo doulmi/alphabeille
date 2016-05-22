@@ -6,6 +6,7 @@ use App\Http\Controllers\TalkshowController;
 use App\Http\Controllers\TopicController;
 use App\Subscription;
 use Illuminate\Http\Request;
+use EndaEditor;
 
 use App\Http\Requests;
 
@@ -25,5 +26,10 @@ class PostController extends Controller
     public function menus() {
         $menus = Subscription::all();
         return view('menus', compact('menus'));
+    }
+
+    public function upload() {
+        $data = EndaEditor::uploadImgFile('uploads');
+        return json_encode($data);
     }
 }

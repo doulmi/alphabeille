@@ -20,7 +20,7 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::latest()->paginate($this->pageLimit);
-        return view('topics.topics', compact('topics'));
+        return view('topics.index', compact('topics'));
     }
 
 
@@ -71,7 +71,7 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if($topic) {
-            return view('topics.topic', compact('topic'));
+            return view('topics.show', compact('topic'));
         } else {
             return view('errors.404');
         }

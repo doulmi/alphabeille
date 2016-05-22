@@ -1,18 +1,19 @@
 <?php
 
-use \Illuminate\Support\Facades\Redis;
-
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
 Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
 
 Route::get('/', 'PostController@index');
 
+Route::auth();
 Route::resource('chat', 'ChatController');
 Route::resource('topics', 'TopicController');
 Route::resource('lessons', 'LessonController');
 Route::resource('talkshows', 'TalkshowController');
 Route::resource('messages', 'MessageController');
+Route::resource('discussions', 'DiscussionController');
+Route::post('post/upload', 'PostController@upload');
 Route::get('menus', 'PostController@menus');
 
 Route::get('checkEmail', function () {
@@ -23,16 +24,17 @@ Route::get('users/{id}', 'UserController@show');
 Route::put('users', 'UserController@update');
 Route::post('uploadAvatar', 'UserController@uploadAvatar');
 Route::post('modifyPwd', 'UserController@modifyPwd');
-Route::auth();
-
-Auth::loginUsingId(51);
+Route::get('comments/like/{commentId}', 'CommentController@like');
+Route::post('comments', 'CommentController@store');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::get('/users', 'Admin\UserController@index')->name('adminUsers');
     Route::put('/users', 'Admin\UserController@store');
-    Route::get('/roles', 'Admin\RoleController@index');
     Route::get('/users/changeRole/{userId}/{roleId}', 'Admin\UserController@changeRole');
+
+    Route::get('/roles', 'Admin\RoleController@index');
+    Route::put('/roles', 'Admin\RoleController@store');
 });
 
 $api = app('Dingo\Api\Routing\Router');

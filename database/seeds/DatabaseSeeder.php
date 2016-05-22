@@ -26,11 +26,12 @@ class DatabaseSeeder extends Seeder
 
         factory(\App\UserSubscription::class, 400)->create();
         factory(\App\LessonComment::class, 1000)->create();
-        factory(\App\Article::class, 100)->create();
+        factory(\App\Discussion::class, 100)->create();
         factory(\App\Comment::class, 200)->create();
 
         $this->call(MessageSeeder::class);
 
+        $this->call(PermissionSeeder::class);
         Model::reguard();
     }
 }

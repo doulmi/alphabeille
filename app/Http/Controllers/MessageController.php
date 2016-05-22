@@ -22,7 +22,7 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Message::where('to', Auth::user()->id)->orderBy('isRead')->get();
-        return view('messages.messages', compact('messages'));
+        return view('messages.index', compact('messages'));
     }
 
     /**
@@ -99,5 +99,9 @@ class MessageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function sendTo($id) {
+
     }
 }

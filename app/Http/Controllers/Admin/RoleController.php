@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
 {
@@ -39,7 +40,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Role::create($request->all());
+
+        Session::flash('success', 'addSuccess');
+        return redirect('admin/roles');
     }
 
     /**

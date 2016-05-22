@@ -61,7 +61,7 @@ class LessonController extends Controller
 
             $topics = $topicController ->random();
             $talkshows = $talkshowController->random();
-            return view('lessons.lesson', compact(['lesson', 'topic', 'id', 'topics', 'talkshows']));
+            return view('lessons.show', compact(['lesson', 'topic', 'id', 'topics', 'talkshows']));
         } else {
             abort(404);
         }

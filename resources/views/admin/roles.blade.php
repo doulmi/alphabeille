@@ -13,25 +13,30 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">@lang('labels.addRole')</h4>
                     </div>
-                    <form role="form" action="{{url('admin/users')}}" method="POST">
+                    <form role="form" action="{{url('admin/roles')}}" method="POST">
                         <input name="_method" type="hidden" value="PUT">
                         {!! csrf_field() !!}
                         <div class="modal-body" url="">
                             <div class="form-group">
-                                <label for="email">@lang('labels.email')</label>
-                                <input name='email' type="email" class="form-control" id="email">
+                                <label for="name">@lang('labels.roleName')</label>
+                                <input name='name' type="text" class="form-control" id="name">
                             </div>
                             <div class="form-group">
-                                <label for="email">@lang('labels.pwd')</label>
-                                <div class="input-group">
-                                    <input class="name-input form-control" type="password" id="pwd" name="password"
-                                           value=""/>
-                    <span class="input-group-addon eye" id="eye-btn">
-                        <i id="eye-icon" class="glyphicon glyphicon-eye-close"></i>
-                    </span>
-                                </div>
+                                <label for="slug">@lang('labels.roleSlug')</label>
+                                <input class="name-input form-control" type="text" id="slug" name="slug" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="level">@lang('labels.level')</label>
+                                <input class="name-input form-control" type="number" id="level" name="level" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">@lang('labels.roleDesc')</label>
+                                <input class="name-input form-control" type="text" id="description" name="description" />
                             </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-default">@lang('labels.submit')</button>
                             <button type="button" class="btn btn-default"

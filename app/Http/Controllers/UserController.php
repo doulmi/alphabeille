@@ -108,7 +108,7 @@ class UserController extends Controller
         if($targetUser) {
             $loginUser = Auth::user();
             if($loginUser && $loginUser->id == $targetUser->id) {
-                return view('users.user', ['user' => $targetUser]);
+                return view('users.show', ['user' => $targetUser]);
             } else {
                 return view('users.info', ['user' => $targetUser]);
             }

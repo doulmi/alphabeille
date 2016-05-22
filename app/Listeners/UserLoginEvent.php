@@ -31,8 +31,6 @@ class UserLoginEvent
     {
         $user = Auth::user();
         $user->last_login_at = Carbon::now();
-
-        $user->isLogin = true;
         $user->save();
     }
 }
