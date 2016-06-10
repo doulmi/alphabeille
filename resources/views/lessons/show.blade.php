@@ -14,7 +14,7 @@
                 {{ $lesson->title }}
             </h2>
 
-            @if($lesson->free || Auth::user()->level() > 1)
+            @if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))
                 <audio id='audio' preload="auto" controls hidden>
                     <source src="https://raw.githubusercontent.com/kolber/audiojs/master/mp3/bensound-dubstep.mp3"/>
                 </audio>
@@ -25,7 +25,7 @@
             <div class="Video-information row">
                 <div class="Video-buttons Box">
                     <ul class="utility-naked-list ">
-                        @if($lesson->free || Auth::user()->level() > 1)
+                        @if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))
                         <li>
                             <a href="{{ url('audios/' . $lesson->id) }}" class="Button-with-icon">
                                 <i class="glyphicon glyphicon-download-alt"></i>
@@ -86,9 +86,7 @@
             </table>
         </div>
 
-        @include('sugguest')
-        <div class="Header"></div>
-        <div class="Header"></div>
+{{--        @include('sugguest')--}}
         <div class="Header"></div>
     </div>
 

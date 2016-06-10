@@ -15,9 +15,9 @@
         <div class="Card-Collection">
            @include('topics.topicsList')
 
-            <div class="prePage">
-               <a  href="{{$topics->previousPageUrl()}}"><span class="glyphicon glyphicon-chevron-left pre-page-icon"></span></a>
-            </div>
+            {{--<div >--}}
+               <a class="prePage" href="{{$topics->previousPageUrl()}}"><span class="glyphicon glyphicon-chevron-left pre-page-icon"></span></a>
+            {{--</div>--}}
 
             <div class="nextPage">
                 <a href="{{$topics->nextPageUrl()}}"><span class="glyphicon glyphicon-chevron-right"></span></a>

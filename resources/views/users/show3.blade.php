@@ -44,15 +44,17 @@
                     </div>
 
                     <div class="info-sidebar list-group">
-                        <a href="#" id="infoBtn" class="list-group-item active"> @lang('labels.accountInfo') </a>
-                        <a href="#" id="pwdBtn" class="list-group-item">@lang('labels.accountPwd')</a>
+                        <a v-link="'info'" id="infoBtn" class="list-group-item active"> @lang('labels.accountInfo') </a>
+                        <a v-link="'pwd'" id="pwdBtn" class="list-group-item">@lang('labels.accountPwd')</a>
                         {{--<a href="#" id="achieveBtn" class="list-group-item">@lang('labels.achievement')</a>--}}
-                        {{--<a href="#" id="punchinBtn" class="list-group-item">@lang('labels.punchin')</a>--}}
                         {{--<a href="#" id="lifetimeBtn" class="list-group-item">@lang('labels.lifetime')</a>--}}
                     </div>
                 </div>
 
-                <div class="col-md-8" id="infoTab">
+                <div class="col-md-8">
+                    <router-view></router-view>
+                </div>
+                <template id="infoTab">
                     <div class="info-panel">
                         <h3>@lang('labels.accountInfo')</h3>
 
@@ -70,9 +72,9 @@
 
                                         </div>
                                         <div class="media-body">
-                                                <input type="file" name="avatar" id="avatar" class="inputfile"/>
-                                                <label for="avatar" id="avatar-btn"
-                                                       class="btn">@lang('labels.uplouadAvatar')</label>
+                                            <input type="file" name="avatar" id="avatar" class="inputfile"/>
+                                            <label for="avatar" id="avatar-btn"
+                                                   class="btn">@lang('labels.uplouadAvatar')</label>
                                         </div>
                                     </div>
                                 </div>
@@ -110,9 +112,9 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </template>
 
-                <div class="col-md-8" id="pwdTab" style="display:none">
+                <template class="col-md-8" id="pwdTab">
                     <div class="info-panel">
                         <form class="form-horizontal info-group" method="POST" action="{{url('modifyPwd')}}">
                             {!! csrf_field() !!}
@@ -141,17 +143,15 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </template>
 
-                {{--<div id="achieveTab" style="display:none">--}}
-                    {{--achieveTab--}}
-                {{--</div>--}}
-                {{--<div id="punchinTab" style="display:none">--}}
-                    {{--punchinTabe--}}
-                {{--</div>--}}
-                {{--<div id="lifetimeTab" style="display:none">--}}
-                    {{--lifetimeTab--}}
-                {{--</div>--}}
+                {{--<template id="achieveTab">--}}
+                {{--achieveTab--}}
+                {{--</template>--}}
+
+                {{--<template id="lifetimeTab" >--}}
+                {{--lifetimeTab--}}
+                {{--</template>--}}
             </div>
         </div>
     </div>
@@ -162,8 +162,37 @@
 @section('otherjs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
     <script src="/js/fullscreen.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/0.7.13/vue-router.min.js"></script>
 
     <script>
+        var InfoTab = Vue.extend({
+            template: '#infoTab'
+        });
+
+        var PwdTab = Vue.extend({
+            template: '#pwdTab'
+        });
+
+        var App = Vue.extend({});
+        var router = new VueRouter();
+        router.map({
+            '/info': {
+                component: InfoTab
+            },
+            '/pwd': {
+                component: PwdTab
+            }
+        });
+        router.start(App, 'body');
+
+        //        var AchieveTab = Vue.extend({
+        //            template : '#achieveTab'
+        //        });
+        //
+        //        var LifetimeTab = Vue.extend({
+        //            template : '#lifetimeTab'
+        //        });
         $(document).ready(function () {
             var options = {
                 beforeSubmit: showRequest,
@@ -175,6 +204,7 @@
                 $('#avatarForm').ajaxForm(options).submit();
             });
         });
+
         function showRequest() {
             return true;
         }
@@ -192,7 +222,7 @@
                 });
                 $("#validation-errors").show();
             } else {
-                $('#avatar-btn').html('上传成功!');
+                $('#avatar-btn').html('{{trans('labels.uploadSuccess')}}');
                 $('#user-avatar').attr('src', response.avatar);
                 $('#user-avatar2').attr('src', response.avatar);
             }
@@ -217,70 +247,72 @@
                 oldPwd.attr('type', 'password');
             }
         });
-
-        var tabs = {
-            'info': $("#infoTab"),
-            'pwd': $('#pwdTab'),
+//
+//        var tabs = {
+//            'info': $("#infoTab"),
+//            'pwd': $('#pwdTab'),
 //            'achieve': $('#achieveTab'),
 //            'punchin': $('#punchinTab'),
 //            'lifetime': $('#lifetimeTab')
-        };
+//        };
 
         var buttons = {
             'info': $('#infoBtn'),
             'pwd': $('#pwdBtn'),
-//            'achieve': $('#achieveBtn'),
-//            'punchin': $('#punchinBtn'),
-//            'lifetime': $('#lifetimeBtn')
+            'achieve': $('#achieveBtn'),
+            'punchin': $('#punchinBtn'),
+            'lifetime': $('#lifetimeBtn')
         };
-
-        var currentTab = $('#currentTab');
-
-//        buttons['lifetime'].click(function () {
-//            buttons[currentTab.val()].removeClass('active');
-//            buttons['lifetime'].addClass('active');
-//
-//            tabs[currentTab.val()].fadeOut(function () {
-//                currentTab.val('lifetime');
-//                tabs['lifetime'].fadeIn(2)
-//            });
-//        });
-//        buttons['punchin'].click(function () {
-//            buttons[currentTab.val()].removeClass('active');
-//            buttons['punchin'].addClass('active');
-//
-//            tabs[currentTab.val()].fadeOut(function () {
-//                currentTab.val('punchin');
-//                tabs['punchin'].fadeIn(2)
-//            });
-//        });
-        buttons['info'].click(function () {
-            buttons[currentTab.val()].removeClass('active');
-            buttons['info'].addClass('active');
-
-            tabs[currentTab.val()].hide();
-            currentTab.val('info');
-            tabs['info'].fadeIn(2)
-        });
-
-        buttons['pwd'].click(function () {
-            buttons[currentTab.val()].removeClass('active');
-            buttons['pwd'].addClass('active');
-
-            tabs[currentTab.val()].hide();
-            currentTab.val('pwd');
-            tabs['pwd'].fadeIn(2)
-        });
-
-//        buttons['achieve'].click(function () {
-//            buttons[currentTab.val()].removeClass('active');
-//            buttons['achieve'].addClass('active');
-//
-//            tabs[currentTab.val()].fadeOut(function () {
-//                currentTab.val('achieve');
-//                tabs['achieve'].fadeIn(2)
-//            });
-//        });
+        //
+        //        var currentTab = $('#currentTab');
+        //
+        //        buttons['lifetime'].click(function () {
+        //            buttons[currentTab.val()].removeClass('active');
+        //            buttons['lifetime'].addClass('active');
+        //
+        //            tabs[currentTab.val()].fadeOut(function () {
+        //                currentTab.val('lifetime');
+        //                tabs['lifetime'].fadeIn(2)
+        //            });
+        //        });
+        //        buttons['punchin'].click(function () {
+        //            buttons[currentTab.val()].removeClass('active');
+        //            buttons['punchin'].addClass('active');
+        //
+        //            tabs[currentTab.val()].fadeOut(function () {
+        //                currentTab.val('punchin');
+        //                tabs['punchin'].fadeIn(2)
+        //            });
+        //        });
+        //        buttons['info'].click(function () {
+        //            buttons[currentTab.val()].removeClass('active');
+        //            buttons['info'].addClass('active');
+        //
+        //            tabs[currentTab.val()].fadeOut(function () {
+        //                currentTab.val('info');
+        //                tabs['info'].fadeIn(2)
+        //            });
+        //        });
+        //
+        //        buttons['pwd'].click(function () {
+        //            buttons[currentTab.val()].removeClass('active');
+        //            buttons['pwd'].addClass('active');
+        //
+        //            tabs[currentTab.val()].fadeOut(function () {
+        //                currentTab.val('pwd');
+        //                tabs['pwd'].fadeIn(2)
+        //            });
+        //        });
+        //
+        //        buttons['achieve'].click(function () {
+        //            buttons[currentTab.val()].removeClass('active');
+        //            buttons['achieve'].addClass('active');
+        //
+        //            tabs[currentTab.val()].fadeOut(function () {
+        //                currentTab.val('achieve');
+        //                tabs['achieve'].fadeIn(2)
+        //            });
+        //        });
 
     </script>
 @endsection

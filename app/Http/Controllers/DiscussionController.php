@@ -80,14 +80,13 @@ class DiscussionController extends Controller
     public function show($id)
     {
         $discussion = Discussion/*::with('comments')*/::findOrFail($id);
-        $comments = $discussion->comments()->get();
+        $comments = $discussion->comments()->latest()->get();
         foreach($comments as $comment) {
             $comment->likesNum = count($comment->likes);
         }
 //
-//        $html = $this->editor->parse($discussion->content);
         $html = $discussion->content;
-        $comments = $comments->sortByDesc('likesNum');
+//        $comments = $comments->sortByDesc('likesNum');
         if ($discussion) {
             return view('forum.show', compact(['discussion', 'html', 'comments']));
         } else {

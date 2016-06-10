@@ -1,10 +1,8 @@
 @extends('base')
 
-{{--<link rel="stylesheet" href="/css/app.css">--}}
 @section('text')
     @include('navbar')
     <div class="login fullscreen">
-
         <div class="wrapper">
             <div class="login-container">
                 @if ($errors->has('email'))
@@ -26,15 +24,6 @@
                         @lang('labels.login')
                     </button>
 
-                    {{--<div class="form-group">--}}
-                    {{--<div class="center">--}}
-                    {{--<div class="checkbox">--}}
-                    {{--<label>--}}
-                    {{--<input type="checkbox" name="remember"> {{trans('labels.rememberme') }}--}}
-                    {{--</label>--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
                     <br/>
                     <br/>
                     <a class="link link-left" href="{{ url('/password/reset') }}">@lang('labels.forgetPwd')</a>
@@ -56,7 +45,6 @@
                     <br/>
                     <br/>
                     <a class="link" id="toLogin" @click.stop.prevent="toLogin" href="">@lang('labels.hasCount')</a>
-
                 </form>
             </div>
 
@@ -66,7 +54,7 @@
 @endsection
 
 @section('otherjs')
-    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
     <script src="/js/fullscreen.js"></script>
     <script src="/js/validate.js"></script>
     <script>
@@ -88,21 +76,6 @@
                 }
             }
 
-//            registerBtn.prop('disabled', true);
-//            loginBtn.prop('disabled', true);
-
-//            var loginEmail = $('#login-email');
-//            var loginPwd = $('#login-pwd');
-//            validBtn(loginEmail.val(), loginPwd.val(), loginBtn);
-
-//            loginEmail.focusout(function() {
-//                validBtn(loginEmail.val(), loginPwd.val(), loginBtn);
-//            });
-
-//            loginPwd.focusout(function() {
-//                validBtn();
-//            });
-
             var regEmail = $('#reg-email');
             var regPwd = $('#reg-pwd');
 
@@ -118,8 +91,8 @@
             });
 
             registerBtn.click(function () {
-{{--                $(this).html('@lang('labels.onRegister')<img src="/css/svg-loaders/rings.svg" width="30px" alt=""/>');--}}
                 $(this).html('@lang('labels.onRegister')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
+{{--                $(this).html('@lang('labels.onRegister')<div id="loader"> <img src="/css/svg-loaders/rings.svg" width="20px" alt=""/> </div>');--}}
                 registerForm.submit();
                 $(this).prop('disabled', true);
             });
@@ -140,6 +113,7 @@
 //                    var loginForm = $('#login-form');
 //
         });
+
     </script>
 
     <script>
@@ -149,6 +123,10 @@
             data: {
                 openEye: false,
                 isLogin: true
+            },
+
+            created: function () {
+                window.addEventListener('keydown', this.next)
             },
 
             methods: {
@@ -162,6 +140,16 @@
                 toLogin() {
                     this.isLogin = true;
                     console.log(this.isLogin);
+                },
+                next(e) {
+                    var enterCode = 13;
+                    if(e.which == enterCode) {
+                        if(this.isLogin) {
+                            $('#login-form').submit();
+                        } else {
+                            $('#register-form').submit();
+                        }
+                    }
                 }
             },
 

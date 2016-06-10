@@ -9,7 +9,6 @@
         <div class="Header"></div>
         <div class="Header"></div>
 
-
         <div class="Card-Collection">
             <h2 class="mar-t-z center">
                 {{ $talkshow->title }}
@@ -72,28 +71,6 @@
         $(function () {
             var audios = $('#audio');
             audios.audioPlayer();
-//
-//            var audio = document.querySelector('#audio');
-//
-//            $(document).keydown(function (e) {
-//                var unicode = e.charCode ? e.charCode : e.keyCode;
-//                switch (unicode) {
-//                    case 13:
-//                        break;
-//                    case 39:
-//                        break;
-//                    case 37:
-//                        break;
-//                }
-//            });
-//
-//            var avance = function (time) {
-//                audio.element.currentTime += time;
-//            };
-//
-//            var back = function (time) {
-//                audio.element.currentTime -= time;
-//            };
         });
 
     </script>

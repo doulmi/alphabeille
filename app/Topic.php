@@ -30,11 +30,18 @@ class Topic extends Model
 
     public function getState() {
         $lesson = Lesson::where('topic_id', $this->id)->latest()->first();
-        $isUpdated = (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
-        $isNew = (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
-        return [
-            'isUpdated' => $isUpdated,
-            'isNew' => $isNew
-        ];
+        if($lesson != null) {
+            $isUpdated = (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
+            $isNew = (Carbon::now()->diffInDays($lesson->created_at)) < Config::get('topic_updated_days');
+            return [
+                'isUpdated' => $isUpdated,
+                'isNew' => $isNew
+            ];
+        } else {
+            return [
+                'isUpdated' => false,
+                'isNew' => false,
+            ];
+        }
     }
 }

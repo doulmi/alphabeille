@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Input;
 
 class TalkshowController extends BaseApiController
 {
-    /**
-     * TalkshowController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth.basic', ['only' => ['store', 'update']]);
-    }
+//    /**
+//     * TalkshowController constructor.
+//     */
+//    public function __construct()
+//    {
+//        $this->middleware('auth.basic', ['only' => ['store', 'update']]);
+//    }
 
     /**
      * Display a listing of the resource.
@@ -26,6 +26,7 @@ class TalkshowController extends BaseApiController
      */
     public function index()
     {
+        $limit = Input::get('limit', 8);
         $num = Input::get('num', 8);
         $talkshows = Talkshow::latest()->limit($num)->get();
         return $this->response->collection($talkshows, new TalkshowTransformer());
@@ -43,19 +44,14 @@ class TalkshowController extends BaseApiController
         return $this->response->collection($talkshows->random($num), new TalkshowTransformer());
     }
 
+    /**
+     * 取得最新的$num个Talkshow
+     * @param $num
+     * @return \Dingo\Api\Http\Response
+     */
     public function latest($num) {
         $talkshows = Talkshow::latest()->limit($num)->get();
         return $this->response->collection($talkshows, new TalkshowTransformer());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -64,8 +60,9 @@ class TalkshowController extends BaseApiController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
+
+
         if (!$request->get('title') or !$request->get('description')) {
             return $this->response->errorUnauthorized();
         } else {
@@ -80,27 +77,26 @@ class TalkshowController extends BaseApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
+        dd(AuthenticateController::getAuthenticatedUser());
         $talkshow = Talkshow::findOrFail($id);
 
         if (!$talkshow) {
-           return $this->response->errorNotFound('Talkshow not found');
+           return $this->response->errorNotFound(trans('labels.talkshowNotFound'));
         } else {
            return $this->item($talkshow, new TalkshowTransformer());
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+//    /**
+//     * Show the form for editing the specified resource.
+//     *
+//     * @param  int $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function edit($id)
+//    {
+//    }
 
     /**
      * Update the specified resource in storage.
@@ -109,9 +105,7 @@ class TalkshowController extends BaseApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
     }
 
     /**
@@ -120,10 +114,6 @@ class TalkshowController extends BaseApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
     }
-
-
 }

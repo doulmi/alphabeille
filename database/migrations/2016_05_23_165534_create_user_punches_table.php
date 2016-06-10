@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiscussionsTable extends Migration
+class CreateUserPunchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateDiscussionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('discussions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('content');
+        Schema::create('user_punches', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
+            $table->date('punch_time');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('last_answer_by')->unsigned();
-            $table->foreign('last_answer_by')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
+            $table->primary(['user_id', 'punch_time']);
         });
     }
 
@@ -30,6 +27,6 @@ class CreateDiscussionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('discussions');
+        Schema::drop('user_punches');
     }
 }

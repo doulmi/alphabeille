@@ -7,9 +7,8 @@
 @section('content')
     <div class="body">
         <div class="Header"></div>
-        <div class="Header"></div>
 
-        <div class="container">
+        <div class="Card-Collection">
             <div class="row">
                 @if(Session::has('success'))
                     <div class="alert alert-success">
@@ -23,7 +22,12 @@
             </div>
             <div class="row">
 
-                <ul class="discussion-list col-md-8">
+                <ul class="discussion-list">
+                    <li>
+                        <h3>Flux de discussions
+                        <a href="{{url('discussions/create')}}" class="pull-right btn btn-lg btn-new">@lang('labels.newDiscussion')</a>
+                        </h3>
+                    </li>
                     <?php $now = \Carbon\Carbon::now(); ?>
                     @foreach($discussions as $discussion)
                         <li class="discussion-item">
@@ -32,14 +36,16 @@
                                     {{--<i class="glyphicon glyphicon-arrow-up red"></i>--}}
                                     <span class="label label-success">@lang('labels.fixtop')</span>
                                 @endif
-                                <i class="glyphicon glyphicon-comment">
-                                </i>
-                                {{count($discussion->comments)}}
+                                {{--<i class="glyphicon glyphicon-comment">--}}
+                                {{--</i>--}}
+                                    <i class="svg-icon svg-icon-comment">
+                                        {{count($discussion->comments)}}
+                                    </i>
                             </div>
-                            <div class="media ">
+                            <div class="media">
                                 <a class="media-left" href="{{url('users/' . $discussion->owner->id)}}">
-                                    <img src="{{$discussion->owner->avatar}}" alt="32x32"
-                                         class="img-circle media-object" width="32px" height="32px">
+                                    <img src="{{$discussion->owner->avatar}}" alt="60x60"
+                                         class="img-circle media-object" width="60px" height="60px">
                                 </a>
 
                                 <a class="media-body" href="{{url('discussions/' . $discussion->id)}}">
@@ -52,17 +58,13 @@
                     @endforeach
 
                 </ul>
-                <div class="col-md-3 col-md-offset-1 new-discussion-panel">
-                    {{--<h2>@lang('labels.conversationNum', ['num' => $count])</h2>--}}
-                    <a href="{{url('discussions/create')}}" class="btn btn-lg btn-new">@lang('labels.newDiscussion')</a>
-                </div>
+
             </div>
-                <center>
-                    {!! $discussions->links() !!}
-                </center>
+            <center>
+                {!! $discussions->links() !!}
+            </center>
         </div>
         <div class="Header"></div>
-
         @include('smallBeach')
     </div>
 @endsection

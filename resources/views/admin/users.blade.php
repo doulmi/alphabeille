@@ -78,7 +78,7 @@
             </div><!-- /.col-lg-6 -->
 
             <div>
-                @if($loginUser->can('create.user'))
+                @if($loginUser->can('user.create'))
                     <button type="button" class="btn btn-info" data-toggle="modal"
                             data-target="#myModal">@lang('labels.addUser')</button>
                 @endif
@@ -116,7 +116,7 @@
                     <tr>
                         <?php
                         $urls = [];
-                        $cols = ['id', 'role', 'email', 'name', 'wechat', 'qq', 'created_at', 'last_login_at'];
+                        $cols = ['id', 'avatar', 'role', 'email', 'name', 'wechat', 'qq', 'created_at', 'last_login_at'];
                         ?>
                         @foreach($cols as $colName)
                             <th>
@@ -132,8 +132,9 @@
                         @if($user->level() <= $loginUser->level())
                             <tr>
                                 <th scope="row">{{$user->id}}</th>
+                                <td><img src="{{$user->avatar}}" width="60px" height="60px" alt=""></td>
                                 <td>
-                                    @if($loginUser->can('edit.userRole'))
+                                    @if($loginUser->can('user.role'))
                                             <!-- Split button -->
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" id="roleBtn-{{$user->id}}">
@@ -180,6 +181,7 @@
 @endsection
 
 @section('otherjs')
+    <script src="/js/adminFullscreen.js"></script>
     <script>
         var userForm = $('#userForm');
         var orderBy = $('#orderBy');
@@ -188,7 +190,6 @@
         var search = $('#search');
 
         function order(colName) {
-            console.log(colName, orderBy.val(), dir.val());
             if (orderBy.val() == colName) {
                 if (dir.val() == 'ASC') {
                     dir.val('DESC');
@@ -232,18 +233,6 @@
             }
         });
 
-        $(window).resize(function () {
-            fullscreenSupport();
-        });
-
-        var fullscreenSupport = function () {
-            var height = $(window).height();
-            $(".fullscreen").css('max-height', height - 250);
-        };
-
-        $(function () {
-            fullscreenSupport();
-        });
 
         var changeRole = function (userId, roleId, roleName) {
             $('#roleBtn-' + userId).text(roleName);

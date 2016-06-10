@@ -6,6 +6,7 @@ use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
 class TopicController extends Controller
 {
@@ -108,6 +109,18 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $topic = Topic::findOrFail($id);
+        $topic->delete();
+        return response()->json([
+            'status' => 200
+        ]);
+    }
+
+    /**
+     * Remove the specified resources
+     * @param $ids : 1,3,4
+     */
+    public function multiDestroy($ids) {
+        dd($ids);
     }
 }

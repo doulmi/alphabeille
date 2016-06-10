@@ -39,8 +39,10 @@
                         </span>
 
                         <span class="topic-like">
-                            <span class="glyphicon glyphicon-heart"><span
-                                        class="g-font">{{ $topic->likes() }} </span></span>
+                            {{--<span class="glyphicon glyphicon-heart">--}}
+                               <i class="svg-icon svg-icon-heart" id="icon-heart"></i>
+                                <span class="g-font">{{ $topic->likes() }} </span>
+                            {{--</span>--}}
                         </span>
                     </div>
                 </div>

@@ -46,7 +46,10 @@
         </h2>
 
         @include('lessons.lessonsList')
+
+        <div class="Header"></div>
     </div>
+
 @endsection
 
 

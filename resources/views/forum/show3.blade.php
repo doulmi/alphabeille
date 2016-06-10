@@ -35,13 +35,8 @@
                 </div>
 
                 @if(Auth::guest())
-                    <div class="reply-panel" >
-                       <div class="Header"></div>
-                        <div class="center">
-                            <a href="{{url('login')}}">@lang('labels.login')</a>
-                            @lang('labels.loginToReply')
-                        </div>
-                        <div class="Header"></div>
+                    <div class="reply-panel">
+
                     </div>
                 @else
                     <div class="media reply-panel">
@@ -55,17 +50,19 @@
 
                         <div class="media-body">
                             <h4 class="media-heading">
-                            </h4>
-                            <form action="{{url('comments')}}" method="POST" id="replyForm">
-                                {{csrf_field()}}
 
-                                @include('UEditor::head')
-                                        <!-- 加载编辑器的容器 -->
-                                <script id="container" style="width: 100%; height : 100px" name="content"
-                                        type="text/plain" placeholder="@lang('labels.addComment')"></script>
-                                <input type="hidden" name="discussion_id" value="{{$discussion->id}}">
-                                <a type="submit" class="pull-right btn btn-submit">@lang('labels.reply')</a>
-                            </form>
+                            </h4>
+
+                            {{--                            <form action="{{url('comments')}}" method="POST" id="replyForm">--}}
+                            {{--{{csrf_field()}}--}}
+
+                            @include('UEditor::head')
+                                    <!-- 加载编辑器的容器 -->
+                            <script id="container" style="width: 100%; height : 100px" name="content"
+                                    type="text/plain" placeholder="@lang('labels.addComment')"></script>
+                            <input type="hidden" name="discussion_id" value="{{$discussion->id}}">
+                            <button type="submit" class="pull-right btn btn-submit">@lang('labels.submit')</button>
+                            {{--</form>--}}
                         </div>
                     </div>
                 @endif
@@ -105,6 +102,31 @@
                                 </div>
                             </li>
                         @endforeach
+                        <li class="comment" v-for="comment in comments">
+                            <div class="media">
+                                <a class="media-left" href="@{{ comment.user_url }}"
+                                    <img src="@{{ comment.avatar }}" alt="64x64"
+                                         class="img-circle media-object" width="64px" height="64px">
+                                </a>
+
+                                <div class="media-body">
+                                    <h5 class="media-heading">
+                                        @{{ comment.user_name}}
+                                    </h5>
+                                    <p class="discuss-content">@{{ comment.body }}</p>
+                                    <span class="time">@{{ comment.created_at }}</span>
+                                </div>
+                                <div class="comment-footer">
+                                    <button class="btn btn-like" id='comment-{{$comment->id}}'
+                                            onclick="like({{$comment->id}})">@lang('labels.like')
+                                        <i class="glyphicon glyphicon-thumbs-up"></i>
+                                        <span id="comment-like-{{$comment->id}}"> {{$comment->likesNum}} </span>
+                                    </button>
+                                    <button class="btn btn-reply"
+                                            onclick="reply({{$comment->owner->id . ',"' . $comment->owner->name . '"'}})">@lang('labels.reply')</button>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -116,20 +138,58 @@
 @endsection
 
 @section('otherjs')
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
     <script>
-
         var ue = UE.getEditor('container', {
             toolbars: [
                 ['fullscreen', 'source', 'undo', 'redo', '|', 'removeformat', 'formatmatch', 'selectall', 'cleardoc',],
                 ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'fontsize', '|', 'insertimage', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist']
             ],
-            focus : true,
+            focus: true,
             elementPathEnabled: false,
-            maximumWords: 1000
+            maximumWords: 1000,
         });
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
+        {{--ue.ready(function () {--}}
+                {{--ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.--}}
+                {{--});--}}
+
+                Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+        new Vue({
+            el: '#comments',
+
+            data: {
+                comments: [],
+                newComment: {
+                    avatar: '{{Auth::user()->avatar}}',
+                    user_url : '{{url('users/' . Auth::user()->id)}}',
+                    user_name: '{{Auth::user()->name}}',
+                    created_at: '@lang('justnow')',
+                    body : ''
+                },
+
+                newPost: {
+                    discussion_id: '{{$discussion->id}}',
+                    user_id: '{{Auth::user()->id}}',
+                    body: ''
+                }
+            },
+
+            methods: {
+                submitComment(e) {
+                    e.preventDefault();
+                    var comment = this.newComment;
+                    var post = this.newPost;
+                    post.body = comment.body = ue.getContent();
+                    this.$http.post('/comments', post, function () {
+                        this.comments.push(comment);
+                    });
+
+//                    ue.getContent();
+                }
+            }
         });
+
 
         var container = $('#container');
         function reply(userId, userName) {

@@ -9,9 +9,11 @@
         <div class="Header">
         </div>
         <div class="Header"></div>
-        
+
+        @if(Auth::guest())
         <div class="header-container">
         </div>
+        @endif
 
         <div class="BlockMessage BlockMessage-With-Spacing">
             The most concise screencasts for the working developer, updated daily.

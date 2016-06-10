@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta id="token" name="token" value="{{csrf_token()}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
@@ -14,7 +17,7 @@
 </div>
 
 <div class="container-fluid">
-    <div class="col-md-3 sidebar">
+    <div class="col-md-2 sidebar">
         <div class="list-group">
             <a class="list-group-item category" href="{{url('/')}}">
                 <i class="glyphicon glyphicon-home"></i>@lang('titles.index')
@@ -46,7 +49,7 @@
                 @lang('labels.manageContent')
                 <i class="glyphicon glyphicon-menu-right pull-right"></i>
             </a>
-            <a href="#" class="list-group-item item">
+            <a href="{{url('admin/topics')}}" class="list-group-item item">
                 <i class="glyphicon glyphicon-list-alt"></i>
                 @lang('labels.manageTopics')
             </a>
@@ -61,7 +64,7 @@
         </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-10">
         @yield('content')
     </div>
 </div>
