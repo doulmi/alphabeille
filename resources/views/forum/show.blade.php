@@ -117,7 +117,6 @@
 
 @section('otherjs')
     <script>
-
         var ue = UE.getEditor('container', {
             toolbars: [
                 ['fullscreen', 'source', 'undo', 'redo', '|', 'removeformat', 'formatmatch', 'selectall', 'cleardoc',],

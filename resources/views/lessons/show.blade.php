@@ -13,7 +13,6 @@
             <h2 class="mar-t-z center">
                 {{ $lesson->title }}
             </h2>
-
             @if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))
                 <audio id='audio' preload="auto" controls hidden>
                     <source src="https://raw.githubusercontent.com/kolber/audiojs/master/mp3/bensound-dubstep.mp3"/>

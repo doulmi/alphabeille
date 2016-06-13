@@ -55,7 +55,6 @@
 
 @section('otherjs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-    <script src="/js/fullscreen.js"></script>
     <script src="/js/validate.js"></script>
     <script>
         $(document).ready(function () {
@@ -76,23 +75,8 @@
                 }
             }
 
-            var regEmail = $('#reg-email');
-            var regPwd = $('#reg-pwd');
-
-            validBtn(regEmail.val(), regPwd.val(), registerBtn);
-
-            regEmail.focusout(function() {
-                validBtn(regEmail.val(), regPwd.val(), registerBtn);
-            });
-
-            regPwd.focusout(function() {
-                regPwd.attr('title', '');
-                validBtn(regEmail.val(), regPwd.val(), registerBtn);
-            });
-
             registerBtn.click(function () {
                 $(this).html('@lang('labels.onRegister')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
-{{--                $(this).html('@lang('labels.onRegister')<div id="loader"> <img src="/css/svg-loaders/rings.svg" width="20px" alt=""/> </div>');--}}
                 registerForm.submit();
                 $(this).prop('disabled', true);
             });
@@ -102,21 +86,8 @@
                 loginForm.submit();
                 $(this).prop('disabled', true);
             });
-
-//                    var eyeBtn = $('.eye');
-//                    eyeBtn.bind('click', function() {
-//
-//                    });
-//                    var toRegisterBtn = $('#toRegister');
-//                    var toLoginBtn = $('#toLogin');
-//                    var registerForm = $('#register-form');
-//                    var loginForm = $('#login-form');
-//
         });
 
-    </script>
-
-    <script>
         new Vue({
             el: 'body',
 
@@ -130,18 +101,18 @@
             },
 
             methods: {
-                iconToggle() {
+                iconToggle : function() {
                     this.openEye = !this.openEye;
                 },
-                toRegister() {
+                toRegister : function() {
                     this.isLogin = false;
                     console.log(this.isLogin);
                 },
-                toLogin() {
+                toLogin: function() {
                     this.isLogin = true;
                     console.log(this.isLogin);
                 },
-                next(e) {
+                next : function(e) {
                     var enterCode = 13;
                     if(e.which == enterCode) {
                         if(this.isLogin) {
@@ -154,14 +125,14 @@
             },
 
             computed: {
-                login() {
+                login : function() {
                     return this.isLogin ? 'login' : 'register';
                 },
-                eyeIcon() {
+                eyeIcon : function() {
                     return this.openEye ? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close';
                 },
 
-                pwdType() {
+                pwdType: function() {
                     return this.openEye ? 'text' : 'password';
                 }
             }

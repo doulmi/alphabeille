@@ -9,9 +9,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand tooltips-bottom" href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
-                {{--<img class="icon" id='icon' src="/img/icon.png" alt="Go to home page" style='display:none'>--}}
                 <i class="svg-icon svg-logo" id="icon-white"></i>
-                {{--<img class="icon" id='icon-white'  src="/img/icon1.png" alt="Go to home page" >--}}
             </a>
         </div>
 
