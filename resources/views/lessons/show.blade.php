@@ -3,7 +3,6 @@
 @section('title')
     {{ $lesson->title }}
 @endsection
-
 @section('content')
     <div class="body">
         <div class="Header"></div>
