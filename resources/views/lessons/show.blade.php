@@ -7,7 +7,6 @@
     <div class="body">
         <div class="Header"></div>
         <div class="Header"></div>
-
         <div class="Card-Collection">
             <h2 class="mar-t-z center">
                 {{ $lesson->title }}
