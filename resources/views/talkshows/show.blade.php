@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        @include('sugguest')
+        @include('utils.talkshowSugguest')
 
         <div class="Header"></div>
         <div class="Header"></div>

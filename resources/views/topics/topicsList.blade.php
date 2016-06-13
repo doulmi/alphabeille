@@ -1,7 +1,7 @@
 <div class="row">
     @foreach($topics as $topic)
         <div class="col-md-3 col-xs-6 col-sm-4">
-            <div class="Card">
+            <div class="Card card">
                     <span class="Card-difficulty">
                         @lang('labels.' . $topic->level)
                     </span>
@@ -17,7 +17,7 @@
                 @endif
                 <div class="Card-image">
                     <a href="{{ url('topics/' . $topic->id) }}">
-                        <img src="{{$topic->avatar}}" class="Card-image" alt="{{$topic->title}}">
+                        <img src="/img/placeholder.png" data-original="{{$topic->avatar}}" class="Card-image" alt="{{$topic->title}}">
                         <div class="Card-overlay">
                             <i class="glyphicon glyphicon-play-circle"></i>
                         </div>

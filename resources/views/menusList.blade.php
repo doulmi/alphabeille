@@ -14,7 +14,7 @@
             @else
             <div class="col-md-3 col-sm-4 col-xs-6">
             @endif
-                <div class="menu month-{{$menu->duration}}">
+                <div class="menu month-{{$menu->duration}} aniview" av-animation="slideInBottom">
                     <h3 class="menu-title buy-{{$menu->duration}}-title">@lang('labels.' . $menu->name)</h3>
                     <h3 class="menu-price menu-{{$menu->duration}}-price">
                         <span class="symbol">￥</span><span class="price-label">@lang($menu->price)</span>

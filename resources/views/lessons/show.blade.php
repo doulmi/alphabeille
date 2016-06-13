@@ -87,6 +87,7 @@
         </div>
 
 {{--        @include('sugguest')--}}
+        @include('utils.topicSugguest')
         <div class="Header"></div>
     </div>
 

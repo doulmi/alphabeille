@@ -14,19 +14,15 @@
 
         <div class="Card-Collection">
             @include('talkshows.talkshowsList')
-
-            <div class="prePage">
-                <a  href="{{$talkshows->previousPageUrl()}}"><span class="glyphicon glyphicon-chevron-left pre-page-icon"></span></a>
-            </div>
-
-            <div class="nextPage">
-                <a href="{{$talkshows->nextPageUrl()}}"><span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-
-            <div class="center">
-                {!! $talkshows->links() !!}
-            </div>
+            <?php $pages = $talkshows ?>
+            @include('utils.pageNavigator')
         </div>
     </div>
 @endsection
 
+@section('otherjs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script>
+        $('img.Card-image').lazyload();
+    </script>
+@endsection

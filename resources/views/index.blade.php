@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="body">
+    <div class="body ">
         <div class="Header">
         </div>
         <div class="Header"></div>
@@ -23,10 +23,10 @@
             <span class='title'>@lang('labels.topics')</span>
         </h2>
 
-        <div class="Card-Collection">
+        <div class="Card-Collection" >
             @include('topics.topicsList')
-            <h2 class="row">
-                <a class="btn btn-default more" href="{{url('/topics')}}">@lang('labels.more')</a>
+            <h2 class="row center">
+                <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/topics')}}">@lang('labels.more')</a>
             </h2>
         </div>
 
@@ -44,4 +44,11 @@
 
         @include('menusList')
     </div>
+@endsection
+
+@section('otherjs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script>
+        $('img.Card-image').lazyload();
+    </script>
 @endsection

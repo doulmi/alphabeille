@@ -31,7 +31,6 @@
                                 <strong>131</strong>
                                 minutes
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -49,6 +48,8 @@
 
         <div class="Header"></div>
     </div>
+
+{{--    @include('utils.topicSugguest')--}}
 
 @endsection
 

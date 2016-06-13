@@ -1,4 +1,5 @@
 <footer class="footer container-fluid">
+    <div id="example"></div>
     <div class="row center">
         {{--<ul id="footer-menu" class="menu">--}}
         <div id="footer-copyright" class="white col-md-5 col-sm-6 col-xs-12 col-xs-offset-0">Copyright © 2016 Alphabeille All Rights Reserved.</div>

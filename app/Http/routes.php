@@ -47,7 +47,6 @@ $api->version('v1', function ($api) {
         $api->get('topics/{id}', 'TopicController@show');
         $api->get('topics', 'TopicController@index');
         $api->get('talkshows/random', 'TalkshowController@random');
-//        $api->get('talkshows/{id}', 'TalkshowController@show');
         $api->get('talkshows', 'TalkshowController@index');
         $api->get('messages/{id}', 'MessageController@show');
 

@@ -15,18 +15,18 @@
         <div class="Card-Collection">
            @include('topics.topicsList')
 
-            {{--<div >--}}
-               <a class="prePage" href="{{$topics->previousPageUrl()}}"><span class="glyphicon glyphicon-chevron-left pre-page-icon"></span></a>
-            {{--</div>--}}
+            <?php $pages = $topics; ?>
+            @include('utils.pageNavigator')
 
-            <div class="nextPage">
-                <a href="{{$topics->nextPageUrl()}}"><span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
 
-            <div class="center">
-            {!! $topics->links() !!}
-            </div>
         </div>
     </div>
+@endsection
+
+@section('otherjs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script>
+    $('img.Card-image').lazyload();
+    </script>
 @endsection
 

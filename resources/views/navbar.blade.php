@@ -8,8 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}" data-toggle="tooltip" data-placement="bottom"
-               title="@lang('labels.backIndex')">
+            <a class="navbar-brand tooltips-bottom" href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
                 {{--<img class="icon" id='icon' src="/img/icon.png" alt="Go to home page" style='display:none'>--}}
                 <i class="svg-icon svg-logo" id="icon-white"></i>
                 {{--<img class="icon" id='icon-white'  src="/img/icon1.png" alt="Go to home page" >--}}
@@ -51,12 +50,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li data-toggle="tooltip" data-placement="bottom" title="@lang('labels.series')" class="li-series">
+                    <li data-tooltips="@lang('labels.series')" class="li-series tooltips-bottom">
                         <i class="svg-icon svg-icon-series"></i>
                         <span class="white label-svg-series">{{Auth::user()->download}}</span>
                     </li>
 
-                    <li data-toggle="tooltip" data-placement="bottom" title="@lang('labels.downloadLimit')" class="li-miel">
+                    <li data-tooltips="@lang('labels.downloadLimit')" class="li-miel tooltips-bottom">
                         <i class="svg-icon svg-icon-miel"></i>
                         <span class="white label-svg-miel">{{Auth::user()->download}}</span>
                     </li>

@@ -1,17 +1,14 @@
 @extends('base')
 
-{{--<link rel="stylesheet" href="/css/app.css">--}}
 @section('text')
     @include('navbar')
-    <div class="login fullscreen">
+    <div class="fullscreen body">
         <div class="Header"></div>
 
-        <div class="container" style="position:relative" >
-            <center>
-                <img src="/img/404.png" width="500px" alt="404"/>
-                <h2 class="white">@lang('labels.404')</h2>
+        <div class="container center">
 
-            </center>
+            <img src="/img/404.png" alt="404"/>
+            <h2 class="white">@lang('labels.404')</h2>
 
             <div class="Card-Collection">
                 <ul class="tips-list">

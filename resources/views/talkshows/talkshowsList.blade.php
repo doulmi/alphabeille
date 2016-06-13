@@ -14,7 +14,7 @@
                 @endif
                 <div class="Card-image">
                     <a href="{{ url('talkshows/' .$talkshow->id) }}">
-                        <img src="{{$talkshow->avatar}}" class="Card-image" alt="{{$talkshow->title}}">
+                        <img src="/img/placeholder.png" data-original="{{$talkshow->avatar}}" class="Card-image" alt="{{$talkshow->title}}">
                         <div class="Card-overlay">
                             <i class="glyphicon glyphicon-play-circle"></i>
 
