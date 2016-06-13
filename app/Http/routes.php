@@ -3,6 +3,7 @@
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
 Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
+//Route::get('flags', function() { return view('flags'); });
 
 Route::get('/', 'PostController@index');
 

@@ -1,4 +1,97 @@
 @charset "UTF-8";
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700,700italic,500italic,500,400italic,300);*/
+
+/*@import url()*/
+
+/* latin-ext */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Lato Light'), local('Lato-Light'), url(../fonts/Lato/Lato300ext.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Lato Light'), local('Lato-Light'), url(../fonts/Lato/Lato300.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(../fonts/Lato/Lato400ext.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(../fonts/Lato/Lato300.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Lato Bold'), local('Lato-Bold'), url(../fonts/Lato/Lato700ext.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Lato Bold'), local('Lato-Bold'), url(../fonts/Lato/Lato700.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Lato Black'), local('Lato-Black'), url(../fonts/Lato/Lato900ext.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Lato Black'), local('Lato-Black'), url(../fonts/Lato/Lato900.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Lato Italic'), local('Lato-Italic'), url(../fonts/Lato/Lato400ext_italic.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Lato Italic'), local('Lato-Italic'), url(../fonts/Lato/Lato400_italic.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 
 *::selection {
     background: #FFD346;
@@ -143,137 +236,20 @@ button {
     background-position: -110px 0
 }
 
-.flag-svg-micro.flag-ga {
+.flag-svg-micro.flag-zt {
     background-position: -132px 0
 }
 
-.flag-svg-micro.flag-hu {
+.flag-svg-micro.flag-zh_CN {
     background-position: -154px 0
 }
 
-.flag-svg-micro.flag-ru {
+.flag-svg-micro.flag-ja {
     background-position: -176px 0
 }
 
-.flag-svg-micro.flag-pl {
-    background-position: -198px 0
-}
-
-.flag-svg-micro.flag-ro {
-    background-position: 0 -44px
-}
-
-.flag-svg-micro.flag-dn {
-    background-position: -22px -44px
-}
-
-.flag-svg-micro.flag-tr {
-    background-position: -44px -44px
-}
-
-.flag-svg-micro.flag-id {
-    background-position: -66px -44px
-}
-
-.flag-svg-micro.flag-ja {
-    background-position: -88px -44px
-}
-
-.flag-svg-micro.flag-uk {
-    background-position: -110px -44px
-}
-
-/* 台湾 */
-.flag-svg-micro.flag-zt {
-    background-position: -132px -44px
-}
-
-.flag-svg-micro.flag-el {
-    background-position: -154px -44px
-}
-
-.flag-svg-micro.flag-bn {
-    background-position: -176px -44px
-}
-
-.flag-svg-micro.flag-ar {
-    background-position: -198px -44px
-}
-
-.flag-svg-micro.flag-hi {
-    background-position: 0 -88px
-}
-
-.flag-svg-micro.flag-he {
-    background-position: -22px -88px
-}
-
 .flag-svg-micro.flag-ko {
-    background-position: -44px -88px
-}
-
-.flag-svg-micro.flag-vi {
-    background-position: -66px -88px
-}
-
-.flag-svg-micro.flag-sv {
-    background-position: -88px -88px
-}
-
-.flag-svg-micro.flag-zh_CN {
-    background-position: -110px -88px
-}
-
-.flag-svg-micro.flag-cs {
-    background-position: -132px -88px
-}
-
-.flag-svg-micro.flag-th {
-    background-position: -154px -88px
-}
-
-.flag-svg-micro.flag-un {
-    background-position: -176px -88px
-}
-
-.flag-svg-micro.flag-eo {
-    background-position: -198px -88px
-}
-
-.flag-svg-micro.flag-kl {
-    background-position: 0 -132px
-}
-
-.flag-svg-micro.flag-da {
-    background-position: -22px -132px
-}
-
-.flag-svg-micro.flag-dk {
-    background-position: -44px -132px
-}
-
-.flag-svg-micro.flag-sn {
-    background-position: -66px -132px
-}
-
-.flag-svg-micro.flag-nb {
-    background-position: -132px -132px
-}
-
-.flag-svg-micro.flag-ca {
-    background-position: -176px -132px
-}
-
-.flag-svg-micro.flag-cy {
-    background-position: -198px -132px
-}
-
-.flag-svg-micro.flag-gn {
-    background-position: 0 -176px
-}
-
-.flag-svg-micro.flag-sw {
-    background-position: -22px -176px
+    background-position: -198px 0
 }
 
 .flag-svg-tiny {
@@ -314,136 +290,20 @@ button {
     background-position: -145px 0
 }
 
-.flag-svg-tiny.flag-ga {
+.flag-svg-tiny.flag-zt {
     background-position: -174px 0
 }
 
-.flag-svg-tiny.flag-hu {
+.flag-svg-tiny.flag-zh_CN {
     background-position: -203px 0
 }
 
-.flag-svg-tiny.flag-ru {
+.flag-svg-tiny.flag-ja {
     background-position: -232px 0
 }
 
-.flag-svg-tiny.flag-pl {
-    background-position: -261px 0
-}
-
-.flag-svg-tiny.flag-ro {
-    background-position: 0 -58px
-}
-
-.flag-svg-tiny.flag-dn {
-    background-position: -29px -58px
-}
-
-.flag-svg-tiny.flag-tr {
-    background-position: -58px -58px
-}
-
-.flag-svg-tiny.flag-id {
-    background-position: -87px -58px
-}
-
-.flag-svg-tiny.flag-ja {
-    background-position: -116px -58px
-}
-
-.flag-svg-tiny.flag-uk {
-    background-position: -145px -58px
-}
-
-.flag-svg-tiny.flag-zt {
-    background-position: -174px -58px
-}
-
-.flag-svg-tiny.flag-el {
-    background-position: -203px -58px
-}
-
-.flag-svg-tiny.flag-bn {
-    background-position: -232px -58px
-}
-
-.flag-svg-tiny.flag-ar {
-    background-position: -261px -58px
-}
-
-.flag-svg-tiny.flag-hi {
-    background-position: 0 -116px
-}
-
-.flag-svg-tiny.flag-he {
-    background-position: -29px -116px
-}
-
 .flag-svg-tiny.flag-ko {
-    background-position: -58px -116px
-}
-
-.flag-svg-tiny.flag-vi {
-    background-position: -87px -116px
-}
-
-.flag-svg-tiny.flag-sv {
-    background-position: -116px -116px
-}
-
-.flag-svg-tiny.flag-zh_CN {
-    background-position: -145px -116px
-}
-
-.flag-svg-tiny.flag-cs {
-    background-position: -174px -116px
-}
-
-.flag-svg-tiny.flag-th {
-    background-position: -203px -116px
-}
-
-.flag-svg-tiny.flag-un {
-    background-position: -232px -116px
-}
-
-.flag-svg-tiny.flag-eo {
-    background-position: -261px -116px
-}
-
-.flag-svg-tiny.flag-kl {
-    background-position: 0 -174px
-}
-
-.flag-svg-tiny.flag-da {
-    background-position: -29px -174px
-}
-
-.flag-svg-tiny.flag-dk {
-    background-position: -58px -174px
-}
-
-.flag-svg-tiny.flag-sn {
-    background-position: -87px -174px
-}
-
-.flag-svg-tiny.flag-nb {
-    background-position: -174px -174px
-}
-
-.flag-svg-tiny.flag-ca {
-    background-position: -232px -174px
-}
-
-.flag-svg-tiny.flag-cy {
-    background-position: -261px -174px
-}
-
-.flag-svg-tiny.flag-gn {
-    background-position: 0 -232px
-}
-
-.flag-svg-tiny.flag-sw {
-    background-position: -29px -232px
+    background-position: -261px 0
 }
 
 .flag-svg-small {
@@ -484,136 +344,20 @@ button {
     background-position: -190px 0
 }
 
-.flag-svg-small.flag-ga {
+.flag-svg-small.flag-zt {
     background-position: -228px 0
 }
 
-.flag-svg-small.flag-hu {
+.flag-svg-small.flag-zh_CN {
     background-position: -266px 0
 }
 
-.flag-svg-small.flag-ru {
+.flag-svg-small.flag-ja {
     background-position: -304px 0
 }
 
-.flag-svg-small.flag-pl {
-    background-position: -342px 0
-}
-
-.flag-svg-small.flag-ro {
-    background-position: 0 -76px
-}
-
-.flag-svg-small.flag-dn {
-    background-position: -38px -76px
-}
-
-.flag-svg-small.flag-tr {
-    background-position: -76px -76px
-}
-
-.flag-svg-small.flag-id {
-    background-position: -114px -76px
-}
-
-.flag-svg-small.flag-ja {
-    background-position: -152px -76px
-}
-
-.flag-svg-small.flag-uk {
-    background-position: -190px -76px
-}
-
-.flag-svg-small.flag-zt {
-    background-position: -228px -76px
-}
-
-.flag-svg-small.flag-el {
-    background-position: -266px -76px
-}
-
-.flag-svg-small.flag-bn {
-    background-position: -304px -76px
-}
-
-.flag-svg-small.flag-ar {
-    background-position: -342px -76px
-}
-
-.flag-svg-small.flag-hi {
-    background-position: 0 -152px
-}
-
-.flag-svg-small.flag-he {
-    background-position: -38px -152px
-}
-
 .flag-svg-small.flag-ko {
-    background-position: -76px -152px
-}
-
-.flag-svg-small.flag-vi {
-    background-position: -114px -152px
-}
-
-.flag-svg-small.flag-sv {
-    background-position: -152px -152px
-}
-
-.flag-svg-small.flag-zh_CN {
-    background-position: -190px -152px
-}
-
-.flag-svg-small.flag-cs {
-    background-position: -228px -152px
-}
-
-.flag-svg-small.flag-th {
-    background-position: -266px -152px
-}
-
-.flag-svg-small.flag-un {
-    background-position: -304px -152px
-}
-
-.flag-svg-small.flag-eo {
-    background-position: -342px -152px
-}
-
-.flag-svg-small.flag-kl {
-    background-position: 0 -228px
-}
-
-.flag-svg-small.flag-da {
-    background-position: -38px -228px
-}
-
-.flag-svg-small.flag-dk {
-    background-position: -76px -228px
-}
-
-.flag-svg-small.flag-sn {
-    background-position: -114px -228px
-}
-
-.flag-svg-small.flag-nb {
-    background-position: -228px -228px
-}
-
-.flag-svg-small.flag-ca {
-    background-position: -304px -228px
-}
-
-.flag-svg-small.flag-cy {
-    background-position: -342px -228px
-}
-
-.flag-svg-small.flag-gn {
-    background-position: 0 -304px
-}
-
-.flag-svg-small.flag-sw {
-    background-position: -38px -304px
+    background-position: -342px 0
 }
 
 .flag-svg-medium {
@@ -651,139 +395,23 @@ button {
 }
 
 .flag-svg-medium.flag-en {
-    background-position: -313px 0
-}
-
-.flag-svg-medium.flag-ga {
-    background-position: -375px 0
-}
-
-.flag-svg-medium.flag-hu {
-    background-position: -438px 0
-}
-
-.flag-svg-medium.flag-ru {
-    background-position: -500px 0
-}
-
-.flag-svg-medium.flag-pl {
-    background-position: -563px 0
-}
-
-.flag-svg-medium.flag-ro {
-    background-position: 0 -125px
-}
-
-.flag-svg-medium.flag-dn {
-    background-position: -63px -125px
-}
-
-.flag-svg-medium.flag-tr {
-    background-position: -125px -125px
-}
-
-.flag-svg-medium.flag-id {
-    background-position: -188px -125px
-}
-
-.flag-svg-medium.flag-ja {
-    background-position: -250px -125px
-}
-
-.flag-svg-medium.flag-uk {
-    background-position: -313px -125px
+    background-position: -312px 0
 }
 
 .flag-svg-medium.flag-zt {
-    background-position: -375px -125px
-}
-
-.flag-svg-medium.flag-el {
-    background-position: -438px -125px
-}
-
-.flag-svg-medium.flag-bn {
-    background-position: -500px -125px
-}
-
-.flag-svg-medium.flag-ar {
-    background-position: -563px -125px
-}
-
-.flag-svg-medium.flag-hi {
-    background-position: 0 -250px
-}
-
-.flag-svg-medium.flag-he {
-    background-position: -63px -250px
-}
-
-.flag-svg-medium.flag-ko {
-    background-position: -125px -250px
-}
-
-.flag-svg-medium.flag-vi {
-    background-position: -188px -250px
-}
-
-.flag-svg-medium.flag-sv {
-    background-position: -250px -250px
+    background-position: -374px 0
 }
 
 .flag-svg-medium.flag-zh_CN {
-    background-position: -313px -250px
+    background-position: -436px 0
 }
 
-.flag-svg-medium.flag-cs {
-    background-position: -375px -250px
+.flag-svg-medium.flag-ja {
+    background-position: -498px 0
 }
 
-.flag-svg-medium.flag-th {
-    background-position: -438px -250px
-}
-
-.flag-svg-medium.flag-un {
-    background-position: -500px -250px
-}
-
-.flag-svg-medium.flag-eo {
-    background-position: -563px -250px
-}
-
-.flag-svg-medium.flag-kl {
-    background-position: 0 -375px
-}
-
-.flag-svg-medium.flag-da {
-    background-position: -63px -375px
-}
-
-.flag-svg-medium.flag-dk {
-    background-position: -125px -375px
-}
-
-.flag-svg-medium.flag-sn {
-    background-position: -188px -375px
-}
-
-.flag-svg-medium.flag-nb {
-    background-position: -375px -375px
-}
-
-.flag-svg-medium.flag-ca {
-    background-position: -500px -375px
-}
-
-.flag-svg-medium.flag-cy {
-    background-position: -563px -375px
-}
-
-.flag-svg-medium.flag-gn {
-    background-position: 0 -500px
-}
-
-.flag-svg-medium.flag-sw {
-    background-position: -63px -500px
+.flag-svg-medium.flag-ko {
+    background-position: -560px 0
 }
 
 .flag-svg-large {
@@ -824,149 +452,21 @@ button {
     background-position: -625px 0
 }
 
-.flag-svg-large.flag-ga {
-    background-position: -750px 0
-}
-
-.flag-svg-large.flag-hu {
-    background-position: -875px 0
-}
-
-.flag-svg-large.flag-ru {
-    background-position: -1000px 0
-}
-
-.flag-svg-large.flag-pl {
-    background-position: -1125px 0
-}
-
-.flag-svg-large.flag-ro {
-    background-position: 0 -250px
-}
-
-.flag-svg-large.flag-dn {
-    background-position: -125px -250px
-}
-
-.flag-svg-large.flag-tr {
-    background-position: -250px -250px
-}
-
-.flag-svg-large.flag-id {
-    background-position: -375px -250px
-}
-
-.flag-svg-large.flag-ja {
-    background-position: -500px -250px
-}
-
-.flag-svg-large.flag-uk {
-    background-position: -625px -250px
-}
-
 .flag-svg-large.flag-zt {
     background-position: -750px -250px
 }
 
-.flag-svg-large.flag-el {
-    background-position: -875px -250px
-}
-
-.flag-svg-large.flag-bn {
-    background-position: -1000px -250px
-}
-
-.flag-svg-large.flag-ar {
-    background-position: -1125px -250px
-}
-
-.flag-svg-large.flag-hi {
-    background-position: 0 -500px
-}
-
-.flag-svg-large.flag-he {
-    background-position: -125px -500px
-}
-
-.flag-svg-large.flag-ko {
-    background-position: -250px -500px
-}
-
-.flag-svg-large.flag-vi {
-    background-position: -375px -500px
-}
-
-.flag-svg-large.flag-sv {
-    background-position: -500px -500px
-}
-
-{
-.
-flag-svg-large
-.
-flag-zh_CN
-background-position
-:
--
-625
-px
--
-500
-px
-}
-
-.flag-svg-large.flag-cs {
-    background-position: -750px -500px
-}
-
-.flag-svg-large.flag-th {
+.flag-svg-large .flag-zh_CN {
     background-position: -875px -500px
 }
 
-.flag-svg-large.flag-un {
-    background-position: -1000px -500px
+.flag-svg-large.flag-ja {
+    background-position: -1000px -250px
 }
 
-.flag-svg-large.flag-eo {
+.flag-svg-large.flag-ko {
     background-position: -1125px -500px
 }
-
-.flag-svg-large.flag-kl {
-    background-position: 0 -750px
-}
-
-.flag-svg-large.flag-da {
-    background-position: -125px -750px
-}
-
-.flag-svg-large.flag-dk {
-    background-position: -250px -750px
-}
-
-.flag-svg-large.flag-sn {
-    background-position: -375px -750px
-}
-
-.flag-svg-large.flag-nb {
-    background-position: -750px -750px
-}
-
-.flag-svg-large.flag-ca {
-    background-position: -1000px -750px
-}
-
-.flag-svg-large.flag-cy {
-    background-position: -1125px -750px
-}
-
-.flag-svg-large.flag-gn {
-    background-position: 0 -1000px
-}
-
-.flag-svg-large.flag-sw {
-    background-position: -125px -1000px
-}
-
 /* 语言图标 结束 */
 
 .link {

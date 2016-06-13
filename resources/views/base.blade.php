@@ -7,13 +7,7 @@
     <meta name="description" content="">
     <meta name="Keywords" content="Alphabeille">
     <title>@yield('title')</title>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,900' rel='stylesheet'
-          type='text/css'>
-    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"--}}
-          {{--integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">--}}
-    {{--<link rel="stylesheet" href="/css/dropdowns-enhancement.min.css">--}}
     <link rel="stylesheet" href="/css/app.css">
-    {{--<link rel="stylesheet" href="/css/tooltips.css">--}}
     <meta id="token" name="token" value="{{csrf_token()}}">
     @yield('othercss' )
 </head>
