@@ -24,7 +24,7 @@ button {
 * {
     font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;
     -webkit-font-smoothing: antialiased;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .g-font {
@@ -112,7 +112,7 @@ button {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -283,7 +283,7 @@ button {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -453,7 +453,7 @@ button {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -623,7 +623,7 @@ button {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -793,7 +793,7 @@ button {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -1512,7 +1512,7 @@ ul {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -1683,7 +1683,7 @@ ul {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -1853,7 +1853,7 @@ ul {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -2023,7 +2023,7 @@ ul {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -2193,7 +2193,7 @@ ul {
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    background-image: url("../../../public/img/flag_sprites.svg");
+    background-image: url("../img/flag_sprites.svg");
     -webkit-border-radius: 200px;
     -moz-border-radius: 200px;
     border-radius: 200px;
@@ -2646,7 +2646,7 @@ px
 
 .Card-title a {
     color: inherit;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 14px;
     text-decoration: none;
 }
@@ -2656,7 +2656,7 @@ px
 }
 
 .Card-count {
-    font-weight: 600;
+    font-weight: 400;
     text-align: right;
     font-size: 22px;
     float: right;
@@ -4126,7 +4126,7 @@ px
 /* Icon */
 .svg-icon {
     display: inline-block;
-    background-image: url("../../../public/img/all.svg");
+    background-image: url("../img/all.svg");
     background-size: 300px;
     margin-top: 10px;
 }
