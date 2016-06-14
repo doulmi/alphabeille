@@ -11,30 +11,17 @@ use Illuminate\Support\Facades\Input;
 
 class TopicController extends BaseApiController
 {
+    private $selectedCols = ['id','title', 'description', 'avatar', 'level'];
     /**
      * Display a listing of the resource.
      *
+     * @param $count : 每一页展现的内容数
+     * @param $page : 页数
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-//        $num = Input::get('num', 8);
-        $topics = Topic::latest()->paginate(8);
+    public function index($count, $page) {
+        $topics = Topic::latest()->paginate($count, $this->selectedCols, 'page', $page);
         return $this->response->paginator($topics, new TopicTransformer());
-//        return $this->response->collection($topics, new TopicTransformer());
-    }
-
-
-    /**
-     * 从最新的100个里面随机取出的n条数据
-     * @return \Dingo\Api\Http\Response
-     */
-    public function random() {
-        $num = Input::get('num', 4);
-        $max = Input::get('max', 100);
-        $topics = Topic::latest()->limit($max)->get();
-
-        return $this->response->collection($topics->random($num), new TopicTransformer());
     }
 
     /**
@@ -44,7 +31,6 @@ class TopicController extends BaseApiController
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -55,7 +41,6 @@ class TopicController extends BaseApiController
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -64,14 +49,13 @@ class TopicController extends BaseApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $talkshow = Topic::findOrFail($id);
+    public function show($id) {
+        $topic = Topic::find($id, $this->selectedCols);
 
-        if (!$talkshow) {
+        if (!$topic) {
             $this->response->errorNotFound();
         } else {
-            return $this->response->item($talkshow, new TopicTransformer());
+            return $this->response->item($topic, new TopicTransformer());
         }
     }
 

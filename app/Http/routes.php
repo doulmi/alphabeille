@@ -42,16 +42,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
-//    $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {
-//        $api->post('auth/login', 'AuthenticateController@authenticate');
-//        $api->post('auth/register', 'AuthenticateController@register');
-//        $api->get('topics/{id}', 'TopicController@show');
-//        $api->get('topics', 'TopicController@index');
-//        $api->get('talkshows/random', 'TalkshowController@random');
-//        $api->get('talkshows', 'TalkshowController@index');
+    $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {
+        $api->post('auth/login', 'AuthenticateController@authenticate');
+        $api->post('auth/register', 'AuthenticateController@register');
+        $api->get('topics/{count}/{page}', 'TopicController@index');
+        $api->get('topics/{id}', 'TopicController@show');
+        $api->get('talkshows/{count}/{page}', 'TalkshowController@index');
         $api->get('messages/{id}', 'MessageController@show');
-//        $api->group(['middleware' => 'jwt.auth'], function($api) {
-//            $api->get('users/me', 'AuthenticateController@getAuthenticatedUser');
-//        });
-//    });
+        $api->get('talkshows/{id}', 'TalkshowController@show');
+        $api->group(['middleware' => 'jwt.auth'], function($api) {
+            $api->get('users/me', 'AuthenticateController@getAuthenticatedUser');
+        });
+    });
 });

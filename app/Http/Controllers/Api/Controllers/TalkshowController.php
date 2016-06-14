@@ -11,47 +11,17 @@ use Illuminate\Support\Facades\Input;
 
 class TalkshowController extends BaseApiController
 {
-//    /**
-//     * TalkshowController constructor.
-//     */
-//    public function __construct()
-//    {
-//        $this->middleware('auth.basic', ['only' => ['store', 'update']]);
-//    }
-
+    private $selectedCols = ['id','title', 'description', 'avatar', 'free', 'likes', 'views' ];
     /**
      * Display a listing of the resource.
      *
+     * @param $count : 每一页展现的内容数
+     * @param $page : 页数
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $limit = Input::get('limit', 8);
-        $num = Input::get('num', 8);
-        $talkshows = Talkshow::latest()->limit($num)->get();
-        return $this->response->collection($talkshows, new TalkshowTransformer());
-    }
-
-    /**
-     * 从最新的100个里面随机取出的n条数据
-     * @return \Dingo\Api\Http\Response
-     */
-    public function random() {
-        $num = Input::get('num', 4);
-        $max = Input::get('max', 100);
-        $talkshows = Talkshow::latest()->limit($max)->get();
-
-        return $this->response->collection($talkshows->random($num), new TalkshowTransformer());
-    }
-
-    /**
-     * 取得最新的$num个Talkshow
-     * @param $num
-     * @return \Dingo\Api\Http\Response
-     */
-    public function latest($num) {
-        $talkshows = Talkshow::latest()->limit($num)->get();
-        return $this->response->collection($talkshows, new TalkshowTransformer());
+    public function index($count, $page) {
+        $topics = Talkshow::latest()->paginate($count, $this->selectedCols, 'page', $page);
+        return $this->response->paginator($topics, new TalkshowTransformer());
     }
 
     /**
@@ -61,14 +31,6 @@ class TalkshowController extends BaseApiController
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
-
-        if (!$request->get('title') or !$request->get('description')) {
-            return $this->response->errorUnauthorized();
-        } else {
-            Talkshow::create($request->all());
-            return $this->setStatusCode(201)->responseSuccess(['Talkshow created']);
-        }
     }
 
     /**
@@ -78,25 +40,19 @@ class TalkshowController extends BaseApiController
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        dd(AuthenticateController::getAuthenticatedUser());
-        $talkshow = Talkshow::findOrFail($id);
+        $talkshow = Talkshow::find($id, $this->selectedCols);
+
+        $user = $this->auth->user();
 
         if (!$talkshow) {
-           return $this->response->errorNotFound(trans('labels.talkshowNotFound'));
+           return $this->response->errorNotFound();
         } else {
-           return $this->item($talkshow, new TalkshowTransformer());
+            return response()->json([
+                'user_id' =>$user->id
+            ]);
+//           return $this->item($talkshow, new TalkshowTransformer());
         }
     }
-
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param  int $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function edit($id)
-//    {
-//    }
 
     /**
      * Update the specified resource in storage.
