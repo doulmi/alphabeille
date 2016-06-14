@@ -105,13 +105,7 @@
         <div class="Header"></div>
     </div>
 
-    <div class="small-beach">
-        <ul>
-            <li class="layer umbra"><img src="/img/umbra.png"></li>
-            <li class="layer cloud1"><img src="/img/cloud1.png"></li>
-            <li class="layer cloud2"><img src="/img/cloud2.png"></li>
-        </ul>
-    </div>
+    @include('smallBeach')
 @endsection
 
 @section('otherjs')
