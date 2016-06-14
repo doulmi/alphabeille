@@ -42,6 +42,18 @@ return [
     */
 
     'disks' => [
+        'qiniu' => [
+            'driver'  => 'qiniu',
+            'domains' => [
+                'default'   => 'idux73p.qiniudns.com', //你的七牛域名
+                'https'     => 'alpha-beille.com',         //你的HTTPS域名
+                'custom'    => 'alpha-beille.com',     //你的自定义域名
+            ],
+            'access_key'=> 'tjX-2-ARL_7AlQhP5b5H0Mx0Cb1DcFkx50dwsskv',  //AccessKey
+            'secret_key'=> 'k6A5lkZUaM2Ft0t9IB7LFu0b5vRKeZjy-ly4MZLM',  //SecretKey
+            'bucket'    => 'alphabeille',  //Bucket名字
+            'notify_url'=> 'http://alpha-beille.com',  //持久化处理回调地址
+        ],
 
         'local' => [
             'driver' => 'local',

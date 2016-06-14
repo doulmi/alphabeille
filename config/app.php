@@ -156,6 +156,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
 
         /*
          * Application Service Providers...

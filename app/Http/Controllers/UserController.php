@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Pingpp\RedEnvelope;
+use zgldh\QiniuStorage\QiniuStorage;
 
 class UserController extends Controller
 {
@@ -41,7 +42,6 @@ class UserController extends Controller
 
     public function uploadAvatar(Request $request) {
         $user = $request->user();
-
         $avatar = $request->file('avatar');
 
         //判断上传文件是否是图片
@@ -60,12 +60,12 @@ class UserController extends Controller
         $destinationPath = 'img/avatar/';
         $filename = 'avatar-' . $user->id . '-' . time() . '.jpg';
         $avatar->move($destinationPath, $filename);
+
         Image::make($destinationPath . $filename)->fit(200)->save();
         $user->avatar = '/' . $destinationPath . $filename;
         $user->save();
 
-        return response()->json(
-            [
+        return response()->json( [
                 'success' => true,
                 'avatar' => asset($destinationPath . $filename),
             ]

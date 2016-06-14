@@ -13,15 +13,16 @@
             </a>
         </div>
 
-        <form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" role="search">
-            <div class="form-group">
-                <div class="input-group navbar-search">
-                    <input type="text" class="navbar-search-input form-control"
-                           aria-label="Amount (to the nearest dollar)" placeholder="@lang('labels.whatuwant')">
-                    <span class="input-group-addon navbar-search-btn"><span class="glyphicon glyphicon-search "></span></span>
-                </div>
-            </div>
-        </form>
+        {{----}}
+        {{--<form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" role="search">--}}
+            {{--<div class="form-group">--}}
+                {{--<div class="input-group navbar-search">--}}
+                    {{--<input type="text" class="navbar-search-input form-control"--}}
+                           {{--aria-label="Amount (to the nearest dollar)" placeholder="@lang('labels.whatuwant')">--}}
+                    {{--<span class="input-group-addon navbar-search-btn"><span class="glyphicon glyphicon-search "></span></span>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</form>--}}
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">

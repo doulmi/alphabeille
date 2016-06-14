@@ -3167,7 +3167,7 @@ px
     color: #fff;
 }
 
-.Button-with-icon.Button-active > i, .Button-with-icon:hover > i {
+.Button-with-icon.Button-active > li, .Button-with-icon:hover > li {
     background: #FFD346
 }
 
