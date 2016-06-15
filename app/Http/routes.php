@@ -42,7 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
-    $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {
+    $api->group(['namespace' => 'App\Http\Controllers\API\Controllers'], function ($api) {
         $api->post('auth/login', 'AuthenticateController@authenticate');
         $api->post('auth/register', 'AuthenticateController@register');
         $api->get('topics/{count}/{page}', 'TopicController@index');
