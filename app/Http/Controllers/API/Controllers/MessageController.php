@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 
 class MessageController extends BaseApiController
 {
+
     /**
      * Display a listing of the resource.
      *

@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class MessageTransformer extends TransformerAbstract
 {
+
     public function transform(Message $msg ) {
         $from = $msg->from();
         return [
