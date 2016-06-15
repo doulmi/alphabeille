@@ -2,26 +2,23 @@
 
 namespace App\Http\Controllers\Api\Controllers;
 
-use App\Http\Controllers\Api\Transformers\TopicTransformer;
-use App\Topic;
+use App\Message;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Api\Transformers\MessageTransformer;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 
-class TopicController extends BaseApiController
+class MessageController extends BaseApiController
 {
-    private $selectedCols = ['id','title', 'description', 'avatar', 'level'];
+
     /**
      * Display a listing of the resource.
      *
-     * @param $count : 每一页展现的内容数
-     * @param $page : 页数
      * @return \Illuminate\Http\Response
      */
-    public function index($count, $page) {
-        $topics = Topic::latest()->paginate($count, $this->selectedCols, 'page', $page);
-        return $this->response->paginator($topics, new TopicTransformer());
+    public function index()
+    {
+        //
     }
 
     /**
@@ -31,6 +28,7 @@ class TopicController extends BaseApiController
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -41,6 +39,7 @@ class TopicController extends BaseApiController
      */
     public function store(Request $request)
     {
+        //
     }
 
     /**
@@ -49,13 +48,23 @@ class TopicController extends BaseApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        $topic = Topic::find($id, $this->selectedCols);
-
-        if (!$topic) {
-            $this->response->errorNotFound();
+    public function show($id)
+    {
+        $userId = Input::get('id');
+        if(!$userId) {
+            return $this->response->errorUnauthorized();
         } else {
-            return $this->response->item($topic, new TopicTransformer());
+            $message = Message::where('to', $userId)->where('id', $id)->first();
+            if(!$message->isRead) {
+               $message->isRead = true;
+               $message->save();
+            }
+
+            if (!$message) {
+                $this->response->errorNotFound();
+            } else {
+                return $this->response->item($message, new MessageTransformer());
+            }
         }
     }
 

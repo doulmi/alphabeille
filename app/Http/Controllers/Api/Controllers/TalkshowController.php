@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Controllers;
+namespace App\Http\Controllers\Api\Controllers;
 
 use App\Http\Controllers\Api\Transformers\TalkshowTransformer;
 use App\Talkshow;
