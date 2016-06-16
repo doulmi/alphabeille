@@ -145,6 +145,7 @@ return [
         */
 
         'jwt' => 'Tymon\JWTAuth\Providers\JWT\NamshiAdapter',
+//        'jwt' => 'Dingo\Api\Auth\Provider\JWT',
 
         /*
         |--------------------------------------------------------------------------

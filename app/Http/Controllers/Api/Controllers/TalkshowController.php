@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api\Controllers;
 use App\Http\Controllers\Api\Transformers\TalkshowTransformer;
 use App\Talkshow;
 use Illuminate\Http\Request;
+use JWTAuth;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 
 class TalkshowController extends BaseApiController
 {
-    private $selectedCols = ['id','title', 'description', 'avatar', 'free', 'likes', 'views' ];
+    private $selectedCols = ['id', 'title', 'description', 'avatar', 'free', 'likes', 'views', 'download_url', 'audio_url', 'created_at', 'duration'];
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +21,10 @@ class TalkshowController extends BaseApiController
      * @param $page : 页数
      * @return \Illuminate\Http\Response
      */
-    public function index($count, $page) {
-        $topics = Talkshow::latest()->paginate($count, $this->selectedCols, 'page', $page);
-        return $this->response->paginator($topics, new TalkshowTransformer());
+    public function index($count, $page)
+    {
+        $talkshows = Talkshow::latest()->paginate($count, $this->selectedCols, 'page', $page);
+        return $this->response->paginator($talkshows, new TalkshowTransformer());
     }
 
     /**
@@ -30,7 +33,8 @@ class TalkshowController extends BaseApiController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
     }
 
     /**
@@ -39,19 +43,44 @@ class TalkshowController extends BaseApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         $talkshow = Talkshow::find($id, $this->selectedCols);
-
-        $user = $this->auth->user();
-
-        if (!$talkshow) {
-           return $this->response->errorNotFound();
-        } else {
-            return response()->json([
-                'user_id' =>$user->id
-            ]);
-//           return $this->item($talkshow, new TalkshowTransformer());
+        if(!$talkshow){
+            $this->response->errorNotFound();
         }
+
+        $result = [
+            'id' => $talkshow->id,
+            'title' => $talkshow->title,
+            'description' => $talkshow->description,
+            'likes' => $talkshow->likes,
+            'views' => $talkshow->views,
+            'free' => $talkshow->free,
+            'avatar' => $talkshow->avatar,
+            'duration' => $talkshow->duration,
+            'created_at' => $talkshow->create_at
+        ];
+
+        $user = JWTAuth::toUser(Input::get('token'));
+        if ($user->level() == 1 && !$talkshow->free) {
+            //user have no authentcation to see the audio_url
+            return $result;
+        } else {
+            return array_merge($result, [
+                'audio_url' => $talkshow->audio_url,
+                'download_url' => $talkshow->download_url
+            ]);
+        }
+
+//        return response()->json([
+//            'level' => $user->level(),
+//            'free' => $talkshow->free,
+//            'url' => $talkshow->audioUrl
+//        ]);
+
+//        return
+//        return $this->item($talkshow, new TalkshowTransformer());
     }
 
     /**
@@ -61,7 +90,8 @@ class TalkshowController extends BaseApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
     }
 
     /**
@@ -70,6 +100,7 @@ class TalkshowController extends BaseApiController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
     }
 }

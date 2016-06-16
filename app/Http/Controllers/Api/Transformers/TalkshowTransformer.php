@@ -14,7 +14,10 @@ class TalkshowTransformer extends TransformerAbstract
             'description' => $talkshow->description,
             'likes' => $talkshow->likes,
             'views' => $talkshow->views,
-            'avatar' => $talkshow->avatar
+            'free' => $talkshow->free,
+            'avatar' => $talkshow->avatar,
+            'duration' => $talkshow->duration,
+            'created_at' => $talkshow->create_at
         ];
     }
 }

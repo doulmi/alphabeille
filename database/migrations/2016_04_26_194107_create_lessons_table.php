@@ -18,6 +18,9 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->integer('order');
+            $table->string('audio_url');
+            $table->string('download_url');
+            $table->string('duration');
             $table->integer('likes')->default(0);
             $table->boolean('free')->default(false);
             $table->integer('views')->default(0);

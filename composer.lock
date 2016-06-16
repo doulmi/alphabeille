@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ec2110393a4d5e471acdb14f3aa007ea",
-    "content-hash": "31ec72d06cb1aee1a46f957244b5f155",
+    "hash": "a4117efce02b19a1fdf0a1b2eab05941",
+    "content-hash": "9eea8f8472ac349d8e4a73ade4aee001",
     "packages": [
         {
             "name": "bican/roles",
@@ -987,6 +987,42 @@
                 }
             ],
             "time": "2015-04-20 18:58:01"
+        },
+        {
+            "name": "james-heinrich/getid3",
+            "version": "v1.9.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JamesHeinrich/getID3.git",
+                "reference": "41c05612d532d30f07680cad3a4a6efbec7fc7f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JamesHeinrich/getID3/zipball/41c05612d532d30f07680cad3a4a6efbec7fc7f5",
+                "reference": "41c05612d532d30f07680cad3a4a6efbec7fc7f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "getid3/getid3.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "description": "PHP script that extracts useful information from popular multimedia file formats",
+            "homepage": "http://www.getid3.org/",
+            "keywords": [
+                "codecs",
+                "php",
+                "tags"
+            ],
+            "time": "2016-03-02 13:13:30"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -3078,58 +3114,6 @@
                 "environment"
             ],
             "time": "2016-04-15 10:48:49"
-        },
-        {
-            "name": "zgldh/qiniu-laravel-storage",
-            "version": "v0.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zgldh/qiniu-laravel-storage.git",
-                "reference": "c994b529213eb53633dd6241e6f806ba9b8c7a60"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zgldh/qiniu-laravel-storage/zipball/c994b529213eb53633dd6241e6f806ba9b8c7a60",
-                "reference": "c994b529213eb53633dd6241e6f806ba9b8c7a60",
-                "shasum": ""
-            },
-            "require": {
-                "league/flysystem": "^1.0",
-                "php": ">=5.3.3",
-                "qiniu/php-sdk": "~7.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "zgldh\\QiniuStorage\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "zgldh",
-                    "email": "zgldh@hotmail.com",
-                    "role": "Original Developer"
-                },
-                {
-                    "name": "abcsun",
-                    "email": "chenglongsun_nj@163.com",
-                    "homepage": "http://github.com/abcsun",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Qiniu Resource (Cloud) Storage SDK for Laravel 5",
-            "keywords": [
-                "cloud",
-                "laravel",
-                "qiniu",
-                "sdk",
-                "storage"
-            ],
-            "time": "2016-06-06 06:17:47"
         }
     ],
     "packages-dev": [
@@ -4540,6 +4524,58 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-03-04 07:55:57"
+        },
+        {
+            "name": "zgldh/qiniu-laravel-storage",
+            "version": "v0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zgldh/qiniu-laravel-storage.git",
+                "reference": "c994b529213eb53633dd6241e6f806ba9b8c7a60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zgldh/qiniu-laravel-storage/zipball/c994b529213eb53633dd6241e6f806ba9b8c7a60",
+                "reference": "c994b529213eb53633dd6241e6f806ba9b8c7a60",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^1.0",
+                "php": ">=5.3.3",
+                "qiniu/php-sdk": "~7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "zgldh\\QiniuStorage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "zgldh",
+                    "email": "zgldh@hotmail.com",
+                    "role": "Original Developer"
+                },
+                {
+                    "name": "abcsun",
+                    "email": "chenglongsun_nj@163.com",
+                    "homepage": "http://github.com/abcsun",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Qiniu Resource (Cloud) Storage SDK for Laravel 5",
+            "keywords": [
+                "cloud",
+                "laravel",
+                "qiniu",
+                "sdk",
+                "storage"
+            ],
+            "time": "2016-06-06 06:17:47"
         }
     ],
     "aliases": [],
