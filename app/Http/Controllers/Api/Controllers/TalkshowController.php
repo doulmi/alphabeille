@@ -62,16 +62,20 @@ class TalkshowController extends BaseApiController
             'created_at' => $talkshow->create_at
         ];
 
-        $user = JWTAuth::toUser(Input::get('token'));
-        if ($user->level() == 1 && !$talkshow->free) {
-            //user have no authentcation to see the audio_url
-            return $result;
-        } else {
-            return array_merge($result, [
-                'audio_url' => $talkshow->audio_url,
-                'download_url' => $talkshow->download_url
-            ]);
+        $token = Input::get('token');
+
+        if($token) {
+            $user = JWTAuth::toUser($token);
+            if ($user->level() > 1 || $talkshow->free) {
+                //user have no authentcation to see the audio_url
+                return array_merge($result, [
+                    'audio_url' => $talkshow->audio_url,
+                    'download_url' => $talkshow->download_url
+                ]);
+            }
         }
+
+        return $result;
 
 //        return response()->json([
 //            'level' => $user->level(),
