@@ -9,10 +9,22 @@
         <div class="Header"></div>
         <div class="Header"></div>
 
+        @if(isset($pre))
+            <div class="prePage" ><a href="{{url('talkshows/' . $pre->id )}}" class="glyphicon glyphicon-chevron-left pre-page-icon"></a></div>
+        @endif
+
+        @if(isset($next))
+            <div class="nextPage">
+                <a href="{{url('talkshows/' . $next->id)}}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        @endif
+
         <div class="Card-Collection">
             <h2 class="mar-t-z center">
                 {{ $talkshow->title }}
             </h2>
+
+
 
             <audio id='audio' preload="auto" controls hidden>
                 <source src="https://raw.githubusercontent.com/kolber/audiojs/master/mp3/bensound-dubstep.mp3"/>

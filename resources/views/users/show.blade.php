@@ -161,8 +161,6 @@
 
 @section('otherjs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
-    <script src="/js/fullscreen.js"></script>
-
     <script>
         $(document).ready(function () {
             var options = {

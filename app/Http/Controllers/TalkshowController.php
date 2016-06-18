@@ -64,9 +64,10 @@ class TalkshowController extends Controller
         if( !$talkshow ) {
             abort(404);
         } else {
-            $topics = App::make('App\Http\Controllers\TopicController')->random();
-            $talkshows = App::make('App\Http\Controllers\TalkshowController')->random();
-            return view('talkshows.show', compact(['talkshow', 'topics', 'talkshows']));
+            $talkshows = $this->random();
+            $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
+            $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
+            return view('talkshows.show', compact(['talkshow', 'talkshows', 'next', 'pre']));
         }
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\Controllers;
 
+use App\Http\Controllers\Api\Transformers\LessonTransformer;
 use App\Http\Controllers\Api\Transformers\TopicTransformer;
+use App\Lesson;
 use App\Topic;
 use Illuminate\Http\Request;
 
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 class TopicController extends BaseApiController
 {
     private $selectedCols = ['id','title', 'description', 'avatar', 'level'];
+    private $selectedLessonCols = ['id', 'title', 'description', 'order', 'likes', 'free', 'views', 'audio_url', 'download_url', 'created_at', 'duration'];
     /**
      * Display a listing of the resource.
      *
@@ -31,6 +34,11 @@ class TopicController extends BaseApiController
      */
     public function create()
     {
+    }
+
+    public function lessons($topicId) {
+        $lessons = Lesson::where('topic_id', $topicId)->orderBy('order')->get($this->selectedLessonCols);
+        return $this->response->collection($lessons, new LessonTransformer());
     }
 
     /**

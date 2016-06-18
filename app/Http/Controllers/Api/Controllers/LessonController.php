@@ -21,8 +21,7 @@ class LessonController extends BaseApiController
      */
     public function index($topicId)
     {
-        $lessons = Lesson::where('topic_id', $topicId)->orderBy('order')->get($this->selectedCols);
-        return $this->response->collection($lessons, new LessonTransformer());
+
     }
 
     /**
@@ -73,10 +72,16 @@ class LessonController extends BaseApiController
             'created_at' => $lesson->create_at
         ];
 
+        if ($lesson->free) {
+            return array_merge($result, [
+                'audio_url' => $lesson->audio_url,
+                'download_url' => $lesson->download_url
+            ]);
+        }
         $token = Input::get('token');
         if ($token) {
             $user = JWTAuth::toUser($token);
-            if ($user->level() > 1 || $lesson->free) {
+            if ($user->level() > 1) {
                 return array_merge($result, [
                     'audio_url' => $lesson->audio_url,
                     'download_url' => $lesson->download_url

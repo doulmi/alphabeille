@@ -49,10 +49,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li data-tooltips="@lang('labels.series')" class="li-series tooltips-bottom">
-                        <i class="svg-icon svg-icon-series"></i>
-                        <span class="white label-svg-series">{{Auth::user()->download}}</span>
-                    </li>
+                    {{--<li data-tooltips="@lang('labels.series')" class="li-series tooltips-bottom">--}}
+                        {{--<i class="svg-icon svg-icon-series"></i>--}}
+                        {{--<span class="white label-svg-series">{{Auth::user()->download}}</span>--}}
+                    {{--</li>--}}
 
                     <li data-tooltips="@lang('labels.downloadLimit')" class="li-miel tooltips-bottom">
                         <i class="svg-icon svg-icon-miel"></i>

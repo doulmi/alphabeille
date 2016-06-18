@@ -3,14 +3,13 @@
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
 Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
-//Route::get('flags', function() { return view('flags'); });
 
 Route::get('/', 'PostController@index');
 
 Route::auth();
 Route::resource('chat', 'ChatController');
 Route::resource('topics', 'TopicController');
-Route::post('topics/{ids}/delete', 'TopicController@multiDestroy');
+Route::post('topics/{ids}/delete', 'TopicController@multiDestroy')->where(['id' => '[0-9]+']);
 Route::resource('lessons', 'LessonController');
 Route::resource('talkshows', 'TalkshowController');
 Route::resource('messages', 'MessageController');
@@ -45,13 +44,13 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {
         $api->post('auth/login', 'AuthenticateController@authenticate');
         $api->post('auth/register', 'AuthenticateController@register');
-        $api->get('topics/{count}/{page}', 'TopicController@index');
-        $api->get('topics/{id}', 'TopicController@show');
-        $api->get('talkshows/{count}/{page}', 'TalkshowController@index');
-        $api->get('lessons/{topicId}/index', 'LessonController@index');
-        $api->get('lessons/{id}', 'LessonController@show');
-        $api->get('messages/{id}', 'MessageController@show');
-        $api->get('talkshows/{id}', 'TalkshowController@show');
+        $api->get('topics/{count}/{page}', 'TopicController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
+        $api->get('topics/{id}', 'TopicController@show')->where(['id' => '[0-9]+']);
+        $api->get('talkshows/{count}/{page}', 'TalkshowController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
+        $api->get('topics/{id}/lessons', 'TopicController@lessons')->where(['id' => '[0-9]+']);
+        $api->get('lessons/{id}', 'LessonController@show')->where(['id' => '[0-9]+']);
+        $api->get('messages/{id}', 'MessageController@show')->where(['id' => '[0-9]+']);
+        $api->get('talkshows/{id}', 'TalkshowController@show')->where(['id' => '[0-9]+']);
         $api->group(['middleware' => 'jwt.auth'], function($api) {
             $api->get('users/me', 'AuthenticateController@getAuthenticatedUser');
         });

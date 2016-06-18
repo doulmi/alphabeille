@@ -62,11 +62,18 @@ class TalkshowController extends BaseApiController
             'created_at' => $talkshow->create_at
         ];
 
+        if($talkshow->free) {
+            return array_merge($result, [
+                'audio_url' => $talkshow->audio_url,
+                'download_url' => $talkshow->download_url
+            ]);
+        }
+
         $token = Input::get('token');
 
         if($token) {
             $user = JWTAuth::toUser($token);
-            if ($user->level() > 1 || $talkshow->free) {
+            if ($user->level() > 1) {
                 //user have no authentcation to see the audio_url
                 return array_merge($result, [
                     'audio_url' => $talkshow->audio_url,
@@ -75,16 +82,9 @@ class TalkshowController extends BaseApiController
             }
         }
 
+
+
         return $result;
-
-//        return response()->json([
-//            'level' => $user->level(),
-//            'free' => $talkshow->free,
-//            'url' => $talkshow->audioUrl
-//        ]);
-
-//        return
-//        return $this->item($talkshow, new TalkshowTransformer());
     }
 
     /**
