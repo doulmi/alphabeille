@@ -26,7 +26,7 @@
         <div class="Card-Collection" >
             @include('lessons.lessonsAvatarList')
             <h2 class="row center">
-                <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/topics')}}">@lang('labels.more')</a>
+                <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons')}}">@lang('labels.more')</a>
             </h2>
         </div>
 

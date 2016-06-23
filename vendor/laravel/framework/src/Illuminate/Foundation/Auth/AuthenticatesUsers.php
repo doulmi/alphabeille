@@ -67,6 +67,7 @@ trait AuthenticatesUsers
         if ($throttles && ! $lockedOut) {
             $this->incrementLoginAttempts($request);
         }
+
         return $this->sendFailedLoginResponse($request);
     }
     /**
