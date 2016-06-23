@@ -5,6 +5,12 @@
 
     RewriteEngine On
 
+    #防盗链
+    RewriteCond %{HTTP_REFERER} !^http://(www\.)?alpha-beille\.com/.*$ [NC]
+    RewriteRule \.(mp3|rar)$ http://www.alpha-beille.com [R=301,L]
+    #RewriteLog "logs/rewrite.log"
+    #RewriteLogLevel 3
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]

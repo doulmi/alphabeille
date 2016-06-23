@@ -53,6 +53,7 @@ class CommentController extends Controller
             return DB::transaction(function () use ($request, $discussion) {
                 $content = $request->get('content');
                 $user = Auth::user();
+
                 Comment::create([
                     'discussion_id' => $discussion->id,
                     'user_id' => $user->id,

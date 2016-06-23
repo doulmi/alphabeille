@@ -9,4 +9,6 @@ class UserSubscription extends Model
     protected $fillable = [
         'user_id', 'subscription_id', 'extends', 'price'
     ];
+
+    protected $dates = ['expire_at'];
 }

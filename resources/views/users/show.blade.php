@@ -114,6 +114,8 @@
 
                 <div class="col-md-8" id="pwdTab" style="display:none">
                     <div class="info-panel">
+                        <h3>@lang('labels.accountPwd')</h3>
+
                         <form class="form-horizontal info-group" method="POST" action="{{url('modifyPwd')}}">
                             {!! csrf_field() !!}
                             <div class="form-group"><label
@@ -161,6 +163,7 @@
 
 @section('otherjs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+
     <script>
         $(document).ready(function () {
             var options = {

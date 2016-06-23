@@ -4172,6 +4172,12 @@ px
     background-position: -48px -1px;
 }
 
+.svg-icon-headphone {
+    width:15px;
+    height:15px;
+    background-position: -48px -21px;
+}
+
 .half-opacity {
     opacity: 0.5;
 }
@@ -4193,6 +4199,7 @@ px
     left: 30px;
     top: 13px;
 }
+
 
 .li-miel {
     margin-right: 20px;

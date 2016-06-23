@@ -34,8 +34,8 @@
                 <div class="Card-footer">
                     <div class="hidden-xs Card-footer-content">
                         <span class="topic-view">
-                            <span class="glyphicon glyphicon-eye-open"><span
-                                        class="g-font">{{ $topic->views() }} </span></span>
+                            <i class="svg-icon svg-icon-headphone"></i>
+                            <span class="g-font">{{ $topic->views() }} </span>
                         </span>
 
                         <span class="topic-like">

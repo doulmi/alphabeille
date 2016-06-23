@@ -10,9 +10,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redis;
 
 class LessonController extends Controller
 {
+    private $viewMax = 100;
+    private $pageLimit = 24;
+
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +24,15 @@ class LessonController extends Controller
      */
     public function index()
     {
-        //
+        $lessons = Lesson::latest()->paginate($this->pageLimit);
+        return view('lessons.index', compact('lessons'));
     }
 
+    public function latest($num)
+    {
+        $lessons = Lesson::latest()->limit($num)->get();
+        return $lessons;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -52,17 +62,22 @@ class LessonController extends Controller
      */
     public function show($id)
     {
-        $lesson = Lesson::with('topic')->findOrFail($id);
+        $lesson = Lesson::findOrFail($id);
+        $topicController = new TopicController();
+        Redis::incr('lesson:view:' . $id);
+        $views = Redis::get('lesson:view:' . $id);
 
-        if ($lesson) {
-            $topicController = new TopicController();
-
-            $topic = $lesson->topic;
-            $topics = $topicController->random();
-            return view('lessons.show', compact(['lesson', 'topic', 'id', 'topics']));
-        } else {
-            abort(404);
+        //每100次访问，才更新一次数据库
+        if ($views == $this->viewMax) {
+            Redis::set('lesson:view:' . $id, 0);
+            $lesson->views += $this->viewMax;
+            $lesson->save();
         }
+        $topic = $lesson->topic;
+        $topics = $topicController->random();
+        $comments = $lesson->comments;
+
+        return view('lessons.show', compact(['lesson', 'topic', 'id', 'topics', 'comments']));
     }
 
     /**

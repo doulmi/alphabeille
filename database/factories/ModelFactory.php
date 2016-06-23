@@ -29,6 +29,7 @@ $factory->define(App\Topic::class, function (Faker\Generator $faker) {
         'description' => $faker->text(200),
         'avatar' => $faker->imageUrl(256, 256),
         'level' => $faker->randomElement($levels),
+        'created_at' => \Carbon\Carbon::now()
     ];
 });
 
@@ -41,12 +42,15 @@ $factory->define(App\Lesson::class, function (Faker\Generator $faker) use (&$les
         'order' => $lesson_order ++,
         'avatar' => $faker->imageUrl(200, 153),
         'views' => $faker->numberBetween(0, 300),
+        'audio_url_zh_CN' => $faker->url,
         'audio_url' => $faker->url,
         'download_url' => $faker->url,
+        'content' => $faker->realText(1000),
         'duration' => $faker->numberBetween(0, 60) . ":" . $faker->numberBetween(0,60),
         'likes' => $faker->numberBetween(0, 300),
         'free' => $faker->boolean,
         'topic_id' => $faker->randomElement($topicIds),
+        'created_at' => \Carbon\Carbon::now()
     ];
 });
 
@@ -73,7 +77,7 @@ $factory->define(App\Discussion::class, function (Faker\Generator $faker) {
         'user_id' => $faker->randomElement($userIds),
         'content' => $faker->text,
         'last_answer_by' => $faker->randomElement($userIds),
-
+        'created_at' => \Carbon\Carbon::now()
     ];
 });
 
@@ -90,7 +94,8 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->randomElement($userIds),
         'content' => $faker->text,
-        'discussion_id' => $faker->randomElement($discussionleIds)
+        'discussion_id' => $faker->randomElement($discussionleIds),
+        'created_at' => \Carbon\Carbon::now()
     ];
 });
 
@@ -106,7 +111,8 @@ $factory->define(App\LessonComment::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->randomElement($userIds),
         'content' => $faker->text,
-        'lesson_id' => $faker->randomElement($lessonIds)
+        'lesson_id' => $faker->randomElement($lessonIds),
+        'created_at' => \Carbon\Carbon::now()
     ];
 });
 
@@ -117,10 +123,13 @@ $factory->define(App\Talkshow::class, function (Faker\Generator $faker) {
         'avatar' => $faker->imageUrl(256, 256),
         'free' => $faker->boolean,
         'audio_url' => $faker->url,
+        'audio_url_zh_CN' => $faker->url,
         'download_url' => $faker->url,
+        'content' => $faker->realText(1000),
         'duration' => $faker->numberBetween(0, 60) . ":" . $faker->numberBetween(0,60),
         'likes' => $faker->numberBetween(0, 200),
         'views' => $faker->numberBetween(0, 200),
+        'created_at' => \Carbon\Carbon::now()
     ];
 });
 

@@ -148,7 +148,10 @@ return [
     'loginToReply' => '回答该问题',
 
     'delete' => '删除',
-
+    'comments' => '评论',
     //Exceptions
     'talkshowNotFound' => '未找到对应的脱口秀',
+
+    'expire_title' => '您的订阅将于:date解约',
+    'expire_content' => '亲爱的用户，您的订阅将于:date解约，非常感谢您的订阅，希望我们的内容能让您感到满意！',
 ];

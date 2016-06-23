@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Config;
 use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
@@ -13,5 +15,14 @@ class Lesson extends Model
     public function topic()
     {
         return $this->belongsTo(Topic::class);
+    }
+
+    public function isNew()
+    {
+        return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
+    }
+
+    public function comments() {
+        return $this->hasMany(LessonComment::class);
     }
 }

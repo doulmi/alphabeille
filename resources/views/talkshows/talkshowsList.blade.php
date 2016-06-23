@@ -14,7 +14,8 @@
                 @endif
                 <div class="Card-image">
                     <a href="{{ url('talkshows/' .$talkshow->id) }}">
-                        <img src="/img/placeholder.png" data-original="{{$talkshow->avatar}}" class="Card-image" alt="{{$talkshow->title}}">
+                        <img src="/img/placeholder.png" data-original="{{$talkshow->avatar}}" class="Card-image"
+                             alt="{{$talkshow->title}}">
                         <div class="Card-overlay">
                             <i class="glyphicon glyphicon-play-circle"></i>
 
@@ -29,14 +30,14 @@
                 <div class="Card-footer">
                     <div class="hidden-xs Card-footer-content">
                         <span class="topic-view">
-                            <span class="glyphicon glyphicon-eye-open"><span
-                                        class="g-font">{{ $talkshow->views }} </span></span>
+                            <i class="svg-icon svg-icon-headphone"></i>
+                            <span class="g-font">{{ $talkshow->views }} </span>
                         </span>
 
                         <span class="topic-like">
                             <i class="svg-icon svg-icon-heart" id="icon-heart"></i>
                             {{--<span class="glyphicon glyphicon-heart">--}}
-                                <span class="g-font">{{ $talkshow->likes }} </span>
+                            <span class="g-font">{{ $talkshow->likes }} </span>
                             {{--</span>--}}
                         </span>
                     </div>

@@ -16,4 +16,8 @@ class Talkshow extends Model
     {
         return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
     }
+
+    public function comments() {
+        return $this->hasMany(TalkshowComment::class);
+    }
 }

@@ -27,6 +27,8 @@ Route::post('uploadAvatar', 'UserController@uploadAvatar');
 Route::post('modifyPwd', 'UserController@modifyPwd');
 Route::get('comments/like/{commentId}', 'CommentController@like');
 Route::post('comments', 'CommentController@store');
+Route::post('lessonComments', 'LessonCommentController@store');
+Route::post('talkshowComments', 'TalkshowCommentController@store');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');

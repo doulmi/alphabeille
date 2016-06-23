@@ -6,12 +6,12 @@ use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Input;
 
 class TopicController extends Controller
 {
-
-    private $pageLimit = 48;
+    private $pageLimit = 24;
 
     /**
      * Display a listing of the resource.
@@ -20,7 +20,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::latest()->paginate($this->pageLimit);
+        $topics = Cache::remember('topics', 22 * 60, function() {
+            return Topic::latest()->paginate($this->pageLimit);
+        });
         return view('topics.index', compact('topics'));
     }
 
@@ -37,8 +39,11 @@ class TopicController extends Controller
     }
 
     public function random($num = 4, $max = 100) {
-        $topics = Topic::latest()->limit($max)->get();
-        return $topics->random($num);
+//        $topics = Cache::remember('randomTopics', 60, function() use ($max, $num) {
+            $topics = Topic::latest()->limit($max)->get();
+            return $topics->random($num);
+//        });
+//        return $topics;
     }
 
     /**

@@ -35,8 +35,8 @@
                 </div>
 
                 @if(Auth::guest())
-                    <div class="reply-panel" >
-                       <div class="Header"></div>
+                    <div class="reply-panel">
+                        <div class="Header"></div>
                         <div class="center">
                             <a href="{{url('login')}}">@lang('labels.login')</a>
                             @lang('labels.loginToReply')
@@ -122,7 +122,7 @@
                 ['fullscreen', 'source', 'undo', 'redo', '|', 'removeformat', 'formatmatch', 'selectall', 'cleardoc',],
                 ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'fontsize', '|', 'insertimage', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist']
             ],
-            focus : true,
+            focus: true,
             elementPathEnabled: false,
             maximumWords: 1000
         });

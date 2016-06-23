@@ -13,4 +13,5 @@ return [
     'messageBox' => '信箱',
     'forum' => '>_社区',
     'discussions' => '问答社区',
+    'lessons' => '课程',
 ];

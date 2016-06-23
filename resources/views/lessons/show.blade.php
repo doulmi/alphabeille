@@ -23,12 +23,12 @@
                 <div class="Video-buttons Box">
                     <ul class="utility-naked-list ">
                         @if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))
-                        <li>
-                            <a href="{{ url('audios/' . $lesson->id) }}" class="Button-with-icon">
-                                <i class="glyphicon glyphicon-download-alt"></i>
-                                <span>@lang('labels.download') </span>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="{{ url('audios/' . $lesson->id) }}" class="Button-with-icon">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                    <span>@lang('labels.download') </span>
+                                </a>
+                            </li>
                         @endif
 
                         <li>
@@ -83,7 +83,7 @@
             </table>
         </div>
 
-{{--        @include('sugguest')--}}
+        {{--        @include('sugguest')--}}
         <div class="Header"></div>
         <h2 class="Heading-Fancy row">
             <span class='title'>{{ trans('labels.suggestTopics')}}</span>
@@ -91,91 +91,112 @@
 
         <div class="Card-Collection">
             <div class="row">
-                @foreach($topics as $topic)
-                    <div class="col-md-3 col-xs-6 col-sm-4">
-                        <div class="Card">
-                    <span class="Card-difficulty">
-                        {{ trans('labels.' . $topic->level) }}
-                    </span>
-
-                            @if($topic->isNew)
-                                <span class="Card-new-status Label Label-x-small">
-                        {{trans('labels.new')}}
-                    </span>
-                            @elseif($topic->isUpdated)
-                                <span class="Card-updated-status Label Label-x-small">
-                        {{ trans('labels.updated') }}
-                    </span>
-                            @endif
-                            <div class="Card-image">
-                                <a href="{{ url('topics/' . $topic->id) }}">
-                                    <img src="{{$topic->avatar}}" class="Card-image" alt="{{$topic->title}}">
-                                    <div class="Card-overlay">
-                                        <i class="glyphicon glyphicon-play-circle"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Card-details">
-                                <h3 class="Card-title">
-                                    <a href="{{ url('/topics/' . $topic->id) }}">{{$topic->title}}</a>
-                                </h3>
-                                <div class="Card-count">{{ $topic->lessonCount() }} <span
-                                            class="utility-muted"> {{trans('labels.lessons')}}</span>
-                                </div>
-                            </div>
-                            <div class="Card-footer">
-                                <div class="hidden-xs Card-footer-content">
-                        <span class="topic-view">
-                            <span class="glyphicon glyphicon-eye-open"><span
-                                        class="g-font">{{ $topic->views() }} </span></span>
-                        </span>
-
-                        <span class="topic-like">
-                            <span class="glyphicon glyphicon-heart"><span
-                                        class="g-font">{{ $topic->likes() }} </span></span>
-                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                @include('topics.topicsList')
             </div>
         </div>
         <div class="Header"></div>
 
-        <div class="Card-Collection">
-            <div id="disqus_thread"></div>
-            <script>
-                /**
-                 * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                 * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-                 */
-                /*
-                 var disqus_config = function () {
-                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                 };
-                 */
-                (function() { // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
+        <div class="Card-Collection" id="disqus_thread">
+            <h1 class="white">@lang('labels.comments')</h1>
+            @if(Auth::guest())
+                <div class="reply-panel">
+                    <div class="Header"></div>
+                    <div class="center">
+                        <a href="{{url('login')}}">@lang('labels.login')</a>
+                        @lang('labels.loginToReply')
+                    </div>
+                    <div class="Header"></div>
+                </div>
+            @else
+                <div class="media reply-panel">
+                    <div class="media-left">
+                        <a href="#">
+                            <img src="{{Auth::user()->avatar}}" alt="64x64" class="img-circle media-object"
+                                 width="64px"
+                                 height="64px">
+                        </a>
+                    </div>
 
-                    s.src = '//alphabeille.disqus.com/embed.js';
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                        </h4>
+                        <form action="{{url('lessonComments')}}" method="POST" id="replyForm">
+                            {{csrf_field()}}
 
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+                            @include('UEditor::head')
+                            <!-- 加载编辑器的容器 -->
+                            <script id="container" style="width: 100%; height : 100px" name="content"
+                                    type="text/plain" placeholder="@lang('labels.addComment')"></script>
+                            <input type="hidden" name="lesson_id" value="{{$lesson->id}}">
+                            <button type="submit" class="pull-right btn btn-submit">@lang('labels.reply')</button>
+                        </form>
+                    </div>
+                </div>
+            @endif
+
+            <div class="comments">
+                <ul id="comments">
+                    @foreach($comments as $comment)
+                        <li class="comment">
+                            <div class="media">
+                                <a class="media-left" href="{{url('users/' . $comment->owner->id)}}">
+                                    <img src="{{$comment->owner->avatar}}" alt="64x64"
+                                         class="img-circle media-object" width="64px" height="64px">
+                                </a>
+
+                                <div class="media-body">
+                                    <h5 class="media-heading">
+                                        {{$comment->owner->name}}
+                                    </h5>
+                                    <p class="discuss-content">{!! $comment->content !!}</p>
+                                    <span class="time">{{$comment->updated_at->diffForHumans()}}</span>
+                                </div>
+
+                                @if(!Auth::guest())
+                                    <div class="comment-footer">
+                                        <button class="btn btn-reply"
+                                                onclick="reply({{$comment->owner->id . ',"' . $comment->owner->name . '"'}})">@lang('labels.reply')</button>
+                                    </div>
+                                @endif
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
-    </div>
 
+        <div class="Header"></div>
+        <div class="Header"></div>
+    </div>
 
     @include('smallBeach')
 @endsection
 
 @section('otherjs')
     <script src="/js/audio.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+
     <script>
+        $('img.Card-image').lazyload();
+        var ue = UE.getEditor('container', {
+            toolbars: [
+                ['fullscreen', 'source', 'undo', 'redo', '|', 'removeformat', 'formatmatch', 'selectall', 'cleardoc',],
+                ['bold', 'italic', 'underline', 'fontborder', 'strikethrough','|', 'insertimage', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist']
+            ],
+            focus: true,
+            elementPathEnabled: false,
+            maximumWords: 1000
+        });
+        ue.ready(function () {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
+        });
+
+        function reply(userId, userName) {
+            window.location.href = "#replyForm";
+            ue.setContent('<a href="/users/' + userId + '">@' + userName + '</a>', false);
+        }
+
         var isIE = function (ver) {
             var b = document.createElement('b')
             b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->'
@@ -189,7 +210,6 @@
         $(function () {
             var audios = $('#audio');
             audios.audioPlayer();
-
 
 //            var audio = document.querySelector('#audio');
 //
@@ -212,6 +232,12 @@
 //            var back = function (time) {
 //                audio.element.currentTime -= time;
 //            };
+        });
+
+        new Vue({
+            el : '#comments',
+            data: {
+            }
         });
 
 

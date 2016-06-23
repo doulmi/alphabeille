@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redis;
 
 class TalkshowController extends Controller
 {
-    private $pageLimit = 48;
+    private $pageLimit = 24;
+
+    //Redis中的次数累计到viewMax，写入到数据库中
+    private $viewMax = 100;
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +26,8 @@ class TalkshowController extends Controller
         return view('talkshows.index', compact('talkshows'));
     }
 
-    public function latest($num) {
+    public function latest($num)
+    {
         $talkshows = Talkshow::latest()->limit($num)->get();
         return $talkshows;
     }
@@ -39,7 +45,7 @@ class TalkshowController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,7 +53,8 @@ class TalkshowController extends Controller
         //
     }
 
-    public function random($num = 4, $max = 100) {
+    public function random($num = 4, $max = 100)
+    {
         $talkshows = Talkshow::latest()->limit($max)->get();
         return $talkshows->random($num);
     }
@@ -55,26 +62,34 @@ class TalkshowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $talkshow = Talkshow::findOrFail($id);
-        if( !$talkshow ) {
-            abort(404);
-        } else {
-            $talkshows = $this->random();
-            $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
-            $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
-            return view('talkshows.show', compact(['talkshow', 'talkshows', 'next', 'pre']));
+
+        Redis::incr('talkshow:view:' . $id);
+        $views = Redis::get('talkshow:view:' . $id);
+
+        //每100次访问，才更新一次数据库
+        if ($views == $this->viewMax) {
+            Redis::set('talkshow:view:' . $id, 0);
+            $talkshow->views += $this->viewMax;
+            $talkshow->save();
         }
+
+        $talkshows = $this->random();
+        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
+        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
+        $comments = $talkshow->comments;
+        return view('talkshows.show', compact(['talkshow', 'talkshows', 'comments', 'next', 'pre']));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -85,8 +100,8 @@ class TalkshowController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -97,7 +112,7 @@ class TalkshowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -14,16 +14,16 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-/*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
+    /*
+        |--------------------------------------------------------------------------
+        | Registration & Login Controller
+        |--------------------------------------------------------------------------
+        |
+        | This controller handles the registration of new users, as well as the
+        | authentication of existing users. By default, this controller uses
+        | a simple trait to add these behaviors. Why don't you explore it?
+        |
+        */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
@@ -49,7 +49,7 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -63,35 +63,29 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
     {
-        /**
-         * 'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nightlife',
-         *  'fashion', 'people', 'nature', 'sports', 'technics', 'transport'
-         */
-//        return DB::transaction(function() use ($data) {
-            $user = User::create([
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-                'avatar' => '/img/default_avatar/' . strtoupper($data['email'][0]) . '.png',
-                'confirmation_code' => str_random(64),
-                'remember_token' => str_random(10),
-                'download' => 4
-            ]);
+        $user = User::create([
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'avatar' => '/img/default_avatar/' . strtoupper($data['email'][0]) . '.png',
+            'confirmation_code' => str_random(64),
+            'remember_token' => str_random(10),
+            'download' => 4
+        ]);
 
-            $user->name = $this->autoName($user->email);
+        $user->name = $this->autoName($user->email);
 
-            $member = Role::where('name', 'Member')->first();
+        $member = Role::where('name', 'Member')->first();
 
-            $user->save();
-            $user->attachRole($member);
+        $user->save();
+        $user->attachRole($member);
 
-            event(new UserRegister($user));
-            return $user;
-//        });
+        event(new UserRegister($user));
+        return $user;
     }
 
     /**
@@ -99,7 +93,8 @@ class AuthController extends Controller
      * @param $email
      * @return mixed
      */
-    private function autoName($email) {
+    private function autoName($email)
+    {
         return explode('@', $email)[0];
     }
 }
