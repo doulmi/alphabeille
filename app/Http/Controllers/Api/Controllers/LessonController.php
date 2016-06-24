@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\Input;
 
 class LessonController extends BaseApiController
 {
-    private $selectedCols = ['id', 'title', 'description', 'order', 'likes', 'free', 'views', 'audio_url', 'download_url', 'created_at', 'duration'];
+    private $selectedCols = ['id', 'title', 'description', 'order', 'likes', 'free', 'views', 'audio_url', 'download_url', 'created_at', 'duration', 'audio_url_zh_CN', 'content'];
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($topicId)
-    {
+    public function index($topicId) {
 
     }
 
@@ -72,20 +71,21 @@ class LessonController extends BaseApiController
             'created_at' => $lesson->create_at
         ];
 
+        $payContent = [
+            'audio_url' => $lesson->audio_url,
+            'download_url' => $lesson->download_url,
+            'audio_url_zh_CN' => $lesson->audio_url_zh_CN,
+            'content' => $lesson->contente
+        ];
+
         if ($lesson->free) {
-            return array_merge($result, [
-                'audio_url' => $lesson->audio_url,
-                'download_url' => $lesson->download_url
-            ]);
+            return array_merge($result, $payContent);
         }
         $token = Input::get('token');
         if ($token) {
             $user = JWTAuth::toUser($token);
             if ($user->level() > 1) {
-                return array_merge($result, [
-                    'audio_url' => $lesson->audio_url,
-                    'download_url' => $lesson->download_url
-                ]);
+                return array_merge($result, $payContent);
             }
         }
         return $result;

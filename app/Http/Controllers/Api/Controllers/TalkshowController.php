@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Input;
 
 class TalkshowController extends BaseApiController
 {
-    private $selectedCols = ['id', 'title', 'description', 'avatar', 'free', 'likes', 'views', 'download_url', 'audio_url', 'created_at', 'duration'];
+    private $selectedCols = ['id', 'title', 'description', 'avatar', 'free', 'likes', 'views', 'download_url', 'audio_url', 'created_at', 'duration', 'audio_url_zh_CN', 'content'];
 
     /**
      * Display a listing of the resource.
@@ -62,11 +62,15 @@ class TalkshowController extends BaseApiController
             'created_at' => $talkshow->create_at
         ];
 
+        $payContent = [
+            'audio_url' => $talkshow->audio_url,
+            'download_url' => $talkshow->download_url,
+            'audio_url_zh_CN' => $talkshow->audio_url_zh_CN,
+            'content' => $talkshow->contente
+        ];
+
         if($talkshow->free) {
-            return array_merge($result, [
-                'audio_url' => $talkshow->audio_url,
-                'download_url' => $talkshow->download_url
-            ]);
+            return array_merge($result, $payContent);
         }
 
         $token = Input::get('token');
@@ -74,11 +78,7 @@ class TalkshowController extends BaseApiController
         if($token) {
             $user = JWTAuth::toUser($token);
             if ($user->level() > 1) {
-                //user have no authentcation to see the audio_url
-                return array_merge($result, [
-                    'audio_url' => $talkshow->audio_url,
-                    'download_url' => $talkshow->download_url
-                ]);
+                return array_merge($result,$payContent);
             }
         }
 
