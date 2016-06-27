@@ -10,7 +10,7 @@
             </button>
 
             <a class="navbar-brand" href="{{ url('/') }}" data-toggle="tooltip" data-placement="bottom" title="@lang('labels.backIndex')"  target="_blank">
-                <img class="icon" src="/img/icon.png" alt="Go to home page">
+                <i class="svg-icon svg-logo" id="icon-white"></i>
             </a>
         </div>
 

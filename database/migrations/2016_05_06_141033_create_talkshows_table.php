@@ -22,6 +22,7 @@ class CreateTalkshowsTable extends Migration
             $table->string('audio_url_zh_CN');
             $table->string('download_url');
             $table->text('content');
+            $table->string('content_zh_CN');
             $table->integer('likes')->default(0);
             $table->boolean('free')->default(false);
             $table->integer('views')->default(0);

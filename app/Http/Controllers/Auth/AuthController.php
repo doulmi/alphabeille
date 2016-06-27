@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserLogin;
 use App\Events\UserRegister;
 use Bican\Roles\Models\Role;
 use App\User;
-use Faker\Generator;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -86,6 +86,11 @@ class AuthController extends Controller
 
         event(new UserRegister($user));
         return $user;
+    }
+
+    private function authenticated(Request $request, $user) {
+        event(new UserLogin());
+        return redirect()->back();
     }
 
     /**

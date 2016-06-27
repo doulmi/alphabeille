@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="body ">
+    <div class="body">
         <div class="Header">
         </div>
         <div class="Header"></div>
@@ -29,7 +29,6 @@
                 <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons')}}">@lang('labels.more')</a>
             </h2>
         </div>
-
 
         <h2 class="Heading-Fancy row">
             <span class='title'>@lang('labels.talkshows')</span>

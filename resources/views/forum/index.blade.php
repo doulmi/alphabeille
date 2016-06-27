@@ -44,8 +44,7 @@
                             </div>
                             <div class="media">
                                 <a class="media-left" href="{{url('users/' . $discussion->owner->id)}}">
-                                    <img src="{{$discussion->owner->avatar}}" alt="60x60"
-                                         class="img-circle media-object" width="60px" height="60px">
+                                    <img data-original="{{$discussion->owner->avatar}}" src="/img/default_avatar/default_avatar.png" alt="60x60" class="img-circle media-object" width="60px" height="60px"/>
                                 </a>
 
                                 <a class="media-body" href="{{url('discussions/' . $discussion->id)}}">
@@ -66,4 +65,11 @@
         <div class="Header"></div>
         @include('smallBeach')
     </div>
+@endsection
+
+@section('otherjs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script>
+        $('img.img-circle').lazyload();
+    </script>
 @endsection

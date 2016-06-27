@@ -11,7 +11,7 @@
     <meta id="token" name="token" value="{{csrf_token()}}">
     @yield('othercss' )
 </head>
-<body >
+<body>
 <div class="sky">
     <div class="cloud variant-1"></div>
     <div class="cloud variant-2"></div>
@@ -24,10 +24,9 @@
 
     <div class="cloud variant-9"></div>
     <div class="cloud variant-10"></div>
-    {{--<div class="cloud variant-11"></div>--}}
 </div>
 
-    @yield('text')
+@yield('text')
 <script src="/js/app.js"></script>
 @yield('otherjs')
 </body>

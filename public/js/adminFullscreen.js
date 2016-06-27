@@ -5,7 +5,7 @@ $(window).resize(function () {
 
 var fullscreenSupport = function () {
     var height = $(window).height();
-    $(".fullscreen").css('max-height', height - 250);
+    $(".fullscreen").css('height', height);
 };
 
 $(function () {

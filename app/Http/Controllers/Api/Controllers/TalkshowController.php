@@ -14,6 +14,7 @@ class TalkshowController extends BaseApiController
 {
     private $selectedCols = ['id', 'title', 'description', 'avatar', 'free', 'likes', 'views', 'download_url', 'audio_url', 'created_at', 'duration', 'audio_url_zh_CN', 'content'];
 
+
     /**
      * Display a listing of the resource.
      *
@@ -66,7 +67,7 @@ class TalkshowController extends BaseApiController
             'audio_url' => $talkshow->audio_url,
             'download_url' => $talkshow->download_url,
             'audio_url_zh_CN' => $talkshow->audio_url_zh_CN,
-            'content' => $talkshow->contente
+            'content' => $talkshow->content
         ];
 
         if($talkshow->free) {

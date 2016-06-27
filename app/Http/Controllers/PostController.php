@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Editor\Markdown\Markdown;
 use App\Http\Controllers\TalkshowController;
 use App\Http\Controllers\TopicController;
+use App\Lesson;
 use App\Subscription;
+use App\Talkshow;
 use Illuminate\Http\Request;
 use EndaEditor;
 
@@ -14,22 +17,14 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lessonController = new LessonController();
-        $lessons = $lessonController->latest(8);
-
-        $talkshowController = new TalkshowController();
-        $talkshows = $talkshowController->latest(4);
+        $lessons = Lesson::latest()->limit(8)->get();
+        $talkshows = Talkshow::latest()->limit(8)->get();
 
         $menus = Subscription::all();
+        foreach($menus as $menu) {
+            $menu->advantages = explode('|', $menu->description);
+        }
         return view('indexWithLessons', compact(['lessons', 'talkshows', 'menus']));
-//        $topicController = new TopicController();
-//        $topics = $topicController->latest(8);
-//
-//        $talkshowController = new TalkshowController();
-//        $talkshows = $talkshowController->latest(4);
-//
-//        $menus = Subscription::all();
-//        return view('index', compact(['topics', 'talkshows', 'menus']));
     }
 
     public function menus()

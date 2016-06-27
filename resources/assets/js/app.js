@@ -2,15 +2,15 @@ $(document).ready(function(){
     var navbar = $('#navbar');
     var menu  = $('#menu-xs');
 
-    $(document).on( 'scroll', function(){
-        var currentScrollTop = $(document).scrollTop();
-
-        if( currentScrollTop > 100 ) {
-            navbar.css('background-color', '#ffd346');
-        } else {
-            navbar.css('background-color', 'transparent');
-        }
-    });
+    //$(document).on( 'scroll', function(){
+    //    var currentScrollTop = $(document).scrollTop();
+    //
+    //    if( currentScrollTop > 100 ) {
+    //        navbar.css('background-color', '#ffd346');
+    //    } else {
+    //        navbar.css('background-color', 'transparent');
+    //    }
+    //});
 
     //$toggle = $('#navbar-toggle');
     //$toggle.click(function() {

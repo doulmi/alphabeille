@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Editor\Markdown\Markdown;
 use App\Lesson;
-use App\Talkshow;
 use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redis;
 
@@ -16,7 +15,14 @@ class LessonController extends Controller
 {
     private $viewMax = 100;
     private $pageLimit = 24;
+    private $markdown;
 
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown) {
+        $this->markdown = $markdown;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -58,26 +64,36 @@ class LessonController extends Controller
      * Display the specified resource.
      *
      * @param  int $id
+     * @param int $lan : fr, zh_CN
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $lan = 'fr')
     {
         $lesson = Lesson::findOrFail($id);
         $topicController = new TopicController();
         Redis::incr('lesson:view:' . $id);
-        $views = Redis::get('lesson:view:' . $id);
+//        $views = Redis::get('lesson:view:' . $id);
 
         //每100次访问，才更新一次数据库
-        if ($views == $this->viewMax) {
-            Redis::set('lesson:view:' . $id, 0);
-            $lesson->views += $this->viewMax;
-            $lesson->save();
-        }
+//        if ($views == $this->viewMax) {
+//            $lesson->views += $this->viewMax;
+//            $lesson->save();
+//        }
         $topic = $lesson->topic;
-        $topics = $topicController->random();
-        $comments = $lesson->comments;
+        Redis::incr('topic:view:' . $topic->id);
 
-        return view('lessons.show', compact(['lesson', 'topic', 'id', 'topics', 'comments']));
+        $topics = $topicController->random();
+//        $comments = $lesson->comments;
+
+        if($lan == 'fr') {
+            $content = $this->markdown->parse("####" .$lesson->content);
+        } else if($lan == 'zh_CN') {
+            $lesson->audio_url = $lesson->audio_url_zh_CN;
+            $content = $this->markdown->parse("####" .$lesson->content_zh_CN);
+        } else {
+            abort(404);
+        }
+        return view('lessons.show', compact(['lesson', 'topic', 'id', 'topics', 'content']));
     }
 
     /**
@@ -88,7 +104,6 @@ class LessonController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -111,6 +126,6 @@ class LessonController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

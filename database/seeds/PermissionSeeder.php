@@ -24,5 +24,41 @@ class PermissionSeeder extends Seeder
             'slug' => 'user.role',
             'description' => '管理员是否能更改其他用户的权限',
         ]);
+
+        Permission::create([
+            'name' => '添加主题',
+            'slug' => 'topic.add',
+            'description' => '管理员是否能添加新主题'
+        ]);
+
+        Permission::create([
+            'name' => '删除主题' ,
+            'slug' => 'topic.delete',
+            'description' => '管理员是否能删除主题'
+        ]);
+
+        Permission::create([
+            'name' => '修改主题',
+            'slug' => 'topic.modify',
+            'description' => '管理员是否能修改主题'
+        ]);
+
+        Permission::create([
+            'name' => '添加课程',
+            'slug' => 'lesson.add',
+            'description' => '管理员是否能添加课程'
+        ]);
+
+        Permission::create([
+            'name' => '删除课程',
+            'slug' => 'lesson.delete',
+            'description' => '管理员是否能删除课程'
+        ]);
+
+        Permission::create([
+            'name' => '修改课程',
+            'slug' => 'lesson.modify',
+            'description' => '管理员是否能添加课程'
+        ]);
     }
 }

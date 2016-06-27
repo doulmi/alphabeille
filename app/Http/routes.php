@@ -11,6 +11,7 @@ Route::resource('chat', 'ChatController');
 Route::resource('topics', 'TopicController');
 Route::post('topics/{ids}/delete', 'TopicController@multiDestroy')->where(['id' => '[0-9]+']);
 Route::resource('lessons', 'LessonController');
+Route::get('lessons/{id}/{lan}', 'LessonController@show');
 Route::resource('talkshows', 'TalkshowController');
 Route::resource('messages', 'MessageController');
 Route::resource('discussions', 'DiscussionController');
@@ -28,6 +29,7 @@ Route::post('modifyPwd', 'UserController@modifyPwd');
 Route::get('comments/like/{commentId}', 'CommentController@like');
 Route::post('comments', 'CommentController@store');
 Route::post('lessonComments', 'LessonCommentController@store');
+Route::get('lessonComments/{id}', 'LessonCommentController@index');
 Route::post('talkshowComments', 'TalkshowCommentController@store');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -36,9 +38,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::put('/users', 'Admin\UserController@store');
     Route::get('/users/changeRole/{userId}/{roleId}', 'Admin\UserController@changeRole');
     Route::get('/roles', 'Admin\RoleController@index');
-    Route::put('/roles', 'Admin\RoleController@store');
+    Route::post('/roles', 'Admin\RoleController@store');
     Route::get('/topics', 'Admin\TopicController@index');
     Route::put('/topics', 'Admin\TopicController@store');
+    Route::post('/topics/{id}', 'Admin\TopicController@update');
+    Route::get('/lessons', 'Admin\LessonController@index');
+    Route::post('/lessons', 'Admin\LessonController@store');
+    Route::post('/lessons/{topicId}', 'Admin\LessonController@update');
+    Route::get('/lessons/{topicId}/create', 'Admin\LessonController@create');
+    Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
+
+    Route::resource('talkshows', 'Admin\TalkshowController');
+//    Route::get('/talkshows', 'Admin\TalkshowController@index');
+//    Route::post('/talkshows', 'Admin\TalkshowController@store');
+//    Route::put('/talkshows', 'Admin\TalkshowController@update');
+//    Route::get('/talkshows/create', 'Admin\TalkshowController@create');
+//    Route::get('/talkshows/{id}/edit', 'Admin\TalkshowController@edit');
+
 });
 
 $api = app('Dingo\Api\Routing\Router');

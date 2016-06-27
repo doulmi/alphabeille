@@ -28,9 +28,15 @@ class LessonCommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $comments = LessonComment::with('owner')->where('lesson_id', $id)->get();
+        foreach($comments as $comment) {
+            $comment->userId = $comment->owner->id;
+            $comment->avatar = $comment->owner->avatar;
+            $comment->name = $comment->owner->name;
+        }
+        return $comments;
     }
 
     /**
@@ -61,7 +67,14 @@ class LessonCommentController extends Controller
             'content' => $content
         ]);
 
-        return redirect('lessons/' . $lesson->id);
+        return response()->json([
+            'status' => 200,
+            'content' => $content,
+            'user_id' => $user->id,
+            'lesson_id' => $lesson->id
+        ]);
+
+//        return redirect('lessons/' . $lesson->id);
     }
 
     /**

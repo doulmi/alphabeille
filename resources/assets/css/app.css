@@ -19,8 +19,9 @@ button {
 }
 
 * {
-    font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;
-    -webkit-font-smoothing: antialiased;
+    /*font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;*/
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei",  "华文细黑","FangSong", "幼圆",  sans-serif;
+    line-height: 1.7em;
     font-weight: 400;
 }
 
@@ -30,8 +31,8 @@ button {
 }
 
 .navbar-guest {
-    background: transparent;
-    border: transparent;
+    background: #FFD346;
+    border: #FFD346;
     height: 80px;
     margin-bottom: 0;
     border-radius: 0;
@@ -1033,12 +1034,11 @@ px
 .body {
     background-color: #b3d1e8;
     overflow: hidden;
-    background: -webkit-linear-gradient(top left, #91C5E8 0%, #b3d1e8 100%);
-    background: -o-linear-gradient(top left, #91C5E8 0%, #b3d1e8 100%);
-    background: -moz-linear-gradient(top left, #91C5E8 0%, #b3d1e8 100%);
-    background: linear-gradient(to bottom right, #91C5E8 0%, #b3d1e8 100%);
 }
 
+.grey {
+    background-color: #E9E9E9;
+}
 .center {
     text-align: center;
 }
@@ -2658,6 +2658,7 @@ px
     text-align: right;
     font-size: 22px;
     float: right;
+    flex:1;
     padding-left: 10px;
 }
 
@@ -2723,7 +2724,7 @@ px
 .menu-title {
     text-align: center;
     margin: 5px 0 0 0;
-    padding-top: 10px;
+    padding: 10px 0;
     color: #fff;
     font-size: 30px;
     line-height: 1;
@@ -2731,15 +2732,16 @@ px
     border-top-right-radius: 5px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
+    border-bottom: 1px dashed white;
 }
 
 .menu-price {
-    font-size: 60px;
+    padding-top: 10px;
+    font-size: 40px;
     line-height: 1;
     letter-spacing: -5px;
     margin: 0;
     text-align: center;
-    padding: 20px 0 20px 0;
     color: #fff;
 }
 
@@ -2747,27 +2749,36 @@ px
     color: #3c3e42;
     display: inline-block;
     vertical-align: top;
-    font-size: .4em;
+    font-size: .6em;
     font-weight: 700;
     width: 28px;
     margin-right: 6px;
     margin-left: -34px;
 }
 
+.menu-advantages {
+    text-align: center;
+    color : white;
+    padding-bottom: 10px;
+}
+
+.menu-advantages li {
+   line-height: 1.6;
+}
+
 .price-label {
-    /*font-family: "Roboto", serif;*/
     font-weight: 700;
 }
 
 .buy-btn-div {
-    margin-top: 25px;
+    margin-top: 20px;
     text-align: center;
     vertical-align: middle;
 }
 
 .buy-btn {
     color: white;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px;
 }
 
 .buy-btn-div a:hover {
@@ -2776,12 +2787,16 @@ px
 }
 
 .month-6 {
-    height: 230px;
+    height: 225px;
     background-color: white;
-    margin-top: -165px;
+    margin-top: -167px;
 }
 
 .menu-6-price {
+    background-color: #2DCC70;
+}
+
+.advantages-6 {
     background-color: #2DCC70;
 }
 
@@ -2805,14 +2820,18 @@ px
 }
 
 .month-12 {
-    height: 260px;
+    height: 245px;
     background-color: white;
-    margin-top: -195px;
+    margin-top: -188px;
 }
 
 .menu-12-price {
     background-color: #3598DB;
-    padding-bottom: 50px;
+}
+
+.advantages-12 {
+    background-color: #3598DB;
+    padding-bottom: 10px;
 }
 
 .buy-12-title {
@@ -2828,14 +2847,19 @@ px
 }
 
 .month-24 {
-    height: 290px;
-    margin-top: -225px;
+    height: 265px;
+    margin-top: -208px;
     background-color: white;
 }
 
 .menu-24-price {
     background-color: #F45D51;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
+}
+
+.advantages-24 {
+    background-color: #F45D51;
+    padding-bottom: 10px;
 }
 
 .buy-24-title {
@@ -3880,7 +3904,7 @@ px
 }
 
 .black {
-    color: #3F1E15;
+    color: #3F1E15 !important;
 }
 
 .btn-ads {
@@ -4025,14 +4049,14 @@ px
 
 .discuss {
     padding: 0 40px 0 40px;
-    background: #ffffff;
+    /*background: #ffffff;*/
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
 }
 
 .comment {
-    border-top: 2px solid #f3f3f3;
-    background: #ffffff;
+    /*border-top: 2px solid #f3f3f3;*/
+    /*background: #ffffff;*/
     padding: 40px 40px;
 }
 
@@ -4085,7 +4109,7 @@ px
 .btn-submit {
     margin-top: 30px;
     background-color: #FFD346;
-    color: #3F1E15;
+    color: #FFFFFF;
     font-weight: 700;
     padding: 10px 40px;
 }
@@ -4173,8 +4197,8 @@ px
 }
 
 .svg-icon-headphone {
-    width:15px;
-    height:15px;
+    width: 15px;
+    height: 15px;
     background-position: -48px -21px;
 }
 
@@ -4199,7 +4223,6 @@ px
     left: 30px;
     top: 13px;
 }
-
 
 .li-miel {
     margin-right: 20px;
@@ -4281,3 +4304,108 @@ px
 .navigation.navigation-prev {
     left: 0;
 }
+
+.markdown-content blockquote {
+    border-left: 5px solid #FFD346;
+    background: #F5F5F5;
+}
+
+.markdown-content code {
+    padding: 2px 4px;
+    color: #E7505A;
+    background-color: #FFF;
+    font-size:100%;
+    border-radius: 4px;
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei",  "华文细黑","FangSong", "幼圆",  sans-serif;
+}
+
+.markdown-content code:hover {
+    /*color: #E7505A;*/
+    background-color: #FFF;
+    color: #FF0000;
+    font-size:105%;
+}
+
+.markdown-content {
+    text-align: justify;
+}
+
+.markdown-content p {
+    font-size: 18px;
+}
+
+.lesson-content {
+    border-radius: 20px;
+    height: auto;
+    position: relative;
+    padding-top: 5%;
+    padding-right: 10%;
+    padding-left: 10%;
+    margin-right: auto;
+    background: white;
+    margin-left: auto;
+}
+
+.lesson-content img {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .lesson-content {
+        width: 650px;
+    }
+}
+
+@media (min-width: 992px) {
+    .lesson-content {
+        width: 750px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .lesson-content {
+        width: 970px;
+    }
+}
+
+.btn-label {
+    color: #FFF;
+}
+
+.btn-label:hover {
+    color: white;
+}
+
+.label-topic {
+    background-color: hsl(46, 100%, 64%);
+    border-color: hsl(46, 100%, 64%);
+}
+
+.label-topic:hover {
+    background-color: hsl(46, 100%, 54%);
+    border-color: hsl(46, 100%, 54%);
+}
+
+.label-boy {
+    background-color: #32c5d2;
+    border-color: #32c5d2;
+}
+
+.label-boy:hover {
+    background-color: hsl(185, 64%, 41%);
+    border-color: hsl(185, 64%, 41%);
+}
+.label-girl {
+    background-color: #E7505A;
+    border-color: #E7505A;
+}
+
+.label-girl:hover {
+    background-color: hsl(356, 76%, 51%);
+    border-color: hsl(356, 76%, 51%);
+}
+
+.explanations {
+    float: right;
+}
+

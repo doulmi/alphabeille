@@ -94,7 +94,6 @@
                 msgFrom.text(data.data.from_name);
                 msgTitle.html(data.data.title);
                 msgDate.html('<span class="pull-right">' + data.data.created_at + '</span>');
-//                msgFrom.html('<img class="avatar" src="' + data.data.avatar + '"/>' + data.data.from_name);
                 msgBody.html(data.data.content);
 
                 msgContent.show();

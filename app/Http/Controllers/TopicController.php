@@ -41,6 +41,7 @@ class TopicController extends Controller
     public function random($num = 4, $max = 100) {
 //        $topics = Cache::remember('randomTopics', 60, function() use ($max, $num) {
             $topics = Topic::latest()->limit($max)->get();
+            $num = $num > $topics->count() ? $topics->count() : $num;
             return $topics->random($num);
 //        });
 //        return $topics;
@@ -114,18 +115,6 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        $topic = Topic::findOrFail($id);
-        $topic->delete();
-        return response()->json([
-            'status' => 200
-        ]);
-    }
 
-    /**
-     * Remove the specified resources
-     * @param $ids : 1,3,4
-     */
-    public function multiDestroy($ids) {
-        dd($ids);
     }
 }

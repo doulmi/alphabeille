@@ -1,4 +1,10 @@
 
+* {
+    font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+}
+
 .Header {
     height: 20px;
 }
@@ -6,11 +12,6 @@
 .sidebar .category{
     background: #fffffd;
     width: 100%;
-}
-
-.sidebar .category::after {
-    /*font-family: "Glyphicons Halflings";*/
-    /*content: "\e080";*/
 }
 
 
@@ -49,9 +50,23 @@ ul {
 
 body {
     letter-spacing: .05em;
-    color: #5a1e23;
+    /*color: #5a1e23;*/
     font-family: 'Source Sans Pro', sans-serif;
-    background: #C44D58;
+    /*background: #C44D58;*/
+}
+
+.svg-icon {
+    display: inline-block;
+    background-image: url("../img/all.svg");
+    background-size: 300px;
+    margin-top: 10px;
+}
+
+.svg-logo {
+    margin-top: -10px;
+    width: 40px;
+    height: 40px;
+    background-position: -4px -58px;
 }
 
 .canvas {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Editor\Markdown\Markdown;
 use App\Talkshow;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,14 @@ class TalkshowController extends Controller
     //Redis中的次数累计到viewMax，写入到数据库中
     private $viewMax = 100;
 
+    private $markdown;
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -70,11 +79,13 @@ class TalkshowController extends Controller
         $talkshow = Talkshow::findOrFail($id);
 
         Redis::incr('talkshow:view:' . $id);
+        Redis::incr('talkshows:viewAll:' . $id);
+
         $views = Redis::get('talkshow:view:' . $id);
 
         //每100次访问，才更新一次数据库
+        //TODO : 全部改成Redis
         if ($views == $this->viewMax) {
-            Redis::set('talkshow:view:' . $id, 0);
             $talkshow->views += $this->viewMax;
             $talkshow->save();
         }
@@ -83,7 +94,9 @@ class TalkshowController extends Controller
         $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
         $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $comments = $talkshow->comments;
-        return view('talkshows.show', compact(['talkshow', 'talkshows', 'comments', 'next', 'pre']));
+        $content = $this->markdown->parse($talkshow->content);
+
+        return view('talkshows.show', compact(['talkshow', 'talkshows', 'comments', 'next', 'pre', 'content']));
     }
 
     /**

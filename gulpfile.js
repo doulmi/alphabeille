@@ -12,6 +12,6 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.scripts(['jquery.min.js', 'bootstrap.min.js', 'app.js', 'dropdowns-enhancement.js', 'fullscreen.js', 'tooltip.js','googleAnalyse.js'], 'public/js/app.js');
-    mix.styles(['bootstrap.min.css', 'app.css', 'dropdowns-enhancement.min.css', 'tooltips.css'], 'public/css/app.css');
+    mix.scripts(['jquery.min.js', 'bootstrap.min.js', 'app.js', 'dropdowns-enhancement.js', 'fullscreen.js', 'tooltip.js','googleAnalyse.js', 'toastr.min.js'], 'public/js/app.js');
+    mix.styles(['bootstrap.min.css', 'toastr.min.css', 'app.css', 'dropdowns-enhancement.min.css', 'tooltips.css'], 'public/css/app.css');
 });
