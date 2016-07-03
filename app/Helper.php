@@ -19,4 +19,12 @@ class Helper
 
         return intval($mm) * 60 + intval($ss);
     }
+
+    public static function str2Min($duration) {
+        $tts = explode(':', $duration);
+        $mm = $tts[0];
+        $ss = $tts[1];
+
+        return $mm + $ss / 60;
+    }
 }

@@ -9,6 +9,9 @@
 @endsection
 
 @section('content')
+    <meta property="og:title" content="{{$talkshow->title}}" />
+    <meta property="og:image" content="{{$talkshow->avatar}}" />
+
     <link rel="stylesheet" href="/css/audioplayer.css"/>
     <div class="body grey">
 

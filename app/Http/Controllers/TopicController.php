@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Topic;
 use Illuminate\Http\Request;
 
@@ -77,8 +78,16 @@ class TopicController extends Controller
     public function show($id)
     {
         $topic = Topic::findOrFail($id);
+        $lessons = $topic->lessons;
+
+        $duration = 0;
+        foreach ($lessons as $lesson) {
+            $duration += Helper::str2Min($lesson->duration);
+        }
+        $duration = ceil($duration);
+
         if($topic) {
-            return view('topics.show', compact('topic'));
+            return view('topics.show', compact('topic', 'lessons', 'duration'));
         } else {
             return view('errors.404');
         }

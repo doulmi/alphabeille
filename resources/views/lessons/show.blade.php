@@ -9,6 +9,9 @@
 @endsection
 
 @section('content')
+    <meta property="og:title" content="{{$lesson->title}}" />
+    <meta property="og:image" content="{{$lesson->avatar}}" />
+
     <link rel="stylesheet" href="/css/audioplayer.css" xmlns:v-on="http://www.w3.org/1999/xhtml"/>
     <div class="body grey">
 

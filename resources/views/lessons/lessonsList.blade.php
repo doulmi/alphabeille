@@ -1,7 +1,7 @@
 <div class="Card-Collection">
     <table class="table lessons-table table-hover">
         <tbody>
-        @foreach($topic->lessons()->get() as $i => $lesson)
+        @foreach($lessons as $i => $lesson)
                 <tr class="lesson-row">
                     <th scope="row">{{$i}}.</th>
                     <td onclick="window.document.location='{{url('lessons/' . $lesson->id)}}'">
@@ -10,7 +10,7 @@
                         <span class="free-label">@lang('labels.free')</span>
                         @endif
                     </td>
-                    <td>14:32</td>
+                    <td>{{$lesson->duration}}</td>
                 </tr>
         @endforeach
         </tbody>

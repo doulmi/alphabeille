@@ -201,5 +201,7 @@ return [
     'payStep3' => '付款金额：:price 元',
     'payStep4' => '付款说明：:email',
     'payStep5' => '确认付款，30秒内自动到账',
-    'learnIntroduction' => '每天一个番茄时间的法语学习'
+    'learnIntroduction' => '每天一个番茄时间的法语学习',
+    'minute' => '分钟',
+
 ];
