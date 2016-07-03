@@ -1,7 +1,7 @@
 
 <?php
  return [
-    'en' => 'English',
+//    'en' => 'English',
     'fr' => 'Français',
     'zh_CN' => '中文',
 ];
