@@ -21,7 +21,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lessons = Lesson::latest()->limit(8)->get();
+        $lessons = Lesson::orderBy('id', 'DESC')->limit(8)->get();
         $talkshows = Talkshow::latest()->limit(8)->get();
 
         $menus = Subscription::all();
