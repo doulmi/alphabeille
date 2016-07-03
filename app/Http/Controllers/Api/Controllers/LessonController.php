@@ -73,9 +73,9 @@ class LessonController extends BaseApiController
 
         $payContent = [
             'audio_url' => $lesson->audio_url,
-            'download_url' => $lesson->download_url,
             'audio_url_zh_CN' => $lesson->audio_url_zh_CN,
-            'content' => $lesson->content
+            'content' => $lesson->content,
+            'content_zh_CN' => $lesson->content_zh_CN,
         ];
 
         if ($lesson->free) {

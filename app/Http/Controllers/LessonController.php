@@ -43,7 +43,7 @@ class LessonController extends Controller
 
     public function latest($num)
     {
-        $lessons = Lesson::latest()->limit($num)->get();
+        $lessons = Lesson::orderBy('id', 'DESC')->limit($num)->get();
         return $lessons;
     }
 

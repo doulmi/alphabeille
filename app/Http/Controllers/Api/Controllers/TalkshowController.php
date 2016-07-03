@@ -65,9 +65,9 @@ class TalkshowController extends BaseApiController
 
         $payContent = [
             'audio_url' => $talkshow->audio_url,
-            'download_url' => $talkshow->download_url,
             'audio_url_zh_CN' => $talkshow->audio_url_zh_CN,
-            'content' => $talkshow->content
+            'content' => $talkshow->content,
+            'content_zh_CN' => $talkshow->content_zh_CN
         ];
 
         if($talkshow->free) {
