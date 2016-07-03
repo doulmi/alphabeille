@@ -18,15 +18,8 @@
             </div>
 
             <div class="Header"></div>
-
             <h4 class="white center">@lang('labels.welcomeJoinUs') @lang('labels.copyright')</h4>
         </div>
-
     </div>
 @endsection
-
-@section('otherjs')
-    <script src="/js/fullscreen.js"></script>
-@endsection
-
 

@@ -30,9 +30,15 @@ class TalkshowCommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $comments = TalkshowComment::with('owner')->where('talkshow_id', $id)->get();
+        foreach($comments as $comment) {
+            $comment->userId = $comment->owner->id;
+            $comment->avatar = $comment->owner->avatar;
+            $comment->name = $comment->owner->name;
+        }
+        return $comments;
     }
 
     /**

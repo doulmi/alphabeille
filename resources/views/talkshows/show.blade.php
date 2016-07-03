@@ -3,6 +3,11 @@
 @section('title')
     {{ $talkshow->title }}
 @endsection
+
+@section('othercss')
+    <link rel="stylesheet" href="/css/share.min.css">
+@endsection
+
 @section('content')
     <link rel="stylesheet" href="/css/audioplayer.css"/>
     <div class="body grey">
@@ -11,16 +16,7 @@
         <div class="Header"></div>
 
         <div class="lesson-content">
-            {{--<div class="explanations">--}}
-                {{--@if(ends_with(Request::fullUrl(), '/zh_CN'))--}}
-                    {{--<a href="{{url('talkshows/' . $talkshow->id)}}">@lang('labels.sub_fr')</a>--}}
-                {{--@else--}}
-                    {{--<a href="{{url('talkshows/' . $talkshow->id)}}/zh_CN">@lang('labels.sub_zh_CN')</a>--}}
-                {{--@endif--}}
-            {{--</div>--}}
-
             <br/>
-            {{--<div class="Card-Collection">--}}
             <h1 class="mar-t-z center">
                 {{ $talkshow->title }}
             </h1>
@@ -55,52 +51,37 @@
             @endif
             <br/>
             <br/>
-            {{--<div class="Header"></div>--}}
 
-            {{--<div class="Video-information row">--}}
-            {{--<div class="Video-buttons Box">--}}
-            {{--<ul class="utility-naked-list ">--}}
-            {{--@if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))--}}
-            {{--<li>--}}
-            {{--<a href="{{ url('audios/' . $lesson->id) }}" class="Button-with-icon">--}}
-            {{--<i class="glyphicon glyphicon-download-alt"></i>--}}
-            {{--<span>@lang('labels.download') </span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-            {{--@endif--}}
-
-            {{--<li>--}}
-            {{--<a href="#disqus_thread" class="Button-with-icon">--}}
-            {{--<i class="glyphicon glyphicon-comment"></i>--}}
-            {{--<span>@lang('labels.discuss') </span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-            {{--</ul>--}}
-            {{--</div>--}}
-
-            {{--<div class="Video-details Box Box-Large">--}}
-            {{--<div class="Video-body">--}}
-            {{--<p class="Lesson-decription">{{ $lesson->description }}</p>--}}
-            {{--<p class="mar-t">--}}
-            {{--<strong>--}}
-            {{--{{trans('labels.publishOn') . ' ' . $lesson->created_at->diffForHumans()}}--}}
-            {{--</strong>--}}
-            {{--</p>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="Card-Collection">--}}
             @if($talkshow->free || (!Auth::guest() && Auth::user()->level() > 1))
                 <div class='markdown-content'>
                     {!! $content !!}
                 </div>
             @endif
-            {{--</div>--}}
+            @if(!Auth::guest())
+                <div class="center">
+                    <a href="#" data-tooltips="@lang('labels.favorite')" class="favorite-circle"
+                       @click.stop.prevent="favoriteEvent">
+                        <i class="favorite glyphicon " v-bind:class="favorite"></i>
+                    </a>
 
+                    @if(!$punchin)
+                        <a id="punchinlink" href="#" data-tooltips="@lang('labels.punchin')" class="favorite-circle"
+                           @click.stop.prevent="punchinEvent">
+                            <i class="favorite glyphicon glyphicon-ok"></i>
+                        </a>
+                    @endif
+
+                    <a href="#" data-tooltips="@lang('labels.collect')" class="favorite-circle"
+                       @click.stop.prevent="collectEvent">
+                        <i class="favorite glyphicon" v-bind:class="collect"></i>
+                    </a>
+
+                </div>
+                <div class="share-component share-panel" data-sites="wechat, weibo ,facebook" data-description="@lang('labels.shareTo')" data-image="{{$talkshow->avatar}}">
+                    @lang('labels.share'):
+                </div>
+            @endif
             <div class="Header"></div>
-
         </div>
             <div class="Header"></div>
             <h2 class="Heading-Fancy row">
@@ -110,7 +91,6 @@
                 <div class="row">
                     @include('talkshows.talkshowsList')
                 </div>
-            </div>
             <div class="Header"></div>
 
             <div id="disqus_thread">
@@ -173,7 +153,7 @@
                                         @{{comment.name}}
                                     </h5>
                                     <p class="discuss-content">
-                                        @{{{  comment.content }}}
+                                        @{{{ comment.content }}}
                                     </p>
                                     <span class="time">@{{comment.created_at}}</span>
                                 </div>
@@ -202,9 +182,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script src="/js/social-share.min.js"></script>
 
     <script>
         $('img.Card-image').lazyload();
+
+        $('#goTop').goTop();
 
         toastr.options = {
             "positionClass": "toast-top-center"
@@ -234,16 +217,19 @@
             el: 'body',
 
             ready: function () {
-                @if(!Auth::guest())
-                        this.$http.get('{{url("/talkshowComments/" . $talkshow->id)}}', function (response) {
+                this.$http.get('{{url("/talkshowComments/" . $talkshow->id)}}', function (response) {
                     this.comments = response;
+                    this.comment_visible = true;
                 }.bind(this));
-                this.comment_visible = true;
-                @endif
             },
+
             data: {
                 comments: [],
                 comment_visible: false,
+                favorite: '{{$like ? 'glyphicon-heart' : 'glyphicon-heart-empty'}}',
+                isFavorite: '{{$like}}',
+                collect: '{{$collect ? 'glyphicon-star' : 'glyphicon-star-empty'}}',
+                isCollect: '{{$collect}}',
                 newComment: {
                     name: '{{Auth::user() ? Auth::user()->name : ''}}',
                     avatar: '{{Auth::user() ? Auth::user()->avatar : ''}}',
@@ -257,6 +243,47 @@
             },
 
             methods: {
+                favoriteEvent() {
+                    if (this.isFavorite) {
+                        this.isFavorite = false;
+                        this.favorite = 'glyphicon-heart-empty';
+                    } else {
+                        this.isFavorite = true;
+                        this.favorite = 'glyphicon-heart';
+                    }
+                    this.$http.post('{{url("/talkshows/" . $talkshow->id . '/favorite')}}', function (response) {
+                    }.bind(this));
+                },
+
+                collectEvent() {
+                    if (this.isCollect) {
+                        this.isCollect = false;
+                        this.collect = 'glyphicon-star-empty'
+                    } else {
+                        this.isCollect = true;
+                        this.collect = 'glyphicon-star';
+                    }
+                    this.$http.post('{{url("/talkshows/" . $talkshow->id . '/collect')}}', function (response) {
+                    }.bind(this));
+                },
+
+                punchinEvent() {
+                    var punchin = $('#punchin');
+                    $('#punchinlink').hide();
+
+                    this.$http.post('{{url("/talkshows/" . $talkshow->id . '/punchin')}}', function (response) {
+                        punchin.html(parseInt(punchin.html()) + 1);
+                        var series = response.series;
+                        var isBreakup = response.break;
+                        if(isBreakup) {
+
+                            @if(!Auth::guest())
+                            toastr.success('@lang('labels.punchinSuccess')' + '@lang('labels.breakup')' + '@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])' );
+                            @endif
+                        }
+                    }.bind(this));
+                },
+
                 onPostComment: function (e) {
                     e.preventDefault();
 

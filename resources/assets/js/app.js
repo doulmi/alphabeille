@@ -1,6 +1,6 @@
-$(document).ready(function(){
+$(document).ready(function () {
     var navbar = $('#navbar');
-    var menu  = $('#menu-xs');
+    var menu = $('#menu-xs');
 
     //$(document).on( 'scroll', function(){
     //    var currentScrollTop = $(document).scrollTop();
@@ -33,6 +33,15 @@ $(document).ready(function(){
     var sky = $('.sky');
     var skyHeight = $(document).height();
     sky.css('height', skyHeight - 150);
+
+    toastr.options = {
+        "positionClass": "toast-top-center"
+    };
+
+
 });
 
-
+function search() {
+    var searchForm = $('#searchForm');
+    searchForm.submit();
+}

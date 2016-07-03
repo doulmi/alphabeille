@@ -71,7 +71,6 @@
 @endsection
 
 @section('otherjs')
-    <script src="/js/fullscreen.js"></script>
     <script>
         var messageContent = $('#message-content');
         var loader = $('#loader');

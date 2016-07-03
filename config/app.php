@@ -158,6 +158,8 @@ return [
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
 //        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         YuanChao\Editor\EndaEditorServiceProvider::class,
+        TomLingham\Searchy\SearchyServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -215,7 +217,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class
+        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
+        'Searchy' => TomLingham\Searchy\Facades\Searchy::class
     ],
 
 ];

@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Editor\Markdown\Markdown;
 use App\Talkshow;
+use App\TalkshowCollect;
+use App\TalkshowFavorite;
+use App\UserPunchin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
 class TalkshowController extends Controller
@@ -79,16 +84,6 @@ class TalkshowController extends Controller
         $talkshow = Talkshow::findOrFail($id);
 
         Redis::incr('talkshow:view:' . $id);
-        Redis::incr('talkshows:viewAll:' . $id);
-
-        $views = Redis::get('talkshow:view:' . $id);
-
-        //每100次访问，才更新一次数据库
-        //TODO : 全部改成Redis
-        if ($views == $this->viewMax) {
-            $talkshow->views += $this->viewMax;
-            $talkshow->save();
-        }
 
         $talkshows = $this->random();
         $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
@@ -96,7 +91,25 @@ class TalkshowController extends Controller
         $comments = $talkshow->comments;
         $content = $this->markdown->parse($talkshow->content);
 
-        return view('talkshows.show', compact(['talkshow', 'talkshows', 'comments', 'next', 'pre', 'content']));
+        $like = false;
+        $collect = false;
+        $punchin = false;
+
+        if (!Auth::guest()) {
+            $model = TalkshowFavorite::where('user_id', Auth::user()->id)->where('talkshow_id', $id)->first();
+            if ($model) {
+                $like = true;
+            }
+            $model = TalkshowCollect::where('user_id', Auth::user()->id)->where('talkshow_id', $id)->first();
+            if ($model) {
+                $collect = true;
+            }
+            $model = UserPunchin::where('user_id', Auth::user()->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+            if ($model) {
+                $punchin = true;
+            }
+        }
+        return view('talkshows.show', compact(['talkshow', 'talkshows', 'comments', 'next', 'pre', 'content', 'like', 'collect', 'punchin']));
     }
 
     /**
@@ -131,5 +144,87 @@ class TalkshowController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function free() {
+        $talkshows = Talkshow::where('free', 1)->latest()->paginate($this->pageLimit);
+        return view('talkshows.index', compact('talkshows'));
+    }
+
+    public function favorite($id)
+    {
+        return $this->doAction($id, TalkshowFavorite::class);
+    }
+
+    public function collectTalkshows()
+    {
+        $talkshows = TalkshowCollect::where('user_id', Auth::user()->id)->paginate($this->pageLimit);
+        return view('talkshows.index', compact('talkshows'));
+    }
+
+    public function punchin($id)
+    {
+        $user = Auth::user();
+        $punchin = UserPunchin::where('user_id', $user->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+        if (!$punchin) {
+
+            UserPunchin::create([
+                'punchable_type' => 'App\Talkshow',
+                'punchable_id' => $id,
+                'user_id' => $user->id
+            ]);
+
+            $break = false;
+            $user->series++;
+            $shouldUpdateMaxSeries = $user->series > $user->maxSeries;
+            if ($shouldUpdateMaxSeries) {
+                $user->maxSeries = $user->series;
+                $break = true;
+            }
+            $user->save();
+            return response()->json([
+                'status' => 200,
+                'break' => $break,
+                'series' => $user->series
+            ]);
+        }
+    }
+
+    private function doAction($id, $class)
+    {
+        //不登录没权限
+        if (Auth::guest()) {
+            return response()->json([
+                'status' => 403,
+            ]);
+        }
+
+        $model = $class::where([
+            'talkshow_id' => $id,
+            'user_id' => Auth::user()->id
+        ])->first();
+
+        //已经收藏或喜欢的话会取消
+        if ($model) {
+            $model->delete();
+
+            return response()->json([
+                'status' => 200
+            ]);
+        } else {
+            $class::create([
+                'talkshow_id' => $id,
+                'user_id' => Auth::user()->id
+            ]);
+
+            return response()->json([
+                'status' => 200
+            ]);
+        }
+    }
+
+    public function collect($id)
+    {
+        return $this->doAction($id, TalkshowCollect::class);
     }
 }

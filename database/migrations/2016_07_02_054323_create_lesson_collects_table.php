@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLessonFavoritesTable extends Migration
+class CreateLessonCollectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateLessonFavoritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_favorites', function (Blueprint $table) {
+        Schema::create('lesson_collects', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -29,6 +29,6 @@ class CreateLessonFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('lesson_favorites');
+        Schema::drop('lesson_collects');
     }
 }

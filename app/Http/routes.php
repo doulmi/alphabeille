@@ -6,16 +6,45 @@ Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmE
 
 Route::get('/', 'PostController@index');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('chat', 'ChatController');
+
+    Route::get('lessons/collect', 'LessonController@collectLessons');
+    Route::post('lessons/{id}/favorite', 'LessonController@favorite');
+    Route::post('lessons/{id}/punchin', 'LessonController@punchin');
+    Route::post('lessons/{id}/collect', 'LessonController@collect');
+
+    Route::get('talkshows/collect', 'TalkshowController@collectTalkshows');
+    Route::post('talkshows/{id}/favorite', 'TalkshowController@favorite');
+    Route::post('talkshows/{id}/punchin', 'TalkshowController@punchin');
+    Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
+    Route::get('users/collect', 'UserController@collect');
+    Route::post('post/upload', 'PostController@upload');
+    Route::post('uploadAvatar', 'UserController@uploadAvatar');
+    Route::post('modifyPwd', 'UserController@modifyPwd');
+    Route::post('comments', 'CommentController@store');
+    Route::post('lessonComments', 'LessonCommentController@store');
+    Route::post('talkshowComments', 'TalkshowCommentController@store');
+    Route::get('subscription/{id}', 'PostController@subscription');
+});
+
+Route::get('lessonComments/{lesson_id}', 'LessonCommentController@index');
+Route::get('talkshowComments/{talkshow_id}', 'TalkshowCommentController@index');
+
 Route::auth();
-Route::resource('chat', 'ChatController');
+
 Route::resource('topics', 'TopicController');
-Route::post('topics/{ids}/delete', 'TopicController@multiDestroy')->where(['id' => '[0-9]+']);
-Route::resource('lessons', 'LessonController');
+//Route::post('topics/{ids}/delete', 'TopicController@multiDestroy')->where(['id' => '[0-9]+']);
+Route::get('lessons/free', 'LessonController@free');
+//Route::get('lessons/collect', 'LessonController@myCollect');
 Route::get('lessons/{id}/{lan}', 'LessonController@show');
+Route::resource('lessons', 'LessonController');
+
+Route::get('talkshows/free', 'TalkshowController@free');
 Route::resource('talkshows', 'TalkshowController');
+
 Route::resource('messages', 'MessageController');
 Route::resource('discussions', 'DiscussionController');
-Route::post('post/upload', 'PostController@upload');
 Route::get('menus', 'PostController@menus');
 
 Route::get('checkEmail', function () {
@@ -23,14 +52,13 @@ Route::get('checkEmail', function () {
 })->name('checkEmail');
 
 Route::get('users/{id}', 'UserController@show');
-Route::put('users', 'UserController@update');
-Route::post('uploadAvatar', 'UserController@uploadAvatar');
-Route::post('modifyPwd', 'UserController@modifyPwd');
 Route::get('comments/like/{commentId}', 'CommentController@like');
-Route::post('comments', 'CommentController@store');
-Route::post('lessonComments', 'LessonCommentController@store');
+
 Route::get('lessonComments/{id}', 'LessonCommentController@index');
-Route::post('talkshowComments', 'TalkshowCommentController@store');
+Route::put('users', 'UserController@update');
+
+Route::get('search', 'PostController@search');
+Route::get('free', 'PostController@free');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
@@ -69,7 +97,7 @@ $api->version('v1', function ($api) {
         $api->get('lessons/{id}', 'LessonController@show')->where(['id' => '[0-9]+']);
         $api->get('messages/{id}', 'MessageController@show')->where(['id' => '[0-9]+']);
         $api->get('talkshows/{id}', 'TalkshowController@show')->where(['id' => '[0-9]+']);
-        $api->group(['middleware' => 'jwt.auth'], function($api) {
+        $api->group(['middleware' => 'jwt.auth'], function ($api) {
             $api->get('users/me', 'AuthenticateController@getAuthenticatedUser');
         });
     });

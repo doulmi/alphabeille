@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\At' => [
             'App\Listeners\UserBeAt',
+        ],
+        'SocialiteProviders\Manager\SocialiteWasCalled' => [
+            'SocialiteProviders\WeixinWeb\WeixinWebExtendSocialite@handle',
         ]
     ];
 

@@ -3,8 +3,13 @@
 @section('title')
     {{ $lesson->title }}
 @endsection
+
+@section('othercss')
+    <link rel="stylesheet" href="/css/share.min.css">
+@endsection
+
 @section('content')
-    <link rel="stylesheet" href="/css/audioplayer.css"/>
+    <link rel="stylesheet" href="/css/audioplayer.css" xmlns:v-on="http://www.w3.org/1999/xhtml"/>
     <div class="body grey">
 
         <?php $canRead = $lesson->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
@@ -20,18 +25,19 @@
             </div>
 
             <br/>
-            {{--<div class="Card-Collection">--}}
             <h1 class="mar-t-z center">
                 {{ $lesson->title }}
             </h1>
 
             <div class="center">
-                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$lesson->created_at}}
+                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$lesson->created_at}} |
             </div>
             <br/>
+            <br/>
 
-            <a class="btn btn-label label-topic">{{ $topic->title }}</a>
+            <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
             <a class="btn btn-label label-{{$topic->sex}}">@lang("labels.tags." . $topic->sex)</a>
+
             @if($canRead)
                 <div class="playerPanel">
                     <audio id='audio' preload="auto" controls hidden>
@@ -58,52 +64,38 @@
 
             <br/>
             <br/>
-            {{--<div class="Header"></div>--}}
-
-            {{--<div class="Video-information row">--}}
-            {{--<div class="Video-buttons Box">--}}
-            {{--<ul class="utility-naked-list ">--}}
-            {{--@if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))--}}
-            {{--<li>--}}
-            {{--<a href="{{ url('audios/' . $lesson->id) }}" class="Button-with-icon">--}}
-            {{--<i class="glyphicon glyphicon-download-alt"></i>--}}
-            {{--<span>@lang('labels.download') </span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-            {{--@endif--}}
-
-            {{--<li>--}}
-            {{--<a href="#disqus_thread" class="Button-with-icon">--}}
-            {{--<i class="glyphicon glyphicon-comment"></i>--}}
-            {{--<span>@lang('labels.discuss') </span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-            {{--</ul>--}}
-            {{--</div>--}}
-
-            {{--<div class="Video-details Box Box-Large">--}}
-            {{--<div class="Video-body">--}}
-            {{--<p class="Lesson-decription">{{ $lesson->description }}</p>--}}
-            {{--<p class="mar-t">--}}
-            {{--<strong>--}}
-            {{--{{trans('labels.publishOn') . ' ' . $lesson->created_at->diffForHumans()}}--}}
-            {{--</strong>--}}
-            {{--</p>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="Card-Collection">--}}
             @if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))
                 <div class='markdown-content'>
                     {!! $content !!}
                 </div>
             @endif
-            {{--</div>--}}
 
+            @if(!Auth::guest())
+                <div class="center">
+                    <a href="#" data-tooltips="@lang('labels.favorite')" class="favorite-circle"
+                       @click.stop.prevent="favoriteEvent">
+                        <i class="favorite glyphicon " v-bind:class="favorite"></i>
+                    </a>
+
+                    @if(!$punchin)
+                        <a id="punchinlink" href="#" data-tooltips="@lang('labels.punchin')" class="favorite-circle"
+                           @click.stop.prevent="punchinEvent">
+                            <i class="favorite glyphicon glyphicon-ok"></i>
+                        </a>
+                    @endif
+
+                    <a href="#" data-tooltips="@lang('labels.collect')" class="favorite-circle"
+                       @click.stop.prevent="collectEvent">
+                        <i class="favorite glyphicon" v-bind:class="collect"></i>
+                    </a>
+
+                </div>
+                <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
+                     data-description="@lang('labels.shareTo')" data-image="{{$lesson->avatar}}">
+                    @lang('labels.share'):
+                </div>
+            @endif
             <div class="Header"></div>
-
         </div>
         {{--@include('sugguest')--}}
         <div class="Card-Collection ">
@@ -188,11 +180,6 @@
                     </div>
                 @endif
 
-                {{--<center v-if="!comment_visible">--}}
-                {{--<div id="loader">--}}
-                {{--<img src="/css/svg-loaders/rings.svg" width='100px' alt=""/>--}}
-                {{--</div>--}}
-                {{--</center>--}}
                 <div class="comments" v-if="comment_visible">
                     <ul id="comments">
                         <li v-for="comment in comments" class="comment">
@@ -223,10 +210,10 @@
                     </ul>
                 </div>
             </div>
-
             <div class="Header"></div>
             <div class="Header"></div>
         </div>
+        <div id='goTop'></div>
     </div>
 
     @include('smallBeach')
@@ -237,14 +224,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+    <script src="/js/social-share.min.js"></script>
 
     <script>
         $('img.Card-image').lazyload();
-
-        toastr.options = {
-            "positionClass": "toast-top-center"
-        };
-
         var isIE = function (ver) {
             var b = document.createElement('b');
             b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
@@ -252,14 +235,9 @@
         };
 
         if (isIE(6) || isIE(7) || isIE(8)) {
-
         }
 
-
-        //            console.log(audios[0].currentTime);
-        //            audios[0].currentTime = 10;
-
-
+        $('#goTop').goTop();
         function reply(userId, userName) {
             window.location.href = "#replyForm";
             ue.setContent('<a href="/users/' + userId + '">@' + userName + '</a>', false);
@@ -275,16 +253,19 @@
             el: 'body',
 
             ready: function () {
-                @if(!Auth::guest())
-                        this.$http.get('{{url("/lessonComments/" . $lesson->id)}}', function (response) {
+                this.$http.get('{{url("lessonComments/" . $lesson->id)}}', function (response) {
+                    console.log(response);
                     this.comments = response;
+                    this.comment_visible = true;
                 }.bind(this));
-                this.comment_visible = true;
-                @endif
             },
             data: {
                 comments: [],
                 comment_visible: false,
+                favorite: '{{$like ? 'glyphicon-heart' : 'glyphicon-heart-empty'}}',
+                isFavorite: '{{$like}}',
+                collect: '{{$collect ? 'glyphicon-star' : 'glyphicon-star-empty'}}',
+                isCollect: '{{$collect}}',
                 newComment: {
                     name: '{{Auth::user() ? Auth::user()->name : ''}}',
                     avatar: '{{Auth::user() ? Auth::user()->avatar : ''}}',
@@ -298,6 +279,46 @@
             },
 
             methods: {
+                favoriteEvent() {
+                    if (this.isFavorite) {
+                        this.isFavorite = false;
+                        this.favorite = 'glyphicon-heart-empty';
+                    } else {
+                        this.isFavorite = true;
+                        this.favorite = 'glyphicon-heart';
+                    }
+                    this.$http.post('{{url("/lessons/" . $lesson->id . '/favorite')}}', function (response) {
+                    }.bind(this));
+                },
+
+                collectEvent() {
+                    if (this.isCollect) {
+                        this.isCollect = false;
+                        this.collect = 'glyphicon-star-empty'
+                    } else {
+                        this.isCollect = true;
+                        this.collect = 'glyphicon-star';
+                    }
+                    this.$http.post('{{url("/lessons/" . $lesson->id . '/collect')}}', function (response) {
+                    }.bind(this));
+                },
+
+                punchinEvent() {
+                    var punchin = $('#punchin');
+                    $('#punchinlink').hide();
+
+                    this.$http.post('{{url("/lessons/" . $lesson->id . '/punchin')}}', function (response) {
+                        punchin.html(parseInt(punchin.html()) + 1);
+                        var series = response.series;
+                        var isBreakup = response.break;
+                        if (isBreakup) {
+                            @if(!Auth::guest())
+                            toastr.success('@lang('labels.punchinSuccess')' + '@lang('labels.breakup')' + '@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])');
+                            @endif
+                        }
+                    }.bind(this));
+                },
+
                 onPostComment: function (e) {
                     e.preventDefault();
 
@@ -342,5 +363,6 @@
             ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
         });
         @endif
+
     </script>
 @endsection

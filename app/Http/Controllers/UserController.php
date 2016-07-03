@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\LessonCollect;
+use App\LessonFavorite;
+use App\TalkshowCollect;
 use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
-use Pingpp\RedEnvelope;
-use zgldh\QiniuStorage\QiniuStorage;
 
 class UserController extends Controller
 {
@@ -115,5 +114,11 @@ class UserController extends Controller
         } else {
             abort('404');
         }
+    }
+
+    public function collect() {
+        $lessons = LessonCollect::where('user_id', Auth::user()->id);
+        $talkshows = TalkshowCollect::where('user_id', Auth::user()->id);
+        return view('collect', compact('lessons', 'talkshows'));
     }
 }

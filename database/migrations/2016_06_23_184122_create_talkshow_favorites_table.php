@@ -13,11 +13,11 @@ class CreateTalkshowFavoritesTable extends Migration
     public function up()
     {
         Schema::create('talkshow_favorites', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('talkshow_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->foreign('talkshow_id')->references('id')->on('talkshows')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->primary(['talkshow_id', 'user_id']);
             $table->timestamps();
         });
     }

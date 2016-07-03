@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserLogin;
 use App\Message;
+use App\UserPunchin;
 use App\UserSubscription;
 use Bican\Roles\Models\Role;
 use Carbon\Carbon;
@@ -37,6 +38,22 @@ class UserLoginEvent
         $user = Auth::user();
         $user->last_login_at = Carbon::now();
 
+        $this->checkPunchin();
+        $this->checkSubscriptionExpired();
+
+        $user->save();
+    }
+
+    private function checkPunchin() {
+        //检查用户的打卡是否需要归0
+        $lastPunchin = UserPunchin::orderBy('created_at', 'DESC')->first();
+        if (Carbon::today()->diffInDays($lastPunchin->created_at) > 1) {
+            Auth::user()->series = 0;
+        }
+    }
+
+    private function checkSubscriptionExpired() {
+        $user = Auth::user();
         //检查用户订阅是否已经过期
         if($user->level() == 2) {
             $subscripition = UserSubscription::where('user_id', $user->id)->latest()->limit(1)->first(['expire_at']);
@@ -61,6 +78,5 @@ class UserLoginEvent
                 $user->attachRole($role);
             }
         }
-        $user->save();
     }
 }
