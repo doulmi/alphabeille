@@ -117,8 +117,8 @@ class UserController extends Controller
     }
 
     public function collect() {
-        $lessons = LessonCollect::where('user_id', Auth::user()->id);
-        $talkshows = TalkshowCollect::where('user_id', Auth::user()->id);
+        $lessons = LessonCollect::where('user_id', Auth::user()->id)->get();
+        $talkshows = TalkshowCollect::where('user_id', Auth::user()->id)->get();
         return view('collect', compact('lessons', 'talkshows'));
     }
 }
