@@ -23,7 +23,6 @@
         @if(count($lessons) != 0)
             <div class="Card-Collection" >
                 @include('lessons.lessonsAvatarList')
-
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons/collect')}}">@lang('labels.more')</a>
                 </h2>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use App\LessonCollect;
 use App\LessonFavorite;
+use App\Talkshow;
 use App\TalkshowCollect;
 use App\User;
 use Illuminate\Http\Request;
@@ -117,8 +119,12 @@ class UserController extends Controller
     }
 
     public function collect() {
-        $lessons = LessonCollect::where('user_id', Auth::user()->id)->get();
-        $talkshows = TalkshowCollect::where('user_id', Auth::user()->id)->get();
+        $lessonsIds = LessonCollect::where('user_id', Auth::user()->id)->lists("lesson_id")->toArray();
+        $talkshowsIds = TalkshowCollect::where('user_id', Auth::user()->id)->lists("talkshow_id")->toArray();
+
+       $lessons = Lesson::whereIn('id', $lessonsIds)->get(['id', 'avatar', 'title']);
+        $talkshows = Talkshow::whereIn('id', $talkshowsIds)->get(['id', 'avatar', 'title']);
+
         return view('collect', compact('lessons', 'talkshows'));
     }
 }
