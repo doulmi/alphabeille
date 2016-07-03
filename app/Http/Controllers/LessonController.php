@@ -37,7 +37,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        $lessons = Lesson::latest()->paginate($this->pageLimit);
+        $lessons = Lesson::orderby('id', 'DESC')->paginate($this->pageLimit);
         return view('lessons.index', compact('lessons'));
     }
 
@@ -153,13 +153,13 @@ class LessonController extends Controller
 
     public function free()
     {
-        $lessons = Lesson::where('free', 1)->latest()->paginate($this->pageLimit);
+        $lessons = Lesson::where('free', 1)->orderBy('id', 'DESC')->paginate($this->pageLimit);
         return view('lessons.index', compact('lessons'));
     }
 
     public function collectLessons()
     {
-        $lessons = LessonCollect::where('user_id', Auth::user()->id)->paginate($this->pageLimit);
+        $lessons = LessonCollect::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate($this->pageLimit);
 //        $lessons = Lesson::where('free', 1)->latest()->paginate($this->pageLimit);
         return view('lessons.index', compact('lessons'));
     }

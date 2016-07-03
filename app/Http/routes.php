@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('subscription/{id}', 'PostController@subscription');
 });
 
+Route::get('images', function() {
+    return view('images');
+});
 Route::get('lessonComments/{lesson_id}', 'LessonCommentController@index');
 Route::get('talkshowComments/{talkshow_id}', 'TalkshowCommentController@index');
 
