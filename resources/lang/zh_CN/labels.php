@@ -91,14 +91,14 @@ return [
     'series' => '蜂蜜已连续积累:days天',
     'backIndex' => '返回Alphabeille首页',
 
-    '404' => '404警报！您访问的目的地为未知区域！为了您的安全，请按以下方案执行操作：',
-    '404tip1' => '立刻登上Alphabeille号救生舱，安全返回:url大陆。',
-    '404tip2' => '利用紧急呼救设备联系:mailto管理员，然后耐心等待救援。',
-    'welcomeJoinUs' => '再次感谢您的这次Alphabeille之旅，Alphabeille将竭诚为您服务！',
+    '404' => '404! 该页面正在午睡中！',
+    '404tip1' => '立刻返回首页:url',
+    '404tip2' => '立即联系:mailto管理员',
+    'welcomeJoinUs' => '感谢您加入Alphabeille',
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
 
     'free' => '免费',
-    'adText' => 'Alphabeille目前已有:count个课程，每个课程包含一段法国老师的日常生活经历的音频及对应的中法讲解。注册购买我们的套餐或者登陆您已有的账号来加入我们吧！',
+    'adText' => 'Alphabeille目前已有:count课程。周一到周五我们将上传新的课程内容,每个课程包含一段法国老师的日常生活经历的音频及对应的中法讲解,周末我们将上传相对轻松的脱口秀。',
     'backToLearn' => '进入学习状态',
     'adBtn' => '所有内容只需75/月',
     'loginAccount' => '登陆您的账号',
@@ -201,4 +201,5 @@ return [
     'payStep3' => '付款金额：:price 元',
     'payStep4' => '付款说明：:email',
     'payStep5' => '确认付款，30秒内自动到账',
+    'learnIntroduction' => '每天一个番茄时间的法语学习'
 ];

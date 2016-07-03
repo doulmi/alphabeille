@@ -26,7 +26,6 @@
                                  alt="{{$lesson->title}}">
                             <div class="Card-overlay">
                                 <i class="glyphicon glyphicon-play-circle"></i>
-
                             </div>
                         </a>
                     </div>
@@ -39,7 +38,6 @@
                         <div class="hidden-xs Card-footer-content">
                         <span class="topic-view">
                             <i class="svg-icon svg-icon-headphone"></i>
-                            {{--                            <span class="g-font">{{ $lesson->views }} </span>--}}
                             <span class="g-font">{{ Redis::get('lesson:view:' . $lesson->id) }} </span>
                         </span>
 

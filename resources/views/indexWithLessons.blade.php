@@ -16,7 +16,7 @@
         @endif
 
         <div class="BlockMessage BlockMessage-With-Spacing">
-            The most concise screencasts for the working developer, updated daily.
+            @lang('labels.learnIntroduction')
         </div>
 
         <h2 class="Heading-Fancy row">

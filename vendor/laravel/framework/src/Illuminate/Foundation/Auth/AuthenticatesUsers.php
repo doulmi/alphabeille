@@ -31,6 +31,7 @@ trait AuthenticatesUsers
         return view('auth.login');
     }
     /**
+     *
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
