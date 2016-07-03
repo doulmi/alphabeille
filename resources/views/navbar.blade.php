@@ -131,7 +131,7 @@
                                 <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>
                                 <span>{{Auth::user()->name}}</span>
                             </a>
-                            <a href="#" class="col-xs-4">
+                            <a href="{{url('/users/collect')}}" class="col-xs-4">
                                @lang('labels.myCollect')
                             </a>
                             <a href="{{url('/logout')}}" class="col-xs-4">@lang('labels.disconnect')</a>
