@@ -47,7 +47,7 @@ class UserLoginEvent
     private function checkPunchin() {
         //检查用户的打卡是否需要归0
         $lastPunchin = UserPunchin::orderBy('created_at', 'DESC')->first();
-        if (Carbon::today()->diffInDays($lastPunchin->created_at) > 1) {
+        if ($lastPunchin && Carbon::today()->diffInDays($lastPunchin->created_at) > 1) {
             Auth::user()->series = 0;
         }
     }
