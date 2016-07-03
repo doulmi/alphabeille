@@ -39,12 +39,12 @@
 
         <div class="Card-Collection Banner">
             <div class="row">
-                <div class="col-md-3 col-xs-offset-1 col-xs-10">
+                <div class="col-md-2 col-xs-offset-1 col-xs-10">
                     <a href="#" class="thumbnail">
                         <img src="{{$topic->avatar}}" alt="{{$topic->title}}"/>
                     </a>
                 </div>
-                <div class="col-md-9 col-xs-offset-1 col-xs-10">
+                <div class="col-md-7 col-xs-offset-1 col-xs-10">
                     <h1 class="Banner-heading"> {{$topic->title}} </h1>
 
                     <div class="Banner-message">
