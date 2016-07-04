@@ -28,9 +28,9 @@ return [
     'intermediate' => 'intermediate',
     'beginner' => 'débutant',
     'advanced' => 'advanced',
-
     'learnSlagon' => 'Chaque jour 25 minutes pour apprendre le français',
-    'joinus' => '什么?还不能满足您?',
+    'learnIntroduction' => 'Chaque jour 25 minutes pour apprendre le français',
+    'joinus' => 'Quoi? Cela ne vous suffit pas? Essayez nos cours privés? Scannez notre wechat pour nous contacter',
     '6month' => '6 mois',
     '12month' => '1 an',
     '12month+' => '1 an + Groupe',
