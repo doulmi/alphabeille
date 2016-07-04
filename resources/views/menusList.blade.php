@@ -29,7 +29,6 @@
 
         <div class="row center">
             <div class="Header"></div>
-            <div class="Header"></div>
             <h4 class="">{{ trans('labels.joinus') }}</h4>
             <center>
                 <img src="/img/placeholder.png" data-original="http://o9dnc9u2v.bkt.clouddn.com/AlphabeilleStudioQR.png"
