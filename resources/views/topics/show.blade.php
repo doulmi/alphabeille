@@ -4,6 +4,11 @@
     {{$topic->title}}
 @endsection
 
+@section('header')
+    <meta name="description" content="{{$topic->description}}">
+    <meta name="Keywords" content="{{$topic->keywords}}">
+@endsection
+
 @section('content')
     <div class="body">
         <div class="Header"></div>

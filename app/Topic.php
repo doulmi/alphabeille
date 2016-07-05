@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 class Topic extends Model
 {
     protected $fillable = [
-        'title', 'description', 'avatar', 'level'
+        'title', 'description', 'avatar', 'level', 'keywords'
     ];
 
     public function lessons() {

@@ -1,7 +1,11 @@
 @extends('app')
 
 @section('title')
-    {{ trans('titles.index') }}
+@endsection
+
+@section('header')
+    <meta name="description" content="@lang('labels.index.description')">
+    <meta name="Keywords" content="@lang('labels.index.keywords')">
 @endsection
 
 @section('content')
@@ -40,7 +44,6 @@
                 <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
             </h2>
         </div>
-
         @include('menusList')
     </div>
 @endsection

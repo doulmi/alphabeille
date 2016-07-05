@@ -54,6 +54,15 @@
             @endif
         </div>
 
+            <div class="form-group">
+                <label for="keywords">@lang('labels.keywords')</label>
+                @if($edit)
+                    <input type="text" class="form-control" id="keywords" name="keywords" value="{{$lesson->keywords}}"/>
+                @else
+                    <input type="text" class="form-control" id="keywords" name="keywords"/>
+                @endif
+            </div>
+
         <div class="form-group">
             <label for="duration">@lang('labels.duration')</label>
             @if($edit)

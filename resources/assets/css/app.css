@@ -4456,3 +4456,11 @@ px
     padding-bottom: 200px;
 }
 
+.c404 a {
+   text-decoration: none;
+    color: white;
+}
+
+.c404 a:hover {
+    text-decoration: underline;
+}

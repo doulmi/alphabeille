@@ -1,7 +1,12 @@
 @extends('app')
 
 @section('title')
-    {{ trans('titles.index') }}
+    @lang('labels.free.title')
+@endsection
+
+@section('header')
+    <meta name="description" content="@lang('labels.free.description')">
+    <meta name="Keywords" content="@lang('labels.free.keywords')">
 @endsection
 
 @section('content')

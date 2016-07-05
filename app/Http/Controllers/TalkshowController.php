@@ -70,6 +70,7 @@ class TalkshowController extends Controller
     public function random($num = 4, $max = 100)
     {
         $talkshows = Talkshow::latest()->limit($max)->get();
+        $num = $num > $talkshows->count() ? : $num;
         return $talkshows->random($num);
     }
 

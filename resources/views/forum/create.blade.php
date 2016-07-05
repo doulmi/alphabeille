@@ -1,8 +1,9 @@
 @extends('app')
 
 @section('title')
-    @lang('titles.forum')
+    @lang('labels.forum.title')
 @endsection
+
 
 
 @section('content')

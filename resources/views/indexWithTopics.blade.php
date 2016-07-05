@@ -4,6 +4,11 @@
     {{ trans('titles.index') }}
 @endsection
 
+@section('header')
+    <meta name="description" content="@lang('labels.index.description')">
+    <meta name="Keywords" content="@lang('labels.index.keywords')">
+@endsection
+
 @section('content')
     <div class="body ">
         <div class="Header">

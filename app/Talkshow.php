@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 class Talkshow extends Model
 {
     protected $fillable = [
-        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'free', 'audio_url', 'download_url', 'duration',  'audio_url_zh_CN', 'content', 'content_zh_CN'
+        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'free', 'audio_url', 'download_url', 'duration',  'audio_url_zh_CN', 'content', 'content_zh_CN', 'keywords'
     ];
 
     public function isNew()

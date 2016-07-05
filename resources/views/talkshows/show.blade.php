@@ -4,6 +4,11 @@
     {{ $talkshow->title }}
 @endsection
 
+@section('header')
+    <meta name="description" content="{{$talkshow->description}}">
+    <meta name="Keywords" content="{{ $talkshow->keywords }}">
+@endsection
+
 @section('othercss')
     <link rel="stylesheet" href="/css/share.min.css">
 @endsection
@@ -175,6 +180,7 @@
             <div class="Header"></div>
             <div class="Header"></div>
         </div>
+            <div id='goTop'></div>
     </div>
 
     @include('smallBeach')
@@ -205,6 +211,7 @@
         if (isIE(6) || isIE(7) || isIE(8)) {
         }
 
+        $('#goTop').goTop();
         function reply(userId, userName) {
             window.location.href = "#replyForm";
             ue.setContent('<a href="/users/' + userId + '">@' + userName + '</a>', false);

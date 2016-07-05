@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('title')
-    @lang('titles.forum')
+    {{$discussion->title}}
 @endsection
 
 @section('content')

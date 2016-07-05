@@ -59,13 +59,7 @@ class TopicController extends Controller
 //            $name = time() . '.jpg';
 //            $request->file('avatar')->move($destPath, $name);
 
-        Topic::create([
-            'title' => $request->get('title'),
-            'description' => $request->get('description'),
-            'avatar' => $request->get('avatar'),
-//                'avatar' => '/' . $destPath . '/' . $name,
-            'level' => $request->get('topicLevel'),
-        ]);
+        Topic::create($request->all());
 
         Session::flash('success', trans('labels.createTopicSuccess'));
         return redirect('admin/topics');
@@ -107,22 +101,29 @@ class TopicController extends Controller
     public function update(Request $request, $id)
     {
         $topic = Topic::find($id);
-
-        if (!$topic) {
-            return response()->json([
-                'status' => 404
-            ]);
+        if ($topic) {
+            $topic->update($request->all());
+            Session::flash('success', trans('labels.createTopicSuccess'));
         } else {
-            $topic->title = $request->get('title');
-            $topic->description = $request->get('description');
-            $topic->avatar = $request->get('avatar');
-            $topic->level = $request->get('');
-            $topic->update();
-
-            return response()->json([
-                'status' => 200
-            ]);
+            Session::flash('fail', trans('labels.createTopicFailed.cannotFound'));
         }
+        return redirect('admin/topics');
+
+//        if (!$topic) {
+//            return response()->json([
+//                'status' => 404
+//            ]);
+//        } else {
+//            $topic->title = $request->get('title');
+//            $topic->description = $request->get('description');
+//            $topic->avatar = $request->get('avatar');
+//            $topic->level = $request->get('');
+//            $topic->update();
+//
+//            return response()->json([
+//                'status' => 200
+//            ]);
+//        }
     }
 
     /**

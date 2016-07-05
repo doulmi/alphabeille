@@ -16,7 +16,8 @@ class TopicTransformer extends TransformerAbstract
             'level' => $topic->level,
             'views' => $topic->views(),
             'lessons' => $topic->lessonCount(),
-            'avatar' => $topic->avatar
+            'avatar' => $topic->avatar,
+            'keywords' => $topic->keywords
         ];
     }
 }

@@ -4,6 +4,11 @@
     {{ $lesson->title }}
 @endsection
 
+@section('header')
+    <meta name="description" content="{{$lesson->description}}">
+    <meta name="Keywords" content="{{ $lesson->keywords }}">
+@endsection
+
 @section('othercss')
     <link rel="stylesheet" href="/css/share.min.css">
 @endsection

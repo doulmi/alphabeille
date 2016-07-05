@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('/roles', 'Admin\RoleController@store');
     Route::get('/topics', 'Admin\TopicController@index');
     Route::put('/topics', 'Admin\TopicController@store');
+    Route::post('/topics/{toppicId}', 'Admin\TopicController@update');
     Route::post('/topics/{id}', 'Admin\TopicController@update');
     Route::get('/lessons', 'Admin\LessonController@index');
     Route::post('/lessons', 'Admin\LessonController@store');

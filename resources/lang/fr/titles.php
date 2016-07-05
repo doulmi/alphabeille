@@ -7,5 +7,11 @@ return [
     'login' => 'Connexion',
     'register' => 'Inscription',
     'home' => 'Profile',
-    'chatroom' => 'Chatroom'
+    'chatroom' => 'Chatroom',
+    'menus' => 'Alphabeille',
+    'info' => 'Profile',
+    'messageBox' => 'Messagerie',
+    'forum' => '>_Forum',
+    'discussions' => 'Discussions',
+    'lessons' => 'Cours',
 ];

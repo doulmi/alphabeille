@@ -1,8 +1,14 @@
 @extends('app')
 
 @section('title')
-    @lang('titles.forum')
+    @lang('labels.forum.title')
 @endsection
+
+@section('header')
+    <meta name="description" content="@lang('labels.forum.description')">
+    <meta name="Keywords" content="@lang('labels.forum.keywords')">
+@endsection
+
 
 @section('content')
     <div class="body">
@@ -24,7 +30,7 @@
 
                 <ul class="discussion-list">
                     <li>
-                        <h3>Flux de discussions
+                        <h3>@lang('forum.list')
                         <a href="{{url('discussions/create')}}" class="pull-right btn btn-lg btn-new">@lang('labels.newDiscussion')</a>
                         </h3>
                     </li>

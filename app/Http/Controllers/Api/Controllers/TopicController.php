@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Input;
 
 class TopicController extends BaseApiController
 {
-    private $selectedCols = ['id','title', 'description', 'avatar', 'level'];
+    private $selectedCols = ['id','title', 'description', 'avatar', 'level', 'keywords'];
     private $selectedLessonCols = ['id', 'title', 'description', 'order', 'likes', 'free', 'views', 'audio_url', 'download_url', 'created_at', 'duration'];
     /**
      * Display a listing of the resource.
