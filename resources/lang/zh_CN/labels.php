@@ -202,6 +202,7 @@ return [
     'learnIntroduction' => '每天一个番茄时间的法语学习',
     'minute' => '分钟',
 
+    'index.title' => 'Alphabeille法语：有趣，有料，有八卦，每天一个番茄时间学法语!',
     'index.description' => '每天一个番茄时间，学地道法语、聊法国文化！Alphabeille法语为您推送真实小故事、趣味脱口秀、中法老师微信1对1课程。公众号：Alphabeille法语 免费中法脱口秀和关键词，还有更多内容哦！',
     'index.keywords' => 'Alphabeille法语，法语，法语口语，法语脱口秀，法语课程，微信法语, 法语学习',
 

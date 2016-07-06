@@ -1,6 +1,9 @@
 @extends('app')
 
 @section('title')
+    @lang('labels.index.title')
+    <meta name="google-site-verification" content="p4OOrrT_9YZ-IQLDF02ChLQuNHEW7xodyKVeZoe8FU8" />
+    <meta name="baidu-site-verification" content="4Y6Akg4Bz5" />
 @endsection
 
 @section('header')
