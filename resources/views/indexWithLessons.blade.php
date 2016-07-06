@@ -2,13 +2,13 @@
 
 @section('title')
     @lang('labels.index.title')
-    <meta name="google-site-verification" content="p4OOrrT_9YZ-IQLDF02ChLQuNHEW7xodyKVeZoe8FU8" />
-    <meta name="baidu-site-verification" content="4Y6Akg4Bz5" />
 @endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.index.description')">
     <meta name="Keywords" content="@lang('labels.index.keywords')">
+    <meta name="google-site-verification" content="p4OOrrT_9YZ-IQLDF02ChLQuNHEW7xodyKVeZoe8FU8" />
+    <meta name="baidu-site-verification" content="4Y6Akg4Bz5" />
 @endsection
 
 @section('content')
@@ -17,10 +17,10 @@
         </div>
         <div class="Header"></div>
 
-        @if(Auth::guest())
-        <div class="header-container">
-        </div>
-        @endif
+        {{--@if(Auth::guest())--}}
+        {{--<div class="header-container">--}}
+        {{--</div>--}}
+        {{--@endif--}}
 
         <div class="BlockMessage BlockMessage-With-Spacing">
             @lang('labels.learnIntroduction')

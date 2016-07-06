@@ -139,7 +139,7 @@ return [
     'addTopic' => '增加主题',
     'createTopicFailed' => '创建主题失败',
     'createTopicSuccess' => '创建主题成功',
-    'loginToReply' => '回答该问题',
+    'loginToReply' => '发表评论',
 
     'delete' => '删除',
     'modify' => '修改',

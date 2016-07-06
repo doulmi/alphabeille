@@ -34,7 +34,7 @@ return [
     '6month' => '6 mois',
     '12month' => '1 an',
     '12month+' => '1 an + Groupe',
-    'buy' => 'acheter maintenant?',
+    'buy' => 'Abonnez',
     'publishOn' => 'publié',
     'discuss' => 'Discussions',
     'download' => 'télécharger',
