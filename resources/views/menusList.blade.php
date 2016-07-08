@@ -16,7 +16,6 @@
                                     <h3 class="menu-price menu-{{$menu->duration}}-price">
                                         <span class="symbol">￥</span><span
                                                 class="price-label">@lang($menu->price)</span>
-                                        <span class="advantage">@lang('advantage1')</span>
                                     </h3>
                                     <div class="buy-btn-div">
                                         <a href='{{url('subscription/' . $menu->id)}}'
