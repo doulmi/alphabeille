@@ -17,6 +17,13 @@
         <div class="Header">
         </div>
 
+        <h2 class="Heading-Fancy row">
+            <span class="Heading-Fancy-subtitle">
+                @lang('labels.talkshowSubtitle')
+            </span>
+            <span class='title'>@lang('labels.talkshows')</span>
+        </h2>
+
         <div class="Card-Collection">
             @include('talkshows.talkshowsList')
             <?php $pages = $talkshows ?>

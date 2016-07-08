@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
+    protected $dates = ['publish_at'];
     protected $fillable = [
-        'topic_id', 'title', 'order', 'views', 'likes', 'description', 'free', 'audio_url', 'download_url', 'duration',  'audio_url_zh_CN', 'content', 'content_zh_CN', 'avatar', 'keywords'
+        'topic_id', 'title', 'order', 'views', 'likes', 'description', 'free', 'audio_url', 'download_url', 'duration',  'audio_url_zh_CN', 'content', 'content_zh_CN', 'avatar', 'keywords', 'is_published', 'publish_at'
     ];
 
     public function topic()
@@ -24,5 +25,9 @@ class Lesson extends Model
 
     public function comments() {
         return $this->hasMany(LessonComment::class);
+    }
+
+    public function scopePublished($query) {
+        return $query->where('is_published', 1)->whereDate('publish_at', '<=', Carbon::now()->toDateString());
     }
 }

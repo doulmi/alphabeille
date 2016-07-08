@@ -11,7 +11,7 @@ return [
     'menus' => '加入Alphabeille',
     'info' => '个人信息',
     'messageBox' => '信箱',
-    'forum' => '>_社区',
+    'forum' => '论坛',
     'discussions' => '问答社区',
-    'lessons' => '课程',
+    'lessons' => '小文章',
 ];

@@ -17,6 +17,13 @@
         <div class="Header">
         </div>
 
+        <h2 class="Heading-Fancy row">
+            <span class="Heading-Fancy-subtitle">
+                @lang('labels.lessonSubtitle')
+            </span>
+            <span class='title'>@lang('labels.lessons')</span>
+        </h2>
+
         <div class="Card-Collection">
             @include('lessons.lessonsAvatarList')
             <?php $pages = $lessons?>

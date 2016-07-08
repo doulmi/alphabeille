@@ -29,10 +29,10 @@ class LessonController extends Controller
 
         if ($searchField != '' && $search != '') {
             if ($searchField != 'role') {
-                $lessons = Lesson::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
+                $lessons = Lesson::published()->where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
             }
         } else {
-            $lessons = Lesson::orderBy($orderBy, $dir)->paginate($limit);
+            $lessons = Lesson::published()->orderBy($orderBy, $dir)->paginate($limit);
         }
         return view('admin.lessons', compact(['lessons']));
     }

@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Config;
 
 class Topic extends Model
 {
+    protected $dates = ['publish_at'];
+
     protected $fillable = [
-        'title', 'description', 'avatar', 'level', 'keywords'
+        'title', 'description', 'avatar', 'level', 'keywords', 'is_published', 'publish_at'
     ];
 
     public function lessons() {

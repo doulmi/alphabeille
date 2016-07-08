@@ -11,7 +11,7 @@ return [
     'menus' => 'Alphabeille',
     'info' => 'Profile',
     'messageBox' => 'Messagerie',
-    'forum' => '>_Forum',
+    'forum' => 'Forum',
     'discussions' => 'Discussions',
-    'lessons' => 'Cours',
+    'lessons' => 'Petits textes',
 ];

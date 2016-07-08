@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 class UserLoginEvent
 {
-    private $expireNotificationDate = 7;
+    private $expireNotificationDate = 0;
 
     /**
      * Create the event listener.

@@ -2416,9 +2416,9 @@ px
 .Heading-Fancy-subtitle {
     text-transform: uppercase;
     display: block;
-    font-size: .6em;
+    font-size: .7em;
     top: 4px;
-    color: #ffffff;
+    color: #483e39;
 }
 
 .Heading-Fancy .title {
@@ -2442,10 +2442,6 @@ px
     width: 100px;
     height: 3px;
     top: 50%;
-}
-
-.Heading-Fancy-subtitle {
-
 }
 
 .Card-Collection {

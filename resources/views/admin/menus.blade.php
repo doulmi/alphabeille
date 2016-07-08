@@ -9,11 +9,10 @@
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="addTitle">@lang('labels.addTopic')</h4>
-                </div>
-
+                {{--<div class="modal-header">--}}
+                    {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                    {{--<h4 class="modal-title" id="addTitle">@lang('labels.addTopic')</h4>--}}
+                {{--</div>--}}
                 <form role="form" action="{{url('admin/topics')}}" method="POST">
                     <input name="_method" type="hidden" value="PUT">
                     {!! csrf_field() !!}
@@ -27,39 +26,9 @@
                             <textarea class="name-input form-control" rows="10" id="description"
                                       name="description"></textarea>
                         </div>
-
-                        <div class="form-group">
-                            <label for="avatar">@lang('labels.avatar')</label>
-                            <input type="text" class="form-control" id="avatar" name="avatar"/>
+                        <div class="from-group">
+                            
                         </div>
-
-                        <div class="form-group">
-                            <label for="keywords">@lang('labels.keywords')</label>
-                            <input type="text" class="form-control" id="keywords" name="keywords"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="level">@lang('labels.topicLevel')</label>
-                            <div class="btn-group">
-                                <button type="button" id='level' class="btn btn-default dropdown-toggle"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @lang('labels.beginner')<span class="caret"></span>
-                                </button>
-
-                                <ul class="dropdown-menu">
-                                    <li><a href="#"
-                                           onclick="changeLevel('beginner', '@lang('labels.beginner')')">@lang('labels.beginner')</a>
-                                    </li>
-                                    <li><a href="#"
-                                           onclick="changeLevel('intermediate', '@lang('labels.intermediate')')">@lang('labels.intermediate')</a>
-                                    </li>
-                                    <li><a href="#"
-                                           onclick="changeLevel('advanced', '@lang('labels.advanced')')">@lang('labels.advanced')</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <input type="hidden" id='topicLevel' name='level' value="beginner">
                     </div>
 
                     <div class="modal-footer">
