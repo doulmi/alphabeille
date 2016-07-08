@@ -26,9 +26,6 @@
                             <textarea class="name-input form-control" rows="10" id="description"
                                       name="description"></textarea>
                         </div>
-                        <div class="from-group">
-                            
-                        </div>
                     </div>
 
                     <div class="modal-footer">
