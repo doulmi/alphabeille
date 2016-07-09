@@ -2589,7 +2589,6 @@ px
     max-width: 100%;
     display: block;
     position: relative;
-    min-height: 120px;
 }
 
 .Card-image > a {
