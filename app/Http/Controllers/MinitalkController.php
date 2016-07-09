@@ -84,7 +84,6 @@ class MinitalkController extends Controller
 
         $like = false;
         $collect = false;
-        $punchin = false;
 
         if (!Auth::guest()) {
             $model = MinitalkFavorite::where('user_id', Auth::user()->id)->where('minitalk_id', $id)->first();

@@ -113,10 +113,10 @@
             <label for="content">@lang('labels.content')</label>
             @if($edit)
                 <textarea class="name-input form-control" rows="10" id="content"
-                          name="content" v-model="content"></textarea>
+                          name="content">{{$lesson->content}}</textarea>
             @else
                 <textarea class="name-input form-control" rows="10" id="content"
-                          name="content" v-model="content"></textarea>
+                          name="content"></textarea>
             @endif
         </div>
 
@@ -131,28 +131,28 @@
             @endif
         </div>
 
-        <div class="form-group">
-            <label for="description">@lang('labels.description')</label>
-            @if($edit)
-                <textarea class="name-input form-control" rows="10" id="description"
-                          name="description">@{{ content.substring(0, 100) + "..." }}</textarea>
-            @else
-                <textarea class="name-input form-control" rows="10" id="description"
-                          name="description">@{{ content.substring(0, 100) + "..." }}</textarea>
-            @endif
-        </div>
+            <div class="form-group">
+                <label for="description">@lang('labels.description')</label>
+                @if($edit)
+                    <textarea class="name-input form-control" rows="10" id="description"
+                              name="description">{{ $lesson->description }}</textarea>
+                @else
+                    <textarea class="name-input form-control" rows="10" id="description"
+                              name="description"></textarea>
+                @endif
+            </div>
         <button type="submit" class="btn btn-primary pull-right">@lang('labels.submit')</button>
     </form>
 @endsection
 
 @section('otherjs')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
     <script>
-        $vm = new Vue({
-            el : 'body',
-            data : {
-                content : '{{$edit ? $lesson->content: ''}}'
-            }
+        var desc = $('#description');
+        var content = $('#content');
+        $(function() {
+            content.change(function() {
+                desc.val(content.val().slice(0, 100) + '...');
+            });
         });
     </script>
 @endsection

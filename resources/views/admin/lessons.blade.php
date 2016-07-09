@@ -25,7 +25,7 @@
             @foreach($lessons as $lesson)
                 <tr id="row-{{$lesson->id}}">
                     <td><img width="60px" height="60px" src="{{$lesson->avatar}}" alt=""></td>
-                    <td>{{$lesson->title}}</td>
+                    <td><a href="{{url("lessons/" . $talkshow->id)}}" TARGET = "_blank">{{$lesson->title}}</a></td>
                     <td>{{$lesson->likes}}</td>
                     <td>{{$lesson->views}}</td>
                     <td>{{$lesson->free}}</td>

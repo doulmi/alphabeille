@@ -26,7 +26,7 @@
             @foreach($talkshows as $talkshow)
                 <tr id="row-{{$talkshow->id}}">
                     <td><img width="60px" height="60px" src="{{$talkshow->avatar}}" alt=""></td>
-                    <td>{{$talkshow->title}}</td>
+                    <td><a href="{{url("talkshows/" . $talkshow->id)}}" TARGET = "_blank">{{$talkshow->title}}</a></td>
                     <td>{{$talkshow->likes}}</td>
                     <td>{{$talkshow->views}}</td>
                     <td>{{$talkshow->free}}</td>

@@ -103,10 +103,10 @@
             <label for="content">@lang('labels.content')</label>
             @if($edit)
                 <textarea class="name-input form-control" rows="10" id="content"
-                          name="content" v-model="content"></textarea>
+                          name="content" >{{$minitalk->content}}</textarea>
             @else
                 <textarea class="name-input form-control" rows="10" id="content"
-                          name="content" v-model="content"></textarea>
+                          name="content" ></textarea>
             @endif
         </div>
 
@@ -114,10 +114,10 @@
                 <label for="description">@lang('labels.description')</label>
                 @if($edit)
                     <textarea class="name-input form-control" rows="10" id="description"
-                              name="description">@{{ content.substring(0, 100) + "..." }}</textarea>
+                              name="description">{{$minitalk->description}}</textarea>
                 @else
                     <textarea class="name-input form-control" rows="10" id="description"
-                              name="description">@{{ content.substring(0, 100) + "..." }}</textarea>
+                              name="description"></textarea>
                 @endif
             </div>
 
@@ -126,14 +126,14 @@
     </form>
 @endsection
 
-            @section('otherjs')
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-                <script>
-                    $vm = new Vue({
-                        el : 'body',
-                        data : {
-                            content : '{{$edit ? $minitalk->content: ''}}'
-                        }
-                    });
-                </script>
+@section('otherjs')
+    <script>
+        var desc = $('#description');
+        var content = $('#content');
+        $(function() {
+            content.change(function() {
+                desc.val(content.val().slice(0, 100) + '...');
+            });
+        });
+    </script>
 @endsection
