@@ -1467,8 +1467,13 @@ ul {
     position: relative;
     max-width: 600px;
     margin: 0 auto;
-    margin-top: 15%;
     text-align: center;
+}
+
+@media screen and (max-width: 720px) {
+   .login-container {
+       margin-top: 15%;
+   }
 }
 
 .login-container h1 {
