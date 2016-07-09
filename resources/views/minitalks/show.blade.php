@@ -60,7 +60,7 @@
                     {!! $content !!}
                 </div>
             @endif
-            <div class='markdown-content'>
+            <div class='markdown-content wechat-part'>
                 {!! $wechat_part !!}
             </div>
             @if(!Auth::guest())

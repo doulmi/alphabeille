@@ -4266,6 +4266,10 @@ px
     width: 100%;
 }
 
+.wechat-part img:last-child {
+    width: 50%;
+}
+
 @media (min-width: 768px) {
     .lesson-content {
         width: 650px;
