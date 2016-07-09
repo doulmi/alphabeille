@@ -1116,6 +1116,12 @@ ul {
     margin-top: -100px;
 }
 
+@media (max-width: 768px) {
+    .umbra {
+        display:none;
+    }
+}
+
 .cloud1 {
     position: absolute;
     margin-left: 50%;
@@ -1461,6 +1467,7 @@ ul {
     position: relative;
     max-width: 600px;
     margin: 0 auto;
+    margin-top: 15%;
     text-align: center;
 }
 
@@ -2577,7 +2584,7 @@ px
     max-width: 100%;
     display: block;
     position: relative;
-    min-height: 150px;
+    min-height: 120px;
 }
 
 .Card-image > a {
@@ -2644,6 +2651,17 @@ px
     font-size: 14px;
     text-decoration: none;
 }
+
+@media screen and (max-width: 960px) {
+    .Card-title a {
+        color: inherit;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 13px;
+        text-decoration: none;
+    }
+}
+
 
 .Card-title a:hover {
     text-decoration: underline
@@ -2758,7 +2776,7 @@ px
     letter-spacing: -5px;
     margin: 0;
     text-align: center;
-    padding: 10px 0 10px 0;
+    padding: 5px 0;
     color: #fff;
 }
 
@@ -2779,113 +2797,169 @@ px
 }
 
 .buy-btn-div {
-    margin-top: 25px;
+    margin-top: 15px;
     text-align: center;
     vertical-align: middle;
 }
 
 .buy-btn {
     color: white;
-    padding: 10px 20px 10px 20px;
+    padding: 5px 20px 5px 20px;
+    background-color: #F45D51;
 }
 
 .buy-btn-div a:hover {
     text-decoration: none;;
     color: white;
+    background: hsl(4, 88%, 53%);
 }
 
-.month-6 {
-    height: 230px;
+.basic {
+    height: 280px;
     background-color: white;
-    margin-top: -167px;
+    margin-top: -230px;
 }
 
-.menu-6-price {
+.basic-price {
     background-color: #2DCC70;
 }
 
-.buy-6-title {
+.advantages {
+    font-size:14px;
+    text-align: center;
+    color: white;
+    padding-bottom: 8px;
+}
+
+.basic-advantages {
     background-color: #2DCC70;
 }
 
-.buy-6-desc {
+.basic-title {
+    background-color: #2DCC70;
+}
+
+.basic-desc {
     text-align: center;
     background-color: #2DCC70;
     color: white;
     font-size: 1.5rem;
 }
 
-.buy-6-btn {
-    background: #2DCC70;
+.basic-btn {
+    /*background: #2DCC70;*/
 }
 
-.buy-6-btn:hover {
-    background: hsl(145, 63.9%, 38.8%);
+.basic-btn:hover {
+    /*background: hsl(145, 63.9%, 38.8%);*/
 }
 
-.month-12 {
-    height: 260px;
+.pro {
+    height: 314px;
     background-color: white;
-    margin-top: -197px;
+    margin-top: -263px;
 }
 
-.menu-12-price {
+.pro-advantages {
     background-color: #3598DB;
-    padding-bottom: 40px;
 }
-
-.buy-12-title {
+.pro-price {
     background-color: #3598DB;
 }
 
-.buy-12-btn {
-    background: #3598DB;
+.pro-title {
+    background-color: #3598DB;
 }
 
-.buy-12-btn:hover {
-    background: hsl(204, 69%, 43%);
+.pro-btn {
+    /*background: #3598DB;*/
 }
 
-.month-24 {
-    height: 290px;
-    margin-top: -227px;
+.pro-btn:hover {
+    /*background: hsl(204, 69%, 43%);*/
+}
+
+.premium {
+    height: 340px;
+    margin-top: -290px;
     background-color: white;
 }
 
-.menu-24-price {
-    background-color: #F45D51;
-    padding-bottom: 70px;
+.premium-advantages {
+    background-color: #B638FE;
+}
+.premium-price {
+    padding: 18px 0;
+    background-color: #B638FE;
 }
 
-.buy-24-title {
-    background-color: #F45D51;
+.premium-title {
+    background-color: #B638FE;
 }
 
-.buy-24-btn {
+.premium-btn {
     background: #F45D51;
 }
 
-.buy-24-btn:hover {
+.premium-btn:hover {
     background: hsl(4, 88%, 53%);
 }
 
 @media screen and (max-width: 767px) {
-    .month-12 {
-        height: 230px;
-        margin-top: -167px;
+    .basic {
+        height: 273px;
+        margin-top: -203px;
     }
 
-    .menu-12-price {
+    .basic-title {
+        font-size: 25px;
+    }
+
+    .basic-price {
+       padding-bottom: 35px;
+    }
+
+    .pro {
+        height: 273px;
+        margin-top: -203px;
+    }
+
+    .pro-title {
+        font-size: 25px;
+    }
+
+    .symbol {
+        padding-top:15px;
+        font-size:15px;
+    }
+
+    .price-label {
+        white-space: normal;
+        letter-spacing : 1px;
         padding-bottom: 10px;
+        font-size: 20px;
     }
 
-    .month-24 {
-        height: 230px;
-        margin-top: 70px;
+    .premium{
+        height: 273px;
+        margin-top: 40px;
     }
 
-    .menu-24-price {
-        padding-bottom: 10px;
+    .premium-price {
+        padding: 5px;
+    }
+
+    .premium-title {
+        font-size: 25px;
+    }
+
+    .advantages {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .joinus {
+        font-size: 14px;
     }
 }
 .prePage {
@@ -3054,9 +3128,6 @@ px
     color: #3c3e42;
     font-weight: 700;
     text-decoration: underline;
-}
-
-.advantages li {
 }
 
 .Video-player {
@@ -4459,4 +4530,9 @@ px
 
 .c404 a:hover {
     text-decoration: underline;
+}
+
+.qrcode-small {
+    width: 200px;
+    height: 200px;
 }

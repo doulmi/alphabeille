@@ -46,6 +46,7 @@
             <h2 class="row">
                 <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
             </h2>
+            <div class="Header hidden-xs"></div>
         </div>
         @include('menusList')
     </div>

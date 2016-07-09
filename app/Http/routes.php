@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('subscription/{id}', 'PostController@subscription');
 });
 
+Route::get('check/{confirmation_code}', function($confirmation_code) {
+    return view('emails.register', compact('confirmation_code'));
+});
 Route::get('images', function() {
     return view('images');
 });
