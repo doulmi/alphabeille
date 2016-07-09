@@ -97,8 +97,8 @@ return [
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
 
     'free' => 'Gratuit',
-    'adText' => "Alphabeille a :count textes en ce moment. Nous téléchargeons lundi à vendredi un texte qui comprend la vie quotidienne d'un professeur avec un audio correspondant et des explications sur les expressions et sur les mots importants. Le weekend, vous aurez deux talk-shows intéressants qui portent sur les sujets d'actualité ou la culture française.'
-    'backToLearn' => 'Commencer à apprendre le français",
+    'adText' => 'Nous téléchargeons lundi à vendredi un texte qui comprend la vie quotidienne d\'un professeur avec un audio correspondant et des explications sur les expressions et sur les mots importants. Le weekend, vous aurez deux talk-shows intéressants qui portent sur les sujets d\'actualité ou la culture française.',
+    'backToLearn' => 'Commencer à apprendre le français',
     'adBtn' => 'Tous nos contenu ne coûte que 10€/mois',
     'loginAccount' => 'Je m\'identifie',
     'emptyMsgbox' => 'Aucun message',
@@ -202,4 +202,16 @@ return [
 
     'lessonSubtitle' => '',
     'talkshowSubtitle' => '',
+
+    'advantages.6months' => 'Six mois',
+    'advantages.20texts' => '5 petits textes/semaine',
+    'advantages.8talkshows' => '2 talk-shows/semaine',
+    'advantages.cours48' => '48 cours privé 1v1',
+    'advantages.cours96' => '96 cours privé 1v1',
+
+    'relativeMinitalks' => 'Minitalk',
+    'freeMinitalks' => 'Minitalks gratuits',
+    'collectMinitalks' => 'Minitalks favoris',
+    'minitalks' => 'Minitalks',
+    'investYourself' => 'Investis en toi',
 ];

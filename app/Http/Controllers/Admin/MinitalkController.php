@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helper;
-use App\Lesson;
+use App\Minitalk;
+use App\Talkshow;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,11 +13,9 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
-class LessonController extends Controller
-{
+class MinitalkController extends Controller {
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -29,12 +28,12 @@ class LessonController extends Controller
 
         if ($searchField != '' && $search != '') {
             if ($searchField != 'role') {
-                $lessons = Lesson::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
+                $minitalks = Talkshow::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
             }
         } else {
-            $lessons = Lesson::orderBy($orderBy, $dir)->paginate($limit);
+            $minitalks = Minitalk::orderBy($orderBy, $dir)->paginate($limit);
         }
-        return view('admin.lessons', compact(['lessons']));
+        return view('admin.minitalks', compact(['minitalks']));
     }
 
     /**
@@ -42,10 +41,9 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($topicId)
-    {
+    public function create() {
         $edit = false;
-        return view('admin.lesson', compact('topicId', 'edit'));
+        return view('admin.minitalk', compact('edit'));
     }
 
     /**
@@ -56,11 +54,10 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        Lesson::create($request->all());
-
+        Minitalk::create($request->all());
         Redis::incr('audio:count');
-        Session::flash('success', trans('labels.createLessonSuccess'));
-        return redirect('admin/lessons');
+        Session::flash('success', trans('labels.createMinitalkSuccess'));
+        return redirect('admin/minitalks');
     }
 
     /**
@@ -71,8 +68,8 @@ class LessonController extends Controller
      */
     public function show($id)
     {
-        $lesson = Lesson::firstOrFail($id);
-        return $lesson;
+        $minitalk = Minitalk::firstOrFail($id);
+        return $minitalk;
     }
 
     /**
@@ -81,10 +78,11 @@ class LessonController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         $edit = true;
-        $lesson = Lesson::findOrFail($id);
-        return view('admin.lesson', compact('edit', 'lesson'));
+        $minitalk = Minitalk::findOrFail($id);
+        return view('admin.minitalk', compact('edit', 'minitalk'));
     }
 
     /**
@@ -96,24 +94,9 @@ class LessonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lesson= Lesson::find($id);
-
-        $lesson->update($request->all());
-        return redirect('admin/lessons');
-//        $lesson->update([
-//            'title' => $request->get('title'),
-//            'avatar' => $request->get('avatar'),
-//            'content' => $request->get('content'),
-//            'content_zh_CN' => $request->get('content_zh_CN'),
-//            'free' => $request->get('free'),
-//            'likes' => $request->get('likes'),
-//            'views' => $request->get('views'),
-//            'topic_id' => $request->get('topic_id'),
-//            'duration' => $request->get('duration'),
-//            'audio_url' => $request->get('audio_url'),
-//            'audio_url_zh_CN' => $request->get('audio_url_zh_CN'),
-//            'download_url' => $request->get('download_url'),
-//        ]);
+        $minitalk = Minitalk::findOrFail($id);
+        $minitalk->update($request->all());
+        return redirect('admin/minitalks');
     }
 
     /**
@@ -122,10 +105,9 @@ class LessonController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $lesson = Lesson::findOrFail($id);
-        $lesson->delete();
+    public function destroy($id) {
+        $minital = Minitalk::findOrFail($id);
+        $minital->delete();
         return response()->json([
             'status' => 200
         ]);

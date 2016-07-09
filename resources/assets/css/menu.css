@@ -1,0 +1,214 @@
+.menu {
+    border-radius: 5px;
+    -webkit-border-radius: 4px;
+}
+
+.menu-title {
+    text-align: center;
+    margin: 5px 0 0 0;
+    padding-top: 10px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+}
+
+.menu-price {
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -5px;
+    margin: 0;
+    text-align: center;
+    padding: 5px 0;
+    color: #fff;
+}
+
+.symbol {
+    color: #e9f0ff;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 25px;
+    font-weight: 700;
+    width: 28px;
+    margin-right: 6px;
+    margin-left: -34px;
+}
+
+.price-label {
+    /*font-family: "Roboto", serif;*/
+    font-weight: 700;
+}
+
+.buy-btn-div {
+    margin-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.buy-btn {
+    color: white;
+    padding: 5px 20px 5px 20px;
+    background-color: #F45D51;
+}
+
+.buy-btn-div a:hover {
+    text-decoration: none;;
+    color: white;
+    background: hsl(4, 88%, 53%);
+}
+
+.basic {
+    height: 280px;
+    background-color: white;
+    margin-top: -230px;
+}
+
+.basic-price {
+    background-color: #2DCC70;
+}
+
+.advantages {
+    font-size:14px;
+    text-align: center;
+    color: white;
+    padding-bottom: 8px;
+}
+
+.basic-advantages {
+    background-color: #2DCC70;
+}
+
+.basic-title {
+    background-color: #2DCC70;
+}
+
+.basic-desc {
+    text-align: center;
+    background-color: #2DCC70;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.basic-btn {
+    /*background: #2DCC70;*/
+}
+
+.basic-btn:hover {
+    /*background: hsl(145, 63.9%, 38.8%);*/
+}
+
+.pro {
+    height: 314px;
+    background-color: white;
+    margin-top: -263px;
+}
+
+.pro-advantages {
+    background-color: #3598DB;
+}
+.pro-price {
+    background-color: #3598DB;
+}
+
+.pro-title {
+    background-color: #3598DB;
+}
+
+.pro-btn {
+    /*background: #3598DB;*/
+}
+
+.pro-btn:hover {
+    /*background: hsl(204, 69%, 43%);*/
+}
+
+.premium {
+    height: 340px;
+    margin-top: -290px;
+    background-color: white;
+}
+
+.premium-advantages {
+    background-color: #FF9519;
+}
+.premium-price {
+    padding: 18px 0;
+    background-color: #FF9519;
+}
+
+.premium-title {
+    background-color: #FF9519;
+}
+
+.premium-btn {
+    background: #F45D51;
+}
+
+.premium-btn:hover {
+    background: hsl(4, 88%, 53%);
+}
+
+@media screen and (max-width: 767px) {
+    .basic {
+        height: 203px;
+        margin-top: -153px;
+    }
+
+    .buy-btn {
+        padding: 5px;
+    }
+
+    .basic-title {
+        font-size: 20px;
+    }
+
+    .basic-price {
+        padding-bottom: 35px;
+    }
+
+    .pro {
+        height: 203px;
+        margin-top: -153px;
+    }
+
+    .pro-title {
+        font-size: 20px;
+    }
+
+    .symbol {
+        padding-top:15px;
+        font-size:15px;
+    }
+
+    .price-label {
+        white-space: normal;
+        letter-spacing : 1px;
+        padding-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .premium{
+        height: 203px;
+        margin-top: 40px;
+    }
+
+    .premium-price {
+        padding: 5px;
+    }
+
+    .premium-title {
+        font-size: 20px;
+    }
+
+    .advantages {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .joinus {
+        font-size: 14px;
+    }
+}

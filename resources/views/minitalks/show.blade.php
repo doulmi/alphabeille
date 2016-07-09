@@ -1,83 +1,68 @@
 @extends('app')
 
 @section('title')
-    {{ $lesson->title }}
+    {{ $minitalk->title }}
 @endsection
 
 @section('header')
-    <meta name="description" content="{{$lesson->description}}">
-    <meta name="Keywords" content="{{ $lesson->keywords }}">
+    <meta name="description" content="{{$minitalk->description}}">
+    <meta name="Keywords" content="{{ $minitalk->keywords }}">
 @endsection
 
 @section('othercss')
     <link rel="stylesheet" href="/css/share.min.css">
+    <link rel="stylesheet" href="/css/audioplayer.css"/>
 @endsection
 
 @section('content')
-    <meta property="og:title" content="{{$lesson->title}}" />
-    <meta property="og:image" content="{{$lesson->avatar}}" />
+    <meta property="og:title" content="{{$minitalk->title}}"/>
+    <meta property="og:image" content="{{$minitalk->avatar}}"/>
 
-    <link rel="stylesheet" href="/css/audioplayer.css" xmlns:v-on="http://www.w3.org/1999/xhtml"/>
     <div class="body grey">
-
-        <?php $canRead = $lesson->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
+        <?php $canRead = $minitalk->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
         <div class="Header"></div>
 
         <div class="lesson-content">
-            <div class="explanations">
-                @if(ends_with(Request::fullUrl(), '/zh_CN'))
-                    <a href="{{url('lessons/' . $lesson->id)}}">@lang('labels.sub_fr')</a>
-                @else
-                    <a href="{{url('lessons/' . $lesson->id)}}/zh_CN">@lang('labels.sub_zh_CN')</a>
-                @endif
-            </div>
-
             <br/>
             <h1 class="mar-t-z center">
-                {{ $lesson->title }}
+                {{ $minitalk->title }}
             </h1>
 
             <div class="center">
-                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$lesson->created_at}} |
+                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$minitalk->created_at}}
+            </div>
+            <br/>
+
+            <div class="playerPanel">
+                <audio id='audio' preload="auto" controls hidden>
+                    <source src="{{$minitalk->audio_url}}"/>
+                </audio>
+            </div>
+
+            <div class="shortcut hidden-xs">
+                @lang('labels.shortcut.pausePlay') : <span
+                        class="label label-default">@lang('labels.shortcut.space')</span>&nbsp;|&nbsp;
+                @lang('labels.shortcut.advance') : <span class="label label-default">→</span>&nbsp;|&nbsp;
+                @lang('labels.shortcut.back') : <span class="label label-default">←</span>&nbsp;|&nbsp;
+                @lang('labels.shortcut.volumeUp') :
+                <span class="label label-default">Ctrl</span>
+                <span class="label label-default">↑</span>&nbsp;|&nbsp;
+
+                @lang('labels.shortcut.volumeDown') :
+                <span class="label label-default">Ctrl</span>
+                <span class="label label-default">↓</span>
             </div>
             <br/>
             <br/>
 
-            <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
-            <a class="btn btn-label label-{{$topic->sex}}">@lang("labels.tags." . $topic->sex)</a>
-
             @if($canRead)
-                <div class="playerPanel">
-                    <audio id='audio' preload="auto" controls hidden>
-                        <source src="{{$lesson->audio_url}}"/>
-                    </audio>
-                </div>
-
-                <div class="shortcut hidden-xs">
-                    @lang('labels.shortcut.pausePlay') : <span
-                            class="label label-default">@lang('labels.shortcut.space')</span>&nbsp;|&nbsp;
-                    @lang('labels.shortcut.advance') : <span class="label label-default">→</span>&nbsp;|&nbsp;
-                    @lang('labels.shortcut.back') : <span class="label label-default">←</span>&nbsp;|&nbsp;
-                    @lang('labels.shortcut.volumeUp') :
-                    <span class="label label-default">Ctrl</span>
-                    <span class="label label-default">↑</span>&nbsp;|&nbsp;
-
-                    @lang('labels.shortcut.volumeDown') :
-                    <span class="label label-default">Ctrl</span>
-                    <span class="label label-default">↓</span>
-                </div>
-            @else
-                @include('blockContent')
-            @endif
-
-            <br/>
-            <br/>
-            @if($lesson->free || (!Auth::guest() && Auth::user()->level() > 1))
                 <div class='markdown-content'>
                     {!! $content !!}
                 </div>
             @endif
-
+            <div class='markdown-content'>
+                {!! $wechat_part !!}
+            </div>
             @if(!Auth::guest())
                 <div class="center">
                     <a href="#" data-tooltips="@lang('labels.favorite')" class="favorite-circle"
@@ -85,69 +70,22 @@
                         <i class="favorite glyphicon " v-bind:class="favorite"></i>
                     </a>
 
-                    @if(!$punchin)
-                        <a id="punchinlink" href="#" data-tooltips="@lang('labels.punchin')" class="favorite-circle"
-                           @click.stop.prevent="punchinEvent">
-                            <i class="favorite glyphicon glyphicon-ok"></i>
-                        </a>
-                    @endif
-
                     <a href="#" data-tooltips="@lang('labels.collect')" class="favorite-circle"
                        @click.stop.prevent="collectEvent">
                         <i class="favorite glyphicon" v-bind:class="collect"></i>
                     </a>
-
                 </div>
+
                 <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
-                     data-description="@lang('labels.shareTo')" data-image="{{$lesson->avatar}}">
+                     data-description="@lang('labels.shareTo')" data-image="{{$minitalk->avatar}}">
                     @lang('labels.share'):
                 </div>
             @endif
             <div class="Header"></div>
         </div>
-        {{--@include('sugguest')--}}
-        <div class="Card-Collection ">
-            <div class="Header"></div>
-            <h2 class="Heading-Fancy row">
-            <span class="Heading-Fancy-subtitle black">
-                @lang('labels.learnSlagon')
-            </span>
-                <span class='title black'>{{ $topic->title }}</span>
-            </h2>
+        <div class="Header"></div>
 
-            {{--<div class="Card-Collection">--}}
-            <table class="table lessons-table table-hover">
-                <tbody>
-                @foreach($topic->lessons()->get() as $i => $les)
-                    @if($les->id == $lesson->id)
-                        <tr class="lesson-row active-row">
-                    @else
-                        <tr class="lesson-row">
-                            @endif
-                            <th scope="row">{{$i + 1}}.</th>
-                            <td onclick="window.document.location='{{url('lessons/' . $les->id)}}'">
-                                {{$les->title}}
-                                @if($les->free)
-                                    <span class="free-label">@lang('labels.free')</span>
-                                @endif
-                            </td>
-                            <td>{{$les->duration}}</td>
-                        </tr>
-                        @endforeach
-                </tbody>
-            </table>
-            <div class="Header"></div>
-            <h2 class="Heading-Fancy row">
-                <span class='title black'>{{ trans('labels.suggestTopics')}}</span>
-            </h2>
-
-            {{--<div class="Card-Collection">--}}
-            <div class="row">
-                @include('topics.topicsList')
-            </div>
-            {{--</div>--}}
-            <div class="Header"></div>
-
+        <div class="Card-Collection">
             <div id="disqus_thread">
                 <h1 class="black">@lang('labels.comments')</h1>
                 @if(Auth::guest())
@@ -181,7 +119,7 @@
                                 <script id="container" style="width: 100%; height : 100px" name="content"
                                         v-model="newPost.body"
                                         type="text/plain" placeholder="@lang('labels.addComment')"></script>
-                                <input type="hidden" name="lesson_id" value="{{$lesson->id}}">
+                                <input type="hidden" name="minitalk_id" value="{{$minitalk->id}}">
                                 <button type="submit" class="pull-right btn btn-submit">@lang('labels.reply')</button>
                             </form>
                         </div>
@@ -203,7 +141,7 @@
                                         @{{comment.name}}
                                     </h5>
                                     <p class="discuss-content">
-                                        @{{{  comment.content }}}
+                                        @{{{ comment.content }}}
                                     </p>
                                     <span class="time">@{{comment.created_at}}</span>
                                 </div>
@@ -218,10 +156,12 @@
                     </ul>
                 </div>
             </div>
+
             <div class="Header"></div>
             <div class="Header"></div>
         </div>
-        <div id='goTop'></div>
+    </div>
+    <div id='goTop'></div>
     </div>
 
     @include('smallBeach')
@@ -236,6 +176,13 @@
 
     <script>
         $('img.Card-image').lazyload();
+
+        $('#goTop').goTop();
+
+        toastr.options = {
+            "positionClass": "toast-top-center"
+        };
+
         var isIE = function (ver) {
             var b = document.createElement('b');
             b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
@@ -261,12 +208,12 @@
             el: 'body',
 
             ready: function () {
-                this.$http.get('{{url("lessonComments/" . $lesson->id)}}', function (response) {
-                    console.log(response);
+                this.$http.get('{{url("/minitalkComments/" . $minitalk->id)}}', function (response) {
                     this.comments = response;
                     this.comment_visible = true;
                 }.bind(this));
             },
+
             data: {
                 comments: [],
                 comment_visible: false,
@@ -281,7 +228,7 @@
                 },
 
                 newPost: {
-                    lesson_id: '{{$lesson->id}}',
+                    minitalk_id: '{{$minitalk->id}}',
                     content: ''
                 }
             },
@@ -295,7 +242,7 @@
                         this.isFavorite = true;
                         this.favorite = 'glyphicon-heart';
                     }
-                    this.$http.post('{{url("/lessons/" . $lesson->id . '/favorite')}}', function (response) {
+                    this.$http.post('{{url("/minitalks/" . $minitalk->id . '/favorite')}}', function (response) {
                     }.bind(this));
                 },
 
@@ -307,23 +254,7 @@
                         this.isCollect = true;
                         this.collect = 'glyphicon-star';
                     }
-                    this.$http.post('{{url("/lessons/" . $lesson->id . '/collect')}}', function (response) {
-                    }.bind(this));
-                },
-
-                punchinEvent() {
-                    var punchin = $('#punchin');
-                    $('#punchinlink').hide();
-
-                    this.$http.post('{{url("/lessons/" . $lesson->id . '/punchin')}}', function (response) {
-                        punchin.html(parseInt(punchin.html()) + 1);
-                        var series = response.series;
-                        var isBreakup = response.break;
-                        if (isBreakup) {
-                            @if(!Auth::guest())
-                            toastr.success('@lang('labels.punchinSuccess')' + '@lang('labels.breakup')' + '@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])');
-                            @endif
-                        }
+                    this.$http.post('{{url("/minitalks/" . $minitalk->id . '/collect')}}', function (response) {
                     }.bind(this));
                 },
 
@@ -340,10 +271,8 @@
                     }
                     comment.content = post.content;
 
-                    console.log(post.content);
-                    this.$http.post('/lessonComments', post, function (data) {
+                    this.$http.post('/minitalkComments', post, function (data) {
                         this.comments.unshift(comment);
-                        console.log(data);
 
                         toastr.success('@lang('labels.feelFreeToComment')', '@lang('labels.commentSuccess')');
                         comment = {
@@ -371,6 +300,5 @@
             ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
         });
         @endif
-
     </script>
 @endsection

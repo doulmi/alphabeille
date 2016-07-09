@@ -41,7 +41,7 @@
                     </audio>
                 </div>
 
-                <div class="shortcut">
+                <div class="shortcut hidden-xs">
                     @lang('labels.shortcut.pausePlay') : <span
                             class="label label-default">@lang('labels.shortcut.space')</span>&nbsp;|&nbsp;
                     @lang('labels.shortcut.advance') : <span class="label label-default">→</span>&nbsp;|&nbsp;
@@ -99,7 +99,7 @@
                 <div class="row">
                     @include('talkshows.talkshowsList')
                 </div>
-            <div class="Header"></div>
+                <div class="Header"></div>
 
             <div id="disqus_thread">
                 <h1 class="black">@lang('labels.comments')</h1>

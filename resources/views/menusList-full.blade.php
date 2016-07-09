@@ -19,10 +19,8 @@
                                     </h3>
                                     <div class="advantages {{$menu->name}}-advantages">
                                         <p>@lang('labels.advantages.6months')</p>
-                                        <div class="hidden-xs">
-                                            <p>@lang('labels.advantages.20texts')</p>
-                                            <p>@lang('labels.advantages.8talkshows')</p>
-                                        </div>
+                                        <p>@lang('labels.advantages.20texts')</p>
+                                        <p>@lang('labels.advantages.8talkshows')</p>
                                         @if($menu->description != '')
                                             <p>@lang('labels.advantages.' . $menu->description)</p>
                                         @endif

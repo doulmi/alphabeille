@@ -46,9 +46,22 @@
             <h2 class="row">
                 <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
             </h2>
+        </div>
+
+        <h2 class="Heading-Fancy row">
+            <span class='title'>@lang('labels.minitalks')</span>
+        </h2>
+
+        <div class="Card-Collection">
+            @include('minitalks.minitalksList')
+            <h2 class="row">
+                <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
+            </h2>
             <div class="Header hidden-xs"></div>
         </div>
-        @include('menusList')
+
+{{--        @include('menusList')--}}
+        @include('subscribe')
     </div>
 @endsection
 

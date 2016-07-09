@@ -30,7 +30,7 @@
 
                 <ul class="discussion-list">
                     <li>
-                        <h3>@lang('forum.list')
+                        <h3>@lang('labels.forum.list')
                         <a href="{{url('discussions/create')}}" class="pull-right btn btn-lg btn-new">@lang('labels.newDiscussion')</a>
                         </h3>
                     </li>

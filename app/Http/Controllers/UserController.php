@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Lesson;
 use App\LessonCollect;
 use App\LessonFavorite;
+use App\Minitalk;
+use App\MinitalkCollect;
 use App\Talkshow;
 use App\TalkshowCollect;
 use App\User;
@@ -119,12 +121,15 @@ class UserController extends Controller
     }
 
     public function collect() {
-        $lessonsIds = LessonCollect::where('user_id', Auth::user()->id)->lists("lesson_id")->toArray();
-        $talkshowsIds = TalkshowCollect::where('user_id', Auth::user()->id)->lists("talkshow_id")->toArray();
+        $userId = Auth::user()->id;
+        $lessonsIds = LessonCollect::where('user_id',$userId) ->lists("lesson_id")->toArray();
+        $talkshowsIds = TalkshowCollect::where('user_id', $userId)->lists("talkshow_id")->toArray();
+        $minitalksIds = MinitalkCollect::where('user_id', $userId)->lists("minitalk_id")->toArray();
 
-       $lessons = Lesson::whereIn('id', $lessonsIds)->get(['id', 'avatar', 'title']);
+        $lessons = Lesson::whereIn('id', $lessonsIds)->get(['id', 'avatar', 'title']);
         $talkshows = Talkshow::whereIn('id', $talkshowsIds)->get(['id', 'avatar', 'title']);
+        $minitalks = Minitalk::whereIn('id', $minitalksIds)->get(['id', 'avatar', 'title']);
 
-        return view('collect', compact('lessons', 'talkshows'));
+        return view('collect', compact('lessons', 'talkshows', 'minitalks'));
     }
 }

@@ -112,10 +112,10 @@
                         <label for="content">@lang('labels.content')</label>
                         @if($edit)
                             <textarea class="name-input form-control" rows="10" id="content"
-                                      name="content">{{$talkshow->content}}</textarea>
+                                      name="content" v-model="content"></textarea>
                         @else
                             <textarea class="name-input form-control" rows="10" id="content"
-                                      name="content"></textarea>
+                                      name="content" v-model="content"></textarea>
                         @endif
                     </div>
 
@@ -123,15 +123,37 @@
                     <div class="form-group">
                         <label for="content_zh_CN">@lang('labels.content_zh_CN')</label>
                         @if($edit)
-                            <textarea class="name-input form-control" rows="10" id="content_zh_CN"
-                                      name="content_zh_CN">{{$talkshow->content_zh_CN}}</textarea>
+                            <textarea class="name-input form-control" rows="10" id="content"
+                                      name="content_zh_CN" >{{$talkshow->content_zh_CN}}</textarea>
                         @else
-                            <textarea class="name-input form-control" rows="10" id="content_zh_CN"
+                            <textarea class="name-input form-control" rows="10" id="content"
                                       name="content_zh_CN"></textarea>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">@lang('labels.description')</label>
+                        @if($edit)
+                            <textarea class="name-input form-control" rows="10" id="description"
+                                      name="description">@{{ content.substring(0, 100) + "..." }}</textarea>
+                        @else
+                            <textarea class="name-input form-control" rows="10" id="description"
+                                      name="description">@{{ content.substring(0, 100) + "..." }}</textarea>
                         @endif
                     </div>
 
                     <button type="submit" class="btn btn-primary pull-right">@lang('labels.submit')</button>
                 </form>
-
+            @endsection
+            @section('otherjs')
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+                <script>
+                    $vm = new Vue({
+                        el: 'body',
+                        data: {
+                            content: '{{$edit ? $talkshow->content: ''}}'
+                        }
+                    });
+                </script>
 @endsection
+

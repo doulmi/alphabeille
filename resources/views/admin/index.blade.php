@@ -61,6 +61,9 @@
                 <i class="glyphicon glyphicon-volume-up"></i>
                 @lang('labels.manageTalkshows')
             </a>
+            <a href="{{url('admin/minitalks')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-music"></i> @lang('labels.manageMinitalks')
+            </a>
         </div>
     </div>
 

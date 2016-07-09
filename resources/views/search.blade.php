@@ -39,8 +39,14 @@
             </div>
         @endif
 
-
-
+        <h2 class="Heading-Fancy row">
+            <span class='title'>@lang('labels.relativeMinitalks')</span>
+        </h2>
+        @if( count($minitalks) != 0)
+            <div class="Card-Collection">
+                @include('minitalks.minitalksList')
+            </div>
+        @endif
     </div>
 @endsection
 

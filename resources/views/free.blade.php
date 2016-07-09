@@ -48,6 +48,18 @@
             </div>
         @endif
 
+        <h2 class="Heading-Fancy row">
+            <span class='title'>@lang('labels.freeMinitalks')</span>
+        </h2>
+        @if( count($minitalks) != 0)
+            <div class="Card-Collection">
+                @include('minitalks.minitalksList')
+
+                <h2 class="row center">
+                    <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/minitalks/free')}}">@lang('labels.more')</a>
+                </h2>
+            </div>
+        @endif
     </div>
 @endsection
 

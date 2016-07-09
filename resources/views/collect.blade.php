@@ -40,8 +40,25 @@
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/talkshows/collect')}}">@lang('labels.more')</a>
                 </h2>
             </div>
+        @else
+            <div class="Card-Collection search-result">
+                @lang('labels.nothing')
+            </div>
+            <div class="Header"></div>
         @endif
 
+        <h2 class="Heading-Fancy row">
+            <span class='title'>@lang('labels.collectMinitalks')</span>
+        </h2>
+        @if( count($minitalks) != 0)
+            <div class="Card-Collection">
+                @include('minitalks.minitalksList')
+
+                <h2 class="row center">
+                    <a class="btn btn-default more" href="{{url('/minitalks/collect')}}">@lang('labels.more')</a>
+                </h2>
+            </div>
+        @endif
     </div>
 @endsection
 

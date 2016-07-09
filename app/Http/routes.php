@@ -18,6 +18,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('talkshows/{id}/favorite', 'TalkshowController@favorite');
     Route::post('talkshows/{id}/punchin', 'TalkshowController@punchin');
     Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
+
+    Route::get('minitalks/collect', 'MinitalkController@collectMinitalks');
+    Route::post('minitalks/{id}/favorite', 'MinitalkController@favorite');
+    Route::post('minitalks/{id}/collect', 'MinitalkController@collect');
+
     Route::get('users/collect', 'UserController@collect');
     Route::post('post/upload', 'PostController@upload');
     Route::post('uploadAvatar', 'UserController@uploadAvatar');
@@ -25,10 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('comments', 'CommentController@store');
     Route::post('lessonComments', 'LessonCommentController@store');
     Route::post('talkshowComments', 'TalkshowCommentController@store');
+    Route::post('minitalkComments', 'MinitalkCommentController@store');
     Route::get('subscription/{id}', 'PostController@subscription');
 });
 
-Route::get('check/{confirmation_code}', function($confirmation_code) {
+Route::get('verifyEmail/{confirmation_code}', function($confirmation_code) {
     return view('emails.register', compact('confirmation_code'));
 });
 Route::get('images', function() {
@@ -36,6 +42,7 @@ Route::get('images', function() {
 });
 Route::get('lessonComments/{lesson_id}', 'LessonCommentController@index');
 Route::get('talkshowComments/{talkshow_id}', 'TalkshowCommentController@index');
+Route::get('minitalkComments/{minitalk_id}', 'MinitalkCommentController@index');
 
 Route::auth();
 
@@ -49,6 +56,9 @@ Route::resource('lessons', 'LessonController');
 Route::get('talkshows/free', 'TalkshowController@free');
 Route::resource('talkshows', 'TalkshowController');
 
+Route::get('minitalks/free', 'MinitalkController@free');
+Route::resource('minitalks', 'MinitalkController');
+
 Route::resource('messages', 'MessageController');
 Route::resource('discussions', 'DiscussionController');
 Route::get('menus', 'PostController@menus');
@@ -60,9 +70,7 @@ Route::get('checkEmail', function () {
 Route::get('users/{id}', 'UserController@show');
 Route::get('comments/like/{commentId}', 'CommentController@like');
 
-Route::get('lessonComments/{id}', 'LessonCommentController@index');
 Route::put('users', 'UserController@update');
-
 Route::get('search', 'PostController@search');
 Route::get('free', 'PostController@free');
 
@@ -84,12 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
 
     Route::resource('talkshows', 'Admin\TalkshowController');
-//    Route::get('/talkshows', 'Admin\TalkshowController@index');
-//    Route::post('/talkshows', 'Admin\TalkshowController@store');
-//    Route::put('/talkshows', 'Admin\TalkshowController@update');
-//    Route::get('/talkshows/create', 'Admin\TalkshowController@create');
-//    Route::get('/talkshows/{id}/edit', 'Admin\TalkshowController@edit');
-
+    Route::resource('minitalks', 'Admin\MinitalkController');
 });
 
 $api = app('Dingo\Api\Routing\Router');
