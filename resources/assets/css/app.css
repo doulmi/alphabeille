@@ -2501,7 +2501,6 @@ px
     .Card-Collection {
         width: 750px
     }
-
 }
 
 @media (min-width: 992px) {
@@ -2516,21 +2515,35 @@ px
     }
 }
 
+.Card-block:hover {
+    cursor: pointer;
+}
+
+.Card:hover {
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+    transform: translateY(-10px);
+    -webkit-transition: .2s ease 0s;
+    -moz-transition: .2s ease 0s;
+    -ms-transition: .2s ease 0s;
+    -o-transition: .2s ease 0s;
+    transition: .2s ease 0s;
+}
 .Card {
-    border: none;
+    display: inline-block;
     position: relative;
     margin-bottom: 60px;
     color: #3a3a3a;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    border-right: 1px solid rgba(0, 0, 0, .1);
-    border-left: 1px solid rgba(0, 0, 0, .1);
+    border: 4px #FFF solid;
     border-radius: 4px;
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
 
 .Card-footer {
-    background-color: #fff;
+    background-color: #FFF;
     width: 100%;
 }
 
@@ -2606,6 +2619,7 @@ px
 .Card-image {
     max-width: 100%;
     display: block;
+    overflow: hidden;
     position: relative;
 }
 
@@ -2677,6 +2691,7 @@ px
 
 .Card-title {
     color: #505b69;
+    background: #fff;
     margin: 0;
     font-size: 14px;
 }
