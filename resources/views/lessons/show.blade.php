@@ -38,7 +38,7 @@
             </h1>
 
             <div class="center">
-                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$lesson->created_at}} |
+                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$lesson->created_at}}
             </div>
             <br/>
             <br/>

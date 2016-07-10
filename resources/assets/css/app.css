@@ -1129,9 +1129,15 @@ ul {
 }
 
 @media (max-width: 768px) {
+    .btn-ads {
+        margin: 30px 0 30px 0;
+        padding: 10px !important;
+    }
+
     .BlockMessage  {
         font-size: 20px;
     }
+
     .umbra {
         display:none;
     }
@@ -3786,6 +3792,7 @@ px
     padding: 50px 50px 50px 50px;
     font-size: 20px;
     width: 100%;
+    margin-top: 10px;
     margin-bottom: 40px;
 }
 
@@ -3838,6 +3845,8 @@ px
 @media screen and (max-width: 768px) {
 
 }
+
+
 
 .msg-header {
     padding: 20px;

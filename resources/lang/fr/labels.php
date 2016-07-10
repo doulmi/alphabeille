@@ -99,7 +99,7 @@ return [
     'free' => 'Gratuit',
     'adText' => 'Nous téléchargeons lundi à vendredi un texte qui comprend la vie quotidienne d\'un professeur avec un audio correspondant et des explications sur les expressions et sur les mots importants. Le weekend, vous aurez deux talk-shows intéressants qui portent sur les sujets d\'actualité ou la culture française.',
     'backToLearn' => 'Commencer à apprendre le français',
-    'adBtn' => 'Tous nos contenu ne coûte que 10€/mois',
+    'adBtn' => 'Tous nos contenu ne coûte que 15€/mois',
     'loginAccount' => 'Je m\'identifie',
     'emptyMsgbox' => 'Aucun message',
     'newMsg' => 'Message non lu',
