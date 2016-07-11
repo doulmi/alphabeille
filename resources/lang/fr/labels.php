@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'start' => "C'est parti!",
+    'start' => 'C\'est parti!',
     'login' => 'Je m\'identifie',
     'register' => 'Inscription',
     'email' => 'Email',
@@ -50,7 +50,7 @@ return [
     'confirmEmail' => 'Confirmez votre mail',
 
     'join_at' => 'La date quand vous êtes devenu abeille:',
-    'created_at' => "La date inscription:",
+    'created_at' => 'La date inscription:',
     'accountInfo' => 'Info personnelle',
     'accountPwd' => 'Mot de passe',
     'uplouadAvatar' => 'Télécharger',
@@ -91,7 +91,7 @@ return [
     'backIndex' => 'Acceuil',
 
     '404' => '404! La page est en cours de faire la sieste',
-    '404tip1' => "Retourner à l'acceuil :url",
+    '404tip1' => 'Retourner à l\'acceuil :url',
     '404tip2' => 'Envoyer un email à administrateur :mailto',
     'welcomeJoinUs' => 'Merci de nous avoir rejoint',
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
@@ -192,7 +192,7 @@ return [
     'share' => 'Partager',
     'punchinSuccess' => 'Pointé avec succès！',
     'breakup' => 'Vous avez pointé un jour de plus！',
-    'continuePunchin' => "Vous avez pointé :day！jours d'affilée",
+    'continuePunchin' => 'Vous avez pointé :day！jours d\'affilée',
     'myCollect' => 'Mes favoris',
     'collectTalkshows' => 'Vos talks-hows',
     'collectLessons' => 'Vos textes',
@@ -202,7 +202,7 @@ return [
     'payStep2'  =>'Scanner QR code,Choisir <code> transférer</code> ',
     'payStep3' => 'Montant::price ￥',
     'payStep4' => 'Le guide de paiement::email',
-    'payStep5' => "Confirmer votre paiement,Votre compte sera activé dans 30's.",
+    'payStep5' => 'Confirmer votre paiement,Votre compte sera activé dans 30\'s.',
 
     'lessonSubtitle' => '',
     'talkshowSubtitle' => '',

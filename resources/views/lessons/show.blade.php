@@ -345,7 +345,7 @@
                         this.comments.unshift(comment);
                         console.log(data);
 
-                        toastr.success('@lang('labels.feelFreeToComment')', '@lang('labels.commentSuccess')');
+                        toastr.success("@lang('labels.feelFreeToComment')", "@lang('labels.commentSuccess')");
                         comment = {
                             name: '{{Auth::user() ? Auth::user()->name : ''}}',
                             avatar: '{{Auth::user() ? Auth::user()->avatar: ''}}',
