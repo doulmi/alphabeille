@@ -120,6 +120,10 @@ return [
     'manageOperations' => '操作管理',
     'manageContent' => '内容管理',
 
+    'lessonSubtitle' => '',
+    'talkshowSubtitle' => '',
+    'minitalkSubtitle' => '',
+
     'welcome' => 'Bienvenue',
     'updatedBy' => 'Mise à jours par :name, ',
     'addDiscuss' => 'Poser une question',
@@ -143,14 +147,14 @@ return [
 
     'delete' => 'Supprimer',
     'modify' => 'Modifier',
-    'comments' => 'commentaires',
+    'comments' => 'Commentaires',
     //Exceptions
     'talkshowNotFound' => 'Non trouvé',
 
     'expire_title' => 'Votre abonnement expira le :date',
     'expire_content' => 'Cher abonné(e),votre abonnement expira le :date',
     'feelFreeToComment' => "N'hésitez pas à nous laisser votre commentaire!",
-    'commentSuccess' => 'commenté avec succès',
+    'commentSuccess' => 'Commenté avec succès',
     'tags.girl' => 'Fille',
     'tags.boy' => 'Garçon',
 

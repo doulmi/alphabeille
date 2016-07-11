@@ -1,0 +1,10 @@
+@font-face {
+font-family: Coconbold;
+src: url("http://o9dnc9u2v.bkt.clouddn.com/sites/fonts/cocon-bold.otf") format("opentype");
+}
+
+@font-face {
+font-family: Coconbold;
+font-weight: bold;
+src: url("http://o9dnc9u2v.bkt.clouddn.com/sites/fonts/cocon-bold.otf") format("opentype");
+}

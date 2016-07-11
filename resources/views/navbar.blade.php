@@ -8,8 +8,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand tooltips-bottom" href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
-                <i class="svg-icon svg-logo" id="icon-white"></i>
+            <a class="navbar-brand tooltips-bottom shake shake-slow" href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
+                <i class="svg-icon svg-logo" id="icon-white "></i>
             </a>
         </div>
 

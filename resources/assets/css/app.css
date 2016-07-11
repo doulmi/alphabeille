@@ -20,7 +20,7 @@ button {
 
 * {
     /*font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;*/
-    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei",  "华文细黑","FangSong", "幼圆",  sans-serif;
+    font-family: "Coconbold", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
     line-height: 1.7em;
     font-weight: 400;
 }
@@ -1039,6 +1039,7 @@ px
 .grey {
     background-color: #E9E9E9;
 }
+
 .center {
     text-align: center;
 }
@@ -1134,13 +1135,14 @@ ul {
         padding: 10px !important;
     }
 
-    .BlockMessage  {
+    .BlockMessage {
         font-size: 20px;
     }
 
     .umbra {
-        display:none;
+        display: none;
     }
+
     .ads-body {
         font-size: 15px;
     }
@@ -1150,7 +1152,7 @@ ul {
     }
 
     .footer-game {
-        display:none;
+        display: none;
     }
 }
 
@@ -1503,9 +1505,9 @@ ul {
 }
 
 @media screen and (max-width: 720px) {
-   .login-container {
-       margin-top: 25%;
-   }
+    .login-container {
+        margin-top: 25%;
+    }
 }
 
 .login-container h1 {
@@ -2531,6 +2533,7 @@ px
     -o-transition: .2s ease 0s;
     transition: .2s ease 0s;
 }
+
 .Card {
     display: inline-block;
     position: relative;
@@ -2713,7 +2716,6 @@ px
     }
 }
 
-
 .Card-title a:hover {
     text-decoration: underline
 }
@@ -2723,7 +2725,7 @@ px
     text-align: right;
     font-size: 22px;
     float: right;
-    flex:1;
+    flex: 1;
     padding-left: 10px;
 }
 
@@ -2755,7 +2757,7 @@ px
 }
 
 .list-lans-panel {
-    height : 60px;
+    height: 60px;
 }
 
 .nav-btns {
@@ -3138,6 +3140,31 @@ px
     border-radius: 50%;
     -moz-border-radius: 50%;
     border: 2px solid white;
+}
+
+.avatar, .media-left img {
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transition: ease 1s ;
+    -moz-transition: ease 1s ;
+    -ms-transition: ease 1s ;
+    -o-transition: ease 1s ;
+    transition: ease 1s ;
+}
+.avatar:hover, .media-left img:hover {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: ease 1s ;
+    -moz-transition: ease 1s ;
+    -ms-transition: ease 1s ;
+    -o-transition: ease 1s ;
+    transition: ease 1s ;
 }
 
 .spinner {
@@ -3861,8 +3888,6 @@ px
 
 }
 
-
-
 .msg-header {
     padding: 20px;
     background: white;
@@ -4095,12 +4120,12 @@ px
 }
 
 .favorite {
-    font-size : 20px;
-    color : hsl(10, 96%, 55%);
+    font-size: 20px;
+    color: hsl(10, 96%, 55%);
 }
 
 .favorite:hover {
-    color : hsl(10, 96%, 45%);
+    color: hsl(10, 96%, 45%);
 }
 
 .favorite-circle {
@@ -4254,16 +4279,16 @@ px
     padding: 2px 4px;
     color: #E7505A;
     background-color: #FFF;
-    font-size:100%;
+    font-size: 100%;
     border-radius: 4px;
-    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei",  "华文细黑","FangSong", "幼圆",  sans-serif;
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
 }
 
 .markdown-content code:hover {
     /*color: #E7505A;*/
     background-color: #FFF;
     color: #FF0000;
-    font-size:105%;
+    font-size: 105%;
 }
 
 .markdown-content {
@@ -4272,6 +4297,7 @@ px
 
 .markdown-content p {
     font-size: 18px;
+    line-height: 24px;
 }
 
 .lesson-content {
@@ -4339,6 +4365,7 @@ px
     background-color: hsl(185, 64%, 41%);
     border-color: hsl(185, 64%, 41%);
 }
+
 .label-girl {
     background-color: #E7505A;
     border-color: #E7505A;
@@ -4356,10 +4383,10 @@ px
 .search-result {
     background: #FFF;
     height: 60px;
-    -webkit-border-radius:7px;
-    -moz-border-radius:7px;
-    border-radius:7px;
-    line-height:60px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    line-height: 60px;
     vertical-align: middle;
     font-size: 1.5rem;
 }
@@ -4368,12 +4395,12 @@ px
     margin-top: 30px;
 }
 
-.pay-panel{
+.pay-panel {
     padding-bottom: 200px;
 }
 
 .c404 a {
-   text-decoration: none;
+    text-decoration: none;
     color: white;
 }
 
@@ -4385,3 +4412,34 @@ px
     width: 200px;
     height: 200px;
 }
+
+.lesson-content h1 {
+    font-family: "Coconbold", "Microsoft YaHei", sans-serif;
+    font-size: 28px;
+}
+
+.lesson-content .markdown-content {
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+}
+
+.lesson-content .markdown-content p{
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+}
+
+.title, h2, blockquote {
+    font-family: "Coconbold", "Microsoft YaHei", sans-serif;
+    color : #3F1E15;
+}
+
+.markdown-content blockquote strong,
+.lesson-content .markdown-content blockquote p
+{
+    font-family: "Coconbold", "Microsoft YaHei", sans-serif;
+    color : #3F1E15;
+}
+
+.BlockMessage-With-Spacing {
+    color : #3F1E15;
+    font-family: "Coconbold", "Microsoft YaHei", sans-serif;
+}
+

@@ -1,6 +1,6 @@
 <div class="beach-index">
     <ul>
-        <li class="layer umbra"><img src="/img/umbra.png"></li>
+        <li class="layer umbra"><img class="shake shake-little" src="/img/umbra.png"></li>
     </ul>
 
     <div class="Card-Collection Menus">

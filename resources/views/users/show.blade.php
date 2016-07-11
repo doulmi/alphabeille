@@ -60,7 +60,7 @@
                               action="{{url( '/uploadAvatar' )}}" id="avatarForm">
                             {!! csrf_field() !!}
                             <div class="form-group">
-                                <label class="col-sm-2 control-label avatar-label">头像</label>
+                                <label class="col-sm-2 control-label avatar-label">@lang('labels.avatar')</label>
                                 <div class="col-sm-10">
                                     <div class="media">
                                         <div class="media-left">
