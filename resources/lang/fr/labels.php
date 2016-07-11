@@ -153,7 +153,7 @@ return [
 
     'expire_title' => 'Votre abonnement expira le :date',
     'expire_content' => 'Cher abonné(e),votre abonnement expira le :date',
-    'feelFreeToComment' => "N'hésitez pas à nous laisser votre commentaire!",
+    'feelFreeToComment' => 'N\'hésitez pas à nous laisser votre commentaire!',
     'commentSuccess' => 'Commenté avec succès',
     'tags.girl' => 'Fille',
     'tags.boy' => 'Garçon',
