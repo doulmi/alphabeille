@@ -1,5 +1,15 @@
 @extends('base')
 
+@section('title')
+    @lang('labels.login.title')
+@endsection
+
+@section('header')
+    <meta name="description" content="@lang('labels.login.description')">
+    <meta name="Keywords" content="@lang('labels.login.keywords')">
+    <meta name="baidu-site-verification" content="4Y6Akg4Bz5" />
+@endsection
+
 @section('text')
     @include('navbar')
     <div class="login fullscreen">

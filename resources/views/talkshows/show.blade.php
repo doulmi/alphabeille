@@ -9,17 +9,11 @@
     <meta name="Keywords" content="{{ $talkshow->keywords }}">
 @endsection
 
-@section('othercss')
-    <link rel="stylesheet" href="/css/share.min.css">
-@endsection
-
 @section('content')
     <meta property="og:title" content="{{$talkshow->title}}" />
     <meta property="og:image" content="{{$talkshow->avatar}}" />
 
-    <link rel="stylesheet" href="/css/audioplayer.css"/>
     <div class="body grey">
-
         <?php $canRead = $talkshow->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
         <div class="Header"></div>
 
@@ -288,7 +282,7 @@
                         if(isBreakup) {
 
                             @if(!Auth::guest())
-                            toastr.success('@lang('labels.punchinSuccess')' + '@lang('labels.breakup')' + '@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])' );
+                            toastr.success("@lang('labels.punchinSuccess')" + "@lang('labels.breakup')" + "@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])" );
                             @endif
                         }
                     }.bind(this));
@@ -302,7 +296,7 @@
                     post.content = ue.getContent();
 
                     if (removeHTML(post.content).length < 10) {
-                        toastr.error('@lang('labels.tooShortComment')');
+                        toastr.error("@lang('labels.tooShortComment')");
                         return;
                     }
                     comment.content = post.content;
@@ -312,7 +306,7 @@
                         this.comments.unshift(comment);
                         console.log(data);
 
-                        toastr.success('@lang('labels.feelFreeToComment')', '@lang('labels.commentSuccess')');
+                        toastr.success("@lang('labels.feelFreeToComment')', '@lang('labels.commentSuccess')");
                         comment = {
                             name: '{{Auth::user() ? Auth::user()->name : ''}}',
                             avatar: '{{Auth::user() ? Auth::user()->avatar: ''}}',

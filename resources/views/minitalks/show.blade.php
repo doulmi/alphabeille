@@ -9,11 +9,6 @@
     <meta name="Keywords" content="{{ $minitalk->keywords }}">
 @endsection
 
-@section('othercss')
-    <link rel="stylesheet" href="/css/share.min.css">
-    <link rel="stylesheet" href="/css/audioplayer.css"/>
-@endsection
-
 @section('content')
     <meta property="og:title" content="{{$minitalk->title}}"/>
     <meta property="og:image" content="{{$minitalk->avatar}}"/>
@@ -266,7 +261,7 @@
                     post.content = ue.getContent();
 
                     if (removeHTML(post.content).length < 10) {
-                        toastr.error('@lang('labels.tooShortComment')');
+                        toastr.error("@lang('labels.tooShortComment')");
                         return;
                     }
                     comment.content = post.content;
@@ -274,7 +269,7 @@
                     this.$http.post('/minitalkComments', post, function (data) {
                         this.comments.unshift(comment);
 
-                        toastr.success('@lang('labels.feelFreeToComment')', '@lang('labels.commentSuccess')');
+                        toastr.success("@lang('labels.feelFreeToComment')", "@lang('labels.commentSuccess')");
                         comment = {
                             name: '{{Auth::user() ? Auth::user()->name : ''}}',
                             avatar: '{{Auth::user() ? Auth::user()->avatar: ''}}',

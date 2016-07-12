@@ -247,4 +247,7 @@ return [
     'minitalks' => 'Minitalks',
     'minitalkSubtitle' => '有趣、有料、有八卦, 带你学地道法语',
     'investYourself' => '投资你自己',
+    'login.title' => 'Alphabeille法语登录/注册界面，欢迎您的到来',
+    'login.description' => 'Alphabeille法语的登录/注册界面~',
+    'login.keywords' => 'Alphabeille登录, Alphabeille注册'
 ];

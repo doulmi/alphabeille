@@ -13,9 +13,6 @@
             </a>
         </div>
 
-        <script>
-
-        </script>
         <form action="{{url('search')}}" class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" role="search"
               id="searchForm" method="get">
             <div class="form-group">

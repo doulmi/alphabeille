@@ -9,17 +9,11 @@
     <meta name="Keywords" content="{{ $lesson->keywords }}">
 @endsection
 
-@section('othercss')
-    <link rel="stylesheet" href="/css/share.min.css">
-@endsection
-
 @section('content')
     <meta property="og:title" content="{{$lesson->title}}" />
     <meta property="og:image" content="{{$lesson->avatar}}" />
 
-    <link rel="stylesheet" href="/css/audioplayer.css" xmlns:v-on="http://www.w3.org/1999/xhtml"/>
     <div class="body grey">
-
         <?php $canRead = $lesson->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
         <div class="Header"></div>
 
@@ -321,7 +315,7 @@
                         var isBreakup = response.break;
                         if (isBreakup) {
                             @if(!Auth::guest())
-                            toastr.success('@lang('labels.punchinSuccess')' + '@lang('labels.breakup')' + '@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])');
+                            toastr.success("@lang('labels.punchinSuccess')" + "@lang('labels.breakup')" + "@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])");
                             @endif
                         }
                     }.bind(this));
@@ -335,7 +329,7 @@
                     post.content = ue.getContent();
 
                     if (removeHTML(post.content).length < 10) {
-                        toastr.error('@lang('labels.tooShortComment')');
+                        toastr.error("@lang('labels.tooShortComment')");
                         return;
                     }
                     comment.content = post.content;
