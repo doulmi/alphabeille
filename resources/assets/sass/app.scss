@@ -2,7 +2,7 @@
 
 $primaryColor: #FFD346;
 $secondColor: #321C0E;
-$bgColor : #91C5E8;
+$bgColor : #a6d4f2;
 $updateLabelColor : #573e81;
 $newLabelColor : #99c93d;
 $cardTitleColor: #321C0E;
@@ -2793,6 +2793,7 @@ button {
 .markdown-content p {
   font-size: 18px;
   line-height: 24px;
+  margin-bottom: 26px;
 }
 
 .lesson-content {
@@ -2809,10 +2810,6 @@ button {
 
 .lesson-content img {
   width: 100%;
-}
-
-.wechat-part img:last-child {
-  width: 50%;
 }
 
 @media (min-width: 768px) {

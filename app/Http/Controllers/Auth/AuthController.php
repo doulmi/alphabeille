@@ -7,6 +7,7 @@ use App\Events\UserRegister;
 use Bican\Roles\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -90,7 +91,7 @@ class AuthController extends Controller
 
     private function authenticated(Request $request, $user) {
         event(new UserLogin());
-        return redirect()->back();
+        return redirect(Session::get('lastUrl'));
     }
 
     /**

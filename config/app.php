@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://alpha-beille.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'zh_CN',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'zh_CN',
+    'fallback_locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -159,7 +159,6 @@ return [
 //        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         YuanChao\Editor\EndaEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
-        SocialiteProviders\Manager\ServiceProvider::class,
 
         /*
          * Application Service Providers...

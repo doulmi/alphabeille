@@ -1324,8 +1324,8 @@ button {
   -webkit-transform: rotate(-360deg);
   -moz-transform: rotate(-360deg);
   -ms-transform: rotate(-360deg);
-  -o-transform: rotate(-180deg);
-  transform: rotate(-180deg);
+  -o-transform: rotate(-360deg);
+  transform: rotate(-360deg);
   -webkit-transition: ease 1s;
   -moz-transition: ease 1s;
   -ms-transition: ease 1s;
@@ -2320,7 +2320,8 @@ button {
 
 .markdown-content p {
   font-size: 18px;
-  line-height: 24px; }
+  line-height: 24px;
+  margin-bottom: 26px; }
 
 .lesson-content {
   border-radius: 20px;
@@ -2335,9 +2336,6 @@ button {
 
 .lesson-content img {
   width: 100%; }
-
-.wechat-part img:last-child {
-  width: 50%; }
 
 @media (min-width: 768px) {
   .lesson-content {

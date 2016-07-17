@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Session;
 
 class Language
 {
-
-    //TODO Carbon localisation
     public function handle($request, Closure $next)
     {
         if (Session::has('applocale') AND array_key_exists(Session::get('applocale'), Config::get('languages'))) {
