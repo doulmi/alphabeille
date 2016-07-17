@@ -59,7 +59,9 @@
                 {!! $wechat_part !!}
 
                 <p>喜欢的话，可以关注我们的微信公众号，你不扫一下吗？</p>
-                <p><img src="http://o9dnc9u2v.bkt.clouddn.com/qr-wechat.jpg" alt="Wehcat QR-AlphabeilleStudio" title="Wehcat QR-AlphabeilleStudio"></p>
+                <center>
+                <p><img src="http://o9dnc9u2v.bkt.clouddn.com/qr-wechat.jpg" alt="Wehcat QR-AlphabeilleStudio" title="Wehcat QR-AlphabeilleStudio" class="wechatQR"></p>
+                </center>
             </div>
 
             @if(!Auth::guest())
