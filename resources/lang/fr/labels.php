@@ -218,4 +218,38 @@ return [
     'collectMinitalks' => 'Minitalks favoris',
     'minitalks' => 'Minitalks',
     'investYourself' => 'Investis en toi',
+
+    'login.title' => 'Alphabeille法语登录/注册界面，欢迎您的到来',
+    'login.description' => 'Alphabeille法语的登录/注册界面~',
+    'login.keywords' => 'Alphabeille登录, Alphabeille注册',
+    'index.title' => 'Alphabeille法语：有趣，有料，有八卦，每天一个番茄时间学法语!',
+    'index.description' => '每天一个番茄时间，学地道法语、聊法国文化！Alphabeille法语为您推送真实小故事、趣味脱口秀、中法老师微信1对1课程。公众号：Alphabeille法语 免费中法脱口秀和关键词，还有更多内容哦！',
+    'index.keywords' => 'Alphabeille法语，法语，法语口语，法语入门，法语课程，微信法语, 法语学习',
+
+    'free.title' => 'Alphabeille法语免费课程和脱口秀',
+    'free.description' => 'Alphabeille法语免费课程和脱口秀',
+    'free.keywords' => '法语免费内容',
+
+    'menus.title' => 'Alphabeille法语套餐购买：简约套餐，普通套餐，豪华套餐',
+    'menus.description' => 'Alphabeille法语套餐购买：简约套餐，普通套餐，豪华套餐',
+    'menus.keywords' => '法语套餐',
+
+    'collect.title' => '您收藏的内容',
+    'search.title' => 'Alphabeille法语搜索结果',
+
+    'topics.title' => 'Alphabeille法语主题',
+    'topics.description' => 'Alphabeille法语主题，第一人称视角带你感受最真实的法国生活, 纯法和中法双语解释，慢、常速音频, 满足您不同时段不一样的需求',
+    'topics.keywords' => '法语主题',
+
+    'lessons.title' => 'Alphabeille法语课程',
+    'lessons.description' => 'Alphabeille法语主题，第一人称视角带你感受最真实的法国生活, 纯法和中法双语解释，慢、常速音频, 满足您不同时段不一样的需求',
+    'lessons.keywords' => '法语课程',
+
+    'talkshows.title' => 'Alphabeille法语脱口秀',
+    'talkshows.description' => 'Alphabeille法语脱口秀，有趣、有料、有八卦，地道法语轻松学',
+    'talkshows.keywords' => '法语脱口秀',
+
+    'forum.title' => 'Alphabeille法语论坛',
+    'forum.description' => 'Alphabeille法语论坛，在这里',
+    'forum.keywords' => '法语论坛, 法语资料',
 ];

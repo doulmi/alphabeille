@@ -111,7 +111,7 @@
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">
-                        <a type="button" href='{{ url("/login?redirect_url=" . Request::fullUrl()) }}'
+                        <a type="button" href='{{ url("/login")}}'
                            class="shake-horizontal">@lang('labels.login')</a>
                     </li>
                     <li class="nav-btn hidden-xs">
