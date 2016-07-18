@@ -1,11 +1,17 @@
 @charset "UTF-8";
 
-$primaryColor: #FFD346;
-$secondColor: #321C0E;
-$bgColor : #a6d4f2;
+$primaryColor: #ffcd3c;
+$secondColor: #252422;
+$blockquote : #2196F3;
+$beachColor: #FFE57F;
+$bgColor : #B3D1E8;
 $updateLabelColor : #573e81;
 $newLabelColor : #99c93d;
-$cardTitleColor: #321C0E;
+$cardTitleColor: #252422;
+$slugColor : #252422;
+$navbarFontColor : #FFF;
+$quoteFont : #252422;
+$btnAdsColor :#FF4366;
 
 *::selection {
   background: $primaryColor;
@@ -39,7 +45,7 @@ button {
 
 * {
   /*font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;*/
-  font-family: "Coconbold", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+  font-family:"Coconbold",  "Raleway",  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
   line-height: 1.7em;
 }
 
@@ -68,17 +74,17 @@ button {
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #FFF;
+  color: $navbarFontColor;
   font-weight: 600;
 
   &:hover {
-    color: #ffffff;
+    color: $navbarFontColor;
   }
 }
 
 .nav-btn:hover,
 .nav-btn:active {
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid $navbarFontColor;
 }
 
 .profile-btn {
@@ -119,6 +125,7 @@ button {
   -webkit-border-top-right-radius: 20px;
   -webkit-border-bottom-right-radius: 20px;
   background-color: #fff;
+  border:none;
   cursor: pointer;
 }
 
@@ -141,157 +148,15 @@ button {
   background-position: 0 0
 }
 
-.flag-svg-micro.flag-es {
-  background-position: -22px 0
-}
-
-.flag-svg-micro.flag-de {
-  background-position: -44px 0
-}
-
-.flag-svg-micro.flag-pt {
-  background-position: -66px 0
-}
-
-.flag-svg-micro.flag-it {
-  background-position: -88px 0
-}
-
 .flag-svg-micro.flag-en {
   background-position: -110px 0
 }
-
-.flag-svg-micro.flag-ga {
-  background-position: -132px 0
-}
-
-.flag-svg-micro.flag-hu {
-  background-position: -154px 0
-}
-
-.flag-svg-micro.flag-ru {
-  background-position: -176px 0
-}
-
-.flag-svg-micro.flag-pl {
-  background-position: -198px 0
-}
-
-.flag-svg-micro.flag-ro {
-  background-position: 0 -44px
-}
-
-.flag-svg-micro.flag-dn {
-  background-position: -22px -44px
-}
-
-.flag-svg-micro.flag-tr {
-  background-position: -44px -44px
-}
-
-.flag-svg-micro.flag-id {
-  background-position: -66px -44px
-}
-
-.flag-svg-micro.flag-ja {
-  background-position: -88px -44px
-}
-
-.flag-svg-micro.flag-uk {
-  background-position: -110px -44px
-}
-
 /* 台湾 */
 .flag-svg-micro.flag-zt {
   background-position: -132px -44px
 }
-
-.flag-svg-micro.flag-el {
-  background-position: -154px -44px
-}
-
-.flag-svg-micro.flag-bn {
-  background-position: -176px -44px
-}
-
-.flag-svg-micro.flag-ar {
-  background-position: -198px -44px
-}
-
-.flag-svg-micro.flag-hi {
-  background-position: 0 -88px
-}
-
-.flag-svg-micro.flag-he {
-  background-position: -22px -88px
-}
-
-.flag-svg-micro.flag-ko {
-  background-position: -44px -88px
-}
-
-.flag-svg-micro.flag-vi {
-  background-position: -66px -88px
-}
-
-.flag-svg-micro.flag-sv {
-  background-position: -88px -88px
-}
-
 .flag-svg-micro.flag-zh_CN {
   background-position: -110px -88px
-}
-
-.flag-svg-micro.flag-cs {
-  background-position: -132px -88px
-}
-
-.flag-svg-micro.flag-th {
-  background-position: -154px -88px
-}
-
-.flag-svg-micro.flag-un {
-  background-position: -176px -88px
-}
-
-.flag-svg-micro.flag-eo {
-  background-position: -198px -88px
-}
-
-.flag-svg-micro.flag-kl {
-  background-position: 0 -132px
-}
-
-.flag-svg-micro.flag-da {
-  background-position: -22px -132px
-}
-
-.flag-svg-micro.flag-dk {
-  background-position: -44px -132px
-}
-
-.flag-svg-micro.flag-sn {
-  background-position: -66px -132px
-}
-
-.flag-svg-micro.flag-nb {
-  background-position: -132px -132px
-}
-
-.flag-svg-micro.flag-ca {
-  background-position: -176px -132px
-}
-
-.flag-svg-micro.flag-cy {
-  background-position: -198px -132px
-}
-
-.flag-svg-micro.flag-gn {
-  background-position: 0 -176px
-}
-
-.flag-svg-micro.flag-sw {
-  background-position: -22px -176px
 }
 
 .flag-svg-tiny {
@@ -406,12 +271,13 @@ button {
 }
 
 .body {
-  background-color: #b3d1e8;
+  background-color: $bgColor;
   overflow: hidden;
 }
 
 .grey {
   background-color: #E9E9E9;
+  //background-color: #FFFFFF;
 }
 
 .center {
@@ -466,14 +332,14 @@ button {
 }
 
 .beach {
-  background: $primaryColor;
+  background: $beachColor;
   width: 100%;
   min-height: 600px;
   margin-top: 200px;
 }
 
 .beach-index {
-  background: $primaryColor;
+  background: $beachColor;
   width: 100%;
   min-height: 400px;
 }
@@ -907,10 +773,10 @@ button {
 }
 
 .more {
-  width: 97%;
-  color: #000000;
-  border:none;
-  margin: -40px 0 100px 16px;
+  width: 100%;
+  color: $secondColor;
+  border: none;
+  margin: 0 0 100px 0;
 }
 
 .link {
@@ -936,6 +802,12 @@ button {
   line-height: 1.5em;
 }
 
+.talkshow {
+  code {
+    font-weight:bold;
+  }
+}
+
 .Heading-Fancy {
   position: relative;
   overflow: hidden;
@@ -959,10 +831,11 @@ button {
   font-size: .7em;
   top: 4px;
   color: #483e39;
+  font-family:"Raleway",  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
 }
 
 .Heading-Fancy .title {
-  color: white;
+  color: $slugColor;
 }
 
 .Heading-Fancy .title:before {
@@ -2340,7 +2213,7 @@ button {
 
 .btn-ads {
   margin: 30px 0 30px 0;
-  background: #f68459;
+  background: $btnAdsColor;
   padding: 10px 35px;
   color: #fff;
   border: none;
@@ -2350,7 +2223,7 @@ button {
 }
 
 .btn-ads:hover {
-  background: hsl(16, 89%, 55%);
+  background: darken($btnAdsColor, 5%);
   color: #fff;
 }
 
@@ -2767,32 +2640,32 @@ button {
 }
 
 .markdown-content blockquote {
-  border-left: 5px solid $primaryColor;
-  background: #F5F5F5;
+  margin-bottom: 1.75rem;
+  font-size: 1.25rem;
+
+  padding: 1rem 0 1rem 1.6rem;
+  border-left: .5rem solid $blockquote;
+  margin-top: 1.75rem;
+  //background: #F5F5F5;
 }
 
 .markdown-content code {
-  padding: 2px 4px;
-  color: #E7505A;
+  color: $blockquote;
   background-color: #FFF;
   font-size: 100%;
-  border-radius: 4px;
-  font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
-}
-
-.markdown-content code:hover {
-  background-color: #FFF;
-  color: #FF0000;
-  font-size: 105%;
+  font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+  padding: 0;
 }
 
 .markdown-content {
-  text-align: justify;
+  //text-align: justify;
 }
 
 .markdown-content p {
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 1.25em;
+  line-height: 1.72;
+  margin: 0 0 1em;
+  color: #111;
   margin-bottom: 26px;
 }
 
@@ -2809,7 +2682,8 @@ button {
 }
 
 .lesson-content img {
-  width: 100%;
+  //width: 100%;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -2920,17 +2794,17 @@ button {
 
 .title, h2, blockquote {
   font-family: "Coconbold", "Microsoft YaHei", sans-serif;
-  color: #3F1E15;
+  color: $quoteFont;
 }
 
 .markdown-content blockquote strong,
 .lesson-content .markdown-content blockquote p {
   font-family: "Coconbold", "Microsoft YaHei", sans-serif;
-  color: #3F1E15;
+  color: $quoteFont;
 }
 
 .BlockMessage-With-Spacing {
-  color: #3F1E15;
+  color: $quoteFont;
   font-family: "Coconbold", "Microsoft YaHei", sans-serif;
 }
 

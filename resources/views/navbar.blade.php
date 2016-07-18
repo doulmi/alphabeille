@@ -111,18 +111,18 @@
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">
-                        <a type="button" href='{{ url("/login")}}'
+                        <a type="button" href='{{ url("/login?redirect_url=" . Request::getUri())}}'
                            class="shake-horizontal">@lang('labels.login')</a>
                     </li>
                     <li class="nav-btn hidden-xs">
-                        <a href='{{ url("/register") }}' class="shake-vertical">@lang('labels.register')</a>
+                        <a href='{{ url("/register?redirect_url=" . Request::getUri()) }}' class="shake-horizontal">@lang('labels.register')</a>
                     </li>
                 @endif
                 <li class="visible-xs">
                     <div class="nav-btns center row">
                         @if(Auth::guest())
-                            <a href="{{url('/login')}}" class="col-xs-6">@lang('labels.login')</a>
-                            <a href="{{url('/register')}}" class="col-xs-6">@lang('labels.register')</a>
+                            <a href="{{url('/login?redirect_url=' . Request::getUri())}}" class="col-xs-6">@lang('labels.login')</a>
+                            <a href="{{url('/register?redirect_url=' . Request::getUri())}}" class="col-xs-6">@lang('labels.register')</a>
                         @else
                             <a href="{{ url('/users/' . Auth::user()->id) }}" class="col-xs-4">
                                 <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>

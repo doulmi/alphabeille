@@ -55,7 +55,7 @@
             <br/>
 
             @if($talkshow->free || (!Auth::guest() && Auth::user()->level() > 1))
-                <div class='markdown-content'>
+                <div class='markdown-content talkshows'>
                     {!! $content !!}
                 </div>
             @endif
@@ -205,7 +205,6 @@
         if (isIE(6) || isIE(7) || isIE(8)) {
         }
 
-        $('#goTop').goTop();
         function reply(userId, userName) {
             window.location.href = "#replyForm";
             ue.setContent('<a href="/users/' + userId + '">@' + userName + '</a>', false);

@@ -19,7 +19,7 @@
 
         <div class="lesson-content">
             <br/>
-            <h1 class="mar-t-z center">
+            <h1 class="center">
                 {{ $minitalk->title }}
             </h1>
 
@@ -51,7 +51,7 @@
             <br/>
 
             @if($canRead)
-                <div class='markdown-content'>
+                <div class='markdown-content talkshow'>
                     {!! $content !!}
                 </div>
             @endif
@@ -158,14 +158,9 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="Header"></div>
-            <div class="Header"></div>
         </div>
     </div>
     <div id='goTop'></div>
-    </div>
-
     @include('smallBeach')
 @endsection
 
@@ -194,7 +189,6 @@
         if (isIE(6) || isIE(7) || isIE(8)) {
         }
 
-        $('#goTop').goTop();
         function reply(userId, userName) {
             window.location.href = "#replyForm";
             ue.setContent('<a href="/users/' + userId + '">@' + userName + '</a>', false);

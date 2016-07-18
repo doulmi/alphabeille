@@ -39,6 +39,7 @@
                     <a class="link link-left" href="{{ url('/password/reset') }}">@lang('labels.forgetPwd')</a>
                     <a class="link link-right" id="toRegister" @click.stop.prevent="toRegister"
                        href="">@lang('labels.noCount')</a>
+                    <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>
                 </form>
 
                 {{--register--}}
@@ -54,6 +55,7 @@
                     <button type="submit" id="register-button">@lang('labels.register')</button>
                     <br/>
                     <br/>
+                    <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>
                     <a class="link" id="toLogin" @click.stop.prevent="toLogin" href="">@lang('labels.hasCount')</a>
                 </form>
             </div>

@@ -212,8 +212,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="Header"></div>
-            <div class="Header"></div>
         </div>
         <div id='goTop'></div>
     </div>

@@ -32,9 +32,7 @@
 
         <div class="Card-Collection" >
             @include('lessons.lessonsAvatarList')
-            <h2 class="row center">
-                <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons')}}">@lang('labels.more')</a>
-            </h2>
+            <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons')}}">@lang('labels.more')</a>
         </div>
 
         <h2 class="Heading-Fancy row">
@@ -43,9 +41,7 @@
 
         <div class="Card-Collection">
             @include('talkshows.talkshowsList')
-            <h2 class="row">
                 <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
-            </h2>
         </div>
 
         <h2 class="Heading-Fancy row">
@@ -54,10 +50,8 @@
 
         <div class="Card-Collection">
             @include('minitalks.minitalksList')
-            <h2 class="row">
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
-            </h2>
-            <div class="Header hidden-xs"></div>
+                <div class="Header hidden-xs"></div>
         </div>
 
 {{--        @include('menusList')--}}
