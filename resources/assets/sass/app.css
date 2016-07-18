@@ -256,13 +256,13 @@ button {
   text-align: center; }
 
 .beach {
-  background: #FFE57F;
+  background: #FFD346;
   width: 100%;
   min-height: 600px;
   margin-top: 200px; }
 
 .beach-index {
-  background: #FFE57F;
+  background: #FFD346;
   width: 100%;
   min-height: 400px; }
 
@@ -672,7 +672,7 @@ button {
   font-family: "Raleway",  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
 
 .Heading-Fancy .title {
-  color: #252422; }
+  color: #FFF; }
 
 .Heading-Fancy .title:before {
   right: 100%;

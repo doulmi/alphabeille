@@ -37,10 +37,10 @@
                     <button onclick="window.location.href='{{url('free')}}'"
                             class="btn btn-default navbar-btn {{ Request::is('free') ? 'navbar-btn-active' : '' }} ">@lang('labels.freeLessons')</button>
                 </li>
-                <li>
-                    <button onclick="window.location.href='{{url('discussions')}}'"
-                            class="btn btn-default navbar-btn {{ Request::is('discussions') ? 'navbar-btn-active' : '' }} ">@lang('titles.forum')</button>
-                </li>
+                {{--<li>--}}
+                    {{--<button onclick="window.location.href='{{url('discussions')}}'"--}}
+                            {{--class="btn btn-default navbar-btn {{ Request::is('discussions') ? 'navbar-btn-active' : '' }} ">@lang('titles.forum')</button>--}}
+                {{--</li>--}}
                 {{--                <li><a href="{{url('chatroom')}}">@lang('titles.chatroom')</a></li>--}}
             </ul>
             <ul class="nav navbar-nav navbar-right " id="menu-xs">
