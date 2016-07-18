@@ -5637,8 +5637,7 @@ button {
   height: 200px; }
 
 .lesson-content h1 {
-  font-family: "Coconbold", "Microsoft YaHei", sans-serif;
-  font-size: 28px; }
+  font-family: "Coconbold", "Microsoft YaHei", sans-serif; }
 
 .lesson-content .markdown-content {
   font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }

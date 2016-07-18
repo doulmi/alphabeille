@@ -90,6 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('/lessons/{topicId}', 'Admin\LessonController@update');
     Route::get('/lessons/{topicId}/create', 'Admin\LessonController@create');
     Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
+    Route::get('/slugs', 'Admin\AdminController@slugs');
 
     Route::resource('talkshows', 'Admin\TalkshowController');
     Route::resource('minitalks', 'Admin\MinitalkController');

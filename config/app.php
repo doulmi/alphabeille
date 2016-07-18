@@ -159,6 +159,7 @@ return [
 //        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         YuanChao\Editor\EndaEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
 
         /*
          * Application Service Providers...

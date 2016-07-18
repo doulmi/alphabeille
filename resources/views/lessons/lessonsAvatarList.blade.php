@@ -21,7 +21,7 @@
                     </span>
                     @endif
                     <div class="Card-image">
-                        <a href="{{ url('lessons/' .$lesson->id) }}" title="{{$lesson->title}}">
+                        <a href="{{ url('lessons/' . $lesson->id) }}" title="{{$lesson->title}}">
                             <img src="/img/placeholder.png" data-original="{{$lesson->avatar}}" class="Card-image"
                                  alt="{{$lesson->title}}">
                             <div class="Card-overlay">

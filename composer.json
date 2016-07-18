@@ -19,7 +19,8 @@
         "overtrue/laravel-wechat": "~3.0",
         "yuanchao/laravel-5-markdown-editor": "dev-master",
         "tom-lingham/searchy" : "2.*",
-        "laravel/socialite": "~2.0"
+        "laravel/socialite": "~2.0",
+        "cviebrock/eloquent-sluggable": "4.0"
     },
 
     "require-dev": {

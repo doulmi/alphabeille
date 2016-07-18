@@ -3,11 +3,16 @@
 namespace App;
 
 use Carbon\Carbon;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 
 class Topic extends Model
 {
+    use SoftDeletes;
+    use Sluggable;
+
     protected $dates = ['publish_at'];
 
     protected $fillable = [
@@ -45,5 +50,19 @@ class Topic extends Model
                 'isNew' => false,
             ];
         }
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
