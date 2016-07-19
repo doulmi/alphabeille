@@ -29,13 +29,18 @@
             <div class="moon-panel">
                 <div class="moon"></div>
             </div>
+
             <div class="Card-Collection">
+                <div class="Header"></div>
                 <h2 class="Heading-Fancy row">
-                    <span class='title'>@lang('titles.lessons')</span>
+                    <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
-                @include('lessons.lessonsAvatarList')
-                <a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>
+                @include('minitalks.minitalksList')
+                <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
+                <div class="Header hidden-xs"></div>
             </div>
+
+
             {{--<div class="Card-Collection ">--}}
             {{--<h2 class="Heading-Fancy row">--}}
             {{--<span class='title'>@lang('titles.lessons')</span>--}}
@@ -63,15 +68,12 @@
         </div>
 
         <div class="container-fluid morning fullscreen">
-            <div class="Header"></div>
-            <h2 class="Heading-Fancy row">
-                <span class='title'>@lang('labels.minitalks')</span>
-            </h2>
-
             <div class="Card-Collection">
-                @include('minitalks.minitalksList')
-                <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
-                <div class="Header hidden-xs"></div>
+                <h2 class="Heading-Fancy row">
+                    <span class='title'>@lang('titles.lessons')</span>
+                </h2>
+                @include('lessons.lessonsAvatarList')
+                <a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>
             </div>
         </div>
 
