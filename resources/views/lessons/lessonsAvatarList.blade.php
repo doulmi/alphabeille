@@ -10,7 +10,6 @@
         @foreach($lessons as $lesson)
             <div class="col-md-3 col-xs-6 col-sm-4">
                 <div class="Card">
-
                     @if($lesson->free)
                         <span class="Card-new-status Label Label-x-small">
                         @lang('labels.free')
@@ -21,7 +20,7 @@
                     </span>
                     @endif
                     <div class="Card-image">
-                        <a href="{{ url('lessons/' . $lesson->id) }}" title="{{$lesson->title}}">
+                        <a href="{{ url('lessons/' . $lesson->slug) }}" title="{{$lesson->title}}">
                             <img src="/img/placeholder.png" data-original="{{$lesson->avatar}}" class="Card-image"
                                  alt="{{$lesson->title}}">
                             <div class="Card-overlay">
@@ -31,7 +30,7 @@
                     </div>
                     <div class="Card-details">
                         <h3 class="Card-title">
-                            <a href="{{ url('lessons/' . $lesson->id) }}" title="{{$lesson->title}}">{{$lesson->title}}</a>
+                            <a href="{{ url('lessons/' . $lesson->slug) }}" title="{{$lesson->title}}">{{$lesson->title}}</a>
                         </h3>
                     </div>
                     <div class="Card-footer">

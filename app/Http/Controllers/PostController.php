@@ -22,9 +22,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $lessons = Lesson::orderBy('id', 'DESC')->limit(8)->get();
-        $talkshows = Talkshow::latest()->limit(8)->get();
-        $minitalks = Minitalk::latest()->limit(8)->get();
+        $lessons = Lesson::orderBy('id', 'DESC')->limit(12)->get();
+        $talkshows = Talkshow::latest()->limit(12)->get();
+        $minitalks = Minitalk::latest()->limit(12)->get();
 
 //        $menus = Subscription::all();
 //        foreach ($menus as $menu) {

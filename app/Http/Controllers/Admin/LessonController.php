@@ -56,6 +56,7 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         Lesson::create($request->all());
 
         Redis::incr('audio:count');

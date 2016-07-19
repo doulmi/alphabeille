@@ -1,8 +1,4 @@
 <div class="beach-index">
-    <ul>
-        <li class="layer umbra"><img class="shake shake-little" src="/img/umbra.png"></li>
-    </ul>
-
     <div class="Card-Collection Menus">
         <div class="row center">
             <h3 class="ad-title">@lang('labels.investYourself')</h3>

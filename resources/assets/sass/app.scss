@@ -1,17 +1,25 @@
 @charset "UTF-8";
 
-$primaryColor: #ffcd3c;
-$secondColor: #252422;
+$primaryColor: #FEE817;
+$navbarColor: #273041;
+$secondColor: #FFF;
 $blockquote : #2196F3;
 $beachColor: #FFD346;
-$bgColor : #B3D1E8;
+$bgColor : #b3e5f2;
 $updateLabelColor : #573e81;
 $newLabelColor : #99c93d;
 $cardTitleColor: #252422;
-$slugColor : #FFF;
+$slugColor : #FFFFFF;
 $navbarFontColor : #FFF;
 $quoteFont : #252422;
 $btnAdsColor :#FF4366;
+
+$nightBg : #273041;
+$nightSecond : #FEE818;
+$nightFallBg : #FB5445;
+$nightFallSecond : #FFF;
+$morningBg : #2ecc71;
+$morningSecond : #34495E;
 
 *::selection {
   background: $primaryColor;
@@ -49,14 +57,237 @@ button {
   line-height: 1.7em;
 }
 
+.moon {
+  animation: moon_star 5s ease-in-out infinite;
+  -webkit-animation: moon_star 5s ease-in-out infinite;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: #FFFFFF 26px 7px 0 -1px, rgba(255, 255, 255, 0.1) -36px -19px 0 -1px, rgba(255, 255, 255, 0.1) -51px -34px 0 -1px, #FFFFFF -52px -62px 0 -1px, #FFFFFF 14px -37px, rgba(255, 255, 255, 0.1) 41px -19px, #FFFFFF 34px -50px, rgba(255, 255, 255, 0.1) 14px -71px 0 -1px, #FFFFFF 64px -21px 0 -1px, rgba(255, 255, 255, 0.1) 32px -85px 0 -1px, #FFFFFF 64px -90px, rgba(255, 255, 255, 0.1) 60px -67px 0 -1px, #FFFFFF 34px -127px, rgba(255, 255, 255, 0.1) -26px -103px 0 -1px;
+  height: 4px;
+  width: 4px;
+  opacity: 1;
+  position: absolute;
+  left: 90px;
+  top: 155px;
+}
+
+.moon:before {
+  animation: moon 9s ease-in-out infinite;
+  -webkit-animation: moon 9s ease-in-out infinite;
+  border-radius: 50%;
+  box-shadow: #FFFFFF -35px 0;
+  content: '';
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: -106px;
+  -webkit-transform: rotate(-5deg);
+  -webkit-transform-origin: 0 50%;
+}
+
+.moon:after {
+  animation: moon 9s ease-in-out infinite;
+  -webkit-animation: moon 9s ease-in-out infinite;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) -5px 0 0;
+  content: '';
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: -106px;
+  left: -30px;
+  transform: rotate(-5deg);
+  -webkit-transform: rotate(-5deg);
+  transform-origin: 30px 50%;
+  -webkit-transform-origin: 30px 50%;
+}
+
+@keyframes moon {
+  50% {
+    transform: rotate(10deg);
+    -webkit-transform: rotate(10deg);
+  }
+}
+@-webkit-keyframes moon {
+  50% {
+    transform: rotate(10deg);
+    -webkit-transform: rotate(10deg);
+  }
+}
+
+@keyframes moon_star {
+  50% {
+    box-shadow: rgba(255, 255, 255, 0.1) 26px 7px 0 -1px, #FFFFFF -36px -19px 0 -1px, #FFFFFF -51px -34px 0 -1px, rgba(255, 255, 255, 0.1) -52px -62px 0 -1px, rgba(255, 255, 255, 0.1) 14px -37px, #FFFFFF 41px -19px, rgba(255, 255, 255, 0.1) 34px -50px, #FFFFFF 14px -71px 0 -1px, rgba(255, 255, 255, 0.1) 64px -21px 0 -1px, #FFFFFF 32px -85px 0 -1px, rgba(255, 255, 255, 0.1) 64px -90px, #FFFFFF 60px -67px 0 -1px, rgba(255, 255, 255, 0.1) 34px -127px, #FFFFFF -26px -103px 0 -1px;
+  }
+}
+@-webkit-keyframes moon_star {
+  50% {
+    box-shadow: rgba(255, 255, 255, 0.1) 26px 7px 0 -1px, #FFFFFF -36px -19px 0 -1px, #FFFFFF -51px -34px 0 -1px, rgba(255, 255, 255, 0.1) -52px -62px 0 -1px, rgba(255, 255, 255, 0.1) 14px -37px, #FFFFFF 41px -19px, rgba(255, 255, 255, 0.1) 34px -50px, #FFFFFF 14px -71px 0 -1px, rgba(255, 255, 255, 0.1) 64px -21px 0 -1px, #FFFFFF 32px -85px 0 -1px, rgba(255, 255, 255, 0.1) 64px -90px, #FFFFFF 60px -67px 0 -1px, rgba(255, 255, 255, 0.1) 34px -127px, #FFFFFF -26px -103px 0 -1px;
+  }
+}
+
+.sunny {
+  animation: sunny 9s linear infinite;
+  -webkit-animation: sunny 9s linear infinite;
+  background: #ffe400;
+  border-radius: 100%;
+  box-shadow: rgba(255, 255, 0, 0.1) 0 0 5px 5px;
+  content: '';
+  height: 90px;
+  width: 90px;
+  position: absolute;
+  left: 60px;
+  top: 60px;
+}
+
+.sunny:before {
+  animation: sunglow 9s ease-in-out infinite;
+  -webkit-animation: sunglow 9s ease-in-out infinite;
+  background: #FFEE44;
+  box-shadow: rgba(255, 255, 0, 1) 0 0 5px 1px;
+  border-radius: 100%;
+  content: '';
+  height: 86px;
+  width: 86px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+}
+
+.sunny:after {
+  animation: sunshadow 9s ease-in-out infinite;
+  -webkit-animation: sunshadow 9s ease-in-out infinite;
+  background: #000000;
+  border-radius: 50%;
+  content: '';
+  height: 15px;
+  width: 120px;
+  opacity: 0.2;
+  position: absolute;
+  left: -15px;
+  bottom: -40px;
+  transform: scale(.7);
+  -webkit-transform: scale(.7);
+}
+@keyframes sunny {
+  50% {
+    transform: translateY(-20px);
+    -webkit-transform: translateY(-20px);
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 5px 15px;
+  }
+}
+@-webkit-keyframes sunny {
+  50% {
+    transform: translateY(-20px);
+    -webkit-transform: translateY(-20px);
+    box-shadow: rgba(255, 255, 0, 0.2) 0 0 5px 15px;
+  }
+}
+
+@keyframes sunglow {
+  50% {
+    box-shadow: rgba(255, 255, 0, 0.1) 0 0 5px 10px;
+  }
+}
+@-webkit-keyframes sunglow {
+  50% {
+    box-shadow: rgba(255, 255, 0, 0.1) 0 0 5px 10px;
+  }
+}
+
+@keyframes sunshadow {
+  50% {
+    transform: translateY(20px) scale(1);
+    -webkit-transform: translateY(20px) scale(1);
+    opacity: .05;
+  }
+}
+@-webkit-keyframes sunshadow {
+  50% {
+    transform: translateY(20px) scale(1);
+    -webkit-transform: translateY(20px) scale(1);
+    opacity: .05;
+  }
+}
+.moon-panel {
+  position:relative;
+}
+
+.sunny-panel {
+  position:relative;
+  left: 80%;
+}
+
+.night {
+  background: $nightBg;
+  position: relative;
+  color: #ccc;
+
+  .BlockMessage {
+    color : $nightSecond;
+  }
+
+  .more {
+    color: $nightSecond;
+    border: 1px solid $nightSecond;
+
+  }
+
+  .more:hover {
+    color: $nightBg;
+    background: $nightSecond;
+  }
+}
+
+.more {
+  width: 100%;
+  background:transparent;
+  margin: 0 0 100px 0;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.night-fall {
+  background: $nightFallBg;
+  position: relative;
+  color: #ccc;
+
+  .more {
+    color: $nightFallSecond;
+    border: 1px solid $nightFallSecond;
+  }
+
+  .more:hover {
+    color: $nightFallBg;
+    background: $nightFallSecond;
+  }
+}
+
+
+.morning {
+  background: $morningBg;
+  position: relative;
+  color: #2C4766;
+
+  .more {
+    color: $morningSecond;
+    border: 1px solid $morningSecond;
+  }
+
+  .more:hover {
+    color: $morningBg;
+    background: $morningSecond;
+  }
+}
+
 .g-font {
   margin-bottom: 100px;
   padding-top: 20px;
 }
 
 .navbar-guest {
-  background: $primaryColor;
-  border: $primaryColor;
+  background: $navbarColor;
+  border: $navbarColor;
   height: 80px;
   margin-bottom: 0;
   border-radius: 0;
@@ -335,11 +566,11 @@ button {
   background: $beachColor;
   width: 100%;
   min-height: 600px;
-  margin-top: 200px;
 }
 
 .beach-index {
-  background: $beachColor;
+  margin-top:-20px;
+  background: #B3D1E8;
   width: 100%;
   min-height: 400px;
 }
@@ -772,12 +1003,7 @@ button {
   color: grey;
 }
 
-.more {
-  width: 100%;
-  color: $secondColor;
-  border: none;
-  margin: 0 0 100px 0;
-}
+
 
 .link {
   padding-top: 10px;
@@ -798,7 +1024,6 @@ button {
 .BlockMessage {
   color: white;
   text-align: center;
-  font-size: 1.7em;
   line-height: 1.5em;
 }
 
@@ -902,14 +1127,7 @@ button {
 }
 
 .Card {
-  display: inline-block;
-  position: relative;
   margin-bottom: 60px;
-  color: #3a3a3a;
-  border: 4px #FFF solid;
-  border-radius: 4px;
-  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
 }
 
 .Card-footer {
@@ -977,22 +1195,6 @@ button {
   font-size: 12px;
 }
 
-.Card-Completed .Card-image {
-  opacity: .4;
-  background: #000
-}
-
-.Card-Completed .Card-details {
-  opacity: .3
-}
-
-.Card-image {
-  max-width: 100%;
-  display: block;
-  overflow: hidden;
-  position: relative;
-}
-
 .Card-image > a {
   display: block;
 }
@@ -1005,10 +1207,6 @@ button {
   max-width: 100%;
   display: block;
   position: relative;
-}
-
-.Card-image > a {
-  display: block
 }
 
 .Card-image:hover .Card-overlay {
@@ -1070,6 +1268,7 @@ button {
   color: inherit;
   font-weight: 400;
   font-size: 14px;
+  font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
   text-decoration: none;
 }
 
@@ -2588,7 +2787,7 @@ button {
   -moz-border-radius: 200px;
   background-color: transparent;
   border-color: transparent;
-  color: white;
+  color: $navbarFontColor;
   font-weight: 500;
 }
 
@@ -2597,7 +2796,7 @@ button {
 .navbar-btn:focus {
   background-color: $secondColor;
   border-color: transparent;
-  color: white;
+  color: $navbarColor;
 }
 
 .navigation {
@@ -2884,4 +3083,8 @@ button {
 
 .wechatQR {
   width: 50%;
+}
+
+.col-md-2-5 {
+  width:20%;
 }
