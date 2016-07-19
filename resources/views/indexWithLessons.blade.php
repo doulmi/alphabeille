@@ -31,7 +31,7 @@
             </div>
 
             <div class="Card-Collection">
-                <div class="Header"></div>
+
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
@@ -68,6 +68,7 @@
         </div>
 
         <div class="container-fluid morning fullscreen">
+            <div class="Header"></div>
             <div class="Card-Collection">
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('titles.lessons')</span>
