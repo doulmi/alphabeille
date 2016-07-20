@@ -20,7 +20,7 @@
                     </span>
                     @endif
                     <div class="Card-image">
-                        <a href="{{ url('lessons/' . $lesson->slug) }}" title="{{$lesson->title}}">
+                        <a href="{{ url('lessons/' . $lesson->id) }}" title="{{$lesson->title}}">
                             <img src="/img/placeholder.png" data-original="{{$lesson->avatar}}" class="Card-image"
                                  alt="{{$lesson->title}}">
                             <div class="Card-overlay">
@@ -39,14 +39,6 @@
                             <i class="svg-icon svg-icon-headphone"></i>
                             <span class="g-font">{{ Redis::get('lesson:view:' . $lesson->id) }} </span>
                         </span>
-
-                            {{--<span class="topic-like">--}}
-                            {{--<i class="svg-icon svg-icon-heart" id="icon-heart"></i>--}}
-                            {{--<span class="glyphicon glyphicon-heart">--}}
-                            {{--<span class="g-font">{{ $lesson->likes }} </span>--}}
-                            {{--                            <span class="g-font">{{ Redis::get('lesson:like:' . $lesson->id )}} </span>--}}
-                            {{--</span>--}}
-                            {{--</span>--}}
                         </div>
                     </div>
                 </div>
