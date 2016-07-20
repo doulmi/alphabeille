@@ -128,7 +128,7 @@ return [
     'updatedBy' => 'Mise à jours par :name, ',
     'addDiscuss' => 'Poser une question',
     'fixtop' => 'Top',
-    'like' => 'Aimer',
+    'like' => 'J\'aime',
     'reply' => 'Repondre',
     'newDiscussion' => 'Nouvelle discussion',
     'conversationNum' => ':num discussions',
@@ -179,7 +179,7 @@ return [
     'sub_fr' => 'Explication Française',
     'addTalkshow' => '添加脱口秀',
     'createTalkshowSuccess' => '添加脱口秀成功',
-    'favorite' => 'Aimer',
+    'favorite' => 'J\'aime',
     'relativeLessons' => 'Textes concernants',
     'relativeTalkshows' => 'Talk-shows concernants',
     'relativeDiscussions' => 'Commentaires concernants',
@@ -252,4 +252,5 @@ return [
     'forum.title' => 'Alphabeille法语论坛',
     'forum.description' => 'Alphabeille法语论坛，在这里',
     'forum.keywords' => '法语论坛, 法语资料',
+    'addComment' => "Ajouter votre commentaire"
 ];

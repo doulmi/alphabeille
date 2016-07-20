@@ -14,7 +14,7 @@
 @section('content')
     <div class="body">
 
-        <div class="container-fluid night fullscreen">
+        <div class="night fullscreen">
             <div class="Header"></div>
 
             <h1 class="BlockMessage BlockMessage-With-Spacing">
@@ -26,20 +26,17 @@
             {{--</div>--}}
             {{--@endif--}}
 
-            <div class="moon-panel">
+            <div class="moon-panel hidden-xs">
                 <div class="moon"></div>
             </div>
 
             <div class="Card-Collection">
-
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
                 @include('minitalks.minitalksList')
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
-                <div class="Header hidden-xs"></div>
             </div>
-
 
             {{--<div class="Card-Collection ">--}}
             {{--<h2 class="Heading-Fancy row">--}}
@@ -51,24 +48,12 @@
             {{--</div>--}}
         </div>
 
-        <div class="container-fluid night-fall fullscreen">
+        <div class=" night-fall fullscreen">
             <div class="Header"></div>
-
-            <div class="sunny-panel">
+            <div class="sunny-panel hidden-xs">
                 <div class="sunny"></div>
             </div>
 
-            <div class="Card-Collection">
-                <h2 class="Heading-Fancy row">
-                    <span class='title'>@lang('labels.talkshows')</span>
-                </h2>
-                @include('talkshows.talkshowsList')
-                <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
-            </div>
-        </div>
-
-        <div class="container-fluid morning fullscreen">
-            <div class="Header"></div>
             <div class="Card-Collection">
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('titles.lessons')</span>
@@ -76,6 +61,18 @@
                 @include('lessons.lessonsAvatarList')
                 <a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>
             </div>
+        </div>
+
+        <div class=" morning fullscreen">
+            <div class="Header"></div>
+            <div class="Card-Collection">
+                <h2 class="Heading-Fancy row">
+                    <span class='title'>@lang('labels.talkshows')</span>
+                </h2>
+                @include('talkshows.talkshowsList')
+                <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
+            </div>
+
         </div>
 
         {{--        @include('menusList')--}}

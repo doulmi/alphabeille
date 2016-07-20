@@ -119,22 +119,26 @@
                     </li>
                 @endif
                 <li class="visible-xs">
-                    <div class="nav-btns center row">
                         @if(Auth::guest())
-                            <a href="{{url('/login?redirect_url=' . Request::getUri())}}" class="col-xs-6">@lang('labels.login')</a>
-                            <a href="{{url('/register?redirect_url=' . Request::getUri())}}" class="col-xs-6">@lang('labels.register')</a>
+                        <div class="nav-btns center">
+                            <a href="{{url('/login?redirect_url=' . Request::getUri())}}" >@lang('labels.login')</a><br/>
+                            <a href="{{url('/register?redirect_url=' . Request::getUri())}}" >@lang('labels.register')</a><br/>
+                        </div>
                         @else
-                            <a href="{{ url('/users/' . Auth::user()->id) }}" class="col-xs-4">
-                                <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>
+                        <div class="nav-btns center">
+                            <a href="{{ url('/users/' . Auth::user()->id) }}" >
+                                <img class="avatar avatar-small" src="{{Auth::user()->avatar}}" alt="avatar">
                                 <span>{{Auth::user()->name}}</span>
-                            </a>
-                            <a href="{{url('/users/collect')}}" class="col-xs-4">
+                            </a><br/>
+                        </div>
+                        <div class="nav-btns center">
+                            <a href="{{url('/users/collect')}}" >
                                @lang('labels.myCollect')
                             </a>
-                            <a href="{{url('/logout')}}" class="col-xs-4">@lang('labels.disconnect')</a>
+                            <a href="{{url('/logout')}}" >@lang('labels.disconnect')</a>
+                        </div>
                         @endif
-                    </div>
-                    <div class="nav-btns center row">
+                    <div class="nav-btns center ">
                         <a href="{{url('/')}}" class="nav-xs-btn">@lang('titles.index')</a>
                         <a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>
                         <a href="{{url('/discussions')}}" class="nav-xs-btn">@lang('titles.discussions')</a>
