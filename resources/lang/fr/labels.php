@@ -252,5 +252,7 @@ return [
     'forum.title' => 'Alphabeille法语论坛',
     'forum.description' => 'Alphabeille法语论坛，在这里',
     'forum.keywords' => '法语论坛, 法语资料',
-    'addComment' => "Ajouter votre commentaire"
+    'addComment' => "Ajouter votre commentaire",
+    'suggestTalkshows' => 'Talkshows',
+
 ];

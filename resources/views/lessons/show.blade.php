@@ -125,6 +125,8 @@
                         @endforeach
                 </tbody>
             </table>
+
+            <div class="Header"></div>
             <h2 class="Heading-Fancy row">
                 <span class='title black'>{{ trans('labels.suggestTopics')}}</span>
             </h2>

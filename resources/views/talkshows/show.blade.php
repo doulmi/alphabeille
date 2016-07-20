@@ -75,7 +75,6 @@
                     @lang('labels.share'):
                 </div>
             @endif
-            <div class="Header"></div>
         </div>
             <div class="Header"></div>
             <h2 class="Heading-Fancy row">
