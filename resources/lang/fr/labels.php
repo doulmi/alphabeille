@@ -88,10 +88,10 @@ return [
 
     'togglePwd' => 'Mot de passe incorrect？',
     'series' => 'Les jours de pontage :days',
-    'backIndex' => 'Acceuil',
+    'backIndex' => 'Accueil',
 
     '404' => '404! La page est en cours de faire la sieste',
-    '404tip1' => 'Retourner à l\'acceuil :url',
+    '404tip1' => 'Retourner à l\'accueil :url',
     '404tip2' => 'Envoyer un email à administrateur :mailto',
     'welcomeJoinUs' => 'Merci de nous avoir rejoint',
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
@@ -100,6 +100,7 @@ return [
     'adText' => 'Nous téléchargeons lundi à vendredi un texte qui comprend la vie quotidienne d\'un professeur avec un audio correspondant et des explications sur les expressions et sur les mots importants. Le weekend, vous aurez deux talk-shows intéressants qui portent sur les sujets d\'actualité ou la culture française.',
     'backToLearn' => 'Commencer à apprendre le français',
     'adBtn' => 'Tous nos contenu ne coûte que 15€/mois',
+    'adBtnShort' => '15€/mois',
     'loginAccount' => 'Je m\'identifie',
     'emptyMsgbox' => 'Aucun message',
     'newMsg' => 'Message non lu',
@@ -194,7 +195,7 @@ return [
     'breakup' => 'Vous avez pointé un jour de plus！',
     'continuePunchin' => 'Vous avez pointé :day！jours d\'affilée',
     'myCollect' => 'Mes favoris',
-    'collectTalkshows' => 'Vos talks-hows',
+    'collectTalkshows' => 'Vos talk-shows',
     'collectLessons' => 'Vos textes',
     'nothingCollect' => 'Non collecté',
     'paymentProcess' => 'Le processus de paiement',
@@ -215,7 +216,7 @@ return [
 
     'relativeMinitalks' => 'Minitalk',
     'freeMinitalks' => 'Minitalks gratuits',
-    'collectMinitalks' => 'Minitalks favoris',
+    'collectMinitalks' => 'Vos minitalks favoris',
     'minitalks' => 'Minitalks',
     'investYourself' => 'Investis en toi',
 
@@ -254,5 +255,9 @@ return [
     'forum.keywords' => '法语论坛, 法语资料',
     'addComment' => "Ajouter votre commentaire",
     'suggestTalkshows' => 'Talkshows',
+    'featured' => 'En vedette',
 
+    'minitalks.title' => 'Alphabeille法语Minitalk',
+    'minitalks.description' => 'Alphabeille法语Minitalk，有趣、有料、有八卦，地道法语轻松学',
+    'minitalks.keywords' => '法语Minitalk',
 ];

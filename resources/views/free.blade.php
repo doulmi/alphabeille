@@ -10,11 +10,14 @@
 @endsection
 
 @section('content')
-    <div class="body">
+    <div class="night">
         <div class="Header">
         </div>
         <div class="Header"></div>
 
+        <div class="moon-panel hidden-xs">
+            <div class="moon"></div>
+        </div>
         <h2 class="Heading-Fancy row">
             <span class='title'>@lang('labels.freeLessons')</span>
         </h2>

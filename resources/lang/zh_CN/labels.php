@@ -230,6 +230,10 @@ return [
     'talkshows.description' => 'Alphabeille法语脱口秀，有趣、有料、有八卦，地道法语轻松学',
     'talkshows.keywords' => '法语脱口秀',
 
+    'minitalks.title' => 'Alphabeille法语Minitalk',
+    'minitalks.description' => 'Alphabeille法语Minitalk，有趣、有料、有八卦，地道法语轻松学',
+    'minitalks.keywords' => '法语Minitalk',
+
     'forum.title' => 'Alphabeille法语论坛',
     'forum.description' => 'Alphabeille法语论坛，在这里',
     'forum.keywords' => '法语论坛, 法语资料',

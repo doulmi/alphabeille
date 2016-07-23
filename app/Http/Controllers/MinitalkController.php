@@ -6,6 +6,8 @@ use App\Editor\Markdown\Markdown;
 use App\Minitalk;
 use App\MinitalkCollect;
 use App\MinitalkFavorite;
+use App\UserPunchin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -76,14 +78,15 @@ class MinitalkController extends Controller
 
         Redis::incr('minitalk:view:' . $id);
 
-        $next = Minitalk::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
-        $pre = Minitalk::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
+//        $next = Minitalk::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
+//        $pre = Minitalk::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $comments = $minitalk->comments;
         $content = $this->markdown->parse($minitalk->content);
         $wechat_part = $this->markdown->parse($minitalk->wechat_part);
 
         $like = false;
         $collect = false;
+        $punchin = false;
 
         if (!Auth::guest()) {
             $model = MinitalkFavorite::where('user_id', Auth::user()->id)->where('minitalk_id', $id)->first();
@@ -94,8 +97,16 @@ class MinitalkController extends Controller
             if ($model) {
                 $collect = true;
             }
+
+            $model = UserPunchin::where('user_id', Auth::user()->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+            if ($model) {
+                $punchin = true;
+            }
         }
-        return view('minitalks.show', compact(['minitalk', 'comments', 'next', 'pre', 'content', 'like', 'collect', 'wechat_part']));
+
+        $readable = $minitalk;
+        $type = 'minitalk';
+        return view('minitalks.show', compact(['readable', 'type', 'comments', 'content', 'like', 'collect', 'punchin', 'wechat_part']));
     }
 
     /**
@@ -184,5 +195,37 @@ class MinitalkController extends Controller
     public function collect($id)
     {
         return $this->doAction($id, MinitalkCollect::class);
+    }
+
+    public function punchin($id)
+    {
+        $user = Auth::user();
+        if(!$user) {
+            return response()->json([
+                'status' => 403,
+            ]);
+        }
+        $punchin = UserPunchin::where('user_id', $user->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+        if (!$punchin) {
+            UserPunchin::create([
+                'punchable_type' => 'App\Lesson',
+                'punchable_id' => $id,
+                'user_id' => $user->id
+            ]);
+
+            $break = false;
+            $user->series++;
+            $shouldUpdateMaxSeries = $user->series > $user->maxSeries;
+            if ($shouldUpdateMaxSeries) {
+                $user->maxSeries = $user->series;
+                $break = true;
+            }
+            $user->save();
+            return response()->json([
+                'status' => 200,
+                'break' => $break,
+                'series' => $user->series
+            ]);
+        }
     }
 }

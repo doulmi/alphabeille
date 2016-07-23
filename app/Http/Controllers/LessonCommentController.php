@@ -56,7 +56,7 @@ class LessonCommentController extends Controller
      */
     public function store(Request $request)
     {
-        $lesson = Lesson::findOrFail($request->get('lesson_id'));
+        $lesson = Lesson::findOrFail($request->get('id'));
         $content = $request->get('content');
         $user = Auth::user();
 
@@ -70,7 +70,7 @@ class LessonCommentController extends Controller
             'status' => 200,
             'content' => $content,
             'user_id' => $user->id,
-            'lesson_id' => $lesson->id
+            'id' => $lesson->id
         ]);
 
 //        return redirect('lessons/' . $lesson->id);

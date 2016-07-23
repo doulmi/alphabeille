@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <div class="body">
+    <div class="morning">
         <div class="Header">
         </div>
 

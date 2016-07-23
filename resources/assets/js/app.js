@@ -48,7 +48,7 @@ $(document).ready(function () {
         "positionClass": "toast-top-center"
     };
 
-    $('.md-header').hide();
+    //$('.md-header').hide();
 });
 
 function search() {

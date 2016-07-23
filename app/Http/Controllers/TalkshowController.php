@@ -87,8 +87,8 @@ class TalkshowController extends Controller
         Redis::incr('talkshow:view:' . $id);
 
         $talkshows = $this->random();
-        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
-        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
+//        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
+//        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $comments = $talkshow->comments;
         $content = $this->markdown->parse($talkshow->content);
 
@@ -110,7 +110,10 @@ class TalkshowController extends Controller
                 $punchin = true;
             }
         }
-        return view('talkshows.show', compact(['talkshow', 'talkshows', 'comments', 'next', 'pre', 'content', 'like', 'collect', 'punchin']));
+
+        $readable = $talkshow;
+        $type = 'talkshow';
+        return view('talkshows.show', compact(['readable', 'type', 'talkshows', 'comments', 'content', 'like', 'collect', 'punchin']));
     }
 
     /**

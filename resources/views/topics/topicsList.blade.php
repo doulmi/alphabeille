@@ -2,10 +2,9 @@
     @foreach($topics as $topic)
         <div class="col-md-3 col-xs-6 col-sm-4">
             <div class="Card card">
-                    <span class="Card-difficulty">
-                        @lang('labels.' . $topic->level)
-                    </span>
-
+                    {{--<span class="Card-difficulty">--}}
+                        {{--@lang('labels.' . $topic->level)--}}
+                    {{--</span>--}}
                 @if($topic->isNew)
                     <span class="Card-new-status Label Label-x-small">
                         @lang('labels.new')

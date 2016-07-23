@@ -61,7 +61,7 @@ class MinitalkCommentController extends Controller
      */
     public function store(Request $request)
     {
-        $minitalk = Minitalk::findOrFail($request->get('minitalk_id'));
+        $minitalk = Minitalk::findOrFail($request->get('id'));
         $content = $request->get('content');
         $user = Auth::user();
 
@@ -71,7 +71,12 @@ class MinitalkCommentController extends Controller
             'content' => $content
         ]);
 
-        return redirect('minitalks/' . $minitalk->id);
+        return response()->json([
+            'status' => 200,
+            'content' => $content,
+            'user_id' => $user->id,
+            'id' => $minitalk->id
+        ]);
     }
 
     /**

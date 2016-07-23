@@ -11,7 +11,7 @@
             <li class="noborder"><a href="/about-us/contact-us" class="white">Contact Us</a></li>
         </ul>
     </div>
-    <div class="waves hidden-xs">
+    <div class="waves hidden-sm hidden-xs">
         <div class="wave wave-6"></div>
         <div class="wave wave-7"></div>
     </div>

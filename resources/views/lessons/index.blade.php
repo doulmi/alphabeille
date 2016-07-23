@@ -10,13 +10,16 @@
 @endsection
 
 @section('content')
-    <div class="body">
+    <div class="night-fall">
         <div class="Header">
         </div>
 
         <div class="Header">
         </div>
 
+        <div class="sunny-panel hidden-xs">
+            <div class="sunny"></div>
+        </div>
         <h2 class="Heading-Fancy row">
             <span class="Heading-Fancy-subtitle">
                 @lang('labels.lessonSubtitle')

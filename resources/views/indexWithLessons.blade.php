@@ -48,7 +48,7 @@
             {{--</div>--}}
         </div>
 
-        <div class=" night-fall fullscreen">
+        <div class="night-fall fullscreen">
             <div class="Header"></div>
             <div class="sunny-panel hidden-xs">
                 <div class="sunny"></div>
@@ -74,8 +74,6 @@
             </div>
 
         </div>
-
-        {{--        @include('menusList')--}}
         @include('subscribe')
     </div>
 @endsection

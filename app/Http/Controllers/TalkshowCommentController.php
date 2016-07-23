@@ -59,7 +59,7 @@ class TalkshowCommentController extends Controller
      */
     public function store(Request $request)
     {
-        $talkshow = Talkshow::findOrFail($request->get('talkshow_id'));
+        $talkshow = Talkshow::findOrFail($request->get('id'));
         $content = $request->get('content');
         $user = Auth::user();
 
@@ -69,7 +69,12 @@ class TalkshowCommentController extends Controller
             'content' => $content
         ]);
 
-        return redirect('talkshows/' . $talkshow->id);
+        return response()->json([
+            'status' => 200,
+            'content' => $content,
+            'user_id' => $user->id,
+            'id' => $talkshow->id
+        ]);
     }
 
     /**

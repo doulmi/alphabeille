@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'index' => 'Acceuil',
+    'index' => 'Accueil',
     'topics' => 'Tous les sujets',
     'talkshows' => 'Tous les talkshows',
     'login' => 'Connexion',

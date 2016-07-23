@@ -115,7 +115,9 @@ class LessonController extends Controller
         }
 
 //        dd($like, $collect);
-        return view('lessons.show', compact(['lesson', 'topic', 'id', 'topics', 'content', 'like', 'collect', 'punchin']));
+        $readable = $lesson;
+        $type = 'lesson';
+        return view('lessons.show', compact(['readable', 'type', 'topic', 'id', 'topics', 'content', 'like', 'collect', 'punchin']));
     }
 
     /**
@@ -160,13 +162,17 @@ class LessonController extends Controller
     public function collectLessons()
     {
         $lessons = LessonCollect::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate($this->pageLimit);
-//        $lessons = Lesson::where('free', 1)->latest()->paginate($this->pageLimit);
         return view('lessons.index', compact('lessons'));
     }
 
     public function favorite($id)
     {
         return $this->doAction($id, LessonFavorite::class);
+    }
+
+    public function collect($id)
+    {
+        return $this->doAction($id, LessonCollect::class);
     }
 
     public function punchin($id)
@@ -234,8 +240,5 @@ class LessonController extends Controller
         }
     }
 
-    public function collect($id)
-    {
-        return $this->doAction($id, LessonCollect::class);
-    }
+
 }

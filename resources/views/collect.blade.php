@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="body">
+    <div class="night">
         <div class="Header">
         </div>
         <div class="Header"></div>
@@ -23,9 +23,12 @@
         @if(count($lessons) != 0)
             <div class="Card-Collection" >
                 @include('lessons.lessonsAvatarList')
+
+                @if(count($lessons) > 8)
                 <h2 class="row center">
-                    <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons/collect')}}">@lang('labels.more')</a>
+                    <a class="btn btn-default more" href="{{url('/lessons/collect')}}">@lang('labels.more')</a>
                 </h2>
+                @endif
             </div>
         @endif
 
@@ -36,9 +39,11 @@
             <div class="Card-Collection">
                 @include('talkshows.talkshowsList')
 
+                @if( count($talkshows) > 8)
                 <h2 class="row center">
-                    <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/talkshows/collect')}}">@lang('labels.more')</a>
+                    <a class="btn btn-default more " href="{{url('/talkshows/collect')}}">@lang('labels.more')</a>
                 </h2>
+                @endif
             </div>
         @else
             <div class="Card-Collection search-result">
@@ -54,9 +59,11 @@
             <div class="Card-Collection">
                 @include('minitalks.minitalksList')
 
+                @if( count($minitalks) > 8)
                 <h2 class="row center">
                     <a class="btn btn-default more" href="{{url('/minitalks/collect')}}">@lang('labels.more')</a>
                 </h2>
+                @endif
             </div>
         @endif
     </div>
