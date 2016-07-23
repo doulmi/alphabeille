@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Discussion;
+use App\Editor\Markdown\Markdown;
 use App\Events\At;
 use App\Lesson;
 use App\LessonComment;
@@ -20,9 +21,12 @@ use Illuminate\Support\Facades\DB;
 class TalkshowCommentController extends Controller
 {
 
-    public function __construct()
+    private $markdown;
+
+    public function __construct(Markdown $markdown)
     {
         $this->middleware('auth');
+        $this->markdown = $markdown;
     }
 
     /**
@@ -37,6 +41,7 @@ class TalkshowCommentController extends Controller
             $comment->userId = $comment->owner->id;
             $comment->avatar = $comment->owner->avatar;
             $comment->name = $comment->owner->name;
+            $comment->content = $this->markdown->parse("####" . $comment->content);
         }
         return $comments;
     }

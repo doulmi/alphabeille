@@ -3225,8 +3225,8 @@ body {
         top: -0.5em;
       }
       //&:after {
-        //content: '/mo';
-        //font-size: 0.5em;
+      //content: '/mo';
+      //font-size: 0.5em;
       //}
     }
     .featured {
@@ -3324,3 +3324,166 @@ body {
   height:  0 !important;
 }
 
+$button-width:100px;
+$button-height:100px;
+$button-color:lighten(crimson,5%);
+$button-font-size: 1.3em;
+
+$frill-vert-space:45px; //vertical spacing between frills
+$frill-horizontal-offset:14px; //initial offset
+$frill-distance:80px; //distance moved by frills
+$frill-stagger: 15px; //distance between center and edge frills
+
+$frill-rotation:34deg;
+$frill-height:8px;
+$frill-width: 38px;
+
+$speed:0.38s;
+$timing-function:ease-out;
+
+.button-frilles {
+  background:$button-color;
+  border-radius:50%;
+  top: -50%;
+  color:white;
+  cursor:pointer;
+  font-size:$button-font-size;
+  letter-spacing:.2px;
+  line-height:$button-height;
+  text-align:center;
+  text-transform:uppercase;
+  user-select:none;
+  width:$button-width;
+  &:hover {
+    background:lighten($button-color,4%);
+  }
+  &:active {
+    box-shadow:inset 0px 2px 8px -1px darken($button-color,6%);
+  }
+}
+
+.fancy-button {
+  margin:auto;
+  position:relative;
+  top: -40px;
+  left: -5px;
+  z-index: 2;
+  &:hover, &:active  {
+    text-decoration: none;
+  }
+}
+.frills, .frills:after, .frills:before {
+  position:absolute;
+  background:$button-color;
+  border-radius:($frill-height/2);
+  height:$frill-height;
+}
+.frills:after, .frills:before {
+  content:"";
+  display:block;
+}
+.frills:before {
+  bottom:$frill-vert-space;
+}
+.frills:after {
+  top:$frill-vert-space;
+}
+.left-frills {
+  right:$button-width + $frill-horizontal-offset;
+  top:($button-height/2)-($frill-height/2);
+  .active & {
+    animation: move-left $speed $timing-function, width-to-zero $speed $timing-function;
+  }
+
+  &:before, &:after {
+    left:$frill-stagger;
+
+  }
+  &:before {
+    .active & {
+      animation: width-to-zero $speed $timing-function, move-up $speed $timing-function;
+    }
+  }
+  &:after {
+    .active & {
+      animation: width-to-zero $speed $timing-function, move-down $speed $timing-function;
+    }
+  }
+
+}
+.right-frills {
+  left:$button-width + $frill-horizontal-offset;
+  top:($button-height/2)-($frill-height/2);
+  .active & {
+    animation: move-right $speed $timing-function, width-to-zero $speed $timing-function;
+  }
+  &:before, &:after {
+    right:$frill-stagger;
+  }
+  &:before {
+    .active & {
+      animation: width-to-zero $speed $timing-function, move-up $speed $timing-function;
+    }
+  }
+  &:after {
+    .active & {
+      animation: width-to-zero $speed $timing-function, move-down $speed $timing-function;
+    }
+  }
+}
+
+.left-frills:before, .right-frills:after {
+  transform:rotate($frill-rotation)
+
+}
+
+.left-frills:after, .right-frills:before {
+  transform:rotate(- $frill-rotation);
+}
+
+@keyframes move-left {
+  0% {
+    transform:none;
+  }
+  65% {
+    transform: translateX(-1*$frill-distance);
+  }
+  100% {
+    transform: translateX(-1*$frill-distance);
+  }
+}
+@keyframes move-right {
+  0% {
+    transform:none;
+  }
+  65% {
+    transform: translateX($frill-distance);
+  }
+  100% {
+    transform: translateX($frill-distance);
+  }
+}
+@keyframes width-to-zero {
+  0% {
+    width:$frill-width;
+  }
+  100% {
+    width:$frill-height;
+  }
+}
+@keyframes move-up {
+  0% {
+
+  }
+  100% {
+    bottom:$frill-vert-space*1.55;
+  }
+}
+@keyframes move-down {
+  0% {
+
+  }
+  100% {
+    top:$frill-vert-space*1.55;
+  }
+}

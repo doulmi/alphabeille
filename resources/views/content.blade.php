@@ -81,8 +81,10 @@
                     </a>
 
                     @if(!$punchin)
-                        <a id="punchinlink" class="hidden-xs" href="#" data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
-                            <i class="favorite glyphicon glyphicon-ok"></i>
+                        <a id="punchinlink" class="hidden-xs fancy-button" href="#" data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
+                            <div class="left-frills frills"></div>
+                            <div class="button-frilles">@lang('labels.punchin')</div>
+                            <div class="right-frills frills"></div>
                         </a>
                     @endif
 
@@ -91,11 +93,11 @@
                     </a>
 
                     @if(!$punchin)
-                        <div class="visible-xs">
-                            <a id="punchinlink" href="#" data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
-                                <i class="favorite glyphicon glyphicon-ok"></i>
-                            </a>
-                        </div>
+                        <a id="punchinlink" class="visible-xs fancy-button" href="#" data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
+                            <div class="left-frills frills"></div>
+                            <div class="button-frilles">@lang('labels.punchin')</div>
+                            <div class="right-frills frills"></div>
+                        </a>
                     @endif
                 </div>
                 <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
@@ -196,7 +198,7 @@
                                         @{{comment.name}}
                                     </h5>
                                     <p class="discuss-content">
-                                        @{{{  comment.content }}}
+                                        @{{{ comment.content }}}
                                     </p>
                                     <span class="time">@{{comment.created_at}}</span>
                                 </div>
@@ -247,6 +249,13 @@
             $(".collect").on("click", function () {
                 $(this).toggleClass("is-active");
             });
+
+            $(".fancy-button").mousedown(function(){
+                $(this).bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function(){
+                    $(this).removeClass('active');
+                });
+                $(this).addClass("active");
+            });
         });
 
         Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
@@ -295,7 +304,6 @@
 
                 punchinEvent() {
                     var punchin = $('#punchin');
-                    $('#punchinlink').hide();
 
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/punchin')}}', function (response) {
                         punchin.html(parseInt(punchin.html()) + 1);
@@ -306,6 +314,7 @@
                             toastr.success("@lang('labels.punchinSuccess')" + "@lang('labels.breakup')" + "@lang('labels.continuePunchin', ['day' => Auth::user()->series + 1])");
                             @endif
                         }
+                        $('#punchinlink').hide();
                     }.bind(this));
                 },
 
@@ -337,3 +346,4 @@
         });
     </script>
 @endsection
+
