@@ -15,7 +15,10 @@ use Illuminate\Http\Request;
 use EndaEditor;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Omnipay\Omnipay;
 use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
@@ -56,15 +59,18 @@ class PostController extends Controller
         return view('search', compact(['talkshows', 'lessons', 'discussions', 'minitalks']));
     }
 
-    public function free() {
+    public function free()
+    {
         $talkshows = Talkshow::where('free', 1)->get();
         $lessons = Lesson::where('free', 1)->get();
         $minitalks = Minitalk::where('free', 1)->get();
         return view('free', compact(['talkshows', 'lessons', 'minitalks']));
     }
 
-    public function subscription($id) {
+    public function subscription($id)
+    {
         $menu = Subscription::findOrFail($id);
         return view('payment', compact('menu'));
     }
+
 }

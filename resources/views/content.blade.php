@@ -17,7 +17,7 @@
 
         <div class="lesson-content">
             <div class="explanations">
-                @if($readable instanceof \App\Lesson)
+                @if($readable instanceof \App\Lesson && $canRead)
                     @if($readable instanceof \App\Lesson && ends_with(Request::fullUrl(), '/zh_CN'))
                         <a href="{{url($type . 's/' . $readable->id)}}">@lang('labels.sub_fr')</a>
                     @else
@@ -42,7 +42,6 @@
             <a class="btn btn-label label-{{$topic->sex}}">@lang("labels.tags." . $topic->sex)</a>
             @endif
 
-            @if($canRead)
                 <div class="playerPanel">
                     <audio id='audio' preload="auto" controls hidden>
                         <source src="{{$readable->audio_url}}"/>
@@ -62,9 +61,6 @@
                     <span class="label label-default">Ctrl</span>
                     <span class="label label-default">↓</span>
                 </div>
-            @else
-                @include('blockContent')
-            @endif
 
             <br/>
             <br/>
@@ -72,6 +68,8 @@
                 <div class='markdown-content'>
                     {!! $content !!}
                 </div>
+            @else
+                @include('blockContent')
             @endif
 
             @if(!Auth::guest())

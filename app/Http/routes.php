@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('talkshowComments', 'TalkshowCommentController@store');
     Route::post('minitalkComments', 'MinitalkCommentController@store');
     Route::get('subscription/{id}', 'PostController@subscription');
+    Route::get('alipay/pay/{id}', 'AlipayController@pay');
+    Route::post('alipay/result', 'AlipayController@result');
 });
 
 Route::get('verifyEmail/{confirmation_code}', function($confirmation_code) {

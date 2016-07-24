@@ -7,6 +7,8 @@ use App\Events\UserRegister;
 use Bican\Roles\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -44,6 +46,10 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $prevUrl = Redirect::getUrlGenerator()->previous();
+        if (!str_contains($prevUrl, ['login', 'register'])) {
+            Session::set('prevUrl', $prevUrl);
+        }
     }
 
     /**
@@ -91,7 +97,7 @@ class AuthController extends Controller
     private function authenticated(Request $request, $user) {
         event(new UserLogin());
         $redirectUrl = $request->get('redirect_url', '/');
-        return redirect($redirectUrl);
+        return redirect(Session::get('prevUrl'));
     }
 
     /**

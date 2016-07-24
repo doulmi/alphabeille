@@ -155,11 +155,10 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,
-        Stevenyangecho\UEditor\UEditorServiceProvider::class,
 //        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
-        YuanChao\Editor\EndaEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+        Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -217,8 +216,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
-        'Searchy' => TomLingham\Searchy\Facades\Searchy::class
+        'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
+        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class
     ],
 
 ];

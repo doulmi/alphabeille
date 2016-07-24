@@ -29,14 +29,26 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav hidden-xs">
-                <li>
-                    <button onclick="window.location.href='{{url('/')}}'"
-                            class="btn btn-default navbar-btn {{ Request::is('/') ? 'navbar-btn-active' : '' }}">@lang('titles.index')</button>
+                {{--<li>--}}
+                    {{--<button onclick="window.location.href='{{url('/')}}'"--}}
+                            {{--class="btn btn-default navbar-btn {{ Request::is('/') ? 'navbar-btn-active' : '' }}">@lang('titles.index')</button>--}}
+                {{--</li>--}}
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true"
+                       aria-expanded="true"
+                    >
+                       @lang('labels.ourLessons')
+                    </a>
+
+                    <ul class="dropdown-menu bullet" role="menu">
+                        <li><a href="{{url('/free')}}">@lang('labels.freeLessons')</a></li>
+                        <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
+                        <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
+                        <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
+                    </ul>
                 </li>
-                <li>
-                    <button onclick="window.location.href='{{url('free')}}'"
-                            class="btn btn-default navbar-btn {{ Request::is('free') ? 'navbar-btn-active' : '' }} ">@lang('labels.freeLessons')</button>
-                </li>
+
                 {{--<li>--}}
                     {{--<button onclick="window.location.href='{{url('discussions')}}'"--}}
                             {{--class="btn btn-default navbar-btn {{ Request::is('discussions') ? 'navbar-btn-active' : '' }} ">@lang('titles.forum')</button>--}}
@@ -111,18 +123,18 @@
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">
-                        <a type="button" href='{{ url("/login?redirect_url=" . Request::getUri())}}'
+                        <a type="button" href='{{ url("/login")}}'
                            class="shake-horizontal">@lang('labels.login')</a>
                     </li>
                     <li class="nav-btn hidden-xs">
-                        <a href='{{ url("/register?redirect_url=" . Request::getUri()) }}' class="shake-horizontal">@lang('labels.register')</a>
+                        <a href='{{ url("/register") }}' class="shake-horizontal">@lang('labels.register')</a>
                     </li>
                 @endif
                 <li class="visible-xs">
                         @if(Auth::guest())
                         <div class="nav-btns center">
-                            <a href="{{url('/login?redirect_url=' . Request::getUri())}}" >@lang('labels.login')</a><br/>
-                            <a href="{{url('/register?redirect_url=' . Request::getUri())}}" >@lang('labels.register')</a><br/>
+                            <a href="{{url('/login')}}" >@lang('labels.login')</a><br/>
+                            <a href="{{url('/register')}}" >@lang('labels.register')</a><br/>
                         </div>
                         @else
                         <div class="nav-btns center">
@@ -152,8 +164,6 @@
                         @endforeach
                     </div>
                 </li>
-
-
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
