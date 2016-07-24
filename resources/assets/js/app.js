@@ -2,23 +2,23 @@ $(document).ready(function () {
     var navbar = $('#navbar');
     var menu = $('#menu-xs');
 
-    var lastScrollTop = 0;
-    $(document).on( 'scroll', function(){
-        var currentScrollTop = $(document).scrollTop();
+    //var lastScrollTop = 0;
+    //$(document).on( 'scroll', function(){
+        //var currentScrollTop = $(document).scrollTop();
 
-        var isScrollTop = (currentScrollTop - lastScrollTop) < 0;
+        //var isScrollTop = (currentScrollTop - lastScrollTop) < 0;
 
-        if(isScrollTop) {
-            navbar.show();
-        } else {
-            if (currentScrollTop > 100) {
-                navbar.fadeOut();
-            } else {
-                navbar.show();
-            }
-        }
-        lastScrollTop = currentScrollTop;
-    });
+        //if(isScrollTop) {
+            //navbar.show();
+        //} else {
+        //    if (currentScrollTop > 100) {
+        //        navbar.fadeOut();
+        //    } else {
+                //navbar.show();
+            //}
+        //}
+        //lastScrollTop = currentScrollTop;
+    //});
 
 
     //

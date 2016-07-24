@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 $primaryColor: #FEE817;
-$navbarColor: #273041;
+$primaryBgColor: #273041;
+$navbarColor: #FFD346;
 $secondColor: #FFF;
 $blockquote : #2196F3;
 $beachColor: #FFD346;
@@ -245,8 +246,8 @@ body {
 }
 
 .more {
-  color: $navbarColor;
-  border: 1px solid $navbarColor;
+  color: $primaryBgColor;
+  border: 1px solid $primaryBgColor;
   width: 100%;
   background:transparent;
   margin: 0 0 100px 0;
@@ -256,7 +257,7 @@ body {
 
 .more:hover {
   color: #FFFFFF;
-  background: $navbarColor;
+  background: $primaryBgColor;
 }
 
 .night-fall {
@@ -298,8 +299,8 @@ body {
 }
 
 .navbar-guest {
-  background: $navbarColor;
-  border: $navbarColor;
+  background: $primaryBgColor;
+  border: $primaryBgColor;
   height: 80px;
   margin-bottom: 0;
   border-radius: 0;
@@ -377,7 +378,7 @@ body {
   margin: 0;
   display: inline-block;
   vertical-align: middle;
-  background-image: url("../img/flag_sprites.svg");
+  background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/flag_sprites.svg);
   -webkit-border-radius: 200px;
   -moz-border-radius: 200px;
   border-radius: 200px;
@@ -517,14 +518,14 @@ body {
   height : 50px;
 }
 .body {
-  background-color: $navbarColor;
+  background-color: $primaryBgColor;
   overflow: hidden;
 }
 
 .grey {
   //background-color: #E9E9E9;
   background-color: #F4F4F4;
-  //background-color: $navbarColor;
+  //background-color: $primaryBgColor;
 }
 
 .center {
@@ -1369,17 +1370,17 @@ body {
 }
 
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
-  background-color: $navbarColor;
+  background-color: $primaryBgColor;
 }
 
 .navbar-default .navbar-toggle {
-  border-color: $navbarColor;
+  border-color: $primaryBgColor;
 }
 
 @media screen and (max-width: 767px) {
   #menu-xs {
-    border-color: $navbarColor;
-    background-color: $navbarColor;
+    border-color: $primaryBgColor;
+    background-color: $primaryBgColor;
   }
 
   .Card-Collection {
@@ -1405,8 +1406,8 @@ body {
   }
 
   .navbar-guest {
-    background: $navbarColor;
-    border: $navbarColor;
+    background: $primaryBgColor;
+    border: $primaryBgColor;
   }
 }
 
@@ -2534,7 +2535,7 @@ body {
   background-color: #F4F4F4;
   box-shadow: -1px 3px 2px rgba(0, 0, 0, 0.4);
   border-color: #F4F4F4;
-  color: $navbarColor;
+  color: $primaryBgColor;
 }
 
 .discussion-list {
@@ -2655,8 +2656,8 @@ body {
 
 .btn-submit {
   margin-top: 30px;
-  border: 1px $navbarColor solid;
-  color: $navbarColor;
+  border: 1px $primaryBgColor solid;
+  color: $primaryBgColor;
   background: transparent;
   font-weight: 700;
   padding: 10px 40px;
@@ -2668,7 +2669,7 @@ body {
 }
 
 .btn-submit:hover {
-  background-color: $navbarColor;
+  background-color: $primaryBgColor;
   color: white;
 }
 
@@ -2701,7 +2702,7 @@ body {
 /* Icon */
 .svg-icon {
   display: inline-block;
-  background-image: url("../img/all.svg");
+  background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/all.svg);
   background-size: 300px;
   margin-top: 10px;
 }
@@ -2847,7 +2848,7 @@ body {
 .navbar-btn:focus {
   background-color: $secondColor;
   border-color: transparent;
-  color: $navbarColor;
+  color: $primaryBgColor;
 }
 
 .navigation {
@@ -3075,7 +3076,7 @@ body {
 .wave-6 {
   bottom: -10px;
   z-index: 1;
-  background: url(../img/wave.svg) -42px 0 repeat-x;
+  background: url(http://o9dnc9u2v.bkt.clouddn.com/images/wave.svg) -42px 0 repeat-x;
   -webkit-animation: wave 3.2s .3s infinite linear;
   animation: wave 3.2s .3s infinite linear;
 }
@@ -3102,7 +3103,7 @@ body {
 .wave-7 {
   bottom: -30px;
   z-index: 3;
-  background: url(../img/wave7.svg) -10px 0 repeat-x;
+  background: url(http://o9dnc9u2v.bkt.clouddn.com/images/wave7.svg) -10px 0 repeat-x;
   -webkit-animation: wave 2.1s .1s infinite linear;
   animation: wave 2.1s .1s infinite linear;
 }

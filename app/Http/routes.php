@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('minitalks/{id}/collect', 'MinitalkController@collect');
 
     Route::get('users/collect', 'UserController@collect');
-    Route::post('post/upload', 'PostController@upload');
+//    Route::post('post/upload', 'PostController@upload');
     Route::post('uploadAvatar', 'UserController@uploadAvatar');
     Route::post('modifyPwd', 'UserController@modifyPwd');
     Route::post('comments', 'CommentController@store');
@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('minitalkComments', 'MinitalkCommentController@store');
     Route::get('subscription/{id}', 'PostController@subscription');
     Route::get('alipay/pay/{id}', 'AlipayController@pay');
-    Route::post('alipay/result', 'AlipayController@result');
+    Route::get('alipay/result', 'AlipayController@result');
 });
 
 Route::get('verifyEmail/{confirmation_code}', function($confirmation_code) {
@@ -93,6 +93,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/lessons/{topicId}/create', 'Admin\LessonController@create');
     Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
     Route::get('/slugs', 'Admin\AdminController@slugs');
+    Route::get('/readables', 'Admin\AdminController@readables');
 
     Route::resource('talkshows', 'Admin\TalkshowController');
     Route::resource('minitalks', 'Admin\MinitalkController');

@@ -90,6 +90,22 @@ class MinitalkController extends Controller
         $collect = false;
         $punchin = false;
 
+//        'title' => $entity->title,
+//            'description' => $entity->description,
+//            'avatar' => $entity->avatar,
+//            'free' => $entity->free,
+//            'audio_url' => $entity->audio_url,
+//            'download_url' => $entity->audio_url,
+//            'duration' => $entity->duration,
+//            'content' => $entity->content,
+//            'keywords' => $entity->keywords,
+//            'is_published' => $entity->is_published,
+//            'publish_at' => $entity->publish_at,
+//            'created_at' => $entity->created_at,
+//            'updated_at' => $entity->updated_at
+//
+//        $minitalk->title = $
+
         if (!Auth::guest()) {
             $model = MinitalkFavorite::where('user_id', Auth::user()->id)->where('minitalk_id', $id)->first();
             if ($model) {

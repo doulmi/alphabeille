@@ -11,7 +11,7 @@ class AlipayController extends Controller
     public function pay($id) {
         $gateway = Omnipay::create('Alipay_Express');
         $gateway->setPartner('2088222835724472');  //合作者id
-        $gateway->setKey('2016072001642324');   //支付key
+        $gateway->setKey('7ibfr0bnv8ymljkvrao2dsu7mgqj5ui3');   //支付key
         $gateway->setSellerEmail('alphabeillestudio@gmail.com');  //收款账户email
         $gateway->setReturnUrl(url('alipay/result'));  //返回url， 用户支付后会跳转到这个地址， 可以定义支付成功或者支付失败等页面返回增加用户体验
         $gateway->setNotifyUrl(url('alipay/result'));   //通知url，每次支付完成后， 支付宝服务器会向这个地址发请求，返回支付状态
@@ -19,8 +19,8 @@ class AlipayController extends Controller
         $menu = Subscription::findOrFail($id);
         $options = [
             'out_trade_no' => date('YmdHis') . mt_rand(1000,9999),
-            'subject' => trans('labels.' . $menu),
-            'total_fee' => $menu->price,
+            'subject' => 'Alphabeille: ' . trans('labels.' . $menu->name),
+            'total_fee' => 0.01,
         ];
 
         $response = $gateway->purchase($options)->send();

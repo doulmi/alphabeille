@@ -13,31 +13,15 @@
             </a>
         </div>
 
-        <form action="{{url('search')}}" class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" role="search"
-              id="searchForm" method="get">
-            <div class="form-group">
-                <div class="input-group navbar-search">
-                    <input type="text" class="navbar-search-input form-control" name="keys" id="keys"
-                           aria-label="Amount (to the nearest dollar)" placeholder="@lang('labels.whatuwant')"
-                           value="{{Request::get('keys') }}">
-                    <span onclick="search()" class="input-group-addon navbar-search-btn"><span
-                                class="glyphicon glyphicon-search "></span></span>
-                </div>
-            </div>
-        </form>
+
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav hidden-xs">
-                {{--<li>--}}
-                    {{--<button onclick="window.location.href='{{url('/')}}'"--}}
-                            {{--class="btn btn-default navbar-btn {{ Request::is('/') ? 'navbar-btn-active' : '' }}">@lang('titles.index')</button>--}}
-                {{--</li>--}}
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true"
-                       aria-expanded="true"
-                    >
+                       aria-expanded="true">
                        @lang('labels.ourLessons')
                     </a>
 
@@ -48,13 +32,10 @@
                         <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
                     </ul>
                 </li>
-
-                {{--<li>--}}
-                    {{--<button onclick="window.location.href='{{url('discussions')}}'"--}}
-                            {{--class="btn btn-default navbar-btn {{ Request::is('discussions') ? 'navbar-btn-active' : '' }} ">@lang('titles.forum')</button>--}}
-                {{--</li>--}}
-                {{--                <li><a href="{{url('chatroom')}}">@lang('titles.chatroom')</a></li>--}}
             </ul>
+
+
+
             <ul class="nav navbar-nav navbar-right " id="menu-xs">
                 @if(!Auth::guest())
                     <li class="dropdown profile-btn hidden-xs">
@@ -75,10 +56,6 @@
                             </li>
                         </ul>
                     </li>
-                    {{--<li data-tooltips="@lang('labels.series')" class="li-series tooltips-bottom">--}}
-                    {{--<i class="svg-icon svg-icon-series"></i>--}}
-                    {{--<span class="white label-svg-series">{{Auth::user()->download}}</span>--}}
-                    {{--</li>--}}
 
                     <li data-tooltips="@lang('labels.series', ['days' => Auth::user()->series])"
                         class="li-miel tooltips-bottom hidden-xs">
@@ -164,7 +141,22 @@
                         @endforeach
                     </div>
                 </li>
+
             </ul>
+            @if(!Request::is('/'))
+            <form action="{{url('search')}}" class="navbar-form navbar-right hidden-md hidden-sm hidden-xs" role="search"
+                  id="searchForm" method="get">
+                <div class="form-group">
+                    <div class="input-group navbar-search">
+                        <input type="text" class="navbar-search-input form-control" name="keys" id="keys"
+                               aria-label="" placeholder="@lang('labels.whatuwant')"
+                               value="{{Request::get('keys') }}">
+                    <span onclick="search()" class="input-group-addon navbar-search-btn"><span
+                                class="glyphicon glyphicon-search "></span></span>
+                    </div>
+                </div>
+            </form>
+            @endif
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 

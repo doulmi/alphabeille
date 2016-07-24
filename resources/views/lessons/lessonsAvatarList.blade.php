@@ -21,7 +21,7 @@
                     @endif
                     <div class="Card-image">
                         <a href="{{ url('lessons/' . $lesson->slug) }}" title="{{$lesson->title}}">
-                            <img src="/img/placeholder.png" data-original="{{$lesson->avatar}}" class="Card-image"
+                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/placeholder.png" data-original="{{$lesson->avatar}}" class="Card-image"
                                  alt="{{$lesson->title}}">
                             <div class="Card-overlay">
                                 <i class="glyphicon glyphicon-play-circle"></i>

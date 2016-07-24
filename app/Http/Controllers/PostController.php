@@ -34,7 +34,7 @@ class PostController extends Controller
 //        foreach ($menus as $menu) {
 //            $menu->advantages = explode('|', $menu->description);
 //        }
-        return view('indexWithLessons', compact(['lessons', 'talkshows', 'minitalks']));
+        return view('index', compact(['lessons', 'talkshows', 'minitalks']));
     }
 
     public function menus()
@@ -43,11 +43,11 @@ class PostController extends Controller
         return view('menus', compact('menus'));
     }
 
-    public function upload()
-    {
-        $data = EndaEditor::uploadImgFile('uploads');
-        return json_encode($data);
-    }
+//    public function upload()
+//    {
+//        $data = EndaEditor::uploadImgFile('uploads');
+//        return json_encode($data);
+//    }
 
     public function search()
     {
