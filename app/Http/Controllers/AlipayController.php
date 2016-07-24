@@ -31,7 +31,7 @@ class AlipayController extends Controller
     {
         $gateway = Omnipay::create('Alipay_Express');
         $gateway->setPartner('2088222835724472');  //合作者id
-        $gateway->setKey('2016072001642324');   //支付key
+        $gateway->setKey('7ibfr0bnv8ymljkvrao2dsu7mgqj5ui3');   //支付key
         $gateway->setSellerEmail('alphabeillestudio@gmail.com');  //收款账户e
 
         $options = [

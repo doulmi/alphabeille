@@ -21,7 +21,7 @@
                         </span>
                     @endif
                     <div class="Card-image">
-                        <a href="{{ url('minitalks/' .$minitalk->id) }}">
+                        <a href="{{ url('minitalks/' .$minitalk->slug) }}">
                             <img src="/img/placeholder.png" data-original="{{$minitalk->avatar}}" class="Card-image"
                                  alt="{{$minitalk->title}}">
                             <div class="Card-overlay">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="Card-details">
                         <h3 class="Card-title">
-                            <a href="{{ url('minitalks/' . $minitalk->id) }}">{{$minitalk->title}}</a>
+                            <a href="{{ url('minitalks/' . $minitalk->slug) }}">{{$minitalk->title}}</a>
                         </h3>
                     </div>
                     <div class="Card-footer">

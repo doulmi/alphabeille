@@ -82,7 +82,7 @@ class TalkshowController extends Controller
      */
     public function show($id)
     {
-        $talkshow = Talkshow::findOrFail($id);
+        $talkshow = Talkshow::findByIdOrSlugOrFail($id);
 
         Redis::incr('talkshow:view:' . $id);
 

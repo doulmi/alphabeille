@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 
@@ -23,7 +24,8 @@ class Minitalk extends Model
         return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
     }
 
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(MinitalkComment::class);
     }
 
@@ -39,5 +41,20 @@ class Minitalk extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public static function findByIdOrSlugOrFail($idOrSlug)
+    {
+        if (is_numeric($idOrSlug)) {
+            $entity = Minitalk::find($idOrSlug);
+            if($entity) return $entity;
+        }
+        //如果不是数字，或者是数字也没有找到
+        $entity = Minitalk::where('slug', $idOrSlug)->first();
+        if ($entity) {
+            return $entity;
+        } else {
+            throw (new ModelNotFoundException)->setModel(get_class(Minitalk::class));
+        }
     }
 }

@@ -21,7 +21,7 @@
                         </span>
                     @endif
                     <div class="Card-image">
-                        <a href="{{ url('talkshows/' .$talkshow->id) }}">
+                        <a href="{{ url('talkshows/' .$talkshow->slug) }}">
                             <img src="/img/placeholder.png" data-original="{{$talkshow->avatar}}" class="Card-image"
                                  alt="{{$talkshow->title}}">
                             <div class="Card-overlay">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="Card-details">
                         <h3 class="Card-title">
-                            <a href="{{ url('talkshows/' . $talkshow->id) }}">{{$talkshow->title}}</a>
+                            <a href="{{ url('talkshows/' . $talkshow->slug) }}">{{$talkshow->title}}</a>
                         </h3>
                     </div>
                     <div class="Card-footer">

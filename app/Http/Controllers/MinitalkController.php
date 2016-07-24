@@ -8,6 +8,7 @@ use App\MinitalkCollect;
 use App\MinitalkFavorite;
 use App\UserPunchin;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -74,7 +75,8 @@ class MinitalkController extends Controller
      */
     public function show($id)
     {
-        $minitalk = Minitalk::findOrFail($id);
+//        $minitalk = Minitalk::findOrFail($id);
+        $minitalk = Minitalk::findByIdOrSlugOrFail($id);
 
         Redis::incr('minitalk:view:' . $id);
 

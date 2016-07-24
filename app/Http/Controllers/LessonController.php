@@ -9,6 +9,7 @@ use App\LessonFavorite;
 use App\Topic;
 use App\UserPunchin;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -68,6 +69,7 @@ class LessonController extends Controller
         //
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -77,7 +79,8 @@ class LessonController extends Controller
      */
     public function show($id, $lan = 'fr')
     {
-        $lesson = Lesson::findOrFail($id);
+        $lesson = Lesson::findByIdOrSlugOrFail($id);
+
         $topicController = new TopicController();
         Redis::incr('lesson:view:' . $id);
 

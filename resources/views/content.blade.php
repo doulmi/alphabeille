@@ -126,7 +126,7 @@
                         <tr class="lesson-row">
                             @endif
                             <th scope="row">{{$i + 1}}.</th>
-                            <td onclick="window.document.location='{{url('lessons/' . $les->id)}}'">
+                            <td onclick="window.document.location='{{url('lessons/' . $les->slug)}}'">
                                 {{$les->title}}
                                 @if($les->free)
                                     <span class="free-label">@lang('labels.free')</span>

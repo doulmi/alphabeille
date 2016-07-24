@@ -15,7 +15,7 @@
                     </span>
                 @endif
                 <div class="Card-image">
-                    <a href="{{ url('topics/' . $topic->id) }}">
+                    <a href="{{ url('topics/' . $topic->slug) }}">
                         <img src="/img/placeholder.png" data-original="{{$topic->avatar}}" class="Card-image" alt="{{$topic->title}}">
                         <div class="Card-overlay">
                             <i class="glyphicon glyphicon-play-circle"></i>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="Card-details">
                     <h3 class="Card-title">
-                        <a href="{{ url('/topics/' . $topic->id) }}">{{$topic->title}}</a>
+                        <a href="{{ url('/topics/' . $topic->slug) }}">{{$topic->title}}</a>
                     </h3>
                     <div class="Card-count">{{ $topic->lessonCount() }} <span
                                 class="utility-muted"> @lang('labels.lessons')</span>
