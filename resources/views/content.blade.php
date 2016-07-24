@@ -69,7 +69,13 @@
                     {!! $content !!}
                 </div>
             @else
+
                 @include('blockContent')
+            @endif
+
+            @if($readable instanceof \App\Minitalk)
+                <div class='markdown-content wechat-part'>
+                    {!! $wechat_part !!}
             @endif
 
             @if(!Auth::guest())
@@ -156,12 +162,8 @@
             <div id="disqus_thread">
                 <h1 class="black">@lang('labels.comments')</h1>
                 @if(Auth::guest())
-                    <div class="">
-                        <div class="center">
-                            <a href="{{url('login')}}">@lang('labels.login')</a>
-                            @lang('labels.loginToReply')
-                        </div>
-                    </div>
+                    <a href="{{url('login')}}">@lang('labels.login')</a>
+                    @lang('labels.loginToReply')
                 @else
                     <div class="media">
                         <div class="media-left">

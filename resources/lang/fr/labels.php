@@ -262,5 +262,6 @@ return [
     'minitalks.keywords' => '法语Minitalk',
     'ourLessons' => 'Les cours',
     'minute' => 'minutes',
+    'payFailed' => 'Paiement refusé, je réssaie',
 ];
 

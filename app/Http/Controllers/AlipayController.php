@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Subscription;
+use Illuminate\Support\Facades\Session;
 use Omnipay\Omnipay;
 
 class AlipayController extends Controller
@@ -41,9 +42,10 @@ class AlipayController extends Controller
         $response = $gateway->completePurchase($options)->send();
 
         if ($response->isSuccessful() && $response->isTradeStatusOk()) {
-            echo('支付成功');
+
         } else {
-            echo('支付失败');
+            Session::flash('payFailed', 'payFailed');
+            return redirect('/menus');
         }
     }
 

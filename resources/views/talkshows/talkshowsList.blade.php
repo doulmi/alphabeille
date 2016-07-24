@@ -22,7 +22,7 @@
                     @endif
                     <div class="Card-image">
                         <a href="{{ url('talkshows/' .$talkshow->slug) }}">
-                            <img src="/img/placeholder.png" data-original="{{$talkshow->avatar}}" class="Card-image"
+                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/placeholder.png" data-original="{{$talkshow->avatar}}" class="Card-image"
                                  alt="{{$talkshow->title}}">
                             <div class="Card-overlay">
                                 <i class="glyphicon glyphicon-play-circle"></i>
@@ -38,17 +38,9 @@
                     <div class="Card-footer">
                         <div class="hidden-xs Card-footer-content">
                             <span class="topic-view">
-                                <i class="svg-icon svg-icon-headphone"></i>
-                                {{--                            <span class="g-font">{{ $talkshow->views }} </span>--}}
+                               <i class="glyphicon glyphicon-headphones "></i>
                                 <span class="g-font">{{ Redis::get('talkshow:view:' . $talkshow->id ) ? : 0}} </span>
                             </span>
-
-                            {{--<span class="topic-like">--}}
-                                {{--<i class="svg-icon svg-icon-heart" id="icon-heart"></i>--}}
-                                {{--<span class="glyphicon glyphicon-heart">--}}
-                                {{--<span class="g-font">{{Redis::get('talkshow:like:' . $talkshow->id) ? : 0 }} </span>--}}
-                                {{--</span>--}}
-                            {{--</span>--}}
                         </div>
                     </div>
                 </div>

@@ -25,8 +25,11 @@ button {
 
 * {
   /*font-family: "Roboto", "Lato", "Times New Roman", "幼圆", "FangSong", "华文细黑", "微软雅黑", sans-serif;*/
-  font-family: "Coconbold",  "Raleway",  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
-  line-height: 1.7em; }
+  font-family: "Coconbold", "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+  line-height: 1.7em;
+  outline: none;
+  border: none;
+  padding: 0; }
 
 body {
   margin-top: 0; }
@@ -97,7 +100,7 @@ body {
   height: 90px;
   width: 90px;
   position: absolute;
-  left: 60px;
+  left: 0;
   top: 60px; }
 
 .sunny:before {
@@ -160,63 +163,63 @@ body {
 
 .sunny-panel {
   position: relative;
-  left: 80%; }
+  left: 10%; }
 
 .night {
-  background: #273041;
+  background: #F7F7F7;
   position: relative;
   color: #ccc; }
   .night .BlockMessage {
-    color: #FEE818; }
+    color: #FFF; }
   .night .more {
-    color: #FEE818;
-    border: 1px solid #FEE818; }
+    color: #32CDFF;
+    border: 1px solid #32CDFF; }
   .night .more:hover {
-    color: #273041;
-    background: #FEE818; }
+    color: #F7F7F7;
+    background: #32CDFF; }
 
 .more {
-  color: #273041;
-  border: 1px solid #273041;
+  color: #32CDFF;
+  border: 1px solid #32CDFF;
   width: 100%;
   background: transparent;
-  margin: 0 0 100px 0;
+  margin: 20px 0 100px 0;
   -webkit-transition: all .1s ease-in-out;
   transition: all .1s ease-in-out; }
 
 .more:hover {
   color: #FFFFFF;
-  background: #273041; }
+  background: #32CDFF; }
 
 .night-fall {
-  background: #FB5445;
+  background: #FFF;
   position: relative;
   color: #ccc; }
   .night-fall .more {
-    color: #FFF;
-    border: 1px solid #FFF; }
+    color: #32CDFF;
+    border: 1px solid #32CDFF; }
   .night-fall .more:hover {
-    color: #FB5445;
-    background: #FFF; }
+    color: #FFF;
+    background: #32CDFF; }
 
 .morning {
-  background: #2ecc71;
+  background: #F7F7F7;
   position: relative;
   color: #2C4766; }
   .morning .more {
-    color: #34495E;
-    border: 1px solid #34495E; }
+    color: #32CDFF;
+    border: 1px solid #32CDFF; }
   .morning .more:hover {
-    color: #2ecc71;
-    background: #34495E; }
+    color: #F7F7F7;
+    background: #32CDFF; }
 
 .g-font {
   margin-bottom: 100px;
   padding-top: 20px; }
 
 .navbar-guest {
-  background: #273041;
-  border: #273041;
+  background: #32CDFF;
+  border: #32CDFF;
   height: 80px;
   margin-bottom: 0;
   border-radius: 0;
@@ -253,15 +256,23 @@ body {
   margin-top: -5px; }
 
 .navbar-search-input {
-  min-width: 300px;
+  min-width: 100px;
   height: 36px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   -webkit-border-top-left-radius: 20px;
   -webkit-border-bottom-left-radius: 20px; }
 
+.search-input {
+  min-width: 60px;
+  height: 36px; }
+
 .navbar-search {
   margin-top: -1px; }
+
+.navbar-search-index {
+  margin-top: -1px;
+  border: 10px solid rgba(0, 0, 0, 0.5); }
 
 .navbar-brand {
   border: none; }
@@ -272,7 +283,10 @@ body {
   -webkit-border-top-right-radius: 20px;
   -webkit-border-bottom-right-radius: 20px;
   background-color: #fff;
-  border: none;
+  cursor: pointer; }
+
+.search-btn {
+  background-color: #fff;
   cursor: pointer; }
 
 /* 语言图标 开始 */
@@ -390,13 +404,13 @@ body {
   height: 500px; }
 
 .Header {
-  height: 100px; }
+  height: 80px; }
 
 .margin-top {
   height: 50px; }
 
 .body {
-  background-color: #273041;
+  background-color: #32CDFF;
   overflow: hidden; }
 
 .grey {
@@ -847,10 +861,10 @@ body {
   font-size: .7em;
   top: 4px;
   color: #483e39;
-  font-family: "Raleway",  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
+  font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
 
 .Heading-Fancy .title {
-  color: #FFFFFF; }
+  color: #5C5C5C; }
 
 .Heading-Fancy .title:before {
   right: 100%;
@@ -898,16 +912,15 @@ body {
   transition: .2s ease 0s; }
 
 .Card {
-  margin-bottom: 60px;
-  overflow: hidden; }
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1); }
 
 .Card-footer {
-  background-color: #FFF;
-  width: 100%; }
+  color: black;
+  background: #FFF; }
 
 .Card-footer-content {
-  color: darkgrey;
-  text-align: right;
   margin-left: 1rem; }
 
 .topic-view {
@@ -954,7 +967,7 @@ body {
   background: #99c93d;
   position: absolute;
   padding: 2px 4px 2px 4px;
-  margin-top: -5px;
+  margin-top: -10px;
   color: white;
   right: 20px;
   top: 15px;
@@ -1064,8 +1077,9 @@ body {
   background: #fff;
   padding: 8px 12px;
   display: -webkit-box;
+  overflow: hidden;
   display: flex;
-  height: 70px;
+  height: 60px;
   -webkit-box-align: center;
   /*align-items: center;*/ }
 
@@ -1089,15 +1103,15 @@ body {
   border-color: #fff; }
 
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
-  background-color: #273041; }
+  background-color: #32CDFF; }
 
 .navbar-default .navbar-toggle {
-  border-color: #273041; }
+  border-color: #32CDFF; }
 
 @media screen and (max-width: 767px) {
   #menu-xs {
-    border-color: #273041;
-    background-color: #273041; }
+    border-color: #32CDFF;
+    background-color: #32CDFF; }
 
   .Card-Collection {
     padding-right: 5%;
@@ -1118,8 +1132,8 @@ body {
     padding-left: 10%; }
 
   .navbar-guest {
-    background: #273041;
-    border: #273041; } }
+    background: #32CDFF;
+    border: #32CDFF; } }
 .prePage {
   position: fixed;
   left: 1%;
@@ -2089,7 +2103,7 @@ body {
   background-color: #F4F4F4;
   box-shadow: -1px 3px 2px rgba(0, 0, 0, 0.4);
   border-color: #F4F4F4;
-  color: #273041; }
+  color: #32CDFF; }
 
 .discussion-list {
   padding: 0 40px 0 40px;
@@ -2186,8 +2200,8 @@ body {
 
 .btn-submit {
   margin-top: 30px;
-  border: 1px #273041 solid;
-  color: #273041;
+  border: 1px #32CDFF solid;
+  color: #32CDFF;
   background: transparent;
   font-weight: 700;
   padding: 10px 40px;
@@ -2198,7 +2212,7 @@ body {
   transition: ease-in-out 0.5s; }
 
 .btn-submit:hover {
-  background-color: #273041;
+  background-color: #32CDFF;
   color: white; }
 
 .comment .media-body p,
@@ -2349,7 +2363,7 @@ body {
 .navbar-btn:focus {
   background-color: #FFF;
   border-color: transparent;
-  color: #273041; }
+  color: #32CDFF; }
 
 .navigation {
   position: absolute;
@@ -2815,5 +2829,17 @@ body {
 @keyframes move-down {
   100% {
     top: 69.75px; } }
+.ad-jumbotron {
+  height: 640px;
+  background-image: url(../img/indexBg.png); }
+  .ad-jumbotron h1 {
+    font-size: 32px;
+    margin-bottom: 30px; }
+
+.left {
+  text-align: left; }
+
+.top-48 {
+  margin-top: 45px; }
 
 /*# sourceMappingURL=app.css.map */

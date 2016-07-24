@@ -14,47 +14,48 @@
 @section('content')
     <div class="body">
         <div class="night fullscreen">
-            <div class="Header"></div>
-
-            <h1 class="BlockMessage BlockMessage-With-Spacing">
-                @lang('labels.learnIntroduction')
-            </h1>
-
-            {{--@if(Auth::guest())--}}
-            {{--<div class="header-container">--}}
-            {{--</div>--}}
-            {{--@endif--}}
-
-            <div class="moon-panel hidden-xs">
-                <div class="moon"></div>
+            <div class="jumbotron ad-jumbotron">
+                <div class="Header"></div>
+                <div class="container">
+                    <div class="col-md-6">
+                        <h1 class="BlockMessage BlockMessage-With-Spacing left">@lang('labels.learnIntroduction')</h1>
+                        <form action="{{url('search')}}" role="search" id="searchForm" method="get">
+                            <div class="form-group">
+                                <div class="input-group navbar-search-index">
+                                    <input type="text" class="search-input form-control" name="keys" id="keys"
+                                           aria-label="" placeholder="@lang('labels.whatuwant')"
+                                           value="{{Request::get('keys') }}">
+                    <span onclick="search()" class="input-group-addon search-btn"><span
+                                class="glyphicon glyphicon-search "></span></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="top-48"></div>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/176076198?title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen
+                                        allowfullscreen></iframe>
+                            </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="Card-Collection">
+            <div class="Header"></div>
+            <div class="Card-Collection row">
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
                 @include('minitalks.minitalksList')
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
-
-            {{--<div class="Card-Collection ">--}}
-            {{--<h2 class="Heading-Fancy row">--}}
-            {{--<span class='title'>@lang('titles.lessons')</span>--}}
-            {{--</h2>--}}
-            {{--@include('lessons.lessonsAvatarList')--}}
-            {{--<a class="btn btn-default more aniview" av-animation="slideInRight"--}}
-            {{--href="{{url('/lessons')}}">@lang('labels.more')</a>--}}
-            {{--</div>--}}
         </div>
 
         <div class="night-fall fullscreen">
             <div class="Header"></div>
-            <div class="sunny-panel hidden-xs">
-                <div class="sunny"></div>
-            </div>
 
-            <div class="Card-Collection">
-                <h2 class="Heading-Fancy row">
+            <div class="Card-Collection row">
+                <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('titles.lessons')</span>
                 </h2>
                 @include('lessons.lessonsAvatarList')
@@ -64,8 +65,8 @@
 
         <div class=" morning fullscreen">
             <div class="Header"></div>
-            <div class="Card-Collection">
-                <h2 class="Heading-Fancy row">
+            <div class="Card-Collection row">
+                <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('labels.talkshows')</span>
                 </h2>
                 @include('talkshows.talkshowsList')

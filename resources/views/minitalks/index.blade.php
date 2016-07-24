@@ -17,10 +17,6 @@
         <div class="Header">
         </div>
 
-        <div class="moon-panel hidden-xs">
-            <div class="moon"></div>
-        </div>
-
         <h2 class="Heading-Fancy row">
             <span class="Heading-Fancy-subtitle">
                 @lang('labels.minitalkSubtitle')

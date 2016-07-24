@@ -8,32 +8,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand tooltips-bottom shake shake-slow" href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
+            <a class="navbar-brand tooltips-bottom shake shake-slow" href="{{ url('/') }}"
+               data-tooltips="@lang('labels.backIndex')">
                 <i class="svg-icon svg-logo" id="icon-white "></i>
             </a>
         </div>
 
 
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav hidden-xs">
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-haspopup="true"
-                       aria-expanded="true">
-                       @lang('labels.ourLessons')
-                    </a>
-
-                    <ul class="dropdown-menu bullet" role="menu">
-                        <li><a href="{{url('/free')}}">@lang('labels.freeLessons')</a></li>
-                        <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
-                        <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
-                        <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
-                    </ul>
-                </li>
+                <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
+                <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
+                <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
             </ul>
-
 
 
             <ul class="nav navbar-nav navbar-right " id="menu-xs">
@@ -78,25 +66,23 @@
                     @endif
                 @endif
 
-                @if(Auth::guest())
-                    <li class="dropdown flag-btn hidden-xs">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="true">
-                            <div class="flag flag-svg-small flag-{{App::getLocale()}}"></div>
-                            <span class="glyphicon glyphicon-chevron-down"></span></a>
-                        <ul class="dropdown-menu bullet" role="menu">
-                            @foreach (Config::get('languages') as $lang => $language)
-                                @if ($lang != App::getLocale())
-                                    <li>
-                                        <a href="{{ route('lang.switch', $lang) }}">
-                                            <div class="flag flag-svg-micro flag-{{$lang}}"></div>
-                                            <strong>{{$language}}</strong></a>
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </li>
-                @endif
+                <li class="dropdown flag-btn hidden-xs">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
+                        <div class="flag flag-svg-tiny flag-{{App::getLocale()}}"></div>
+                        <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu bullet" role="menu">
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <li>
+                                    <a href="{{ route('lang.switch', $lang) }}">
+                                        <div class="flag flag-svg-micro flag-{{$lang}}"></div>
+                                        <strong>{{$language}}</strong></a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </li>
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">
@@ -108,25 +94,25 @@
                     </li>
                 @endif
                 <li class="visible-xs">
-                        @if(Auth::guest())
+                    @if(Auth::guest())
                         <div class="nav-btns center">
-                            <a href="{{url('/login')}}" >@lang('labels.login')</a><br/>
-                            <a href="{{url('/register')}}" >@lang('labels.register')</a><br/>
+                            <a href="{{url('/login')}}">@lang('labels.login')</a><br/>
+                            <a href="{{url('/register')}}">@lang('labels.register')</a><br/>
                         </div>
-                        @else
+                    @else
                         <div class="nav-btns center">
-                            <a href="{{ url('/users/' . Auth::user()->id) }}" >
+                            <a href="{{ url('/users/' . Auth::user()->id) }}">
                                 <img class="avatar avatar-small" src="{{Auth::user()->avatar}}" alt="avatar">
                                 <span>{{Auth::user()->name}}</span>
                             </a><br/>
                         </div>
                         <div class="nav-btns center">
-                            <a href="{{url('/users/collect')}}" >
-                               @lang('labels.myCollect')
+                            <a href="{{url('/users/collect')}}">
+                                @lang('labels.myCollect')
                             </a>
-                            <a href="{{url('/logout')}}" >@lang('labels.disconnect')</a>
+                            <a href="{{url('/logout')}}">@lang('labels.disconnect')</a>
                         </div>
-                        @endif
+                    @endif
                     <div class="nav-btns center ">
                         <a href="{{url('/')}}" class="nav-xs-btn">@lang('titles.index')</a>
                         <a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>
@@ -134,28 +120,29 @@
                     </div>
                     <div class="center nav-btns">
                         @foreach (Config::get('languages') as $lang => $language)
-                                <a href="{{ route('lang.switch', $lang) }}" class="nav-xs-btn">
-                                    {{--<div class="flag flag-svg-small flag-{{$lang}}"></div>--}}
-                                    {{$language}}
-                                </a>
+                            <a href="{{ route('lang.switch', $lang) }}" class="nav-xs-btn">
+                                {{--<div class="flag flag-svg-small flag-{{$lang}}"></div>--}}
+                                {{$language}}
+                            </a>
                         @endforeach
                     </div>
                 </li>
 
             </ul>
             @if(!Request::is('/'))
-            <form action="{{url('search')}}" class="navbar-form navbar-right hidden-md hidden-sm hidden-xs" role="search"
-                  id="searchForm" method="get">
-                <div class="form-group">
-                    <div class="input-group navbar-search">
-                        <input type="text" class="navbar-search-input form-control" name="keys" id="keys"
-                               aria-label="" placeholder="@lang('labels.whatuwant')"
-                               value="{{Request::get('keys') }}">
+                <form action="{{url('search')}}" class="navbar-form navbar-right hidden-md hidden-sm hidden-xs"
+                      role="search"
+                      id="searchForm" method="get">
+                    <div class="form-group">
+                        <div class="input-group navbar-search">
+                            <input type="text" class="navbar-search-input form-control" name="keys" id="keys"
+                                   aria-label="" placeholder="@lang('labels.whatuwant')"
+                                   value="{{Request::get('keys') }}">
                     <span onclick="search()" class="input-group-addon navbar-search-btn"><span
                                 class="glyphicon glyphicon-search "></span></span>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             @endif
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

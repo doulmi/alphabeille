@@ -254,5 +254,6 @@ return [
     'login.title' => 'Alphabeille法语登录/注册界面，欢迎您的到来',
     'login.description' => 'Alphabeille法语的登录/注册界面~',
     'login.keywords' => 'Alphabeille登录, Alphabeille注册',
-    'ourLessons' => '我们的课程'
+    'ourLessons' => '我们的课程',
+    'payFailed' => '支付失败了，再试试吧，也许网络不好',
 ];

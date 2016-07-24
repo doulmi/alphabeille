@@ -36,7 +36,7 @@
                     <div class="Card-footer">
                         <div class="hidden-xs Card-footer-content">
                         <span class="topic-view">
-                            <i class="svg-icon svg-icon-headphone"></i>
+                            <i class="glyphicon glyphicon-headphones "></i>
                             <span class="g-font">{{ Redis::get('lesson:view:' . $lesson->id) }} </span>
                         </span>
                         </div>
