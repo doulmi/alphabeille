@@ -20,6 +20,10 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function addUsers() {
+        
+    }
+
     public function readables() {
         $entity = Lesson::find(1);
         $readable = Readable::create([

@@ -887,7 +887,7 @@ body {
 
 .wrapper {
   position: absolute;
-  top: 60%;
+  top: 45%;
   left: 0;
   width: 100%;
   height: 400px;
@@ -903,12 +903,12 @@ body {
 }
 
 .login {
-  background: #91C5E8;
+  background: #32CDFF;
 }
 
 .login-container ::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: white;
+  color: #FFFFFF;
   opacity: 1;
   font-weight: 300;
 }
@@ -3550,4 +3550,43 @@ $timing-function: ease-out;
 
 .top-80 {
   margin-top:80px;
+}
+
+/* Show the controls (hidden at the start by default) */
+.video-js .vjs-control-bar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.video-js .vjs-play-progress:before {
+  top: -0.633333333333333em;
+}
+
+.vjs-slider-horizontal .vjs-volume-level:before {
+  top: -0.633em;
+}
+
+.video-js .vjs-control:before {
+  top: 3px;
+}
+
+.video-js .vjs-time-control {
+  top: 8px;
+}
+
+.vjs-playback-rate .vjs-playback-rate-value {
+  top : 3px;
+}
+
+#my_video {
+  display: none;
+}
+
+.vjs-default-skin .vjs-big-play-button, .vjs-default-skin.vjs-big-play-centered .vjs-big-play-button {
+  left: 50%;
+  margin-left: -1.5em;
+  top: 50%;
+  margin-top: -1.1em;
 }

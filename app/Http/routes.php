@@ -95,8 +95,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/slugs', 'Admin\AdminController@slugs');
     Route::get('/readables', 'Admin\AdminController@readables');
 
+    Route::get('/lessonComments/create/{lesson_id}', 'Admin\CommentController@createLessons');
+    Route::put('/lessonComments/create/{lesson_id}', 'Admin\CommentController@storeLessons');
+
+    Route::get('/minitalkComments/create/{minitalk_id}', 'Admin\CommentController@createMinitalks');
+    Route::put('/minitalkComments/create/{minitalk_id}', 'Admin\CommentController@storeMinitalks');
+
+    Route::get('/talkshowComments/create/{talkshow_id}', 'Admin\CommentController@createTalkshows');
+    Route::put('/talkshowComments/create/{talkshow_id}', 'Admin\CommentController@storeTalkshows');
+
     Route::resource('talkshows', 'Admin\TalkshowController');
     Route::resource('minitalks', 'Admin\MinitalkController');
+
+    Route::get('/addUsers', 'Admin\AdminController@addUsers');
 });
 
 $api = app('Dingo\Api\Routing\Router');

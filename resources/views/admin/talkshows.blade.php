@@ -35,6 +35,7 @@
                         <button class="btn btn-danger"
                                 onclick="deleteTalkshow('{{$talkshow->id}}')">@lang('labels.delete')</button>
                         <a class="btn btn-info" href="{{url('admin/talkshows/' . $talkshow->id .'/edit')}}">@lang('labels.modify')</a>
+                        <a class="btn btn-success" href="{{url('admin/talkshowComments/create/' . $talkshow->id)}}">@lang('labels.comments')</a>
                     </td>
                 </tr>
             @endforeach

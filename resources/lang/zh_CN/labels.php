@@ -256,4 +256,6 @@ return [
     'login.keywords' => 'Alphabeille登录, Alphabeille注册',
     'ourLessons' => '我们的课程',
     'payFailed' => '支付失败了，再试试吧，也许网络不好',
+    'loginLabel' => '登录',
+    'manageMinitalks' => '管理Minitalks',
 ];

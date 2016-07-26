@@ -25,6 +25,7 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}" id="login-form"
                       v-if="isLogin">
                     {!! csrf_field() !!}
+                    <h2 class="white">@lang('labels.loginLabel')</h2>
                     <input type="email" id='login-email' autofocus name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
                     <input type="@{{ pwdType }}" id='login-pwd' name='password' placeholder="@lang('labels.pwd')">
                     <a class="input-group-addon eye" id="login-addon" href="" @click.stop.prevent="iconToggle"
@@ -46,6 +47,7 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}"
                       id="register-form" v-else>
                     {!! csrf_field() !!}
+                    <h2 class="white">@lang('labels.register')</h2>
                     <input type="email" id="reg-email" autofocus name='email' placeholder="@lang('labels.email')" value="{{ old('email') }}">
                     <input type="@{{ pwdType }}"  data-toggle="tooltip"
                            data-placement="right" id='reg-pwd' name='password' placeholder="@lang('labels.pwd')">

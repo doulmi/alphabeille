@@ -263,5 +263,9 @@ return [
     'ourLessons' => 'Les cours',
     'minute' => 'minutes',
     'payFailed' => 'Paiement refusé, je réssaie',
+    'loginLabel' => 'Connexion',
+    'manageMinitalks' => '管理Minitalks',
+    'comment' => '评论'
+
 ];
 

@@ -35,6 +35,7 @@
                         <button class="btn btn-danger"
                                 onclick="deleteMinitalk('{{$minitalk->id}}')">@lang('labels.delete')</button>
                         <a class="btn btn-info" href="{{url('admin/minitalks/' . $minitalk->id .'/edit')}}">@lang('labels.modify')</a>
+                        <a class="btn btn-success" href="{{url('admin/minitalkComments/create/' . $minitalk->id)}}">@lang('labels.comments')</a>
                     </td>
                 </tr>
             @endforeach
