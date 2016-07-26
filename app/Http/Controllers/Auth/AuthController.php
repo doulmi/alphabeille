@@ -78,17 +78,16 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'avatar' => '/img/default_avatar/' . strtoupper($data['email'][0]) . '.png',
+            'name' => $this->autoName($data['email']),
             'confirmation_code' => str_random(64),
             'remember_token' => str_random(10),
             'download' => 4
         ]);
 
-        $user->name = $this->autoName($user->email);
+//        $member = Role::where('name', 'Member')->first();
 
-        $member = Role::where('name', 'Member')->first();
-
-        $user->save();
-        $user->attachRole($member);
+//        $user->save();
+//        $user->attachRole($member);
 
         event(new UserRegister($user));
         return $user;

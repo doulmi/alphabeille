@@ -10,7 +10,7 @@
             </button>
             <a class="navbar-brand tooltips-bottom shake shake-slow" href="{{ url('/') }}"
                data-tooltips="@lang('labels.backIndex')">
-                <i class="svg-icon svg-logo" id="icon-white "></i>
+                <i class="svg-icon svg-logo" id="icon-white"></i>
             </a>
         </div>
 
@@ -66,6 +66,7 @@
                     @endif
                 @endif
 
+                @if(Auth::guest())
                 <li class="dropdown flag-btn hidden-xs">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="true">
@@ -83,6 +84,7 @@
                         @endforeach
                     </ul>
                 </li>
+                @endif
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">
