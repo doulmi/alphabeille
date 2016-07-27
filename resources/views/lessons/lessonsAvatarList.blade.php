@@ -21,7 +21,7 @@
                     @endif
                     <div class="Card-image">
                         <a href="{{ url('lessons/' . $lesson->slug) }}" title="{{$lesson->title}}">
-                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/placeholder.png" data-original="{{$lesson->avatar}}" class="Card-image"
+                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/hoder.jpg" data-original="{{$lesson->avatar}}" class="Card-image"
                                  alt="{{$lesson->title}}">
                             <div class="Card-overlay">
                                 <i class="glyphicon glyphicon-play-circle"></i>
@@ -37,7 +37,7 @@
                         <div class="hidden-xs Card-footer-content">
                         <span class="topic-view">
                             <i class="glyphicon glyphicon-headphones "></i>
-                            <span class="g-font">{{ Redis::get('lesson:view:' . $lesson->id) }} </span>
+                            <span class="g-font">{{ Redis::get('lesson:view:' . $lesson->id) }} {{$lesson->id}}</span>
                         </span>
                         </div>
                     </div>

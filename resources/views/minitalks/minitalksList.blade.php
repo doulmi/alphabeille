@@ -22,7 +22,7 @@
                     @endif
                     <div class="Card-image">
                         <a href="{{ url('minitalks/' .$minitalk->slug) }}">
-                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/placeholder.png" data-original="{{$minitalk->avatar}}" class="Card-image"
+                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/hoder.jpg" data-original="{{$minitalk->avatar}}" class="Card-image"
                                  alt="{{$minitalk->title}}">
                             <div class="Card-overlay">
                                 <i class="glyphicon glyphicon-play-circle"></i>

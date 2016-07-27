@@ -77,12 +77,12 @@ class LessonController extends Controller
      * @param int $lan : fr, zh_CN
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $lan = 'fr')
+    public function show($idOrSlug, $lan = 'fr')
     {
-        $lesson = Lesson::findByIdOrSlugOrFail($id);
+        $lesson = Lesson::findByIdOrSlugOrFail($idOrSlug);
 
         $topicController = new TopicController();
-        Redis::incr('lesson:view:' . $id);
+        Redis::incr('lesson:view:' . $lesson->id);
 
         $topic = $lesson->topic;
         Redis::incr('topic:view:' . $topic->id);

@@ -25,7 +25,6 @@ class TalkshowCommentController extends Controller
 
     public function __construct(Markdown $markdown)
     {
-        $this->middleware('auth');
         $this->markdown = $markdown;
     }
 

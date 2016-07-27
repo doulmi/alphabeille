@@ -73,12 +73,12 @@ class MinitalkController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idOrSlug)
     {
 //        $minitalk = Minitalk::findOrFail($id);
-        $minitalk = Minitalk::findByIdOrSlugOrFail($id);
+        $minitalk = Minitalk::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('minitalk:view:' . $id);
+        Redis::incr('minitalk:view:' . $minitalk->id);
 
 //        $next = Minitalk::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
 //        $pre = Minitalk::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);

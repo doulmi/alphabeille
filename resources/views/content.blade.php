@@ -42,6 +42,7 @@
             <a class="btn btn-label label-{{$topic->sex}}">@lang("labels.tags." . $topic->sex)</a>
             @endif
 
+            @if(!$readable instanceof \App\Video)
                 <div class="playerPanel">
                     <audio id='audio' preload="auto" controls hidden>
                         <source src="{{$readable->audio_url}}"/>
@@ -61,21 +62,26 @@
                     <span class="label label-default">Ctrl</span>
                     <span class="label label-default">↓</span>
                 </div>
-
+            @else
+                <video id="my_video" class="video-js vjs-default-skin"
+                       controls preload data-setup='{ "aspectRatio":"1920:1080" }' data-setup='{"language":"fr"}'>
+                    <source src="{{$readable->video_url}}" type='video/mp4'>
+                </video>
+            @endif
             <br/>
             <br/>
             @if($readable->free || (!Auth::guest() && Auth::user()->level() > 1))
                 <div class='markdown-content'>
                     {!! $content !!}
                 </div>
+
+                @if($readable instanceof \App\Minitalk)
+                    <div class='markdown-content wechat-part'>
+                        {!! $wechat_part !!}
+                    </div>
+                @endif
             @else
                 @include('blockContent')
-            @endif
-
-            @if($readable instanceof \App\Minitalk)
-            <div class='markdown-content wechat-part'>
-                {!! $wechat_part !!}
-            </div>
             @endif
 
             @if(!Auth::guest())
@@ -229,9 +235,16 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="/js/social-share.min.js"></script>
+    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
 
     <script>
         $('img.Card-image').lazyload();
+
+        @if($readable instanceof \App\Video)
+        videojs("my_video").ready(function(){
+            $('#my_video').show();
+        });
+        @endif
 
         $('#goTop').goTop();
         function reply(userId, userName) {

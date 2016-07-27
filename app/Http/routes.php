@@ -58,6 +58,9 @@ Route::resource('lessons', 'LessonController');
 Route::get('talkshows/free', 'TalkshowController@free');
 Route::resource('talkshows', 'TalkshowController');
 
+Route::get('videos/free', 'VideoController@free');
+Route::resource('videos', 'VideoController');
+
 Route::get('minitalks/free', 'MinitalkController@free');
 Route::resource('minitalks', 'MinitalkController');
 
@@ -81,17 +84,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/users', 'Admin\UserController@index')->name('adminUsers');
     Route::put('/users', 'Admin\UserController@store');
     Route::get('/users/changeRole/{userId}/{roleId}', 'Admin\UserController@changeRole');
+
     Route::get('/roles', 'Admin\RoleController@index');
     Route::post('/roles', 'Admin\RoleController@store');
+
     Route::get('/topics', 'Admin\TopicController@index');
     Route::put('/topics', 'Admin\TopicController@store');
     Route::post('/topics/{toppicId}', 'Admin\TopicController@update');
     Route::post('/topics/{id}', 'Admin\TopicController@update');
+
     Route::get('/lessons', 'Admin\LessonController@index');
     Route::post('/lessons', 'Admin\LessonController@store');
     Route::post('/lessons/{topicId}', 'Admin\LessonController@update');
     Route::get('/lessons/{topicId}/create', 'Admin\LessonController@create');
     Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
+
+    Route::get('/video', 'Admin\VideoController@create');
+
     Route::get('/slugs', 'Admin\AdminController@slugs');
     Route::get('/readables', 'Admin\AdminController@readables');
     Route::get('/comments/{type}', 'Admin\CommentController@index');

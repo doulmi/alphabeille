@@ -80,11 +80,11 @@ class TalkshowController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idOrSlug)
     {
-        $talkshow = Talkshow::findByIdOrSlugOrFail($id);
+        $talkshow = Talkshow::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('talkshow:view:' . $id);
+        Redis::incr('talkshow:view:' . $talkshow->id);
 
         $talkshows = $this->random();
 //        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
