@@ -82,7 +82,7 @@
                 </div>
             @endif
 
-            @if($canRead)
+            @if(!$canRead)
                 @include('blockContent')
             @endif
 
