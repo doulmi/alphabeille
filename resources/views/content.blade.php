@@ -71,9 +71,12 @@
             @else
                 @include('blockContent')
             @endif
+
+            @if($readable instanceof \App\Minitalk)
             <div class='markdown-content wechat-part'>
                 {!! $wechat_part !!}
             </div>
+            @endif
 
             @if(!Auth::guest())
                 <div class="center">
