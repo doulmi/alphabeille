@@ -69,9 +69,11 @@
                     {!! $content !!}
                 </div>
             @else
-
                 @include('blockContent')
             @endif
+            <div class='markdown-content wechat-part'>
+                {!! $wechat_part !!}
+            </div>
 
             @if(!Auth::guest())
                 <div class="center">
