@@ -16,7 +16,7 @@ class Minitalk extends Model
 
     protected $dates = ['publish_at'];
     protected $fillable = [
-        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'audio_url', 'download_url', 'keywords', 'is_published', 'publish_at', 'free', 'wechat_part', 'content'
+        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'audio_url', 'download_url', 'keywords', 'is_published', 'publish_at', 'free', 'wechat_part', 'content', 'slug'
     ];
 
     public function isNew()
