@@ -84,7 +84,8 @@ class TalkshowController extends Controller
     {
         $talkshow = Talkshow::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('talkshow:view:' . $talkshow->id);
+        $id = $talkshow->id;
+        Redis::incr('talkshow:view:' . $id);
 
         $talkshows = $this->random();
 //        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);

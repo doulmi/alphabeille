@@ -82,7 +82,8 @@ class LessonController extends Controller
         $lesson = Lesson::findByIdOrSlugOrFail($idOrSlug);
 
         $topicController = new TopicController();
-        Redis::incr('lesson:view:' . $lesson->id);
+        $id = $lesson->id;
+        Redis::incr('lesson:view:' . $id);
 
         $topic = $lesson->topic;
         Redis::incr('topic:view:' . $topic->id);

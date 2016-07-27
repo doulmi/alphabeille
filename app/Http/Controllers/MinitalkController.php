@@ -78,7 +78,8 @@ class MinitalkController extends Controller
 //        $minitalk = Minitalk::findOrFail($id);
         $minitalk = Minitalk::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('minitalk:view:' . $minitalk->id);
+        $id = $minitalk->id;
+        Redis::incr('minitalk:view:' . $id);
 
 //        $next = Minitalk::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
 //        $pre = Minitalk::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
