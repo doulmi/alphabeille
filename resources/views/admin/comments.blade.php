@@ -35,6 +35,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="center">
+            {!! $comments->render() !!}
+        </div>
     </div>
 @endsection
 

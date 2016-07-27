@@ -41,6 +41,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="center">
+            {!! $minitalks->render() !!}
+        </div>
     </div>
 @endsection
 

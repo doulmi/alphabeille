@@ -40,7 +40,11 @@
                 </tr>
             @endforeach
             </tbody>
+
         </table>
+        <div class="center">
+            {!! $talkshows->render() !!}
+        </div>
     </div>
 @endsection
 
