@@ -11,7 +11,9 @@ use App\Topic;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Dingo\Api\Http\Request;
+use Faker\Factory;
 use Illuminate\Support\Facades\Input;
 
 class AdminController extends Controller
@@ -19,6 +21,18 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index');
+    }
+
+    public function changeDate() {
+        $users = User::all();
+
+        $faker = Factory::create();
+        foreach ($users as $user) {
+            if($user->id >= 9) {
+                $user->created_at = $faker->dateTimeBetween('-21 days', 'now');
+                $user->save();
+            }
+        }
     }
 
     public function readables() {

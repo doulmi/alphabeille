@@ -94,6 +94,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
     Route::get('/slugs', 'Admin\AdminController@slugs');
     Route::get('/readables', 'Admin\AdminController@readables');
+    Route::get('/comments/{type}', 'Admin\CommentController@index');
 
     Route::get('/lessonComments/create/{lesson_id}', 'Admin\CommentController@createLessons');
     Route::put('/lessonComments/create/{lesson_id}', 'Admin\CommentController@storeLessons');
@@ -104,10 +105,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/talkshowComments/create/{talkshow_id}', 'Admin\CommentController@createTalkshows');
     Route::put('/talkshowComments/create/{talkshow_id}', 'Admin\CommentController@storeTalkshows');
 
+    Route::delete('/comments/{type}/{id}', 'Admin\CommentController@destroy');
+
     Route::resource('talkshows', 'Admin\TalkshowController');
     Route::resource('minitalks', 'Admin\MinitalkController');
 
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
+    Route::get('/changeDate', 'Admin\AdminController@changeDate');
 });
 
 $api = app('Dingo\Api\Routing\Router');

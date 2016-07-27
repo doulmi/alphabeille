@@ -265,7 +265,11 @@ return [
     'payFailed' => 'Paiement refusé, je réssaie',
     'loginLabel' => 'Connexion',
     'manageMinitalks' => '管理Minitalks',
-    'comment' => '评论'
+    'comment' => '评论',
+    'manageComments' => '评论管理',
+    'lessonComment' => 'Texte评论',
+    'minitalkComment' => 'Minitalk评论',
+    'talkshowComment' => '脱口秀评论'
 
 ];
 

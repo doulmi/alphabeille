@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Lesson;
 use App\LessonComment;
+use App\Minitalk;
 use App\MinitalkComment;
+use App\Talkshow;
+use App\TalkshowCollect;
 use App\TalkshowComment;
+use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,9 +25,21 @@ class CommentController extends Controller
      */
     public function index($type)
     {
-        if($type == 'lessons') {
-//            LessonComment::
+        $limit = 25;
+
+        switch($type) {
+            case 'lesson' :
+                $comments = LessonComment::paginate($limit);
+                break;
+            case 'minitalk':
+                $comments = MinitalkComment::paginate($limit);
+                break;
+            case 'talkshow' :
+                $comments = TalkshowComment::paginate($limit);
+                break;
         }
+
+        return view('admin.comments', compact('type', 'comments'));
     }
 
     /**
@@ -70,13 +87,18 @@ class CommentController extends Controller
         $userIds = explode(" ", $request->get('user_id'));
 
         $i = 0;
+        $lesson = Lesson::findOrFail($request->get('content_id'));
+        $faker = Factory::create();
+        $now = Carbon::now();
         foreach ($comments as $comment) {
             if($comment != "") {
-                LessonComment::create([
-                    'lesson_id' => $request->get('content_id'),
+                $c = LessonComment::create([
+                    'lesson_id' => $lesson->id,
                     'user_id' => $userIds[$i],
-                    'content' => $comment
+                    'content' => $comment,
+                    'created_at' => Carbon::createFromTimestamp($faker->dateTimeBetween('- ' . $now->diffInDays($lesson->created_at) . ' days', 'now')->getTimestamp())
                 ]);
+                dd($faker->dateTimeBetween('- ' . $now->diffInDays($lesson->created_at) . ' days', 'now')->getTimestamp(), $c);
 
                 $i ++;
             }
@@ -90,12 +112,16 @@ class CommentController extends Controller
         $userIds = explode(" ", $request->get('user_id'));
 
         $i = 0;
+        $minitalk = Minitalk::findOrFail($request->get('content_id'));
+        $faker = Factory::create();
+        $now = Carbon::now();
         foreach ($comments as $comment) {
             if($comment != "") {
                 MinitalkComment::create([
                     'minitalk_id' => $request->get('content_id'),
                     'user_id' => $userIds[$i],
-                    'content' => $comment
+                    'content' => $comment,
+                    'created_at' => $faker->dateTimeBetween('- ' . $now->diffInDays($minitalk->created_at) . ' days', 'now')
                 ]);
 
                 $i ++;
@@ -110,12 +136,16 @@ class CommentController extends Controller
         $userIds = explode(" ", $request->get('user_id'));
 
         $i = 0;
+        $talkshow = Talkshow::findOrFail($request->get('content_id'));
+        $faker = Factory::create();
+        $now = Carbon::now();
         foreach ($comments as $comment) {
             if($comment != "") {
                 TalkshowComment::create([
                     'talkshow_id' => $request->get('content_id'),
                     'user_id' => $userIds[$i],
-                    'content' => $comment
+                    'content' => $comment,
+                    'created_at' => $faker->dateTimeBetween('- ' . $now->diffInDays($talkshow->created_at) . ' days', 'now')
                 ]);
 
                 $i ++;
@@ -164,8 +194,18 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($type, $id)
     {
-        //
+        switch($type) {
+            case 'lesson' :
+                LessonComment::destroy($id);
+                break;
+            case 'minitalk' :
+                MinitalkComment::destroy($id);
+                break;
+            case 'talkshow' :
+                TalkshowComment::destroy($id);
+                break;
+        }
     }
 }

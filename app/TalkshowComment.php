@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TalkshowComment extends Model
 {
     protected $fillable = [
-        'talkshow_id', 'content', 'user_id',
+        'talkshow_id', 'content', 'user_id', 'created_at'
     ];
     public function owner()
     {

@@ -258,4 +258,8 @@ return [
     'payFailed' => '支付失败了，再试试吧，也许网络不好',
     'loginLabel' => '登录',
     'manageMinitalks' => '管理Minitalks',
+    'manageComments' => '评论管理',
+    'lessonComment' => 'Texte评论',
+    'minitalkComment' => 'Minitalk评论',
+    'talkshowComment' => '脱口秀评论'
 ];
