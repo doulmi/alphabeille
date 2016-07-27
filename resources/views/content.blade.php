@@ -70,17 +70,19 @@
             @endif
             <br/>
             <br/>
-            @if($readable->free || (!Auth::guest() && Auth::user()->level() > 1))
+            @if($canRead)
                 <div class='markdown-content'>
                     {!! $content !!}
                 </div>
+            @endif
 
-                @if($readable instanceof \App\Minitalk)
-                    <div class='markdown-content wechat-part'>
-                        {!! $wechat_part !!}
-                    </div>
-                @endif
-            @else
+            @if($readable instanceof \App\Minitalk)
+                <div class='markdown-content wechat-part'>
+                    {!! $wechat_part !!}
+                </div>
+            @endif
+
+            @if($canRead)
                 @include('blockContent')
             @endif
 
