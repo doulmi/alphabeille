@@ -10,6 +10,7 @@ use App\Topic;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
 use Dingo\Api\Http\Request;
 use Illuminate\Support\Facades\Input;
 
@@ -18,10 +19,6 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index');
-    }
-
-    public function addUsers() {
-        
     }
 
     public function readables() {
