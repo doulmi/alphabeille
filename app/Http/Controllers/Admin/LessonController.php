@@ -56,7 +56,7 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        Lesson::create(array_merge($request->all(), ['slug' => null]));
+        Lesson::create(array_merge($request->all(), ['slug' => '']));
 
         Redis::incr('audio:count');
         Session::flash('success', trans('labels.createLessonSuccess'));
