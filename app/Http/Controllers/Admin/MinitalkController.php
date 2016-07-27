@@ -54,7 +54,7 @@ class MinitalkController extends Controller {
      */
     public function store(Request $request)
     {
-        Minitalk::create($request->all());
+        Minitalk::create(array_merge($request->all(), ['slug' => null]));
         Redis::incr('audio:count');
         Session::flash('success', trans('labels.createMinitalkSuccess'));
         return redirect('admin/minitalks');

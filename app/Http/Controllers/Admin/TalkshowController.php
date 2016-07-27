@@ -53,7 +53,7 @@ class TalkshowController extends Controller {
      */
     public function store(Request $request)
     {
-        Talkshow::create($request->all());
+        Talkshow::create(array_merge($request->all(), ['slug' => null]));
         Redis::incr('audio:count');
         Session::flash('success', trans('labels.createTalkshowSuccess'));
         return redirect('admin/talkshows');

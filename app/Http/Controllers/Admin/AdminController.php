@@ -23,6 +23,10 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function saveRealContent() {
+       $lessons = Lesson::all();
+    }
+
     public function changeDate() {
         $users = User::all();
 

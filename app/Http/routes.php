@@ -112,6 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
+    Route::get('/saveRealContent', 'Admin\AdminController@saveRealContent');
 });
 
 $api = app('Dingo\Api\Routing\Router');
