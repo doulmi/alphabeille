@@ -34,10 +34,6 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function saveRealContent() {
-       $lessons = Lesson::all();
-    }
-
     public function transferComment() {
         $lessons = Lesson::all();
         foreach($lessons as $lesson) {
