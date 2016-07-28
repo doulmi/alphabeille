@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Commentable extends Model
+class Likeable extends Model
 {
     protected $fillable = [
-        'commentable_id', 'commentable_type', 'user_id', 'content'
+        'likeable_id', 'likeable_type', 'user_id', 'content'
     ];
 
-    public function commentable()
+    public function likeable()
     {
         return $this->morphTo();
     }

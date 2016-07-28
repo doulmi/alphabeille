@@ -31,7 +31,16 @@ class Lesson extends Model
 
     public function comments()
     {
-        return $this->hasMany(LessonComment::class);
+        return $this->morphMany('App\Commentable', 'commentable');
+    }
+
+    public function collects()
+    {
+        return $this->morphMany('App\Collectable', 'collectable');
+    }
+
+    public function likes() {
+        return $this->morphMany('App\Likeable', 'likeable');
     }
 
     public function scopePublished($query)

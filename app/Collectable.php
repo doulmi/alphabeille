@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Commentable extends Model
+class Collectable extends Model
 {
     protected $fillable = [
-        'commentable_id', 'commentable_type', 'user_id', 'content'
+        'collectable_id', 'collectable_type', 'user_id', 'content'
     ];
 
-    public function commentable()
+    public function collectable()
     {
         return $this->morphTo();
     }

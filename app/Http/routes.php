@@ -28,9 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('uploadAvatar', 'UserController@uploadAvatar');
     Route::post('modifyPwd', 'UserController@modifyPwd');
     Route::post('comments', 'CommentController@store');
-    Route::post('lessonComments', 'LessonCommentController@store');
-    Route::post('talkshowComments', 'TalkshowCommentController@store');
-    Route::post('minitalkComments', 'MinitalkCommentController@store');
+    Route::post('lessonComments', 'LessonController@addComment');
+    Route::post('talkshowComments', 'TalkshowController@addComment');
+    Route::post('minitalkComments', 'MinitalkController@addComment');
     Route::get('subscription/{id}', 'PostController@subscription');
     Route::get('alipay/pay/{id}', 'AlipayController@pay');
     Route::get('alipay/result', 'AlipayController@result');
@@ -39,12 +39,14 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('verifyEmail/{confirmation_code}', function($confirmation_code) {
     return view('emails.register', compact('confirmation_code'));
 });
+
 Route::get('images', function() {
     return view('images');
 });
-Route::get('lessonComments/{lesson_id}', 'LessonCommentController@index');
-Route::get('talkshowComments/{talkshow_id}', 'TalkshowCommentController@index');
-Route::get('minitalkComments/{minitalk_id}', 'MinitalkCommentController@index');
+
+Route::get('lessonComments/{lesson_id}', 'LessonController@comments');
+Route::get('talkshowComments/{talkshow_id}', 'TalkshowController@comments');
+Route::get('minitalkComments/{minitalk_id}', 'MinitalkController@comments');
 
 
 Route::auth();
@@ -125,6 +127,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/saveRealContent', 'Admin\AdminController@saveRealContent');
     Route::get('/updateViews/{day}', 'Admin\AdminController@updateViews');
     Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
+    Route::get('/transferComment', 'Admin\AdminController@transferComment');
 });
 
 $api = app('Dingo\Api\Routing\Router');

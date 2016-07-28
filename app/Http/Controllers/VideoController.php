@@ -13,7 +13,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
-class VideoController extends Controller
+class VideoController extends ReadableController
 {
     /**
      * Display a listing of the resource.

@@ -24,11 +24,6 @@ class Minitalk extends Model
         return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
     }
 
-    public function comments()
-    {
-        return $this->hasMany(MinitalkComment::class);
-    }
-
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -56,5 +51,19 @@ class Minitalk extends Model
         } else {
             throw (new ModelNotFoundException)->setModel(get_class(Minitalk::class));
         }
+    }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Commentable', 'commentable');
+    }
+
+    public function collects()
+    {
+        return $this->morphMany('App\Collectable', 'collectable');
+    }
+
+    public function likes() {
+        return $this->morphMany('App\Likeable', 'likeable');
     }
 }

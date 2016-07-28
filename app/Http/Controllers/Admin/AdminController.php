@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Commentable;
 use App\Editor\Markdown\Markdown;
 use App\Lesson;
+use App\LessonComment;
 use App\Minitalk;
+use App\MinitalkComment;
 use App\Readable;
 use App\Talkshow;
+use App\TalkshowComment;
 use App\Topic;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
-use Carbon\Carbon;
-use Dingo\Api\Http\Request;
 use Faker\Factory;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends Controller
@@ -35,6 +36,50 @@ class AdminController extends Controller
 
     public function saveRealContent() {
        $lessons = Lesson::all();
+    }
+
+    public function transferComment() {
+        $lessons = Lesson::all();
+        foreach($lessons as $lesson) {
+            $lComments = LessonComment::where('lesson_id', $lesson->id)->latest()->get();
+            foreach($lComments as $comment) {
+                Commentable::create([
+                    'user_id' => $comment->user_id,
+                    'commentable_id' => $lesson->id,
+                    'commentable_type' => 'App\Lesson',
+                    'content' => $comment->content,
+                    'created_at' => $comment->created_at
+                ]);
+            }
+        }
+
+        $minitalks = Minitalk::all();
+        foreach($minitalks as $minitalk) {
+            $lComments = MinitalkComment::where('minitalk_id', $minitalk->id)->latest()->get();
+            foreach($lComments as $comment) {
+                Commentable::create([
+                    'user_id' => $comment->user_id,
+                    'commentable_id' => $minitalk->id,
+                    'commentable_type' => 'App\Lesson',
+                    'content' => $comment->content,
+                    'created_at' => $comment->created_at
+                ]);
+            }
+        }
+
+        $talkshows = Minitalk::all();
+        foreach($talkshows as $talkshow) {
+            $lComments = TalkshowComment::where('talkshow_id', $talkshow->id)->latest()->get();
+            foreach($lComments as $comment) {
+                Commentable::create([
+                    'user_id' => $comment->user_id,
+                    'commentable_id' => $talkshow->id,
+                    'commentable_type' => 'App\Lesson',
+                    'content' => $comment->content,
+                    'created_at' => $comment->created_at
+                ]);
+            }
+        }
     }
 
     public function saveParsedContent() {

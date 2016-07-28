@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
-class TalkshowController extends Controller
+class TalkshowController extends ReadableController
 {
     private $pageLimit = 24;
 
@@ -94,24 +94,7 @@ class TalkshowController extends Controller
 //        $content = $this->markdown->parse($talkshow->content);
         $content = $talkshow->parsed_content;
 
-        $like = false;
-        $collect = false;
-        $punchin = false;
-
-        if (!Auth::guest()) {
-            $model = TalkshowFavorite::where('user_id', Auth::user()->id)->where('talkshow_id', $id)->first();
-            if ($model) {
-                $like = true;
-            }
-            $model = TalkshowCollect::where('user_id', Auth::user()->id)->where('talkshow_id', $id)->first();
-            if ($model) {
-                $collect = true;
-            }
-            $model = UserPunchin::where('user_id', Auth::user()->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-            if ($model) {
-                $punchin = true;
-            }
-        }
+        list($like, $collect, $punchin) = $this->getStatus($talkshow);
 
         $readable = $talkshow;
         $type = 'talkshow';
@@ -157,10 +140,10 @@ class TalkshowController extends Controller
         return view('talkshows.index', compact('talkshows'));
     }
 
-    public function favorite($id)
-    {
-        return $this->doAction($id, TalkshowFavorite::class);
-    }
+//    public function favorite($id)
+//    {
+//        return $this->doAction($id, TalkshowFavorite::class);
+//    }
 
     public function collectTalkshows()
     {
@@ -168,69 +151,69 @@ class TalkshowController extends Controller
         return view('talkshows.index', compact('talkshows'));
     }
 
-    public function punchin($id)
-    {
-        $user = Auth::user();
-        $punchin = UserPunchin::where('user_id', $user->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-        if (!$punchin) {
-
-            UserPunchin::create([
-                'punchable_type' => 'App\Talkshow',
-                'punchable_id' => $id,
-                'user_id' => $user->id
-            ]);
-
-            $break = false;
-            $user->series++;
-            $shouldUpdateMaxSeries = $user->series > $user->maxSeries;
-            if ($shouldUpdateMaxSeries) {
-                $user->maxSeries = $user->series;
-                $break = true;
-            }
-            $user->save();
-            return response()->json([
-                'status' => 200,
-                'break' => $break,
-                'series' => $user->series
-            ]);
-        }
-    }
-
-    private function doAction($id, $class)
-    {
-        //不登录没权限
-        if (Auth::guest()) {
-            return response()->json([
-                'status' => 403,
-            ]);
-        }
-
-        $model = $class::where([
-            'talkshow_id' => $id,
-            'user_id' => Auth::user()->id
-        ])->first();
-
-        //已经收藏或喜欢的话会取消
-        if ($model) {
-            $model->delete();
-
-            return response()->json([
-                'status' => 200
-            ]);
-        } else {
-            $class::create([
-                'talkshow_id' => $id,
-                'user_id' => Auth::user()->id
-            ]);
-
-            return response()->json([
-                'status' => 200
-            ]);
-        }
-    }
-
-    public function collect($id)
-    {
-        return $this->doAction($id, TalkshowCollect::class);
-    }
+//    public function punchin($id)
+//    {
+//        $user = Auth::user();
+//        $punchin = UserPunchin::where('user_id', $user->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
+//        if (!$punchin) {
+//
+//            UserPunchin::create([
+//                'punchable_type' => 'App\Talkshow',
+//                'punchable_id' => $id,
+//                'user_id' => $user->id
+//            ]);
+//
+//            $break = false;
+//            $user->series++;
+//            $shouldUpdateMaxSeries = $user->series > $user->maxSeries;
+//            if ($shouldUpdateMaxSeries) {
+//                $user->maxSeries = $user->series;
+//                $break = true;
+//            }
+//            $user->save();
+//            return response()->json([
+//                'status' => 200,
+//                'break' => $break,
+//                'series' => $user->series
+//            ]);
+//        }
+//    }
+//
+//    private function doAction($id, $class)
+//    {
+//        //不登录没权限
+//        if (Auth::guest()) {
+//            return response()->json([
+//                'status' => 403,
+//            ]);
+//        }
+//
+//        $model = $class::where([
+//            'talkshow_id' => $id,
+//            'user_id' => Auth::user()->id
+//        ])->first();
+//
+//        //已经收藏或喜欢的话会取消
+//        if ($model) {
+//            $model->delete();
+//
+//            return response()->json([
+//                'status' => 200
+//            ]);
+//        } else {
+//            $class::create([
+//                'talkshow_id' => $id,
+//                'user_id' => Auth::user()->id
+//            ]);
+//
+//            return response()->json([
+//                'status' => 200
+//            ]);
+//        }
+//    }
+//
+//    public function collect($id)
+//    {
+//        return $this->doAction($id, TalkshowCollect::class);
+//    }
 }

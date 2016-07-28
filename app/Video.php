@@ -7,6 +7,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
 class Video extends Model
@@ -24,10 +26,10 @@ class Video extends Model
         return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
     }
 
-    public function comments()
-    {
-        return $this->hasMany(VideoComment::class);
-    }
+//    public function comments()
+//    {
+//        return $this->hasMany(VideoComment::class);
+//    }
 
     public static function findByIdOrSlugOrFail($idOrSlug)
     {
@@ -57,4 +59,20 @@ class Video extends Model
             ]
         ];
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Commentable', 'commentable');
+    }
+
+    public function collects()
+    {
+        return $this->morphMany('App\Collectable', 'collectable');
+    }
+
+    public function likes() {
+        return $this->morphMany('App\Likeable', 'likeable');
+    }
+
+
 }

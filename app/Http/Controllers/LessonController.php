@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Commentable;
 use App\Editor\Markdown\Markdown;
 use App\Lesson;
 use App\LessonCollect;
@@ -9,15 +10,13 @@ use App\LessonFavorite;
 use App\Topic;
 use App\UserPunchin;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redis;
 
-class LessonController extends Controller
+class LessonController extends ReadableController
 {
     private $viewMax = 100;
     private $pageLimit = 24;
@@ -99,30 +98,13 @@ class LessonController extends Controller
             abort(404);
         }
 
-        $like = false;
-        $collect = false;
-        $punchin = false;
+        list($like, $collect, $punchin) = $this->getStatus($lesson);
 
-        if (!Auth::guest()) {
-            $model = LessonFavorite::where('user_id', Auth::user()->id)->where('lesson_id', $id)->first();
-            if ($model) {
-                $like = true;
-            }
-            $model = LessonCollect::where('user_id', Auth::user()->id)->where('lesson_id', $id)->first();
-            if ($model) {
-                $collect = true;
-            }
-            $model = UserPunchin::where('user_id', Auth::user()->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-            if ($model) {
-                $punchin = true;
-            }
-        }
-
-//        dd($like, $collect);
         $readable = $lesson;
         $type = 'lesson';
         return view('lessons.show', compact(['readable', 'type', 'topic', 'id', 'topics', 'content', 'like', 'collect', 'punchin']));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -167,81 +149,6 @@ class LessonController extends Controller
     {
         $lessons = LessonCollect::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate($this->pageLimit);
         return view('lessons.index', compact('lessons'));
-    }
-
-    public function favorite($id)
-    {
-        return $this->doAction($id, LessonFavorite::class);
-    }
-
-    public function collect($id)
-    {
-        return $this->doAction($id, LessonCollect::class);
-    }
-
-    public function punchin($id)
-    {
-        $user = Auth::user();
-        if(!$user) {
-            return response()->json([
-                'status' => 403,
-            ]);
-        }
-        $punchin = UserPunchin::where('user_id', $user->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-        if (!$punchin) {
-            UserPunchin::create([
-                'punchable_type' => 'App\Lesson',
-                'punchable_id' => $id,
-                'user_id' => $user->id
-            ]);
-
-            $break = false;
-            $user->series++;
-            $shouldUpdateMaxSeries = $user->series > $user->maxSeries;
-            if ($shouldUpdateMaxSeries) {
-                $user->maxSeries = $user->series;
-                $break = true;
-            }
-            $user->save();
-            return response()->json([
-                'status' => 200,
-                'break' => $break,
-                'series' => $user->series
-            ]);
-        }
-    }
-
-    private function doAction($id, $class)
-    {
-        //不登录没权限
-        if (Auth::guest()) {
-            return response()->json([
-                'status' => 403,
-            ]);
-        }
-
-        $model = $class::where([
-            'lesson_id' => $id,
-            'user_id' => Auth::user()->id
-        ])->first();
-
-        //已经收藏或喜欢的话会取消
-        if ($model) {
-            $model->delete();
-
-            return response()->json([
-                'status' => 200
-            ]);
-        } else {
-            $class::create([
-                'lesson_id' => $id,
-                'user_id' => Auth::user()->id
-            ]);
-
-            return response()->json([
-                'status' => 200
-            ]);
-        }
     }
 
 
