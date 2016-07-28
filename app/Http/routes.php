@@ -46,6 +46,7 @@ Route::get('lessonComments/{lesson_id}', 'LessonCommentController@index');
 Route::get('talkshowComments/{talkshow_id}', 'TalkshowCommentController@index');
 Route::get('minitalkComments/{minitalk_id}', 'MinitalkCommentController@index');
 
+
 Route::auth();
 
 Route::resource('topics', 'TopicController');
@@ -122,6 +123,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
     Route::get('/saveRealContent', 'Admin\AdminController@saveRealContent');
+    Route::get('/updateViews/{day}', 'Admin\AdminController@updateViews');
+    Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
 });
 
 $api = app('Dingo\Api\Routing\Router');

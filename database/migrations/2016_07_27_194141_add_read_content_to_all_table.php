@@ -13,14 +13,15 @@ class AddReadContentToAllTable extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->string('parsed_content')->index();
-            $table->string('parsed_content_zh_CN')->index();
+            $table->text('parsed_content');
+            $table->text('parsed_content_zh_CN');
         });
         Schema::table('talkshows', function (Blueprint $table) {
-            $table->string('parsed_content')->index();
+            $table->text('parsed_content');
         });
         Schema::table('minitalks', function (Blueprint $table) {
-            $table->string('parsed_content')->index();
+            $table->text('parsed_content');
+            $table->text('parsed_wechat_part');
         });
     }
 
@@ -40,6 +41,7 @@ class AddReadContentToAllTable extends Migration
         });
         Schema::table('minitalks', function (Blueprint $table) {
             $table->dropColumn('parsed_content');
+            $table->dropColumn('parsed_wechat_part');
         });
     }
 }

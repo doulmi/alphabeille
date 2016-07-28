@@ -91,10 +91,10 @@ class LessonController extends Controller
         $topics = $topicController->random();
 
         if ($lan == 'fr') {
-            $content = $this->markdown->parse("####" . $lesson->content);
+            $content = $lesson->parsed_content;
         } else if ($lan == 'zh_CN') {
             $lesson->audio_url = $lesson->audio_url_zh_CN;
-            $content = $this->markdown->parse("####" . $lesson->content_zh_CN);
+            $content = $lesson->parsed_content_zh_CN;
         } else {
             abort(404);
         }

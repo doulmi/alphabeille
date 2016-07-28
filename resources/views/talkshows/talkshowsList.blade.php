@@ -8,7 +8,7 @@
         <div class="Header"></div>
     @else
         @foreach($talkshows as $talkshow)
-            <div class="col-md-3 col-xs-6 col-sm-4">
+            <div class="col-md-col-xs-6 col-sm-4">
                 <div class="Card">
 
                     @if($talkshow->free)

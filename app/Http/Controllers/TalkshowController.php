@@ -91,7 +91,8 @@ class TalkshowController extends Controller
 //        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
 //        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $comments = $talkshow->comments;
-        $content = $this->markdown->parse($talkshow->content);
+//        $content = $this->markdown->parse($talkshow->content);
+        $content = $talkshow->parsed_content;
 
         $like = false;
         $collect = false;

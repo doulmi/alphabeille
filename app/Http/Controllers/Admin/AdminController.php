@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Editor\Markdown\Markdown;
 use App\Lesson;
 use App\Minitalk;
 use App\Readable;
@@ -15,9 +16,18 @@ use Carbon\Carbon;
 use Dingo\Api\Http\Request;
 use Faker\Factory;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redis;
 
 class AdminController extends Controller
 {
+    private $markdown;
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
     public function index()
     {
         return view('admin.index');
@@ -25,6 +35,28 @@ class AdminController extends Controller
 
     public function saveRealContent() {
        $lessons = Lesson::all();
+    }
+
+    public function saveParsedContent() {
+        $lessons = Lesson::all();
+        foreach($lessons as $lesson) {
+            $lesson->parsed_content = $this->markdown->parse($lesson->content);
+            $lesson->parsed_content_zh_CN = $this->markdown->parse($lesson->content_zh_CN);
+            $lesson->save();
+        }
+
+        $minitalks = Minitalk::all();
+        foreach($minitalks as $minitalk) {
+            $minitalk->parsed_content = $this->markdown->parse($minitalk->content);
+            $minitalk->parsed_wechat_part = $this->markdown->parse($minitalk->wechat_part);
+            $minitalk->save();
+        }
+
+        $talkshows = Talkshow::all();
+        foreach($talkshows as $talkshow) {
+            $talkshow->parsed_content = $this->markdown->parse($talkshow->content);
+            $talkshow->save();
+        }
     }
 
     public function changeDate() {
@@ -36,6 +68,33 @@ class AdminController extends Controller
                 $user->created_at = $faker->dateTimeBetween('-21 days', 'now');
                 $user->save();
             }
+        }
+    }
+
+    public function updateViews($day) {
+        $faker = Factory::create();
+        $lessons = Lesson::all();
+        foreach($lessons as $lesson) {
+            Redis::set('lesson:view:' . $lesson->id, $faker->numberBetween(100, 220) * $day);
+        }
+
+        $topics = Topic::all();
+        foreach($topics as $topic) {
+            $views = 0;
+            foreach($topic->lessons as $lesson) {
+                $views += Redis::get('lesson:view' . $lesson->id);
+            }
+            Redis::set('topic:view:' . $topic->id, $views);
+        }
+
+        $minitalks = Minitalk::all();
+        foreach($minitalks as $minitalk) {
+            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(200, 400)  * $day);
+        }
+
+        $talkshows = Talkshow::all();
+        foreach($talkshows as $talkshow) {
+            Redis::set('talkshow:view:' . $talkshow->id, $faker->numberBetween(100, 200) * $day);
         }
     }
 

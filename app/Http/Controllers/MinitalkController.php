@@ -84,8 +84,10 @@ class MinitalkController extends Controller
 //        $next = Minitalk::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
 //        $pre = Minitalk::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $comments = $minitalk->comments;
-        $content = $this->markdown->parse($minitalk->content);
-        $wechat_part = $this->markdown->parse($minitalk->wechat_part);
+//        $content = $this->markdown->parse($minitalk->content);
+//        $wechat_part = $this->markdown->parse($minitalk->wechat_part);
+        $content = $minitalk->parsed_content;
+        $wechat_part = $minitalk->parsed_wechat_part;
 
         $like = false;
         $collect = false;
