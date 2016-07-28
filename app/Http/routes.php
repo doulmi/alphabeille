@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('talkshows/{id}/punchin', 'TalkshowController@punchin');
     Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
 
+    Route::post('minitalks/{id}/punchin', 'MinitalkController@punchin');
     Route::get('minitalks/collect', 'MinitalkController@collectMinitalks');
     Route::post('minitalks/{id}/favorite', 'MinitalkController@favorite');
     Route::post('minitalks/{id}/collect', 'MinitalkController@collect');
@@ -124,7 +125,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
-    Route::get('/saveRealContent', 'Admin\AdminController@saveRealContent');
     Route::get('/updateViews/{day}', 'Admin\AdminController@updateViews');
     Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');

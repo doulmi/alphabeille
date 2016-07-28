@@ -80,6 +80,9 @@ class LessonController extends ReadableController
     {
         $lesson = Lesson::findByIdOrSlugOrFail($idOrSlug);
 
+        if(!$lesson) {
+
+        }
         $topicController = new TopicController();
         $id = $lesson->id;
         Redis::incr('lesson:view:' . $id);

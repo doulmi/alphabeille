@@ -59,7 +59,7 @@ class Lesson extends Model
         if ($lesson) {
             return $lesson;
         } else {
-            throw (new ModelNotFoundException)->setModel(get_class(Lesson::class));
+            throw (new ModelNotFoundException)->setModel(Lesson::class);
         }
     }
 

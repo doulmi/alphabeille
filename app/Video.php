@@ -42,7 +42,7 @@ class Video extends Model
         if ($entity) {
             return $entity;
         } else {
-            throw (new ModelNotFoundException)->setModel(get_class(Video::class));
+            throw (new ModelNotFoundException)->setModel(Video::class);
         }
     }
 

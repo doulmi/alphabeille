@@ -49,7 +49,7 @@ class Minitalk extends Model
         if ($entity) {
             return $entity;
         } else {
-            throw (new ModelNotFoundException)->setModel(get_class(Minitalk::class));
+            throw (new ModelNotFoundException)->setModel(Minitalk::class);
         }
     }
 

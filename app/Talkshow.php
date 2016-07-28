@@ -40,7 +40,7 @@ class Talkshow extends Model
         if ($entity) {
             return $entity;
         } else {
-            throw (new ModelNotFoundException)->setModel(get_class(Talkshow::class));
+            throw (new ModelNotFoundException)->setModel(Talkshow::class);
         }
     }
 

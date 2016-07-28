@@ -77,6 +77,8 @@ class MinitalkController extends ReadableController
     {
         $minitalk = Minitalk::findByIdOrSlugOrFail($idOrSlug);
 
+        if(!$minitalk) {
+        }
         $id = $minitalk->id;
         Redis::incr('minitalk:view:' . $id);
 
