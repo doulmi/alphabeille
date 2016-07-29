@@ -25,8 +25,8 @@
         </h2>
 
         <div class="Card-Collection">
-            @include('talkshows.talkshowsList')
-            <?php $pages = $talkshows ?>
+            <?php $pages = $readables = $talkshows; ?>
+            @include('readableList')
             @include('utils.pageNavigator')
         </div>
     </div>

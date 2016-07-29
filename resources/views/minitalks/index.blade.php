@@ -25,8 +25,8 @@
         </h2>
 
         <div class="Card-Collection">
+            <?php $pages = $readables = $minitalks; ?>
             @include('minitalks.minitalksList')
-            <?php $pages = $minitalks ?>
             @include('utils.pageNavigator')
         </div>
     </div>

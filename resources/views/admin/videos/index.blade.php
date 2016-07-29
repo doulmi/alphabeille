@@ -9,11 +9,10 @@
         </div>
     @endif
     <div class="fullscreen">
-        <a href="{{url('admin/minitalks/create')}}" class="btn btn-info">@lang('labels.addMinitalk')</a>
+        <a href="{{url('admin/videos/create')}}" class="btn btn-info">@lang('labels.addVideos')</a>
         <table class="table">
             <thead>
             <tr>
-                <th>@lang('labels.avatar')</th>
                 <th>@lang('labels.title')</th>
                 <th>@lang('labels.likes')</th>
                 <th>@lang('labels.views')</th>
@@ -23,26 +22,26 @@
             </tr>
             </thead>
             <tbody id="tbody">
-            @foreach($minitalks as $minitalk )
-                <tr id="row-{{$minitalk->id}}">
-                    <td><img width="60px" height="60px" src="{{$minitalk->avatar}}" alt=""></td>
-                    <td><a href="{{url("minitalks/" . $minitalk->id)}}" TARGET = "_blank">{{$minitalk->title}}</a></td>
-                    <td>{{$minitalk->likes}}</td>
-                    <td>{{$minitalk->views}}</td>
-                    <td>{{$minitalk->free}}</td>
-                    <th scope="row">{{$minitalk->id}}</th>
+            @foreach($videos as $video)
+                <tr id="row-{{$video->id}}">
+                    <td>{{$video->title}}</td>
+                    <td>{{$video->likes}}</td>
+                    <td>{{$video->views}}</td>
+                    <td>{{$video->free}}</td>
+                    <th scope="row">{{$video->id}}</th>
                     <td>
-                        <button class="btn btn-danger"
-                                onclick="deleteMinitalk('{{$minitalk->id}}')">@lang('labels.delete')</button>
-                        <a class="btn btn-info" href="{{url('admin/minitalks/' . $minitalk->id .'/edit')}}">@lang('labels.modify')</a>
-                        <a class="btn btn-success" href="{{url('admin/minitalkComments/create/' . $minitalk->id)}}">@lang('labels.comments')</a>
+                        <a class="btn btn-info" href="{{url('admin/videos/' . $video->id .'/points')}}">@lang('labels.setPoint')</a>
+                        <a class="btn btn-info" href="{{url('admin/videos/' . $video->id .'/edit')}}">@lang('labels.modify')</a>
+                        <a class="btn btn-success" href="{{url('admin/videoComments/create/' . $video->id)}}">@lang('labels.comments')</a>
+                        <button class="btn btn-danger" onclick="deleteContent('{{$video->id}}')">@lang('labels.delete')</button>
                     </td>
                 </tr>
             @endforeach
             </tbody>
+
         </table>
         <div class="center">
-            {!! $minitalks->render() !!}
+            {!! $videos->render() !!}
         </div>
     </div>
 @endsection
@@ -53,10 +52,10 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
 
     <script>
-        function deleteMinitalk(id) {
+        function deleteContent(id) {
             $.ajax({
                 type: "DELETE",
-                url: '{{url('admin/minitalks/')}}' + '/' + id,
+                url: '{{url('admin/videos/')}}' + '/' + id,
                 headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
                 success: function (response) {
                     $('#row-' + id).remove();

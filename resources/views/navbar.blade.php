@@ -21,6 +21,7 @@
                 <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
                 <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
                 <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
+                <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
             </ul>
 
 
@@ -116,9 +117,14 @@
                         </div>
                     @endif
                     <div class="nav-btns center ">
-                        <a href="{{url('/')}}" class="nav-xs-btn">@lang('titles.index')</a>
-                        <a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>
-                        <a href="{{url('/discussions')}}" class="nav-xs-btn">@lang('titles.discussions')</a>
+                        <a href="{{url('/')}}" class="nav-xs-btn">@lang('title.index')</a>
+                        <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a>
+                        <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a>
+
+                        <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a>
+                        <a href="{{url('/talkshows')}}" class="nav-xs-btn">@lang('labels.talkshows')</a>
+                        {{--<a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>--}}
+                        {{--<a href="{{url('/discussions')}}" class="nav-xs-btn">@lang('titles.discussions')</a>--}}
                     </div>
                     <div class="center nav-btns">
                         @foreach (Config::get('languages') as $lang => $language)

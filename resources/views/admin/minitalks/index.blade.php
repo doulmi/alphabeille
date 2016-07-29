@@ -9,7 +9,7 @@
         </div>
     @endif
     <div class="fullscreen">
-        <a href="{{url('admin/talkshows/create')}}" class="btn btn-info">@lang('labels.addTalkshow')</a>
+        <a href="{{url('admin/minitalks/create')}}" class="btn btn-info">@lang('labels.addMinitalk')</a>
         <table class="table">
             <thead>
             <tr>
@@ -23,27 +23,25 @@
             </tr>
             </thead>
             <tbody id="tbody">
-            @foreach($talkshows as $talkshow)
-                <tr id="row-{{$talkshow->id}}">
-                    <td><img width="60px" height="60px" src="{{$talkshow->avatar}}" alt=""></td>
-                    <td><a href="{{url("talkshows/" . $talkshow->id)}}" TARGET = "_blank">{{$talkshow->title}}</a></td>
-                    <td>{{$talkshow->likes}}</td>
-                    <td>{{$talkshow->views}}</td>
-                    <td>{{$talkshow->free}}</td>
-                    <th scope="row">{{$talkshow->id}}</th>
+            @foreach($minitalks as $minitalk )
+                <tr id="row-{{$minitalk->id}}">
+                    <td><img width="60px" height="60px" src="{{$minitalk->avatar}}" alt=""></td>
+                    <td><a href="{{url("minitalks/" . $minitalk->id)}}" TARGET = "_blank">{{$minitalk->title}}</a></td>
+                    <td>{{$minitalk->likes}}</td>
+                    <td>{{$minitalk->views}}</td>
+                    <td>{{$minitalk->free}}</td>
+                    <th scope="row">{{$minitalk->id}}</th>
                     <td>
-                        <button class="btn btn-danger"
-                                onclick="deleteTalkshow('{{$talkshow->id}}')">@lang('labels.delete')</button>
-                        <a class="btn btn-info" href="{{url('admin/talkshows/' . $talkshow->id .'/edit')}}">@lang('labels.modify')</a>
-                        <a class="btn btn-success" href="{{url('admin/talkshowComments/create/' . $talkshow->id)}}">@lang('labels.comments')</a>
+                        <a class="btn btn-info" href="{{url('admin/minitalks/' . $minitalk->id .'/edit')}}">@lang('labels.modify')</a>
+                        <a class="btn btn-success" href="{{url('admin/minitalkComments/create/' . $minitalk->id)}}">@lang('labels.comments')</a>
+                        <button class="btn btn-danger" onclick="deleteMinitalk('{{$minitalk->id}}')">@lang('labels.delete')</button>
                     </td>
                 </tr>
             @endforeach
             </tbody>
-
         </table>
         <div class="center">
-            {!! $talkshows->render() !!}
+            {!! $minitalks->render() !!}
         </div>
     </div>
 @endsection
@@ -54,10 +52,10 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
 
     <script>
-        function deleteTalkshow(id) {
+        function deleteMinitalk(id) {
             $.ajax({
                 type: "DELETE",
-                url: '{{url('admin/talkshows/')}}' + '/' + id,
+                url: '{{url('admin/minitalks/')}}' + '/' + id,
                 headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
                 success: function (response) {
                     $('#row-' + id).remove();

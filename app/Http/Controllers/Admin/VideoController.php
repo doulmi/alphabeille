@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Editor\Markdown\Markdown;
+use App\Helper;
+use App\Video;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class VideoController extends Controller
 {
+
+    private $markdown;
+
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +33,20 @@ class VideoController extends Controller
      */
     public function index()
     {
-        //
+        $orderBy = Input::get('orderBy', 'created_at');
+        $dir = Input::get('dir', 'DESC');
+        $limit = Input::get('limit', 50);
+        $search = trim(Input::get('search', ''));
+        $searchField = trim(Input::get('searchField', ''));
+
+        if ($searchField != '' && $search != '') {
+            if ($searchField != 'role') {
+                $videos = Video::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
+            }
+        } else {
+            $videos = Video::orderBy($orderBy, $dir)->paginate($limit);
+        }
+        return view('admin.videos.index', compact(['videos']));
     }
 
     /**
@@ -26,7 +56,8 @@ class VideoController extends Controller
      */
     public function create()
     {
-        //
+        $edit = false;
+        return view('admin.videos.show', compact(['edit']));
     }
 
     /**
@@ -37,8 +68,18 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = '';
+        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
+
+        Video::create($data);
+
+//        Redis::incr('audio:count');
+        Session::flash('success', trans('labels.createVideoSuccess'));
+        return redirect('admin/videos');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -48,7 +89,13 @@ class VideoController extends Controller
      */
     public function show($id)
     {
-        //
+        $video = Video::firstOrFail($id);
+        return $video;
+    }
+
+    public function preview(Request $request) {
+        $tmp = $request->all();
+        return view('admin.videos.preview', compact('tmp'));
     }
 
     /**
@@ -59,7 +106,9 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.video');
+        $edit = true;
+        $video = Video::findOrFail($id);
+        return view('admin.videos.show', compact(['edit', 'video']));
     }
 
     /**
@@ -71,7 +120,13 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $video = Video::findOrFail($id);
+
+        $data = $request->all();
+        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
+
+        $video->update($data);
+        return redirect('admin/videos');
     }
 
     /**
@@ -82,6 +137,33 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $video = Video::findOrFail($id);
+        $video->delete();
+        return response()->json([
+            'status' => 200
+        ]);
+    }
+
+    public function editPoints($id) {
+        $video = Video::findOrFail($id);
+        if($video->points != '') {
+            $edit = true;
+        } else {
+            $edit = false;
+        }
+        return view('admin.videos.point', compact(['video', 'edit']));
+    }
+
+    public function storePoints(Request $request, $id) {
+        $video = Video::findOrFail($id);
+        $video->points = $request->get('points', '');
+        $video->save();
+
+        return redirect('admin/videos');
+    }
+
+    public function getPoints($id) {
+        $video = Video::findOrFail($id);
+        return $video->points;
     }
 }

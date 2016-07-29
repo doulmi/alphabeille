@@ -261,5 +261,11 @@ return [
     'manageComments' => '评论管理',
     'lessonComment' => 'Texte评论',
     'minitalkComment' => 'Minitalk评论',
-    'talkshowComment' => '脱口秀评论'
+    'talkshowComment' => '脱口秀评论',
+    'addVideos' => '添加视频',
+    'manageVideos' => '管理视频',
+    'setPoint' => '断点',
+    'video_url' => '视频链接',
+    'videos' => '短视频',
 ];
+

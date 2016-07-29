@@ -2,31 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Discussion;
-use App\Editor\Markdown\Markdown;
-use App\Http\Controllers\Admin\LessonController;
-use App\Http\Controllers\TalkshowController;
-use App\Http\Controllers\TopicController;
 use App\Lesson;
 use App\Minitalk;
 use App\Subscription;
 use App\Talkshow;
-use Illuminate\Http\Request;
-use EndaEditor;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Omnipay\Omnipay;
 use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $num = 8;
+        $num = Config::get('params')['indexPageLimit'];
         $lessons = Lesson::orderBy('id', 'DESC')->limit($num)->get();
+
         $talkshows = Talkshow::latest()->limit($num)->get();
         $minitalks = Minitalk::latest()->limit($num)->get();
 

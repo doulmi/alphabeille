@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/bootstrap-markdown.min.css">
-    <link rel="stylesheet" href="/css/admin.css">
+    {{--<link rel="stylesheet" href="/css/admin.css">--}}
+
+    @yield('othercss')
+    <link rel="stylesheet" href="/css/app.css">
     <meta id="token" name="token" value="{{csrf_token()}}">
 </head>
 <body>
 
 @include('admin.navbar')
-
-<div class="Header">
-</div>
 
 <div class="container-fluid">
     <div class="col-md-2 sidebar">
@@ -65,6 +65,10 @@
             <a href="{{url('admin/minitalks')}}" class="list-group-item item">
                 <i class="glyphicon glyphicon-music"></i>
                 @lang('labels.manageMinitalks')
+            </a>
+            <a href="{{url('admin/videos')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-play"></i>
+                @lang('labels.manageVideos')
             </a>
             <a href="{{url('admin/comments/lesson')}}" class="list-group-item item">
                 <i class="glyphicon glyphicon-music"></i>

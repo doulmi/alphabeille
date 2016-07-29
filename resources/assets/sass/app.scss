@@ -261,7 +261,7 @@ body {
   border: 1px solid $primaryBgColor;
   width: 100%;
   background: transparent;
-  margin: 20px 0 100px 0;
+  margin: 20px 0 50px 0;
   -webkit-transition: all .1s ease-in-out;
   transition: all .1s ease-in-out;
 }
@@ -1403,6 +1403,16 @@ body {
   #menu-xs {
     border-color: $primaryBgColor;
     background-color: $primaryBgColor;
+  }
+
+  .jumbotron.ad-jumbotron {
+    height: 640px;
+    //background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/indexBg.png);
+    background-image: none;
+    background: #32CDFF;
+    h1 {
+      font-size: 20px;
+    }
   }
 
   .Card-Collection {
@@ -3346,12 +3356,15 @@ body {
       }
     }
   }
+
+
 }
 
 .scroll-bar {
   height: 0 !important;
 }
 
+//菜单页面
 $button-width: 100px;
 $button-height: 100px;
 $button-color: lighten(crimson, 5%);
@@ -3585,4 +3598,18 @@ $timing-function: ease-out;
   margin-left: -1.5em;
   top: 50%;
   margin-top: -1.1em;
+}
+
+.video-content-panel {
+  height: 500px;
+  overflow: auto;
+}
+
+.align-top {
+  vertical-align: top;
+}
+
+.points-panel {
+  height: 400px;
+  overflow: auto;
 }

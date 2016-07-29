@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Editor\Markdown\Markdown;
 use App\Helper;
 use App\Minitalk;
 use App\Talkshow;
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class MinitalkController extends Controller {
+
+    private $markdown;
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
@@ -33,7 +43,7 @@ class MinitalkController extends Controller {
         } else {
             $minitalks = Minitalk::orderBy($orderBy, $dir)->paginate($limit);
         }
-        return view('admin.minitalks', compact(['minitalks']));
+        return view('admin.minitalks.index', compact(['minitalks']));
     }
 
     /**
@@ -43,7 +53,7 @@ class MinitalkController extends Controller {
      */
     public function create() {
         $edit = false;
-        return view('admin.minitalk', compact('edit'));
+        return view('admin.minitalks.show', compact('edit'));
     }
 
     /**
@@ -54,8 +64,13 @@ class MinitalkController extends Controller {
      */
     public function store(Request $request)
     {
-        Minitalk::create(array_merge($request->all(), ['slug' => '']));
-        Redis::incr('audio:count');
+        $data = $request->all();
+        $data['slug'] = '';
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+        $data['parsed_wechat_part'] = $this->markdown->parse($data['wechat_part']);
+
+        Minitalk::create($data);
+//        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createMinitalkSuccess'));
         return redirect('admin/minitalks');
     }
@@ -82,7 +97,7 @@ class MinitalkController extends Controller {
     {
         $edit = true;
         $minitalk = Minitalk::findOrFail($id);
-        return view('admin.minitalk', compact('edit', 'minitalk'));
+        return view('admin.minitalks.show', compact('edit', 'minitalk'));
     }
 
     /**
@@ -94,8 +109,13 @@ class MinitalkController extends Controller {
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
+        $data['slug'] = '';
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+        $data['parsed_wechat_part'] = $this->markdown->parse($data['wechat_part']);
+
         $minitalk = Minitalk::findOrFail($id);
-        $minitalk->update($request->all());
+        $minitalk->update($data);
         return redirect('admin/minitalks');
     }
 

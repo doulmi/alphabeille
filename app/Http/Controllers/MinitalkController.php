@@ -2,41 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Editor\Markdown\Markdown;
 use App\Minitalk;
-use App\MinitalkCollect;
-use App\MinitalkFavorite;
-use App\UserPunchin;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 
 class MinitalkController extends ReadableController
 {
-    private $pageLimit = 24;
-
-    //Redis中的次数累计到viewMax，写入到数据库中
-    private $viewMax = 100;
-
-    private $markdown;
-    /**
-     * @param $makrdown
-     */
-    public function __construct(Markdown $markdown)
-    {
-        $this->markdown = $markdown;
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index() {
-        $minitalks = Minitalk::latest()->paginate($this->pageLimit);
+        $pageLimit = Config::get('params')['pageLimit'];
+        $minitalks = Minitalk::latest()->paginate($pageLimit);
         return view('minitalks.index', compact('minitalks'));
     }
 
@@ -80,7 +58,7 @@ class MinitalkController extends ReadableController
         if(!$minitalk) {
         }
         $id = $minitalk->id;
-        Redis::incr('minitalk:view:' . $id);
+//        Redis::incr('minitalk:view:' . $id);
 
         $comments = $minitalk->comments;
         $content = $minitalk->parsed_content;
@@ -131,9 +109,5 @@ class MinitalkController extends ReadableController
         return view('$minitalks.index', compact('minitalks'));
     }
 
-    public function collectMinitalks()
-    {
-        $minitalks = MinitalkCollect::where('user_id', Auth::user()->id)->paginate($this->pageLimit);
-        return view('minitalks.index', compact('minitalks'));
-    }
+
 }

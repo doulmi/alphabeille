@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper;
+use App\Editor\Markdown\Markdown;
 use App\Talkshow;
 use Illuminate\Http\Request;
 
@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class TalkshowController extends Controller {
+
+    private $markdown;
+
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
+
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
@@ -32,7 +43,7 @@ class TalkshowController extends Controller {
         } else {
             $talkshows = Talkshow::orderBy($orderBy, $dir)->paginate($limit);
         }
-        return view('admin.talkshows', compact(['talkshows']));
+        return view('admin.talkshows.index', compact(['talkshows']));
     }
 
     /**
@@ -42,7 +53,7 @@ class TalkshowController extends Controller {
      */
     public function create() {
         $edit = false;
-        return view('admin.talkshow', compact('edit'));
+        return view('admin.talkshows.show', compact('edit'));
     }
 
     /**
@@ -53,8 +64,12 @@ class TalkshowController extends Controller {
      */
     public function store(Request $request)
     {
-        Talkshow::create(array_merge($request->all(), ['slug' => '']));
-        Redis::incr('audio:count');
+        $data = $request->all();
+        $data['slug'] = '';
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+
+        Talkshow::create($data);
+//        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createTalkshowSuccess'));
         return redirect('admin/talkshows');
     }
@@ -81,7 +96,7 @@ class TalkshowController extends Controller {
     {
         $edit = true;
         $talkshow = Talkshow::findOrFail($id);
-        return view('admin.talkshow', compact('edit', 'talkshow'));
+        return view('admin.talkshows.show', compact('edit', 'talkshow'));
     }
 
     /**
@@ -94,7 +109,10 @@ class TalkshowController extends Controller {
     public function update(Request $request, $id)
     {
         $talkshow = Talkshow::findOrFail($id);
-        $talkshow->update($request->all());
+        $data = $request->all();
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+
+        $talkshow->update($data);
         return redirect('admin/talkshows');
     }
 

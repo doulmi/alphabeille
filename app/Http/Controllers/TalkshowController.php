@@ -2,41 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Editor\Markdown\Markdown;
 use App\Talkshow;
-use App\TalkshowCollect;
-use App\TalkshowFavorite;
-use App\UserPunchin;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 
 class TalkshowController extends ReadableController
 {
-    private $pageLimit = 24;
 
-    //Redis中的次数累计到viewMax，写入到数据库中
-    private $viewMax = 100;
-
-    private $markdown;
-    /**
-     * @param $makrdown
-     */
-    public function __construct(Markdown $markdown)
-    {
-        $this->markdown = $markdown;
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $talkshows = Talkshow::latest()->paginate($this->pageLimit);
+        $pageLimit = Config::get('params')['pageLimit'];
+        $talkshows = Talkshow::latest()->paginate($pageLimit);
         return view('talkshows.index', compact('talkshows'));
     }
 

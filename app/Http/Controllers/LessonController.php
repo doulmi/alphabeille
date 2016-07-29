@@ -2,33 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Commentable;
-use App\Editor\Markdown\Markdown;
 use App\Lesson;
-use App\LessonCollect;
-use App\LessonFavorite;
 use App\Topic;
-use App\UserPunchin;
-use Carbon\Carbon;
+use App\Collectable;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 
 class LessonController extends ReadableController
 {
-    private $viewMax = 100;
-    private $pageLimit = 24;
-    private $markdown;
-
-    /**
-     * @param $makrdown
-     */
-    public function __construct(Markdown $markdown)
-    {
-        $this->markdown = $markdown;
-    }
 
     /**
      * Display a listing of the resource.
@@ -37,7 +22,8 @@ class LessonController extends ReadableController
      */
     public function index()
     {
-        $lessons = Lesson::orderby('id', 'DESC')->paginate($this->pageLimit);
+        $pageLimit = Config::get('params')['pageLimit'];
+        $lessons = Lesson::orderby('id', 'DESC')->paginate($pageLimit);
         return view('lessons.index', compact('lessons'));
     }
 
@@ -85,10 +71,10 @@ class LessonController extends ReadableController
         }
         $topicController = new TopicController();
         $id = $lesson->id;
-        Redis::incr('lesson:view:' . $id);
+//        Redis::incr('lesson:view:' . $id);
 
         $topic = $lesson->topic;
-        Redis::incr('topic:view:' . $topic->id);
+//        Redis::incr('topic:view:' . $topic->id);
 
         $topics = $topicController->random();
 
@@ -147,10 +133,16 @@ class LessonController extends ReadableController
         $lessons = Lesson::where('free', 1)->orderBy('id', 'DESC')->paginate($this->pageLimit);
         return view('lessons.index', compact('lessons'));
     }
+//
+//    public function collectLessons()
+//    {
+//        $lessons = LessonCollect::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate($this->pageLimit);
+//        return view('lessons.index', compact('lessons'));
+//    }
 
-    public function collectLessons()
-    {
-        $lessons = LessonCollect::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->paginate($this->pageLimit);
+    public function collectLessons() {
+        $pageLimit = Config::get('params')['pageLimit'];
+        $lessons = Collectable::where('user_id', Auth::user()->id)->where('collectable_type', 'App\Lesson')->paginate($pageLimit);
         return view('lessons.index', compact('lessons'));
     }
 

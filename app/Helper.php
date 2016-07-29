@@ -9,6 +9,8 @@
 namespace App;
 
 
+use Sunra\PhpSimple\HtmlDomParser;
+
 class Helper
 {
     public static function duration2Hour($duration)
@@ -26,5 +28,28 @@ class Helper
         $ss = $tts[1];
 
         return $mm + $ss / 60;
+    }
+
+    public static function parsePointLink($src) {
+        $root = HtmlDomParser::str_get_html($src);
+
+        $content = '<table><tbody>';
+
+        $i = 0;
+
+        foreach ($root->childNodes() as $childNode) {
+            $tag = $childNode->tag;
+
+            if (($tag == 'p' || $tag == 'blockquote') && !$childNode->find('img')) {
+                $content .= '<tr class="align-top"><td><a href="#' . $i . '" @click="seekTo(' . $i . ')"><i style="font-size: 20px" class="glyphicon glyphicon-play "></a></td><td>' . $childNode->outertext . '</td></tr>';
+            } else {
+                $content .= '<tr><td></td><td>' . $childNode->outertext . "</td></tr>";
+            }
+            $i++;
+        }
+
+        $content .= '</tbody></table>';
+
+        return $content;
     }
 }

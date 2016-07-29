@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 
 class VideoController extends ReadableController
@@ -22,7 +23,9 @@ class VideoController extends ReadableController
      */
     public function index()
     {
-        //
+        $pageLimit = Config::get('params')['pageLimit'];
+        $videos = Video::latest()->paginate($pageLimit);
+        return view('videos.index', compact('videos'));
     }
 
     /**

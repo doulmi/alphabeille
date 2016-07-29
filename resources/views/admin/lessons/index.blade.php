@@ -31,10 +31,9 @@
                     <td>{{$lesson->free}}</td>
                     <th scope="row">{{$lesson->id}}</th>
                     <td>
-                        <button class="btn btn-danger"
-                                onclick="deleteLesson('{{$lesson->id}}')">@lang('labels.delete')</button>
                         <a class="btn btn-info" href="{{url('admin/lessons/' . $lesson->id .'/edit')}}">@lang('labels.modify')</a>
                         <a class="btn btn-success" href="{{url('admin/lessonComments/create/' . $lesson->id)}}">@lang('labels.comments')</a>
+                        <button class="btn btn-danger" onclick="deleteLesson('{{$lesson->id}}')">@lang('labels.delete')</button>
                     </td>
                 </tr>
             @endforeach

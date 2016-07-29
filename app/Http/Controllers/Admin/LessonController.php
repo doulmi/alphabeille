@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helper;
+use App\Editor\Markdown\Markdown;
 use App\Lesson;
 use Illuminate\Http\Request;
 
@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Session;
 
 class LessonController extends Controller
 {
+
+    private $markdown;
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +43,7 @@ class LessonController extends Controller
         } else {
             $lessons = Lesson::orderBy($orderBy, $dir)->paginate($limit);
         }
-        return view('admin.lessons', compact(['lessons']));
+        return view('admin.lessons.index', compact(['lessons']));
     }
 
     /**
@@ -45,7 +54,7 @@ class LessonController extends Controller
     public function create($topicId)
     {
         $edit = false;
-        return view('admin.lesson', compact('topicId', 'edit'));
+        return view('admin.lessons.show', compact('topicId', 'edit'));
     }
 
     /**
@@ -56,9 +65,14 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        Lesson::create(array_merge($request->all(), ['slug' => '']));
+        $data = $request->all();
+        $data['slug'] = '';
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+        $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
 
-        Redis::incr('audio:count');
+        Lesson::create($data);
+
+//        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createLessonSuccess'));
         return redirect('admin/lessons');
     }
@@ -84,7 +98,7 @@ class LessonController extends Controller
     public function edit($id) {
         $edit = true;
         $lesson = Lesson::findOrFail($id);
-        return view('admin.lesson', compact('edit', 'lesson'));
+        return view('admin.lessons.show', compact('edit', 'lesson'));
     }
 
     /**
@@ -98,7 +112,11 @@ class LessonController extends Controller
     {
         $lesson= Lesson::find($id);
 
-        $lesson->update($request->all());
+        $data = $request->all();
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+        $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
+
+        $lesson->update($data);
         return redirect('admin/lessons');
 //        $lesson->update([
 //            'title' => $request->get('title'),

@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="body">
-        <div class="night fullscreen">
+        <div class="night">
             <div class="jumbotron ad-jumbotron">
                 <div class="Header"></div>
                 <div class="container">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="night-fall fullscreen">
+        <div class="night-fall">
             <div class="Header"></div>
 
             <div class="Card-Collection row">
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class=" morning fullscreen">
+        <div class="morning">
             <div class="Header"></div>
             <div class="Card-Collection row">
                 <h2 class="Heading-Fancy ">

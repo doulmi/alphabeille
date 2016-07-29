@@ -28,8 +28,7 @@
                     <td>{{$comment->user_id}}</td>
                     <td>{{$comment->content}}</td>
                     <td>
-                        <button class="btn btn-danger"
-                                onclick="deleteComment('{{$comment->id}}')">@lang('labels.delete')</button>
+                        <button class="btn btn-danger" onclick="deleteComment('{{$comment->id}}')">@lang('labels.delete')</button>
                     </td>
                 </tr>
             @endforeach

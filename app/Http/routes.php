@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
 
     Route::post('minitalks/{id}/punchin', 'MinitalkController@punchin');
-    Route::get('minitalks/collect', 'MinitalkController@collectMinitalks');
+    Route::get('minitalks/collect', 'MinitalkController@collects');
     Route::post('minitalks/{id}/favorite', 'MinitalkController@favorite');
     Route::post('minitalks/{id}/collect', 'MinitalkController@collect');
 
@@ -102,6 +102,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('/lessons/{topicId}', 'Admin\LessonController@update');
     Route::get('/lessons/{topicId}/create', 'Admin\LessonController@create');
     Route::get('/lessons/{id}/edit', 'Admin\LessonController@edit');
+    Route::get('/lessons/preview', 'Admin\LessonController@preview');
+    Route::delete('/lessons/{id}', 'Admin\LessonController@destroy');
 
     Route::get('/video', 'Admin\VideoController@create');
 
@@ -121,7 +123,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::delete('/comments/{type}/{id}', 'Admin\CommentController@destroy');
 
     Route::resource('talkshows', 'Admin\TalkshowController');
+    Route::get('talkshows/preview', 'Admin\TalkshowController@preview');
+
     Route::resource('minitalks', 'Admin\MinitalkController');
+    Route::get('minitalks/preview', 'Admin\MinitalkController@preview');
+
+    Route::resource('videos', 'Admin\VideoController');
+    Route::get('videos/{id}/points', 'Admin\VideoController@editPoints');
+    Route::post('videos/{id}/points', 'Admin\VideoController@storePoints');
+    Route::get('api/videos/{id}/points', 'Admin\VideoController@getPoints');
+    Route::get('videos/preview', 'Admin\VideoController@preview');
 
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');

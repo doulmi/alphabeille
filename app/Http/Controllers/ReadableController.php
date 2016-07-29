@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class ReadableController extends Controller
 {
@@ -32,9 +33,19 @@ class ReadableController extends Controller
         return $comments;
     }
 
+    /**
+     * 取得雷鸣，包含namespace
+     * @return string
+     */
     private function getModel() {
-        $vars = explode('/', get_class($this));
-        return 'App\\' . str_replace('Controller', '', class_basename($vars[count($vars) - 1]));
+        return 'App\\' . str_replace('Controller', '', class_basename(get_class($this)));
+    }
+
+    /**
+     * 取得类名，不包含namespace
+     */
+    private function getType() {
+        return 'App\\' . str_replace('Controller', '', class_basename(get_class($this)));
     }
 
     public function addComment(Request $request) {
@@ -162,4 +173,12 @@ class ReadableController extends Controller
             ]);
         }
     }
+
+    public function collects() {
+        $pageLimit = Config::get('params')['pageLimit'];
+        $model = $this->getModel();
+        $minitalks = Collectable::where('user_id', Auth::user()->id)->where('collectable_type', $model)->paginate($pageLimit);
+        return view('minitalks.index', compact('minitalks'));
+    }
+
 }

@@ -25,8 +25,8 @@
         </h2>
 
         <div class="Card-Collection">
+            <?php $pages = $readables = $lessons; ?>
             @include('lessons.lessonsAvatarList')
-            <?php $pages = $lessons?>
             @include('utils.pageNavigator')
         </div>
     </div>

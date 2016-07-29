@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Commentable;
 use App\Lesson;
-use App\LessonComment;
 use App\Minitalk;
-use App\MinitalkComment;
 use App\Talkshow;
-use App\TalkshowCollect;
-use App\TalkshowComment;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Http\Request;
@@ -26,20 +23,9 @@ class CommentController extends Controller
     public function index($type)
     {
         $limit = 25;
+        $comments = Commentable::where('commentable_type', 'App\\' . ucfirst($type))->paginate($limit);
 
-        switch($type) {
-            case 'lesson' :
-                $comments = LessonComment::paginate($limit);
-                break;
-            case 'minitalk':
-                $comments = MinitalkComment::paginate($limit);
-                break;
-            case 'talkshow' :
-                $comments = TalkshowComment::paginate($limit);
-                break;
-        }
-
-        return view('admin.comments', compact('type', 'comments'));
+        return view('admin.comments.index', compact('type', 'comments'));
     }
 
     /**
@@ -56,14 +42,14 @@ class CommentController extends Controller
         $edit = false;
         $type = 'lessonComments';
         $content_id = $lesson_id;
-        return view('admin.comment', compact('content_id', 'edit', 'type'));
+        return view('admin.comments.show', compact('content_id', 'edit', 'type'));
     }
 
     public function createMinitalks($minitalk_id) {
         $edit = false;
         $type = 'minitalkComments';
         $content_id = $minitalk_id;
-        return view('admin.comment', compact('content_id', 'edit', 'type'));
+        return view('admin.comments.show', compact('content_id', 'edit', 'type'));
     }
 
 
@@ -71,7 +57,7 @@ class CommentController extends Controller
         $edit = false;
         $type = 'talkshowComments';
         $content_id = $talkshow_id;
-        return view('admin.comment', compact('content_id', 'edit', 'type'));
+        return view('admin.comments.show', compact('content_id', 'edit', 'type'));
     }
 
 
@@ -83,76 +69,49 @@ class CommentController extends Controller
      */
     public function storeLessons(Request $request)
     {
-        $comments = explode("\r\n", $request->get('content'));
-        $userIds = explode(" ", $request->get('user_id'));
-
-        $i = 0;
-        $lesson = Lesson::findOrFail($request->get('content_id'));
-        $faker = Factory::create();
-        $now = Carbon::now();
-        foreach ($comments as $comment) {
-            if($comment != "") {
-                $c = LessonComment::create([
-                    'lesson_id' => $lesson->id,
-                    'user_id' => $userIds[$i],
-                    'content' => $comment,
-                    'created_at' => Carbon::createFromTimestamp($faker->dateTimeBetween('- ' . $now->diffInDays($lesson->created_at) . ' days', 'now')->getTimestamp())
-                ]);
-                dd($faker->dateTimeBetween('- ' . $now->diffInDays($lesson->created_at) . ' days', 'now')->getTimestamp(), $c);
-
-                $i ++;
-            }
-        }
-        return view('admin.index');
+        return $this->storeComments($request, 'App\Lesson', 'Lesson');
     }
 
     public function storeMinitalks(Request $request)
     {
-        $comments = explode("\r\n", $request->get('content'));
-        $userIds = explode(" ", $request->get('user_id'));
-
-        $i = 0;
-        $minitalk = Minitalk::findOrFail($request->get('content_id'));
-        $faker = Factory::create();
-        $now = Carbon::now();
-        foreach ($comments as $comment) {
-            if($comment != "") {
-                MinitalkComment::create([
-                    'minitalk_id' => $request->get('content_id'),
-                    'user_id' => $userIds[$i],
-                    'content' => $comment,
-                    'created_at' => $faker->dateTimeBetween('- ' . $now->diffInDays($minitalk->created_at) . ' days', 'now')
-                ]);
-
-                $i ++;
-            }
-        }
-        return view('admin.index');
+        return $this->storeComments($request, 'App\Minitalk', 'Minitalk');
     }
 
     public function storeTalkshows(Request $request)
     {
+        return $this->storeComments($request, 'App\Talkshow', 'Talkshow');
+    }
+
+    public function storeVideos(Request $request)
+    {
+        return $this->storeComments($request, 'App\Video', 'Video');
+    }
+
+    public function storeComments(Request $request, $type, $model) {
         $comments = explode("\r\n", $request->get('content'));
         $userIds = explode(" ", $request->get('user_id'));
 
         $i = 0;
-        $talkshow = Talkshow::findOrFail($request->get('content_id'));
+        $content = $model::findOrFail($request->get('content_id'));
         $faker = Factory::create();
         $now = Carbon::now();
         foreach ($comments as $comment) {
             if($comment != "") {
-                TalkshowComment::create([
-                    'talkshow_id' => $request->get('content_id'),
+                $c = Commentable::create([
+                    'commentable_id' => $content->id,
+                    'commentable_type' => $type,
                     'user_id' => $userIds[$i],
                     'content' => $comment,
-                    'created_at' => $faker->dateTimeBetween('- ' . $now->diffInDays($talkshow->created_at) . ' days', 'now')
+                    'created_at' => Carbon::createFromTimestamp($faker->dateTimeBetween('- ' . $now->diffInDays($content->created_at) . ' days', 'now')->getTimestamp())
                 ]);
+                dd($faker->dateTimeBetween('- ' . $now->diffInDays($content->created_at) . ' days', 'now')->getTimestamp(), $c);
 
                 $i ++;
             }
         }
         return view('admin.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -196,16 +155,6 @@ class CommentController extends Controller
      */
     public function destroy($type, $id)
     {
-        switch($type) {
-            case 'lesson' :
-                LessonComment::destroy($id);
-                break;
-            case 'minitalk' :
-                MinitalkComment::destroy($id);
-                break;
-            case 'talkshow' :
-                TalkshowComment::destroy($id);
-                break;
-        }
+        Commentable::destroy($id);
     }
 }
