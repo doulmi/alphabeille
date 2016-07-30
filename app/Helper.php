@@ -31,25 +31,36 @@ class Helper
     }
 
     public static function parsePointLink($src) {
-        $root = HtmlDomParser::str_get_html($src);
-
-        $content = '<table><tbody>';
-
-        $i = 0;
-
-        foreach ($root->childNodes() as $childNode) {
-            $tag = $childNode->tag;
-
-            if (($tag == 'p' || $tag == 'blockquote') && !$childNode->find('img')) {
-                $content .= '<tr class="align-top"><td class="width40"><a href="#' . $i . '" @click.stop.prevent="seekTo(' . $i . ')" class="seek-btn"></a></td><td>' . $childNode->outertext . '</td></tr>';
-            } else {
-                $content .= '<tr><td></td><td>' . $childNode->outertext . "</td></tr>";
-            }
-            $i++;
-        }
-
-        $content .= '</tbody></table>';
-
-        return $content;
+        $lines = preg_split('/\n|\r\n?/', $src);
+        dd($lines);
+        //1. 编号
+        //2. 法语 1-n 行
+        //3. if(
     }
+
+//    public static function parsePointLink($src) {
+//        $root = HtmlDomParser::str_get_html($src);
+//
+//        $content = '<table><tbody>';
+//
+//        $i = 0;
+//
+//        foreach ($root->childNodes() as $childNode) {
+//            $tag = $childNode->tag;
+//
+//            if (($tag == 'p' || $tag == 'blockquote') && !$childNode->find('img')) {
+//                $content .= '<tr class="align-top"><td class="width40"><a href="#' . $i . '" @click.stop.prevent="seekTo(' . $i . ')" class="seek-btn"></a></td><td>' . $childNode->outertext . '</td></tr>';
+//            } else {
+//                $content .= '<tr><td></td><td>' . $childNode->outertext . "</td></tr>";
+//            }
+//            $i++;
+//            if ($tag == 'p') {
+//
+//            }
+//        }
+//
+//        $content .= '</tbody></table>';
+//
+//        return $content;
+//    }
 }

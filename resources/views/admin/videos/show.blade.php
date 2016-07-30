@@ -3,6 +3,7 @@
 @section('content')
     @if($edit)
         <form role="form" action="{{url('admin/videos/' . $video->id)}}" method="POST">
+            <input type="hidden" name="_method" value="PUT"/>
             @else
                 <form role="form" action="{{url('admin/videos')}}" method="POST">
                     @endif

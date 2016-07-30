@@ -55,6 +55,16 @@
         </div>
 
             <div class="form-group">
+                <label for="sex">@lang('labels.sex')[boy/girl]</label>
+                @if($edit)
+                    <input type="text" class="form-control" id="sex" name="sex"
+                           value="{{$lesson->sex}}"/>
+                @else
+                    <input type="text" class="form-control" id="sex" name="sex" value="boy"/>
+                @endif
+            </div>
+
+            <div class="form-group">
                 <label for="keywords">@lang('labels.keywords')</label>
                 @if($edit)
                     <input type="text" class="form-control" id="keywords" name="keywords" value="{{$lesson->keywords}}"/>

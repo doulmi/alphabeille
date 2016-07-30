@@ -67,9 +67,8 @@
         </div>
 
         <div class="morning">
-
-
             <div class="Card-Collection row">
+                <div class="Header"></div>
                 <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('labels.videos')</span>
                 </h2>

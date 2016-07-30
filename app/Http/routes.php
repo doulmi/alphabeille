@@ -146,6 +146,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/updateViews/{day}', 'Admin\AdminController@updateViews');
     Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
+    Route::get('testHelper', 'Admin\VideoController@testHelper');
 });
 
 $api = app('Dingo\Api\Routing\Router');
