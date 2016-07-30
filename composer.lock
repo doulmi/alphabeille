@@ -3173,6 +3173,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
+<<<<<<< HEAD
             "version": "v3.1.3",
             "source": {
                 "type": "git",
@@ -3183,6 +3184,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c0c00c80b3a69132c4e55c3e7db32b4a387615e5",
                 "reference": "c0c00c80b3a69132c4e55c3e7db32b4a387615e5",
+=======
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "7f9839ede2070f53e7e2f0849b9bd14748c434c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/7f9839ede2070f53e7e2f0849b9bd14748c434c5",
+                "reference": "7f9839ede2070f53e7e2f0849b9bd14748c434c5",
+>>>>>>> 3a829cf79a7f10a0158f2d18fd448c42b72be14f
                 "shasum": ""
             },
             "require": {
@@ -3229,7 +3242,11 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2016-07-19 10:45:57"
+=======
+            "time": "2016-06-29 05:41:56"
+>>>>>>> 3a829cf79a7f10a0158f2d18fd448c42b72be14f
         },
         {
             "name": "symfony/finder",

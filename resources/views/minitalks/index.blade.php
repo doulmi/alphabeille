@@ -1,8 +1,6 @@
 @extends('app')
 
-@section('title')
-    @lang('labels.minitalks.title')
-@endsection
+@section('title')@lang('labels.minitalks.title')@endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.minitalks.description')">
@@ -25,8 +23,7 @@
         </h2>
 
         <div class="Card-Collection">
-            <?php $pages = $readables = $minitalks; ?>
-            @include('minitalks.minitalksList')
+            @include('utils.readableList')
             @include('utils.pageNavigator')
         </div>
     </div>

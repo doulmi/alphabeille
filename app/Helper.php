@@ -41,7 +41,7 @@ class Helper
             $tag = $childNode->tag;
 
             if (($tag == 'p' || $tag == 'blockquote') && !$childNode->find('img')) {
-                $content .= '<tr class="align-top"><td><a href="#' . $i . '" @click="seekTo(' . $i . ')"><i style="font-size: 20px" class="glyphicon glyphicon-play "></a></td><td>' . $childNode->outertext . '</td></tr>';
+                $content .= '<tr class="align-top"><td class="width40"><a href="#' . $i . '" @click.stop.prevent="seekTo(' . $i . ')" class="seek-btn"></a></td><td>' . $childNode->outertext . '</td></tr>';
             } else {
                 $content .= '<tr><td></td><td>' . $childNode->outertext . "</td></tr>";
             }

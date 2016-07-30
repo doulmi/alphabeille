@@ -45,7 +45,7 @@ class ReadableController extends Controller
      * 取得类名，不包含namespace
      */
     private function getType() {
-        return 'App\\' . str_replace('Controller', '', class_basename(get_class($this)));
+        return lcfirst(str_replace('Controller', '', class_basename(get_class($this))));
     }
 
     public function addComment(Request $request) {
@@ -181,4 +181,34 @@ class ReadableController extends Controller
         return view('minitalks.index', compact('minitalks'));
     }
 
+    public function free() {
+        $model = $this->getModel();
+        $type = $this->getType();
+        $pageLimit = Config::get('params')['pageLimit'];
+        $minitalks = $model::where('free', 1)->latest()->paginate($pageLimit);
+        return view( $type . 's.index', compact( $type . 's'));
+    }
+
+    public function index() {
+        $model = $this->getModel();
+        $type = $this->getType();
+        $pageLimit = Config::get('params')['pageLimit'];
+        $readables = $model::latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug']);
+        return view('talkshows.index', compact(['readables', 'type']));
+    }
+
+    public function latest($num)
+    {
+        $model = $this->getModel();
+        $readable = $model::latest()->limit($num)->get(['id', 'avatar', 'title', 'slug']);
+        return $readable;
+    }
+
+    public function random($num = 4, $max = 100)
+    {
+        $model = $this->getModel();
+        $readable = $model::latest()->limit($max)->get();
+        $num = $num > $readable->count() ? : $num;
+        return $readable->random($num);
+    }
 }

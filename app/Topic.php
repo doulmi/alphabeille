@@ -8,27 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 
-class Topic extends Model
-{
-    use SoftDeletes;
-    use Sluggable;
-
-    protected $dates = ['publish_at'];
-
+class Topic extends Readable {
     protected $fillable = [
         'title', 'description', 'avatar', 'level', 'keywords', 'is_published', 'publish_at'
     ];
 
     public function lessons() {
         return $this->hasMany(Lesson::class);
-    }
-
-    public function views() {
-        return Lesson::where('topic_id', $this->id)->sum('views');
-    }
-
-    public function likes() {
-        return Lesson::where('topic_id', $this->id)->sum('likes');
     }
 
     public function lessonCount() {
@@ -50,19 +36,5 @@ class Topic extends Model
                 'isNew' => false,
             ];
         }
-    }
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
     }
 }

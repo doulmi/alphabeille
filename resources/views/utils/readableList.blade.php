@@ -21,7 +21,7 @@
                         </span>
                     @endif
                     <div class="Card-image">
-                        <a href="{{ url('readables/' .$readable->slug) }}">
+                        <a href="{{ url($type . 's/' .$readable->slug) }}">
                             <img src="http://o9dnc9u2v.bkt.clouddn.com/images/holder.jpg" data-original="{{$readable->avatar}}" class="Card-image"
                                  alt="{{$readable->title}}">
                             <div class="Card-overlay">
@@ -31,13 +31,14 @@
                     </div>
                     <div class="Card-details">
                         <h3 class="Card-title">
-                            <a href="{{ url('readables/' . $readable->slug) }}">{{$readable->title}}</a>
+                            <a href="{{ url($type . 's/' . $readable->slug) }}">{{$readable->title}}</a>
                         </h3>
                     </div>
                     <div class="Card-footer">
                         <div class="hidden-xs Card-footer-content">
                             <span class="topic-view">
                                 <i class="glyphicon glyphicon-headphones "></i>
+                                <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
                             </span>
                         </div>
                     </div>

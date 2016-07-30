@@ -1,8 +1,6 @@
 @extends('app')
 
-@section('title')
-    @lang('labels.videos.title')
-@endsection
+@section('title')@lang('labels.videos.title')@endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.videos.description')">
@@ -25,8 +23,7 @@
         </h2>
 
         <div class="Card-Collection">
-            <?php $pages = $readables = $videos; ?>
-            @include('readableList')
+            @include('utils.readableList')
             @include('utils.pageNavigator')
         </div>
     </div>

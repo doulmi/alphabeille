@@ -9,12 +9,12 @@ Route::get('/', 'PostController@index');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('chat', 'ChatController');
 
-    Route::get('lessons/collect', 'LessonController@collectLessons');
+    Route::get('lessons/collect', 'LessonController@collects');
     Route::post('lessons/{id}/favorite', 'LessonController@favorite');
     Route::post('lessons/{id}/punchin', 'LessonController@punchin');
     Route::post('lessons/{id}/collect', 'LessonController@collect');
 
-    Route::get('talkshows/collect', 'TalkshowController@collectTalkshows');
+    Route::get('talkshows/collect', 'TalkshowController@collects');
     Route::post('talkshows/{id}/favorite', 'TalkshowController@favorite');
     Route::post('talkshows/{id}/punchin', 'TalkshowController@punchin');
     Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
@@ -24,6 +24,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('minitalks/{id}/favorite', 'MinitalkController@favorite');
     Route::post('minitalks/{id}/collect', 'MinitalkController@collect');
 
+    Route::post('videos/{id}/punchin', 'VideoController@punchin');
+    Route::get('videos/collect', 'VideoController@collects');
+    Route::post('videos/{id}/favorite', 'VideoController@favorite');
+    Route::post('videos/{id}/collect', 'VideoController@collect');
+
     Route::get('users/collect', 'UserController@collect');
 //    Route::post('post/upload', 'PostController@upload');
     Route::post('uploadAvatar', 'UserController@uploadAvatar');
@@ -32,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('lessonComments', 'LessonController@addComment');
     Route::post('talkshowComments', 'TalkshowController@addComment');
     Route::post('minitalkComments', 'MinitalkController@addComment');
+    Route::post('videoComments', 'VideoController@addComment');
     Route::get('subscription/{id}', 'PostController@subscription');
     Route::get('alipay/pay/{id}', 'AlipayController@pay');
     Route::get('alipay/result', 'AlipayController@result');
@@ -48,6 +54,7 @@ Route::get('images', function() {
 Route::get('lessonComments/{lesson_id}', 'LessonController@comments');
 Route::get('talkshowComments/{talkshow_id}', 'TalkshowController@comments');
 Route::get('minitalkComments/{minitalk_id}', 'MinitalkController@comments');
+Route::get('videoComments/{video_id}', 'VideoController@comments');
 
 
 Route::auth();
