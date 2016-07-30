@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Sunra\PhpSimple\HtmlDomParser;
 
@@ -70,11 +71,12 @@ class VideoController extends Controller
     {
         $data = $request->all();
         $data['slug'] = '';
-        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
+//        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
+        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
 
         Video::create($data);
 
-//        Redis::incr('audio:count');
+        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createVideoSuccess'));
         return redirect('admin/videos');
     }
@@ -123,10 +125,15 @@ class VideoController extends Controller
         $video = Video::findOrFail($id);
 
         $data = $request->all();
-        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
+        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
 
         $video->update($data);
         return redirect('admin/videos');
+    }
+
+    public function testHelper() {
+        $video = Video::findOrFail(1);
+        Helper::parsePointLink($video->content);
     }
 
     /**
