@@ -42,8 +42,6 @@ class Readable extends Model {
         return $query->where('is_published', 1)->whereDate('publish_at', '<=', Carbon::now()->toDateString());
     }
 
-
-
     /**
      * Return the sluggable configuration array for this model.
      *

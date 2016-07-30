@@ -18,7 +18,8 @@
         </div>
 
         <div class="Card-Collection">
-           @include('topics.topicsList')
+            <?php $readables = $topics; $type = 'topic'?>
+           @include('utils.readableList')
 
             <?php $pages = $topics; ?>
             @include('utils.pageNavigator')

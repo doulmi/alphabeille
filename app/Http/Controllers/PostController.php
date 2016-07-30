@@ -8,6 +8,7 @@ use App\Subscription;
 use App\Talkshow;
 
 use App\Http\Requests;
+use App\Video;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use TomLingham\Searchy\Facades\Searchy;
@@ -21,12 +22,8 @@ class PostController extends Controller
 
         $talkshows = Talkshow::latest()->limit($num)->get();
         $minitalks = Minitalk::latest()->limit($num)->get();
-
-//        $menus = Subscription::all();
-//        foreach ($menus as $menu) {
-//            $menu->advantages = explode('|', $menu->description);
-//        }
-        return view('index', compact(['lessons', 'talkshows', 'minitalks']));
+        $videos = Video::latest()->limit($num)->get();
+        return view('index', compact(['lessons', 'talkshows', 'minitalks', 'videos']));
     }
 
     public function menus()

@@ -1,8 +1,6 @@
 @extends('app')
 
-@section('title')
-    @lang('labels.talkshows.title')
-@endsection
+@section('title')@lang('labels.talkshows.title')@endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.talkshows.description')">
@@ -25,8 +23,7 @@
         </h2>
 
         <div class="Card-Collection">
-            <?php $pages = $readables = $talkshows; ?>
-            @include('readableList')
+            @include('utils.readableList')
             @include('utils.pageNavigator')
         </div>
     </div>

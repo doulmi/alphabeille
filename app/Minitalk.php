@@ -9,34 +9,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 
-class Minitalk extends Model
+class Minitalk extends Readable
 {
-    use SoftDeletes;
-    use Sluggable;
-
-    protected $dates = ['publish_at'];
     protected $fillable = [
         'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'audio_url', 'download_url', 'keywords', 'is_published', 'publish_at', 'free', 'wechat_part', 'content', 'slug', 'parsed_content', 'parsed_wechat_part'
     ];
-
-    public function isNew()
-    {
-        return (Carbon::now()->diffInDays($this->created_at)) < Config::get('topic_updated_days');
-    }
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
 
     public static function findByIdOrSlugOrFail($idOrSlug)
     {
@@ -51,19 +28,5 @@ class Minitalk extends Model
         } else {
             throw (new ModelNotFoundException)->setModel(Minitalk::class);
         }
-    }
-
-    public function comments()
-    {
-        return $this->morphMany('App\Commentable', 'commentable');
-    }
-
-    public function collects()
-    {
-        return $this->morphMany('App\Collectable', 'collectable');
-    }
-
-    public function likes() {
-        return $this->morphMany('App\Likeable', 'likeable');
     }
 }

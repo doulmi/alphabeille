@@ -267,5 +267,10 @@ return [
     'setPoint' => '断点',
     'video_url' => '视频链接',
     'videos' => '短视频',
+    'videos.title' => 'Alphabeille法语Minitalk',
+    'videos.description' => 'Alphabeille法语短视频，有趣、有料、有八卦，地道法语轻松学',
+    'videos.keywords' => '法语,法语视频,法语短视频,短视频',
+    'suggestLessons' => '推荐小文章',
+    'suggestVideos' => '推荐短视频',
 ];
 

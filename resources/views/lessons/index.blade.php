@@ -1,8 +1,6 @@
 @extends('app')
 
-@section('title')
-    @lang('labels.lessons.title')
-@endsection
+@section('title')@lang('labels.lessons.title')@endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.lessons.description')">
@@ -25,8 +23,7 @@
         </h2>
 
         <div class="Card-Collection">
-            <?php $pages = $readables = $lessons; ?>
-            @include('lessons.lessonsAvatarList')
+            @include('utils.readableList')
             @include('utils.pageNavigator')
         </div>
     </div>

@@ -261,7 +261,7 @@ body {
   border: 1px solid $primaryBgColor;
   width: 100%;
   background: transparent;
-  margin: 20px 0 50px 0;
+  margin: 20px 0 80px 0;
   -webkit-transition: all .1s ease-in-out;
   transition: all .1s ease-in-out;
 }
@@ -1097,6 +1097,10 @@ body {
   font-size: .7em;
   top: 4px;
   color: #483e39;
+  font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+}
+
+.video-content {
   font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
 }
 
@@ -2957,7 +2961,7 @@ body {
   border-radius: 20px;
   height: auto;
   position: relative;
-  padding-top: 5%;
+  padding-top: 2%;
   padding-right: 10%;
   padding-left: 10%;
   margin-right: auto;
@@ -3612,4 +3616,107 @@ $timing-function: ease-out;
 .points-panel {
   height: 400px;
   overflow: auto;
+}
+
+.video-content {
+  height: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.grey h1{
+  margin: 1em 0 10px 0;
+}
+
+.author {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.video-show {
+  border-radius: 20px;
+  height: auto;
+  position: relative;
+  padding-top: 2%;
+  padding-right: 1%;
+  padding-left: 1%;
+  margin-right: auto;
+  background: white;
+  margin-left: auto;
+  p {
+    font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+    font-size: 16px;
+  }
+
+  h1 {
+    margin: 1em 0 10px 0;
+  }
+}
+
+//Video seek btn
+$seek-foreground:#2c3e50;
+$seek-foreground-active:#468847;
+
+$seek-size:8px;
+$seek-ratio:1.2;
+
+$seek-transition-time:0.3s;
+
+.seek-btn {
+  display:block;
+  width: 0;
+  height: 0;
+  border-top: $seek-size solid transparent;
+  border-bottom: $seek-size solid transparent;
+  border-left: ($seek-size*$seek-ratio) solid $seek-foreground;
+  margin: $seek-size auto $seek-size auto;
+  position:relative;
+  z-index:1;
+  transition: all $seek-transition-time;
+  -webkit-transition: all $seek-transition-time;
+  -moz-transition: all $seek-transition-time;
+  left:($seek-size*0.4);
+
+  &:before {
+    content:'';
+    position:absolute;
+    top:($seek-size*-1.5);
+    left:($seek-size*-2.3);
+    bottom:($seek-size*-1.5);
+    right:($seek-size*-0.7);
+    border-radius:50%;
+    border: ($seek-size*0.3) solid $seek-foreground;
+    z-index:2;
+    transition: all $seek-transition-time;
+    -webkit-transition: all $seek-transition-time;
+    -moz-transition: all $seek-transition-time;
+  }
+  &:after {
+    content:'';
+    opacity:0;
+    transition: opacity ($seek-transition-time * 2);
+    -webkit-transition: opacity ($seek-transition-time * 2);
+    -moz-transition: opacity ($seek-transition-time * 2);
+  }
+
+  &:hover, &:focus {
+    &:before {
+      transform: scale(1.1);
+      -webkit-transform: scale(1.1);
+      -moz-transform: scale(1.1);
+    }
+  }
+
+  &.active {
+    border-left: ($seek-size*$seek-ratio) solid $seek-foreground-active;
+
+    &:before {
+      border: ($seek-size*0.2) solid $seek-foreground-active;
+    }
+  }
+}
+
+.width40 {
+  width: 40px;
 }

@@ -47,7 +47,8 @@
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
-                @include('minitalks.minitalksList')
+                <?php $readables = $minitalks; $type = 'minitalk' ?>
+                @include('utils.readableList')
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
         </div>
@@ -59,22 +60,37 @@
                 <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('titles.lessons')</span>
                 </h2>
-                @include('lessons.lessonsAvatarList')
+                <?php $readables = $lessons; $type = 'lesson' ?>
+                @include('utils.readableList')
                 <a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>
             </div>
         </div>
 
         <div class="morning">
+
+
+            <div class="Card-Collection row">
+                <h2 class="Heading-Fancy ">
+                    <span class='title'>@lang('labels.videos')</span>
+                </h2>
+                <?php $readables = $videos; $type = 'video' ?>
+                @include('utils.readableList')
+                <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
+            </div>
+        </div>
+
+        <div class="night-fall">
             <div class="Header"></div>
             <div class="Card-Collection row">
                 <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('labels.talkshows')</span>
                 </h2>
-                @include('talkshows.talkshowsList')
+                <?php $readables = $talkshows; $type = 'talkshow' ?>
+                @include('utils.readableList')
                 <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
             </div>
-
         </div>
+
         @include('subscribe')
     </div>
 @endsection

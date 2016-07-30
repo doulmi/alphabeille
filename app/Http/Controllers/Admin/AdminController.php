@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Commentable;
 use App\Editor\Markdown\Markdown;
+use App\Helper;
 use App\Lesson;
 use App\LessonComment;
 use App\Minitalk;
@@ -16,6 +17,7 @@ use App\Topic;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Video;
 use Faker\Factory;
 use Illuminate\Support\Facades\Redis;
 
@@ -32,50 +34,6 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index');
-    }
-
-    public function transferComment() {
-        $lessons = Lesson::all();
-        foreach($lessons as $lesson) {
-            $lComments = LessonComment::where('lesson_id', $lesson->id)->latest()->get();
-            foreach($lComments as $comment) {
-                Commentable::create([
-                    'user_id' => $comment->user_id,
-                    'commentable_id' => $lesson->id,
-                    'commentable_type' => 'App\Lesson',
-                    'content' => $comment->content,
-                    'created_at' => $comment->created_at
-                ]);
-            }
-        }
-
-        $minitalks = Minitalk::all();
-        foreach($minitalks as $minitalk) {
-            $lComments = MinitalkComment::where('minitalk_id', $minitalk->id)->latest()->get();
-            foreach($lComments as $comment) {
-                Commentable::create([
-                    'user_id' => $comment->user_id,
-                    'commentable_id' => $minitalk->id,
-                    'commentable_type' => 'App\Minitalk',
-                    'content' => $comment->content,
-                    'created_at' => $comment->created_at
-                ]);
-            }
-        }
-
-        $talkshows = Talkshow::all();
-        foreach($talkshows as $talkshow) {
-            $lComments = TalkshowComment::where('talkshow_id', $talkshow->id)->latest()->get();
-            foreach($lComments as $comment) {
-                Commentable::create([
-                    'user_id' => $comment->user_id,
-                    'commentable_id' => $talkshow->id,
-                    'commentable_type' => 'App\Talkshow',
-                    'content' => $comment->content,
-                    'created_at' => $comment->created_at
-                ]);
-            }
-        }
     }
 
     public function saveParsedContent() {
@@ -97,6 +55,12 @@ class AdminController extends Controller
         foreach($talkshows as $talkshow) {
             $talkshow->parsed_content = $this->markdown->parse($talkshow->content);
             $talkshow->save();
+        }
+
+        $videos = Video::all();
+        foreach($videos as $video) {
+            $video->parsed_content = Helper::parsePointLink($this->markdown->parse($video->content));
+            $video->save();
         }
     }
 

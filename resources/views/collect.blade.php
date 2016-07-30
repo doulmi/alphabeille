@@ -19,8 +19,8 @@
                     <span class='title'>@lang('labels.collectLessons')</span>
                 </h2>
                 <div class="Card-Collection">
-                    <?php $readables = $lessons; ?>
-                    @include('readableList')
+                    <?php $readables = $lessons; $type = 'lessons'?>
+                    @include('utils.readableList')
 
                     @if(count($lessons) > 8)
                         <h2 class="row center">
@@ -35,8 +35,8 @@
                     <span class='title'>@lang('labels.collectTalkshows')</span>
                 </h2>
                 <div class="Card-Collection">
-                    <?php $readables = $talkshows; ?>
-                    @include('readableList')
+                    <?php $readables = $talkshows; $type = 'talkshows'?>
+                    @include('utils.readableList')
 
                     @if( count($talkshows) > 8)
                         <h2 class="row center">
@@ -51,12 +51,28 @@
                     <span class='title'>@lang('labels.collectMinitalks')</span>
                 </h2>
                 <div class="Card-Collection">
-                    <?php $readables = $minitalks; ?>
-                    @include('readableList')
+                    <?php $readables = $minitalks; $type = 'minitalks'?>
+                    @include('utils.readableList')
 
                     @if( count($minitalks) > 8)
                         <h2 class="row center">
                             <a class="btn btn-default more" href="{{url('/minitalks/collect')}}">@lang('labels.more')</a>
+                        </h2>
+                    @endif
+                </div>
+            @endif
+
+            @if( count($videos) != 0)
+                <h2 class="Heading-Fancy row">
+                    <span class='title'>@lang('labels.collectVideos')</span>
+                </h2>
+                <div class="Card-Collection">
+                    <?php $readables = $videos; $type = 'videos'?>
+                    @include('utils.readableList')
+
+                    @if( count($videos) > 8)
+                        <h2 class="row center">
+                            <a class="btn btn-default more" href="{{url('/videos/collect')}}">@lang('labels.more')</a>
                         </h2>
                     @endif
                 </div>

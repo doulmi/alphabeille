@@ -21,8 +21,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Cache::remember('topics', 22 * 60, function() {
-            return Topic::latest()->paginate($this->pageLimit);
+        $topics = Cache::remember('topics', 22 * 60, function () {
+            $topics = Topic::latest()->paginate($this->pageLimit);
         });
         return view('topics.index', compact('topics'));
     }
@@ -31,7 +31,7 @@ class TopicController extends Controller
     public function latest($num)
     {
         $topics = Topic::latest()->limit($num)->get();
-        foreach($topics as $topic) {
+        foreach ($topics as $topic) {
             $states = $topic->getState();
             $topic->isUpdated = $states['isUpdated'];
             $topic->isNew = $states['isNew'];
@@ -39,13 +39,11 @@ class TopicController extends Controller
         return $topics;
     }
 
-    public function random($num = 4, $max = 100) {
-//        $topics = Cache::remember('randomTopics', 60, function() use ($max, $num) {
-            $topics = Topic::latest()->limit($max)->get();
-            $num = $num > $topics->count() ? $topics->count() : $num;
-            return $topics->random($num);
-//        });
-//        return $topics;
+    public function random($num = 4, $max = 100)
+    {
+        $topics = Topic::latest()->limit($max)->get();
+        $num = $num > $topics->count() ? $topics->count() : $num;
+        return $topics->random($num);
     }
 
     /**
@@ -86,7 +84,7 @@ class TopicController extends Controller
         }
         $duration = ceil($duration);
 
-        if($topic) {
+        if ($topic) {
             return view('topics.show', compact('topic', 'lessons', 'duration'));
         } else {
             return view('errors.404');

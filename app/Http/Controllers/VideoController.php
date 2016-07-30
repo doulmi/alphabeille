@@ -17,39 +17,6 @@ use Illuminate\Support\Facades\Redis;
 class VideoController extends ReadableController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $pageLimit = Config::get('params')['pageLimit'];
-        $videos = Video::latest()->paginate($pageLimit);
-        return view('videos.index', compact('videos'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -59,66 +26,17 @@ class VideoController extends ReadableController
     {
         $video = Video::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('talkshow:view:' . $video->id);
+        Redis::incr('video:view:' . $video->id);
 
-        $comments = $video->comments;
+        $videos = $this->random();
+//        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
+//        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $content = $video->parsed_content;
 
-        $like = false;
-        $collect = false;
-        $punchin = false;
+        list($like, $collect, $punchin) = $this->getStatus($video);
 
-        if (!Auth::guest()) {
-            $model = VideoFavorite::where('user_id', Auth::user()->id)->where('video_id', $id)->first();
-            if ($model) {
-                $like = true;
-            }
-            $model = VideoCollect::where('user_id', Auth::user()->id)->where('video_id', $id)->first();
-            if ($model) {
-                $collect = true;
-            }
-            $model = UserPunchin::where('user_id', Auth::user()->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->first();
-            if ($model) {
-                $punchin = true;
-            }
-        }
-
-        $readable = $video;
+        $readables = $videos;
         $type = 'video';
-        return view('videos.show', compact(['readable', 'type', 'comments', 'content', 'like', 'collect', 'punchin']));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('videos.show', compact(['readables', 'type', 'video', 'content', 'like', 'collect', 'punchin']));
     }
 }

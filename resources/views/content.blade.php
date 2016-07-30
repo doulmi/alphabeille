@@ -1,6 +1,4 @@
-@section('title')
-    {{ $readable->title }}
-@endsection
+@section('title'){{ $readable->title }}@endsection
 
 @section('header')
     <meta name="description" content="{{$readable->description}}">
@@ -31,18 +29,16 @@
                 {{ $readable ->title }}
             </h1>
 
-            <div class="center">
+            <div class="author">
                 Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$readable->created_at}}
             </div>
-            <br/>
-            <br/>
 
             @if($readable instanceof \App\Lesson)
             <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
             <a class="btn btn-label label-{{$topic->sex}}">@lang("labels.tags." . $topic->sex)</a>
             @endif
 
-            @if(!$readable instanceof \App\Video)
+            {{--@if(!$readable instanceof \App\Video)--}}
                 <div class="playerPanel">
                     <audio id='audio' preload="auto" controls hidden>
                         <source src="{{$readable->audio_url}}"/>
@@ -62,12 +58,12 @@
                     <span class="label label-default">Ctrl</span>
                     <span class="label label-default">↓</span>
                 </div>
-            @else
-                <video id="my_video" class="video-js vjs-default-skin"
-                       controls preload data-setup='{ "aspectRatio":"1920:1080" }' data-setup='{"language":"fr"}'>
-                    <source src="{{$readable->video_url}}" type='video/mp4'>
-                </video>
-            @endif
+            {{--@else--}}
+                {{--<video id="my_video" class="video-js vjs-default-skin"--}}
+                       {{--controls preload data-setup='{ "aspectRatio":"1920:1080" }' data-setup='{"language":"fr"}'>--}}
+                    {{--<source src="{{$readable->video_url}}" type='video/mp4'>--}}
+                {{--</video>--}}
+            {{--@endif--}}
             <br/>
             <br/>
             @if($canRead)
@@ -89,7 +85,7 @@
             @if(!Auth::guest())
                 <div class="center">
                     <a href="#" data-tooltips="@lang('labels.favorite')" @click.stop.prevent="favoriteEvent">
-                        <div class="heart" v-bind:class="favorite"></div>
+                    <div class="heart" v-bind:class="favorite"></div>
                     </a>
 
                     @if(!$punchin)
@@ -119,7 +115,7 @@
             @endif
         </div>
 
-        <div class="Card-Collection ">
+        <div class="Card-Collection">
             {{--同一主题内容--}}
             @if($readable instanceof \App\Lesson)
             <div class="Header"></div>
@@ -157,14 +153,16 @@
             <div class="Header"></div>
             @if($readable instanceof \App\Lesson)
                 <h2 class="Heading-Fancy row">
-                    <span class='title black'>{{ trans('labels.suggestTopics')}}</span>
+                    <span class='title black'>{{ trans('labels.suggestLessons')}}</span>
                 </h2>
-                @include('topics.topicsList')
+                <?php $readables = $lessons; $type = 'lesson'?>
+                @include('utils.readableList')
             @elseif($readable instanceof \App\Talkshow)
                 <h2 class="Heading-Fancy row">
                     <span class='title black'>{{ trans('labels.suggestTalkshows')}}</span>
                 </h2>
-                @include('talkshows.talkshowsList')
+                <?php $readables = $talkshows; $type = 'talkshow'?>
+                @include('utils.readableList')
             @endif
 
             <div id="disqus_thread">
@@ -236,17 +234,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
-    <script src="/js/social-share.min.js"></script>
-    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    <script src="/js/"></script>
 
     <script>
         $('img.Card-image').lazyload();
-
-        @if($readable instanceof \App\Video)
-        videojs("my_video").ready(function(){
-            $('#my_video').show();
-        });
-        @endif
 
         $('#goTop').goTop();
         function reply(userId, userName) {

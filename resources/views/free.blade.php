@@ -30,7 +30,9 @@
 
         @if(count($lessons) != 0)
             <div class="Card-Collection" >
-                @include('lessons.lessonsAvatarList')
+
+                <?php $readables = $lessons; $type = 'lesson'?>
+                @include('utils.readableList')
 
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons/free')}}">@lang('labels.more')</a>
@@ -43,7 +45,8 @@
         </h2>
         @if( count($talkshows) != 0)
             <div class="Card-Collection">
-                @include('talkshows.talkshowsList')
+                <?php $readables = $talkshows; $type = 'talkshow' ?>
+                @include('utils.readableList')
 
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/talkshows/free')}}">@lang('labels.more')</a>
@@ -56,7 +59,8 @@
         </h2>
         @if( count($minitalks) != 0)
             <div class="Card-Collection">
-                @include('minitalks.minitalksList')
+                <?php $readables = $minitalks; $type = 'minitalk'?>
+                @include('utils.readableList')
 
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/minitalks/free')}}">@lang('labels.more')</a>
