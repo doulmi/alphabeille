@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Config;
 class Video extends Readable
 {
     protected $fillable = [
-        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'free', 'download_url', 'video_url', 'content', 'parsed_content','keywords', 'is_published', 'publish_at','slug'
+        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'free', 'download_url', 'video_url', 'content', 'parsed_content','keywords', 'is_published', 'publish_at','slug', 'parsed_content_zh', 'points'
     ];
 
     public static function findByIdOrSlugOrFail($idOrSlug)

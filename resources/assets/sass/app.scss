@@ -61,7 +61,6 @@ button {
   padding: 0;
 }
 
-
 body {
   margin-top: 0;
 }
@@ -1168,7 +1167,7 @@ body {
 .Card {
   margin-bottom: 20px;
   overflow: hidden;
-  box-shadow: 0 0 20px 5px rgba(0,0,0,.1);
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, .1);
 }
 
 .Card-footer {
@@ -3361,7 +3360,6 @@ body {
     }
   }
 
-
 }
 
 .scroll-bar {
@@ -3558,11 +3556,11 @@ $timing-function: ease-out;
 }
 
 .top-48 {
-  margin-top : 45px;
+  margin-top: 45px;
 }
 
 .top-80 {
-  margin-top:80px;
+  margin-top: 80px;
 }
 
 /* Show the controls (hidden at the start by default) */
@@ -3590,7 +3588,7 @@ $timing-function: ease-out;
 }
 
 .vjs-playback-rate .vjs-playback-rate-value {
-  top : 3px;
+  top: 3px;
 }
 
 #my_video {
@@ -3610,7 +3608,6 @@ $timing-function: ease-out;
 }
 
 .align-top {
-  vertical-align: top;
 }
 
 .points-panel {
@@ -3619,13 +3616,13 @@ $timing-function: ease-out;
 }
 
 .video-content {
-  height: 300px;
+  height: 465px;
   padding: 10px;
   border-radius: 5px;
   overflow: auto;
 }
 
-.grey h1{
+.grey h1 {
   margin: 1em 0 10px 0;
 }
 
@@ -3644,9 +3641,48 @@ $timing-function: ease-out;
   margin-right: auto;
   background: white;
   margin-left: auto;
+
+  tr {
+    vertical-align: middle;
+
+    td:first-child {
+      vertical-align: top;
+    }
+  }
+
+  .subtitle {
+    padding: 15px;
+    background-color : #000;
+    height: 100px;
+    color: #fff;
+
+    p {
+      margin : 0;
+    }
+  }
+
   p {
     font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
     font-size: 16px;
+    padding: 0 5px;
+
+    &.active {
+      background-color: #C6C6C6;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+
+    span {
+      font-family: inherit;
+      font-size: inherit;
+      display: inline-block;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(50, 205, 255, 0.5);
+      }
+    }
   }
 
   h1 {
@@ -3655,46 +3691,46 @@ $timing-function: ease-out;
 }
 
 //Video seek btn
-$seek-foreground:#2c3e50;
-$seek-foreground-active:#468847;
+$seek-foreground: #2c3e50;
+$seek-foreground-active: #468847;
 
-$seek-size:8px;
-$seek-ratio:1.2;
+$seek-size: 8px;
+$seek-ratio: 1.2;
 
-$seek-transition-time:0.3s;
+$seek-transition-time: 0.3s;
 
 .seek-btn {
-  display:block;
+  display: block;
   width: 0;
   height: 0;
   border-top: $seek-size solid transparent;
   border-bottom: $seek-size solid transparent;
   border-left: ($seek-size*$seek-ratio) solid $seek-foreground;
   margin: $seek-size auto $seek-size auto;
-  position:relative;
-  z-index:1;
+  position: relative;
+  z-index: 1;
   transition: all $seek-transition-time;
   -webkit-transition: all $seek-transition-time;
   -moz-transition: all $seek-transition-time;
-  left:($seek-size*0.4);
+  left: ($seek-size*0.4);
 
   &:before {
-    content:'';
-    position:absolute;
-    top:($seek-size*-1.5);
-    left:($seek-size*-2.3);
-    bottom:($seek-size*-1.5);
-    right:($seek-size*-0.7);
-    border-radius:50%;
-    border: ($seek-size*0.3) solid $seek-foreground;
-    z-index:2;
+    content: '';
+    position: absolute;
+    top: ($seek-size*-1.5);
+    left: ($seek-size*-2.3);
+    bottom: ($seek-size*-1.5);
+    right: ($seek-size*-0.7);
+    border-radius: 50%;
+    border: ($seek-size*0.2) solid $seek-foreground;
+    z-index: 2;
     transition: all $seek-transition-time;
     -webkit-transition: all $seek-transition-time;
     -moz-transition: all $seek-transition-time;
   }
   &:after {
-    content:'';
-    opacity:0;
+    content: '';
+    opacity: 0;
     transition: opacity ($seek-transition-time * 2);
     -webkit-transition: opacity ($seek-transition-time * 2);
     -moz-transition: opacity ($seek-transition-time * 2);
@@ -3719,4 +3755,31 @@ $seek-transition-time:0.3s;
 
 .width40 {
   width: 40px;
+}
+
+.control-panel {
+  z-index: 2;
+  position: absolute;
+  bottom : 5px;
+
+  a {
+    color : white;
+    text-decoration: none;
+     &:hover {
+      color: white;
+    }
+
+    &.active {
+      color: #0b97c4;
+    }
+  }
+
+  a[disabled] {
+    color: #C6C6C6;
+    cursor: default;
+  }
+}
+
+#showpop-menu {
+  display: none;
 }

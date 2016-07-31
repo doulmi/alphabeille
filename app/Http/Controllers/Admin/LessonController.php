@@ -72,7 +72,7 @@ class LessonController extends Controller
 
         Lesson::create($data);
 
-//        Redis::incr('audio:count');
+        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createLessonSuccess'));
         return redirect('admin/lessons');
     }

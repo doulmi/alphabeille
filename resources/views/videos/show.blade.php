@@ -15,23 +15,53 @@
             <h1 class="center">
                 {{ $video ->title }}
             </h1>
+            <a id="real">real</a>
 
             <div class="author">
                 Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$video->created_at}}
             </div>
             @if($canRead)
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <video id="my_video" class="video-js vjs-default-skin"
-                               controls preload data-setup='{ "aspectRatio":"1920:1080" }'
-                               data-setup='{"language":"fr"}'>
+                               controls preload
+                               data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
                             <source src="{{$video->video_url}}" type='video/mp4'>
                         </video>
+                        <div class="subtitle">
+                            <div class="center">
+                                <p v-show="fr">@{{{currentFr}}}</p>
+                                <p v-show="zh">@{{{currentZh}}}</p>
+                            </div>
+                            <div class="control-panel">
+                                <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
+                                            class="glyphicon glyphicon-chevron-left"></i></a>
+                                <a href="#" @click.stop.prevent='repeat' :class="repeatOne ? 'active' : '' ">重复单句</a>
+                                <a href="#" :disabled="active == pointsCount - 1 " @click.stop.prevent='next'><i
+                                            class="glyphicon glyphicon-chevron-right"></i></a>
+
+                                <a href="#" @click.stop.prevent='toggleFr' :class="fr ? 'active' : ''">法</a>
+                                <a href="#" @click.stop.prevent='toggleZh' :class="zh ? 'active' : ''">中</a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="video-content grey">
-                            {!! $video->parsed_content !!}
+                            <table>
+                                <tbody>
+                                <tr v-for="line in linesFr">
+                                    <td class='width40 '><a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
+                                                            class='seek-btn'
+                                                            :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                    </td>
+                                    <td>
+                                        <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
+                                    </td>
+                                </tr>
+                                {{--@endforeach--}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -45,6 +75,27 @@
                 @include('blockContent')
             @endif
 
+            <ul id="showpop-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li>
+                    <div id="dict_result">
+                        <div style="float:left;">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td id="word_text"></td>
+                                    <td>
+                                        <ul class="controls">
+                                            <li><a class="audioButton" href="/player/and.mp3"></a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="word_result"></div>
+                    </div>
+                </li>
+            </ul>
             @if(!Auth::guest())
                 <div class="center">
                     <a href="#" data-tooltips="@lang('labels.favorite')" @click.stop.prevent="favoriteEvent">
@@ -141,7 +192,7 @@
                                 @if(!Auth::guest())
                                     <div class="comment-footer">
                                         <button class="btn btn-reply"
-                                                @click="reply(comment.userId,comment.name)">@lang('labels.reply')</button>
+                                        @click="reply(comment.userId,comment.name)">@lang('labels.reply')</button>
                                     </div>
                                 @endif
                             </div>
@@ -153,6 +204,7 @@
         </div>
         <div id='goTop'></div>
         @endsection
+
 
         @section('otherjs')
             <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
@@ -184,25 +236,66 @@
                         });
                         $(this).addClass("active");
                     });
+
+//                    $("span").popover({title: $(this).html().trim().toLowerCase(), content: "Blabla", trigger: "click", placement: "bottom"});
+
+                    var popover = $('#showpop-menu');
+
+                    var word_text = $('#word_text');
+                    var word_result = $('#word_result');
+                    $(document).click(function (e) {
+                        var target = $(e.target);
+                        var tag = $(target[0]).prop('tagName');
+                        if (tag != 'SPAN' && target != popover) {
+                            popover.hide();
+                        }
+                    });
+
+                    //TODO : POPOVER
+                    $('span').click(function () {
+                        var word = $(this).html().trim().toLowerCase();
+                        var offset = $(this).offset();
+                        popover.offset({
+                            top: offset.top,
+                            left: offset.left
+                        });
+                        word_text.html(word);
+                        word_result.html("@lang('labels.loading')");
+                        popover.show();
+                        var that = this;
+                        $.get("{{url('api/words')}}" + "/" + word, function (response) {
+//                            that.attr("data-content", response);
+                            word_result.html(response['msg']);
+                        });
+                    })
                 });
 
                 var player;
-                videojs("my_video").ready(function () {
-                    player = this;
-                    player.play();
-                    $('#my_video').show();
-                });
+                var currentTime;
 
                 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
-                new Vue({
+                // 注册 partial
+                var vm = new Vue({
                     el: 'body',
                     data: {
                         points: [],
+                        lines: [],
+                        linesFr: [],
+                        linesZh: [],
+                        fr: true,
+                        zh: true,
+                        pointsCount: 0,
+                        played: [],    //  保存已经播放过的橘子
+                        active: -1,
+                        currentFr: "開始影片後，點擊或框選字幕可以立即查詢單字",
+                        currentZh: "",
                         comments: [],
                         favorite: '{{$like ? 'is-active' : ''}}',
                         isFavorite: '{{$like}}',
                         collect: '{{$collect ? 'is-active' : ''}}',
                         isCollect: '{{$collect}}',
+                        lineActive: '',
+                        repeatOne: false,
                         newComment: {
                             name: '{{Auth::user() ? Auth::user()->name : ''}}',
                             avatar: '{{Auth::user() ? Auth::user()->avatar : ''}}',
@@ -218,6 +311,10 @@
                     ready() {
                         var pointStr = '{{$video->points}}';
                         this.points = pointStr.split(',');
+                        this.pointsCount = this.points.length;
+
+                        this.linesFr = "{!!$video->parsed_content!!}".split('||');
+                        this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
 
                         this.$http.get('{{url($type . "Comments/" . $video->id)}}', function (response) {
                             this.comments = response;
@@ -237,7 +334,6 @@
                         },
                         seekTo(no) {
                             var time = this.points[no];
-                            console.log(time);
                             player.currentTime(time);
                         },
 
@@ -290,8 +386,58 @@
                                     body: ''
                                 };
                             }.bind(this))
+                        },
+
+                        timeupdate() {
+                            var currentTime = player.currentTime();
+                            for (var i = 0; i < this.points.length; i++) {
+                                if (this.repeatOne) {
+                                    if (currentTime >= this.points[this.active + 1]) {
+                                        player.currentTime(this.points[this.active]);
+                                    }
+                                }
+                                if (this.active != i && currentTime >= this.points[i]) {
+                                    this.active = i;
+                                    this.currentZh = this.linesZh[i];
+                                    this.currentFr = this.linesFr[i];
+                                }
+
+                            }
+                        },
+
+                        prev() {
+                            if (this.active - 1 >= 0) {
+                                player.currentTime(this.points[this.active - 1]);
+                            }
+                        },
+
+                        next() {
+                            if (this.active + 1 < this.pointsCount) {
+                                player.currentTime(this.points[this.active + 1]);
+                            }
+                        },
+
+                        repeat() {
+                            this.repeatOne = !this.repeatOne;
+                            console.log(this.repeatOne);
+                        },
+
+                        toggleFr() {
+                            this.fr = !this.fr;
+                        },
+
+                        toggleZh() {
+                            this.zh = !this.zh;
                         }
                     }
+                });
+
+                videojs("my_video").ready(function () {
+                    player = this;
+
+                    player.on('timeupdate', vm.timeupdate);
+                    player.play();
+                    $('#my_video').show();
                 });
             </script>
 @endsection

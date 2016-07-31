@@ -72,7 +72,7 @@ class VideoController extends Controller
         $data = $request->all();
         $data['slug'] = '';
 //        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
-        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
+        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
 
         Video::create($data);
 
@@ -132,8 +132,15 @@ class VideoController extends Controller
     }
 
     public function testHelper() {
+//        $pattern = '/(\s|,|\.|-|;|:|《|》|\?|!|[|]|\(|\)|{|}|<|>)/';
+//        $src = "Oh La la. How are you?";
+//        for($i = 0; $i < strlen($src); $i++) {
+//            var_dump(preg_match($pattern, $src[0]));
+//        }
+//        dd(1);
         $video = Video::findOrFail(1);
-        Helper::parsePointLink($video->content);
+        list($parsed_fr, $parsed_zh) = Helper::parsePointLink($video->content);
+        dd($parsed_fr, $parsed_zh);
     }
 
     /**
