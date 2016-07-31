@@ -89,6 +89,7 @@ Route::get('comments/like/{commentId}', 'CommentController@like');
 Route::put('users', 'UserController@update');
 Route::get('search', 'PostController@search');
 Route::get('free', 'PostController@free');
+Route::get('api/words/{word}', 'WordController@show');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
@@ -147,6 +148,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
     Route::get('testHelper', 'Admin\VideoController@testHelper');
+    Route::get('generateDict', 'Admin\AdminController@generateDict');
 });
 
 $api = app('Dingo\Api\Routing\Router');

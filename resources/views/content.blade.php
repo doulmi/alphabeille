@@ -35,7 +35,7 @@
 
             @if($readable instanceof \App\Lesson)
             <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
-            <a class="btn btn-label label-{{$topic->sex}}">@lang("labels.tags." . $topic->sex)</a>
+            <a class="btn btn-label label-{{$lesson->sex}}">@lang("labels.tags." . $lesson->sex)</a>
             @endif
 
             {{--@if(!$readable instanceof \App\Video)--}}

@@ -7550,15 +7550,12 @@ body {
   height: 500px;
   overflow: auto; }
 
-.align-top {
-  vertical-align: top; }
-
 .points-panel {
   height: 400px;
   overflow: auto; }
 
 .video-content {
-  height: 300px;
+  height: 465px;
   padding: 10px;
   border-radius: 5px;
   overflow: auto; }
@@ -7580,9 +7577,31 @@ body {
   margin-right: auto;
   background: white;
   margin-left: auto; }
+  .video-show tr {
+    vertical-align: middle; }
+    .video-show tr td:first-child {
+      vertical-align: top; }
+  .video-show .subtitle {
+    padding: 15px;
+    background-color: #000;
+    height: 100px;
+    color: #fff; }
+    .video-show .subtitle p {
+      margin: 0; }
   .video-show p {
     font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
-    font-size: 16px; }
+    font-size: 16px;
+    padding: 0 5px; }
+    .video-show p.active {
+      background-color: #C6C6C6;
+      border-radius: 5px; }
+    .video-show p span {
+      font-family: inherit;
+      font-size: inherit;
+      display: inline-block;
+      cursor: pointer; }
+      .video-show p span:hover {
+        background-color: rgba(50, 205, 255, 0.5); }
   .video-show h1 {
     margin: 1em 0 10px 0; }
 
@@ -7608,7 +7627,7 @@ body {
     bottom: -12px;
     right: -5.6px;
     border-radius: 50%;
-    border: 2.4px solid #2c3e50;
+    border: 1.6px solid #2c3e50;
     z-index: 2;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -7630,6 +7649,24 @@ body {
 
 .width40 {
   width: 40px; }
+
+.control-panel {
+  z-index: 2;
+  position: absolute;
+  bottom: 5px; }
+  .control-panel a {
+    color: white;
+    text-decoration: none; }
+    .control-panel a:hover {
+      color: white; }
+    .control-panel a.active {
+      color: #0b97c4; }
+  .control-panel a[disabled] {
+    color: #C6C6C6;
+    cursor: default; }
+
+#showpop-menu {
+  display: none; }
 
 .menu {
   border-radius: 5px;

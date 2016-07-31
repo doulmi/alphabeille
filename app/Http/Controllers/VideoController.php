@@ -31,12 +31,13 @@ class VideoController extends ReadableController
         $videos = $this->random();
 //        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
 //        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
-        $content = $video->parsed_content;
+        $fr = explode('||', $video->parsed_content);
+        $zh = explode('||', $video->parsed_content_zh);
 
         list($like, $collect, $punchin) = $this->getStatus($video);
 
         $readables = $videos;
         $type = 'video';
-        return view('videos.show', compact(['readables', 'type', 'video', 'content', 'like', 'collect', 'punchin']));
+        return view('videos.show', compact(['readables', 'type', 'video', 'fr', 'zh', 'like', 'collect', 'punchin']));
     }
 }

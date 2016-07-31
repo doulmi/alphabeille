@@ -162,4 +162,8 @@ class AdminController extends Controller
             $talkshow->save();
         }
     }
+
+    public function generateDict() {
+        Helper::generateDict();
+    }
 }
