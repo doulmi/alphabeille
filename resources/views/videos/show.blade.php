@@ -134,11 +134,11 @@
 
         <div class="Card-Collection">
             {{--推荐部分--}}
-            <div class="Header"></div>
-            <h2 class="Heading-Fancy row">
-                <span class='title black'>{{ trans('labels.suggestVideos')}}</span>
-            </h2>
-            @include('utils.readableList')
+            {{--<div class="Header"></div>--}}
+            {{--<h2 class="Heading-Fancy row">--}}
+                {{--<span class='title black'>{{ trans('labels.suggestVideos')}}</span>--}}
+            {{--</h2>--}}
+            {{--@include('utils.readableList')--}}
 
             <div id="disqus_thread">
                 <h1 class="black">@lang('labels.comments')</h1>
