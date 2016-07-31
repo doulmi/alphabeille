@@ -20,7 +20,6 @@
             <div class="author">
                 Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$video->created_at}}
             </div>
-            @if($canRead)
                 <div class="row">
                     <div class="col-md-7">
                         <video id="my_video" class="video-js vjs-default-skin"
@@ -30,8 +29,10 @@
                         </video>
                         <div class="subtitle">
                             <div class="center">
+                                @if($canRead)
                                 <p v-show="fr">@{{{currentFr}}}</p>
                                 <p v-show="zh">@{{{currentZh}}}</p>
+                                @endif
                             </div>
                             <div class="control-panel">
                                 <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
@@ -48,89 +49,87 @@
 
                     <div class="col-md-5">
                         <div class="video-content grey">
-                            <table>
-                                <tbody>
-                                <tr v-for="line in linesFr">
-                                    <td class='width40 '><a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
-                                                            class='seek-btn'
-                                                            :class="played.indexOf($index) > -1 > 'active' : ''"></a>
-                                    </td>
-                                    <td>
-                                        <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
-                                    </td>
-                                </tr>
-                                {{--@endforeach--}}
-                                </tbody>
-                            </table>
+                            @if($canRead)
+                                <table>
+                                    <tbody>
+                                    <tr v-for="line in linesFr">
+                                        <td class='width40 '><a href='#@{{ $index }}'
+                                                                @click.stop.prevent='seekTo($index)'
+                                                                class='seek-btn'
+                                                                :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                        </td>
+                                        <td>
+                                            <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
+                                        </td>
+                                    </tr>
+                                    {{--@endforeach--}}
+                                    </tbody>
+                                </table>
+                            @else
+                                @include('blockContent')
+                            @endif
                         </div>
                     </div>
                 </div>
-            @else
-                <video id="my_video" class="video-js vjs-default-skin"
-                       controls preload data-setup='{ "aspectRatio":"1920:1080" }'
-                       data-setup='{"language":"fr"}'>
-                    <source src="{{$video->video_url}}" type='video/mp4'>
-                </video>
 
-                @include('blockContent')
-            @endif
 
-            <ul id="showpop-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                <li>
-                    <div id="dict_result">
-                        <div style="float:left;">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td id="word_text"></td>
-                                    <td>
-                                        <ul class="controls">
-                                            <li><a class="audioButton" href="/player/and.mp3"></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+
+                <ul id="showpop-menu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                    <li>
+                        <div id="dict_result">
+                            <div style="float:left;">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td id="word_text"></td>
+                                        <td>
+                                            <ul class="controls">
+                                                <li><a class="audioButton" href="/player/and.mp3"></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="word_result"></div>
                         </div>
-                        <div id="word_result"></div>
+                    </li>
+                </ul>
+                @if(!Auth::guest())
+                    <div class="center">
+                        <a href="#" data-tooltips="@lang('labels.favorite')" @click.stop.prevent="favoriteEvent">
+                            <div class="heart" v-bind:class="favorite"></div>
+                        </a>
+
+                        @if(!$punchin)
+                            <a id="punchinlink" class="hidden-xs fancy-button" href="#"
+                               data-tooltips="@lang('labels.punchin')"
+                               @click.stop.prevent="punchinEvent">
+                                <div class="left-frills frills"></div>
+                                <div class="button-frilles">@lang('labels.punchin')</div>
+                                <div class="right-frills frills"></div>
+                            </a>
+                        @endif
+
+                        <a href="#" data-tooltips="@lang('labels.collect')" @click.stop.prevent="collectEvent">
+                            <div class="collect" v-bind:class="collect"></div>
+                        </a>
+
+                        @if(!$punchin)
+                            <a id="punchinlink" class="visible-xs fancy-button" href="#"
+                               data-tooltips="@lang('labels.punchin')"
+                               @click.stop.prevent="punchinEvent">
+                                <div class="left-frills frills"></div>
+                                <div class="button-frilles">@lang('labels.punchin')</div>
+                                <div class="right-frills frills"></div>
+                            </a>
+                        @endif
                     </div>
-                </li>
-            </ul>
-            @if(!Auth::guest())
-                <div class="center">
-                    <a href="#" data-tooltips="@lang('labels.favorite')" @click.stop.prevent="favoriteEvent">
-                        <div class="heart" v-bind:class="favorite"></div>
-                    </a>
-
-                    @if(!$punchin)
-                        <a id="punchinlink" class="hidden-xs fancy-button" href="#"
-                           data-tooltips="@lang('labels.punchin')"
-                           @click.stop.prevent="punchinEvent">
-                            <div class="left-frills frills"></div>
-                            <div class="button-frilles">@lang('labels.punchin')</div>
-                            <div class="right-frills frills"></div>
-                        </a>
-                    @endif
-
-                    <a href="#" data-tooltips="@lang('labels.collect')" @click.stop.prevent="collectEvent">
-                        <div class="collect" v-bind:class="collect"></div>
-                    </a>
-
-                    @if(!$punchin)
-                        <a id="punchinlink" class="visible-xs fancy-button" href="#"
-                           data-tooltips="@lang('labels.punchin')"
-                           @click.stop.prevent="punchinEvent">
-                            <div class="left-frills frills"></div>
-                            <div class="button-frilles">@lang('labels.punchin')</div>
-                            <div class="right-frills frills"></div>
-                        </a>
-                    @endif
-                </div>
-                <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
-                     data-description="@lang('labels.shareTo')" data-image="{{$video->avatar}}">
-                    @lang('labels.share'):
-                </div>
-            @endif
+                    <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
+                         data-description="@lang('labels.shareTo')" data-image="{{$video->avatar}}">
+                        @lang('labels.share'):
+                    </div>
+                @endif
         </div>
 
         <div class="Card-Collection">
@@ -313,8 +312,10 @@
                         this.points = pointStr.split(',');
                         this.pointsCount = this.points.length;
 
-                        this.linesFr = "{!!$video->parsed_content!!}".split('||');
-                        this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
+                        @if($canRead)
+                            this.linesFr = "{!!$video->parsed_content!!}".split('||');
+                            this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
+                        @endif
 
                         this.$http.get('{{url($type . "Comments/" . $video->id)}}', function (response) {
                             this.comments = response;

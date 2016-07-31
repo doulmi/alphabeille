@@ -4,7 +4,7 @@
     <form role="form" action="{{url('admin/videos/' . $video->id . '/points')}}" method="POST">
         {!! csrf_field() !!}
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <video id="my_video" class="video-js vjs-default-skin"
                        controls preload data-setup='{ "aspectRatio":"1920:1080" }' data-setup='{"language":"fr"}'>
                     <source src="{{$video->video_url}}" type='video/mp4'>
@@ -34,9 +34,22 @@
 
             </div>
 
-            <div class="col-md-7">
-                <div class="video-content-panel">
-                    {!! $video->parsed_content !!}
+            <div class="col-md-5">
+                <div class="video-content grey">
+                    <table>
+                        <tbody>
+                        <tr v-for="line in linesFr">
+                            <td class='width40 '><a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
+                                                    class='seek-btn'
+                                                    :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                            </td>
+                            <td>
+                                <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
+                            </td>
+                        </tr>
+                        {{--@endforeach--}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -59,20 +72,41 @@
                 new Vue({
                     el: 'body',
                     data: {
-                        points: []
+                        points: [],
+                        linesFr: [],
+                        linesZh: [],
                     },
 
                     ready() {
                         var pointStr = '{{$video->points}}';
                         this.points = pointStr.split(',');
-                        console.log(this.points);
+                        this.pointsCount = this.points.length;
+
+                        this.linesFr = "{!!$video->parsed_content!!}".split('||');
+                        this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
                     },
 
                     methods: {
                         seekTo(no) {
                             var time = this.points[no];
-                            console.log(time);
                             player.currentTime(time);
+                        },
+
+                        timeupdate() {
+                            var currentTime = player.currentTime();
+                            for (var i = 0; i < this.points.length; i++) {
+                                if (this.repeatOne) {
+                                    if (currentTime >= this.points[this.active + 1]) {
+                                        player.currentTime(this.points[this.active]);
+                                    }
+                                }
+                                if (this.active != i && currentTime >= this.points[i]) {
+                                    this.active = i;
+                                    this.currentZh = this.linesZh[i];
+                                    this.currentFr = this.linesFr[i];
+                                }
+
+                            }
                         }
                     }
                 });
