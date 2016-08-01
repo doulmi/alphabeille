@@ -94,9 +94,10 @@ return [
     'welcomeJoinUs' => '感谢您加入Alphabeille',
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
     'free' => '免费',
-    'adText' => 'Alphabeille每天都会更新课程内容：周一到周五每天一篇生活小短文，讲述法国人的日常生活经历并附带相应的音频以及中法讲解。周末我们将上传相对轻松的法语脱口秀，时尚的主题，全法语的环境，穿插游戏、笑话，让你轻松学习地道法语。',
-    'backToLearn' => '进入学习状态',
-    'adBtn' => '所有内容只需108元/月',
+//    'adText' => 'Alphabeille每天都会更新课程内容：周一到周五每天一篇生活小短文，讲述法国人的日常生活经历并附带相应的音频以及中法讲解。周末我们将上传相对轻松的法语脱口秀，时尚的主题，全法语的环境，穿插游戏、笑话，让你轻松学习地道法语。',
+    'adText' => '成为会员，即可获得Alphabeille法语提供的所有内容字幕及额外服务！',
+    'backToLearn' => '马上成为法语达人',
+    'adBtn' => '所有内容只需10€/月',
     'loginAccount' => '登陆您的账号',
     'emptyMsgbox' => '您还未收到任何信息',
     'newMsg' => '未读',
@@ -272,5 +273,8 @@ return [
     'videos.keywords' => '法语,法语视频,法语短视频,短视频',
     'suggestLessons' => '推荐小文章',
     'suggestVideos' => '推荐短视频',
+    'startToSearchWord' => '点击字幕可以立即查询单词',
+    'loading' => '加载中',
 ];
+
 

@@ -52,7 +52,7 @@ class WordController extends Controller
         if($word) {
             return response()->json([
                 'status' => 200,
-                'msg' => $word->explanation
+                'msg' => $word->explication
             ]);
         } else {
             return response()->json([

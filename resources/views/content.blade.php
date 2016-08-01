@@ -35,7 +35,7 @@
 
             @if($readable instanceof \App\Lesson)
             <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
-            <a class="btn btn-label label-{{$lesson->sex}}">@lang("labels.tags." . $lesson->sex)</a>
+            <a class="btn btn-label label-{{$readable->sex}}">@lang("labels.tags." . $readable->sex)</a>
             @endif
 
             {{--@if(!$readable instanceof \App\Video)--}}
@@ -58,12 +58,6 @@
                     <span class="label label-default">Ctrl</span>
                     <span class="label label-default">↓</span>
                 </div>
-            {{--@else--}}
-                {{--<video id="my_video" class="video-js vjs-default-skin"--}}
-                       {{--controls preload data-setup='{ "aspectRatio":"1920:1080" }' data-setup='{"language":"fr"}'>--}}
-                    {{--<source src="{{$readable->video_url}}" type='video/mp4'>--}}
-                {{--</video>--}}
-            {{--@endif--}}
             <br/>
             <br/>
             @if($canRead)

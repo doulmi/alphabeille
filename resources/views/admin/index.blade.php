@@ -11,6 +11,19 @@
 
     @yield('othercss')
     <link rel="stylesheet" href="/css/app.css">
+    <style>
+        .sidebar {
+            position: fixed;
+            left: 1%;
+            top: 10%;
+        }
+
+        .right-slider {
+            position: fixed;
+            right: 1%;
+            top: 10%;
+        }
+    </style>
     <meta id="token" name="token" value="{{csrf_token()}}">
 </head>
 <body>
@@ -77,8 +90,12 @@
         </div>
     </div>
 
-    <div class="col-md-10">
+    <div class="col-md-offset-2 col-md-9">
         @yield('content')
+    </div>
+
+    <div class="col-md-1 right-slider">
+        @yield('actions')
     </div>
 </div>
 

@@ -193,15 +193,8 @@ class ReadableController extends Controller
         $model = $this->getModel();
         $type = $this->getType();
         $pageLimit = Config::get('params')['pageLimit'];
-        $readables = $model::latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug']);
+        $readables = $model::latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at']);
         return view('talkshows.index', compact(['readables', 'type']));
-    }
-
-    public function latest($num)
-    {
-        $model = $this->getModel();
-        $readable = $model::latest()->limit($num)->get(['id', 'avatar', 'title', 'slug']);
-        return $readable;
     }
 
     public function random($num = 4, $max = 100)
