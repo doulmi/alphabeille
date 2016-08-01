@@ -3062,12 +3062,8 @@ body {
   height: 200px;
 }
 
-.lesson-content h1 {
-  font-family: "Coconbold", "Microsoft YaHei", sans-serif;
-}
-
 .lesson-content .markdown-content {
-  font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+  font-family:  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
 
   p {
     font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
@@ -3998,6 +3994,11 @@ $seek-transition-time: 0.3s;
   border-right-color: transparent !important;
 }
 
-.popover{
+.popover {
   width: 400px;
+}
+
+.fav-btn {
+  text-decoration: none;
+  color: #333333;
 }

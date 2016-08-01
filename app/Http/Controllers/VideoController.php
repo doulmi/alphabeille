@@ -26,7 +26,7 @@ class VideoController extends ReadableController
     {
         $video = Video::findByIdOrSlugOrFail($idOrSlug);
 
-//        Redis::incr('video:view:' . $video->id);
+        Redis::incr('video:view:' . $video->id);
 
         $videos = $this->random();
 //        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);

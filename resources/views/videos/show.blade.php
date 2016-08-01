@@ -226,7 +226,9 @@
                     var spans = $(".video-content span");
 
                     var closeBtn = '<button type="button" id="close" class="close" onclick="$(\'.popver\').popover(\'hide\');">&times;</button>';
-                    var collect = |
+                    var collect = '<a href="#"><i class="glyphicon " :class="favWord"></i></a>';
+
+//                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
                     //POPOVER
                     spans.click(function () {
                         var word = $(this).html().trim().toLowerCase();
@@ -238,7 +240,7 @@
                             $(this).popover({
                                 placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
                                 title: function () {
-                                    return $(this).html() + closeBtn;
+                                    return collect + $(this).html() + closeBtn;
                                 },
                                 content: function () {
                                     return result; // 把content变成html
@@ -250,7 +252,7 @@
                             $(this).popover({
                                 placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
                                 title: function () {
-                                    return $(this).html() + closeBtn;
+                                    return collect + $(this).html() + closeBtn;
                                 },
                                 content: function () {
                                     return "@lang('labels.loading')";
@@ -261,6 +263,9 @@
                                 $(".popover-content").html(response['msg']);
                                 if(response['status'] == 200) {
                                     localStorage.setItem('dict:fr:' + word, response['msg']);
+                                    if(response['isFav']) {
+
+                                    }
                                 }
                             });
                         }
@@ -282,6 +287,7 @@
                         fr: true,
                         zh: true,
                         pointsCount: 0,
+                        favWord : 'glyphicon-heart-empty',
                         played: [],    //  保存已经播放过的橘子
                         active: -1,
                         currentFr: "@lang('startToSearchWord')",
@@ -331,6 +337,7 @@
                             window.location.href = "#replyForm";
                             this.newPost.content = '@' + userName;
                         },
+
                         seekTo(no) {
                             var time = this.points[no];
                             player.currentTime(time);
