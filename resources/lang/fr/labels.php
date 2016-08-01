@@ -97,10 +97,13 @@ return [
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
 
     'free' => 'Gratuit',
-    'adText' => 'Nous téléchargeons lundi à vendredi un texte qui comprend la vie quotidienne d\'un professeur avec un audio correspondant et des explications sur les expressions et sur les mots importants. Le weekend, vous aurez deux talk-shows intéressants qui portent sur les sujets d\'actualité ou la culture française.',
+//    'adText' => 'Nous téléchargeons lundi à vendredi un texte qui comprend la vie quotidienne d\'un professeur avec un audio correspondant et des explications sur les expressions et sur les mots importants. Le weekend, vous aurez deux talk-shows intéressants qui portent sur les sujets d\'actualité ou la culture française.',
+    'adText' => '成为会员，即可获得Alphabeille法语提供的所有内容字幕及额外服务！',
+
     'backToLearn' => 'Commencer à apprendre le français',
-    'adBtn' => 'Tous nos contenu ne coûte que 15€/mois',
-    'adBtnShort' => '15€/mois',
+//    'adBtn' => 'Tous nos contenu ne coûte que 15€/mois',
+    'adBtn' => '所有内容只需10€/月',
+    'adBtnShort' => '10€/mois',
     'loginAccount' => 'Je m\'identifie',
     'emptyMsgbox' => 'Aucun message',
     'newMsg' => 'Message non lu',
@@ -218,7 +221,8 @@ return [
     'freeMinitalks' => 'Minitalks gratuits',
     'collectMinitalks' => 'Vos minitalks favoris',
     'minitalks' => 'Minitalks',
-    'investYourself' => 'Investis en toi',
+//    'investYourself' => 'Investis en toi',
+    'investYourself' => '投资你自己',
 
     'login.title' => 'Alphabeille法语登录/注册界面，欢迎您的到来',
     'login.description' => 'Alphabeille法语的登录/注册界面~',
@@ -280,5 +284,7 @@ return [
     'videos.keywords' => '法语,法语视频,法语短视频,短视频',
     'suggestLessons' => 'Petits textes',
     'suggestVideos' => 'Vidéos',
+    'startToSearchWord' => '点击字幕可以立即查询单词',
+    'loading' => 'Loading...',
 ];
 

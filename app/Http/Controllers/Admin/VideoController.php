@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Editor\Markdown\Markdown;
 use App\Helper;
 use App\Video;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -72,11 +73,18 @@ class VideoController extends Controller
         $data = $request->all();
         $data['slug'] = '';
 //        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
+
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
+
+        $times = explode(' ', $data['publish_at']);
+        $times0 = explode('/', $times[0]);
+        $times1 = explode(':', $times[1]);
+
+        $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times[1] . ':00';
 
         Video::create($data);
 
-        Redis::incr('audio:count');
+//        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createVideoSuccess'));
         return redirect('admin/videos');
     }
