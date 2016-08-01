@@ -71,7 +71,13 @@ class Helper
                         $sub = new \stdClass();
                         $sub->no = $no;
                         if(str_contains($subTime, '-->')) {
-                            list($sub->startTime, $sub->endTime) = explode(' --> ', $subTime);
+                            $times = explode(' -->', $subTime);
+                            if(count($times) == 2) {
+                                list($sub->startTime, $sub->endTime) = $times;
+                            } else{
+                                $sub->startTime = $times[0];
+                            }
+                            var_dump($sub->startTime);
                             $points .=  self::toSecond($sub->startTime) . ',';
                         }
                         $sub->fr = $subFr;

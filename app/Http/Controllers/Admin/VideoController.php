@@ -76,11 +76,14 @@ class VideoController extends Controller
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
 
-        $times = explode(' ', $data['publish_at']);
-        $times0 = explode('/', $times[0]);
-        $times1 = explode(':', $times[1]);
+        if(isset($data['publish_at']) && $data['publish_at'] != '') {
+            dd(2);
+            $times = explode(' ', $data['publish_at']);
+            $times0 = explode('/', $times[0]);
+            $times1 = explode(':', $times[1]);
 
-        $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times[1] . ':00';
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times[1] . ':00';
+        }
 
         Video::create($data);
 
