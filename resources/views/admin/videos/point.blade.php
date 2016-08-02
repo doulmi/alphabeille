@@ -10,9 +10,8 @@
                     <source src="{{$video->video_url}}" type='video/mp4'>
                 </video>
 
-
+                <center><a class="btn btn-lg btn-success" @click="addCurrentPoint">Cut</a></center>
                 <div class="points-panel">
-                    <center><a class="btn btn-lg btn-success" @click="addCurrentPoint">Cut</a></center>
                     {{--<input type="text" id="points" v-bind:value="points" data-role="tagsinput">--}}
                     <table class="table">
                         <thead>
@@ -32,8 +31,8 @@
                     </table>
                 </div>
 
+                <input type="hidden" name="points" v-bind:value="points">
             </div>
-
             <div class="col-md-5">
                 <div class="video-content grey">
                     <table>
@@ -52,65 +51,80 @@
                     </table>
                 </div>
             </div>
+            <div class="Header"></div>
+            <button type="submit" class="btn btn-lg btn-primary pull-right">提交</button>
         </div>
-        @endsection
+    </form>
 
-        @section('otherjs')
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
-            <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+@endsection
 
-            <script>
-                var player;
-                videojs("my_video").ready(function () {
-                    player = this;
-                    player.play();
-                    $('#my_video').show();
-                });
+@section('otherjs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
+    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
 
-                Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
-                new Vue({
-                    el: 'body',
-                    data: {
-                        points: [],
-                        linesFr: [],
-                        linesZh: [],
-                    },
+    <script>
+        var player;
+        videojs("my_video").ready(function () {
+            player = this;
+            player.play();
+            $('#my_video').show();
+        });
 
-                    ready() {
-                        var pointStr = '{{$video->points}}';
-                        this.points = pointStr.split(',');
-                        this.pointsCount = this.points.length;
+        Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+        new Vue({
+            el: 'body',
+            data: {
+                points: [],
+                linesFr: [],
+                linesZh: []
+            },
 
-                        this.linesFr = "{!!$video->parsed_content!!}".split('||');
-                        this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
-                    },
+            ready() {
+                var pointStr = '{{$video->points}}';
+                this.points = pointStr.split(',');
+                this.pointsCount = this.points.length;
 
-                    methods: {
-                        seekTo(no) {
-                            var time = this.points[no];
-                            player.currentTime(time);
-                        },
+                this.linesFr = "{!!$video->parsed_content!!}".split('||');
+                this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
+            },
 
-                        timeupdate() {
-                            var currentTime = player.currentTime();
-                            for (var i = 0; i < this.points.length; i++) {
-                                if (this.repeatOne) {
-                                    if (currentTime >= this.points[this.active + 1]) {
-                                        player.currentTime(this.points[this.active]);
-                                    }
-                                }
-                                if (this.active != i && currentTime >= this.points[i]) {
-                                    this.active = i;
-                                    this.currentZh = this.linesZh[i];
-                                    this.currentFr = this.linesFr[i];
-                                }
+            methods: {
+                seekTo(no) {
+                    var time = this.points[no];
+                    player.currentTime(time);
+                },
 
+                addCurrentPoint() {
+                    this.points.push(player.currentTime());
+                    this.points.sort(function (a, b) {
+                        return a - b;
+                    });
+                },
+
+                deletePoint(no) {
+                    this.points.splice(no, 1);
+                },
+
+                timeupdate() {
+                    var currentTime = player.currentTime();
+                    for (var i = 0; i < this.points.length; i++) {
+                        if (this.repeatOne) {
+                            if (currentTime >= this.points[this.active + 1]) {
+                                player.currentTime(this.points[this.active]);
                             }
                         }
+                        if (this.active != i && currentTime >= this.points[i]) {
+                            this.active = i;
+                            this.currentZh = this.linesZh[i];
+                            this.currentFr = this.linesFr[i];
+                        }
+
                     }
-                });
-            </script>
+                }
+            }
+        });
+    </script>
 @endsection
 
 
