@@ -130,7 +130,7 @@ class VideoController extends Controller
 
     private function getSaveData(Request $request) {
         $data = $request->all();
-        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
+        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
             $times = explode(' ', $data['publish_at']);
