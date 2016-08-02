@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Overtrue\Socialite\SocialiteManager;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -108,5 +109,30 @@ class AuthController extends Controller
     private function autoName($email)
     {
         return explode('@', $email)[0];
+    }
+
+    public function facebookLogin() {
+        $socialite = new SocialiteManager(config('services'));
+        return $socialite->driver('facebook')->redirect();
+    }
+
+    public function facebookCallback() {
+        $socialite = new SocialiteManager(config('services'));
+        $user = $socialite->driver('facebook')->user();
+
+        dd($user);
+        User::create([
+            'email' => $user->getEmail(),
+            'password' => bcrypt(str_random(16)),
+            'name' => $user->getNickname(),
+        ]);
+    }
+
+    public function wechatLogin() {
+
+    }
+
+    public function qqLogin() {
+
     }
 }

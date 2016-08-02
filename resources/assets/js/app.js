@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var navbar = $('#navbar');
-    var menu = $('#menu-xs');
+    //var navbar = $('#navbar');
+    //var menu = $('#menu-xs');
 
     //var lastScrollTop = 0;
     //$(document).on( 'scroll', function(){

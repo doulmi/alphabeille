@@ -36,7 +36,7 @@
                         <div class="control-panel">
                             <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
                                         class="glyphicon glyphicon-chevron-left"></i></a>
-                            <a href="#" @click.stop.prevent='repeat' :class="repeatOne ? 'active' : '' ">重复单句</a>
+                            <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' ">重复单句</a>
                             <a href="#" :disabled="active == pointsCount - 1 " @click.stop.prevent='next'><i
                                         class="glyphicon glyphicon-chevron-right"></i></a>
 
@@ -298,7 +298,7 @@
                         collect: '{{$collect ? 'is-active' : ''}}',
                         isCollect: '{{$collect}}',
                         lineActive: '',
-                        repeatOne: false,
+                        repeatOne: -1,  //>=0 则说明循环开启
                         newComment: {
                             name: '{{Auth::user() ? Auth::user()->name : ''}}',
                             avatar: '{{Auth::user() ? Auth::user()->avatar : ''}}',
@@ -397,9 +397,9 @@
                         timeupdate() {
                             var currentTime = player.currentTime();
                             for (var i = 0; i < this.points.length; i++) {
-                                if (this.repeatOne) {
-                                    if (currentTime >= this.points[this.active + 1]) {
-                                        player.currentTime(this.points[this.active]);
+                                if (this.repeatOne >= 0) {   //repeatOne is open
+                                    if (currentTime >= this.points[this.repeatOne + 1]) {
+                                        player.currentTime(this.points[this.repeatOne]);
                                     }
                                 }
                                 if (this.active != i && currentTime >= this.points[i]) {
@@ -424,8 +424,11 @@
                         },
 
                         repeat() {
-                            this.repeatOne = !this.repeatOne;
-                            console.log(this.repeatOne);
+                            if(this.repeatOne >= 0) {
+                                this.repeatOne = -1;
+                            } else {
+                                this.repeatOne = this.active;
+                            }
                         },
 
                         toggleFr() {

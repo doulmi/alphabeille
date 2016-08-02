@@ -87,6 +87,10 @@
                 <i class="glyphicon glyphicon-music"></i>
                 @lang('labels.manageComments')
             </a>
+            <a href="{{url('admin/words')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-dict"></i>
+                @lang('labels.manageWords')
+            </a>
         </div>
     </div>
 

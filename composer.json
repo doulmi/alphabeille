@@ -18,10 +18,10 @@
         "ignited/laravel-omnipay": "2.*",
         "overtrue/laravel-wechat": "~3.0",
         "tom-lingham/searchy" : "2.*",
-        "laravel/socialite": "~2.0",
         "cviebrock/eloquent-sluggable": "4.0",
         "lokielse/omnipay-alipay": "dev-master",
-        "sunra/php-simple-html-dom-parser": "^1.5"
+        "sunra/php-simple-html-dom-parser": "^1.5",
+        "overtrue/socialite": "~1.0"
     },
 
     "require-dev": {

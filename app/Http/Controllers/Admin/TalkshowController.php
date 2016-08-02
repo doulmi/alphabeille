@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Editor\Markdown\Markdown;
 use App\Talkshow;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -56,6 +57,23 @@ class TalkshowController extends Controller {
         return view('admin.talkshows.show', compact('edit'));
     }
 
+    private function getSaveData(Request $request) {
+        $data = $request->all();
+//        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+
+        if (isset($data['publish_at']) && $data['publish_at'] != '') {
+            $times = explode(' ', $data['publish_at']);
+            $times0 = explode('/', $times[0]);
+
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times[1] . ':00';
+        } else {
+            $data['publish_at'] = Carbon::now();
+        }
+
+        return $data;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -64,9 +82,8 @@ class TalkshowController extends Controller {
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $this->getSaveData($request);
         $data['slug'] = '';
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
 
         Talkshow::create($data);
 //        Redis::incr('audio:count');
@@ -96,6 +113,10 @@ class TalkshowController extends Controller {
     {
         $edit = true;
         $talkshow = Talkshow::findOrFail($id);
+
+        $time = $talkshow->publish_at;
+
+        $talkshow->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.talkshows.show', compact('edit', 'talkshow'));
     }
 
@@ -109,8 +130,8 @@ class TalkshowController extends Controller {
     public function update(Request $request, $id)
     {
         $talkshow = Talkshow::findOrFail($id);
-        $data = $request->all();
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
+
+        $data = $this->getSaveData($request);
 
         $talkshow->update($data);
         return redirect('admin/talkshows');

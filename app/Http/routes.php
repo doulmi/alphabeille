@@ -91,6 +91,11 @@ Route::get('search', 'PostController@search');
 Route::get('free', 'PostController@free');
 Route::get('api/words/{word}', 'WordController@show');
 
+Route::get('facebook/login', 'Auth\AuthController@facebookLogin');
+Route::get('facebook/callback', 'Auth\AuthController@facebookCallback');
+Route::get('wechat/login', 'Auth\AuthController@wechatLogin');
+Route::get('qq/login', 'Auth\AuthController@qqLogin');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::get('/users', 'Admin\UserController@index')->name('adminUsers');
@@ -135,6 +140,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::resource('minitalks', 'Admin\MinitalkController');
     Route::get('minitalks/preview', 'Admin\MinitalkController@preview');
+
+    Route::resource('words', 'Admin\WordController');
 
     Route::resource('videos', 'Admin\VideoController');
     Route::get('videos/{id}/points', 'Admin\VideoController@editPoints');
