@@ -18,11 +18,11 @@ class PostController extends Controller
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];
-        $lessons = Lesson::orderBy('id', 'DESC')->limit($num)->get();
+        $lessons = Lesson::published()->orderBy('id', 'DESC')->limit($num)->get();
 
-        $talkshows = Talkshow::latest()->limit($num)->get();
-        $minitalks = Minitalk::latest()->limit($num)->get();
-        $videos = Video::latest()->limit($num)->get();
+        $talkshows = Talkshow::published()->latest()->limit($num)->get();
+        $minitalks = Minitalk::published()->latest()->limit($num)->get();
+        $videos = Video::published()->latest()->limit($num)->get();
         return view('index', compact(['lessons', 'talkshows', 'minitalks', 'videos']));
     }
 

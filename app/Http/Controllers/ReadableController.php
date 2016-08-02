@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 
 class ReadableController extends Controller
 {
@@ -175,7 +174,7 @@ class ReadableController extends Controller
     }
 
     public function collects() {
-        $pageLimit = Config::get('params')['pageLimit'];
+        $pageLimit = config('params')['pageLimit'];
         $model = $this->getModel();
         $minitalks = Collectable::where('user_id', Auth::user()->id)->where('collectable_type', $model)->paginate($pageLimit);
         return view('minitalks.index', compact('minitalks'));
@@ -184,7 +183,7 @@ class ReadableController extends Controller
     public function free() {
         $model = $this->getModel();
         $type = $this->getType();
-        $pageLimit = Config::get('params')['pageLimit'];
+        $pageLimit = config('params')['pageLimit'];
         $minitalks = $model::where('free', 1)->latest()->paginate($pageLimit);
         return view( $type . 's.index', compact( $type . 's'));
     }
@@ -192,8 +191,8 @@ class ReadableController extends Controller
     public function index() {
         $model = $this->getModel();
         $type = $this->getType();
-        $pageLimit = Config::get('params')['pageLimit'];
-        $readables = $model::latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at']);
+        $pageLimit = config('params')['pageLimit'];
+        $readables = $model::published()->latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at']);
         return view('talkshows.index', compact(['readables', 'type']));
     }
 

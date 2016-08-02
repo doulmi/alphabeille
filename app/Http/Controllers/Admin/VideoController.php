@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Editor\Markdown\Markdown;
 use App\Helper;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
-use Sunra\PhpSimple\HtmlDomParser;
 
 class VideoController extends Controller
 {
@@ -65,25 +62,13 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $this->getSaveData($request);
         $data['slug'] = '';
-//        $data['parsed_content'] = Helper::parsePointLink($this->markdown->parse($data['content']));
-
-        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
-
-        if(isset($data['publish_at']) && $data['publish_at'] != '') {
-            dd(2);
-            $times = explode(' ', $data['publish_at']);
-            $times0 = explode('/', $times[0]);
-            $times1 = explode(':', $times[1]);
-
-            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times[1] . ':00';
-        }
 
         Video::create($data);
 
@@ -92,12 +77,10 @@ class VideoController extends Controller
         return redirect('admin/videos');
     }
 
-
-
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -106,7 +89,8 @@ class VideoController extends Controller
         return $video;
     }
 
-    public function preview(Request $request) {
+    public function preview(Request $request)
+    {
         $tmp = $request->all();
         return view('admin.videos.preview', compact('tmp'));
     }
@@ -114,50 +98,56 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $edit = true;
         $video = Video::findOrFail($id);
+        $time = $video->publish_at;
+
+        $video->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.videos.show', compact(['edit', 'video']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $video = Video::findOrFail($id);
 
-        $data = $request->all();
-        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
+        $data = $this->getSaveData($request);
 
         $video->update($data);
         return redirect('admin/videos');
     }
 
-    public function testHelper() {
-//        $pattern = '/(\s|,|\.|-|;|:|《|》|\?|!|[|]|\(|\)|{|}|<|>)/';
-//        $src = "Oh La la. How are you?";
-//        for($i = 0; $i < strlen($src); $i++) {
-//            var_dump(preg_match($pattern, $src[0]));
-//        }
-//        dd(1);
-        $video = Video::findOrFail(1);
-        list($parsed_fr, $parsed_zh) = Helper::parsePointLink($video->content);
-        dd($parsed_fr, $parsed_zh);
+    private function getSaveData(Request $request) {
+        $data = $request->all();
+        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
+
+        if (isset($data['publish_at']) && $data['publish_at'] != '') {
+            $times = explode(' ', $data['publish_at']);
+            $times0 = explode('/', $times[0]);
+
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times[1] . ':00';
+        } else {
+            $data['publish_at'] = Carbon::now();
+        }
+
+        return $data;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -169,9 +159,10 @@ class VideoController extends Controller
         ]);
     }
 
-    public function editPoints($id) {
+    public function editPoints($id)
+    {
         $video = Video::findOrFail($id);
-        if($video->points != '') {
+        if ($video->points != '') {
             $edit = true;
         } else {
             $edit = false;
@@ -179,7 +170,8 @@ class VideoController extends Controller
         return view('admin.videos.point', compact(['video', 'edit']));
     }
 
-    public function storePoints(Request $request, $id) {
+    public function storePoints(Request $request, $id)
+    {
         $video = Video::findOrFail($id);
         $video->points = $request->get('points', '');
         $video->save();
@@ -187,7 +179,8 @@ class VideoController extends Controller
         return redirect('admin/videos');
     }
 
-    public function getPoints($id) {
+    public function getPoints($id)
+    {
         $video = Video::findOrFail($id);
         return $video->points;
     }

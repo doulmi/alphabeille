@@ -286,5 +286,10 @@ return [
     'suggestVideos' => 'Vidéos',
     'startToSearchWord' => '点击字幕可以立即查询单词',
     'loading' => 'Loading...',
+    'word' => '单词',
+    'explication' => '释义',
+    'manageWords' => '单词管理',
+    'addWord' => '添加单词',
+    'modifyWord' => '修改单词',
 ];
 

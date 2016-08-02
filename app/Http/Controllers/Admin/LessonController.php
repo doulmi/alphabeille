@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Editor\Markdown\Markdown;
 use App\Lesson;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -65,10 +66,8 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $this->getSaveData($request);
         $data['slug'] = '';
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
-        $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
 
         Lesson::create($data);
 
@@ -98,9 +97,29 @@ class LessonController extends Controller
     public function edit($id) {
         $edit = true;
         $lesson = Lesson::findOrFail($id);
+        $time = $lesson->publish_at;
+
+        $lesson->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.lessons.show', compact('edit', 'lesson'));
     }
 
+    private function getSaveData(Request $request) {
+        $data = $request->all();
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+        $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
+
+
+        if (isset($data['publish_at']) && $data['publish_at'] != '') {
+            $times = explode(' ', $data['publish_at']);
+            $times0 = explode('/', $times[0]);
+
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times[1] . ':00';
+        } else {
+            $data['publish_at'] = Carbon::now();
+        }
+
+        return $data;
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -112,12 +131,10 @@ class LessonController extends Controller
     {
         $lesson= Lesson::find($id);
 
-        $data = $request->all();
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
-        $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
+        $data = $this->getSaveData($request);
 
         $lesson->update($data);
-        return redirect('admin/lessons');
+        return redirect('admin/topics');
 //        $lesson->update([
 //            'title' => $request->get('title'),
 //            'avatar' => $request->get('avatar'),

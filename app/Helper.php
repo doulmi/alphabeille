@@ -41,6 +41,12 @@ class Helper
         return floatval($second);
     }
 
+
+    /**
+     * 分析srt格式字幕，自动生成断点
+     * @param $src
+     * @return array
+     */
     public static function parsePointLink($src)
     {
         $lines = preg_split('/\n|\r\n?/', $src);
@@ -77,7 +83,6 @@ class Helper
                             } else{
                                 $sub->startTime = $times[0];
                             }
-                            var_dump($sub->startTime);
                             $points .=  self::toSecond($sub->startTime) . ',';
                         }
                         $sub->fr = $subFr;
@@ -89,7 +94,7 @@ class Helper
                         $state = 1;
                         $subs[] = $sub;
                     } else {
-                        $accent = array('À', 'Â', 'Ä', 'È', 'É', 'Ê', 'Ë', 'Î', 'Ï', 'Ô', 'Œ	', 'Ù', 'Û', 'Ü', 'Ÿ', ' â', 'ê', 'ô', 'û', 'î', 'ä', 'ë', 'ö', 'ü', 'ï', 'é', 'è', 'ç', 'à', 'œ', 'ù', 'ÿ', 'Ç', 'ç', '«', '»', '€');
+                        $accent = array('À', 'Â', 'Ä', 'È', 'É', 'Ê', 'Ë', 'Î', 'Ï', 'Ô', 'Œ', 'Ù', 'Û', 'Ü', 'Ÿ', ' â', 'ê', 'ô', 'û', 'î', 'ä', 'ë', 'ö', 'ü', 'ï', 'é', 'è', 'ç', 'à', 'œ', 'ù', 'ÿ', 'Ç', 'ç', '«', '»', '€');
                         $lineWithoutAccent = str_replace($accent, "", $line);
                         if (preg_match('/[\x7f-\xff]/', $lineWithoutAccent)) {
                             // 检测内容是否包含中文
@@ -100,12 +105,16 @@ class Helper
                     }
             }
         }
-//        self::getAllWords($src);
         $frs = substr($fr, 0, strlen($fr) - 2);
         $frs = self::emberedWord($frs);
         return [$frs, substr($zh, 0, strlen($zh) - 2), substr($points, 0, strlen($points) - 1)];
     }
 
+    /**
+     * 将单词用<span>围起来
+     * @param $src
+     * @return mixed|string
+     */
     private static function emberedWord($src)
     {
         $in = false;

@@ -6,6 +6,7 @@ use App\Editor\Markdown\Markdown;
 use App\Helper;
 use App\Minitalk;
 use App\Talkshow;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -64,10 +65,8 @@ class MinitalkController extends Controller {
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $this->getSaveData($request);
         $data['slug'] = '';
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
-        $data['parsed_wechat_part'] = $this->markdown->parse($data['wechat_part']);
 
         Minitalk::create($data);
 //        Redis::incr('audio:count');
@@ -97,9 +96,29 @@ class MinitalkController extends Controller {
     {
         $edit = true;
         $minitalk = Minitalk::findOrFail($id);
+        $time = $minitalk->publish_at;
+
+        $minitalk->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.minitalks.show', compact('edit', 'minitalk'));
     }
 
+    private function getSaveData(Request $request) {
+        $data = $request->all();
+//        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
+        $data['parsed_content'] = $this->markdown->parse($data['content']);
+        $data['parsed_wechat_part'] = $this->markdown->parse($data['wechat_part']);
+
+        if (isset($data['publish_at']) && $data['publish_at'] != '') {
+            $times = explode(' ', $data['publish_at']);
+            $times0 = explode('/', $times[0]);
+
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times[1] . ':00';
+        } else {
+            $data['publish_at'] = Carbon::now();
+        }
+
+        return $data;
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -109,11 +128,7 @@ class MinitalkController extends Controller {
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $data['slug'] = '';
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
-        $data['parsed_wechat_part'] = $this->markdown->parse($data['wechat_part']);
-
+        $data = $this->getSaveData($request);
         $minitalk = Minitalk::findOrFail($id);
         $minitalk->update($data);
         return redirect('admin/minitalks');
