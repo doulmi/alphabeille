@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Subscription;
+use App\UserSubscription;
 use Illuminate\Support\Facades\Session;
 use Omnipay\Omnipay;
 
@@ -21,7 +22,7 @@ class AlipayController extends Controller
         $options = [
             'out_trade_no' => date('YmdHis') . mt_rand(1000,9999),
             'subject' => 'Alphabeille: ' . trans('labels.' . $menu->name),
-            'total_fee' => 0.01,
+            'total_fee' => $menu->price,
         ];
 
         $response = $gateway->purchase($options)->send();
@@ -42,7 +43,10 @@ class AlipayController extends Controller
         $response = $gateway->completePurchase($options)->send();
 
         if ($response->isSuccessful() && $response->isTradeStatusOk()) {
+            UserSubscription::create([
 
+            ]);
+            return redirect('/');
         } else {
             Session::flash('payFailed', 'payFailed');
             return redirect('/menus');

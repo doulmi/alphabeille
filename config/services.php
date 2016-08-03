@@ -40,4 +40,10 @@ return [
         'client_secret' => env('FACEBOOK_APP_SECRET'),
         'redirect'      => env('FACEBOOK_REDIRECT'),
     ],
+
+    'qq' => [
+        'client_id'     => env('QQ_APP_ID'),
+        'client_secret' => env('QQ_APP_SECRET'),
+        'redirect'      => env('QQ_REDIRECT'),
+    ]
 ];

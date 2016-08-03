@@ -120,7 +120,6 @@ class AuthController extends Controller
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('facebook')->user();
 
-        dd($user);
         User::create([
             'email' => $user->getEmail(),
             'password' => bcrypt(str_random(16)),
@@ -133,6 +132,19 @@ class AuthController extends Controller
     }
 
     public function qqLogin() {
+        $socialite = new SocialiteManager(config('services'));
+        return $socialite->driver('qq')->redirect();
+    }
 
+    public function qqCallback() {
+        $socialite = new SocialiteManager(config('services'));
+        $user = $socialite->driver('qq')->user();
+
+        dd($user);
+        User::create([
+            'email' => $user->getEmail(),
+            'password' => bcrypt(str_random(16)),
+            'name' => $user->getNickname(),
+        ]);
     }
 }

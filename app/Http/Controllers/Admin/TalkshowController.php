@@ -68,7 +68,7 @@ class TalkshowController extends Controller {
 
             $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times[1] . ':00';
         } else {
-            $data['publish_at'] = Carbon::now();
+            $data['publish_at'] = Carbon::now('Europe/Paris');
         }
 
         return $data;

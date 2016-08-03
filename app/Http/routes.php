@@ -95,6 +95,7 @@ Route::get('facebook/login', 'Auth\AuthController@facebookLogin');
 Route::get('facebook/callback', 'Auth\AuthController@facebookCallback');
 Route::get('wechat/login', 'Auth\AuthController@wechatLogin');
 Route::get('qq/login', 'Auth\AuthController@qqLogin');
+Route::get('qq/callback', 'Auth\AuthController@qqCallback');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');

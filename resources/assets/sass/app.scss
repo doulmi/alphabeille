@@ -64,7 +64,6 @@ button {
 
 body {
   margin-top: 0;
-  background: #32CDFF;
 }
 
 .night {
@@ -382,8 +381,8 @@ body {
 }
 
 .body {
-  background-color: $primaryBgColor;
   overflow: hidden;
+  background-color: $navbarColor;
 }
 
 .grey {
@@ -738,6 +737,7 @@ body {
 }
 
 .login {
+  background-color: $primaryBgColor;
 }
 
 .login-container ::-webkit-input-placeholder {
@@ -836,7 +836,7 @@ body {
 
 .login-container {
   position: relative;
-  max-width: 600px;
+  max-width: 266px;
   margin: 0 auto;
   text-align: center;
 }
@@ -2721,12 +2721,10 @@ body {
 
 .link {
   color: $secondColor;
-  font-weight: 700;
 }
 
 .link:hover {
   color: $secondColor;
-  font-weight: 700;
 }
 
 .li-series {
@@ -3881,4 +3879,82 @@ $seek-transition-time: 0.3s;
   margin: 20px 0 80px 0;
   -webkit-transition: all .1s ease-in-out;
   transition: all .1s ease-in-out;
+}
+
+.login-login {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover, &.active {
+    color: #ffffff;
+    text-decoration: none;
+  }
+}
+
+.login-signup {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 40px;
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover, &.active {
+    color: #ffffff;
+    text-decoration: none;
+  }
+}
+
+.social-button img {
+  display: block;
+  max-width: 100%;
+  width: 30px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.social-button {
+  float: left;
+  margin: 0 8px;
+  //width: 72px;
+  width: calc(50% - 16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 250ms ease-in-out;
+  padding: 5px 15px;
+  border-radius: 3px;
+  background-color: transparent;
+
+  &:focus {
+    box-shadow: inset 0 0 5px #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  &:hover {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+
+  &.facebook {
+    background-color: #3B5998;
+  }
+
+  &.wechat {
+    background-color: #5BB947;
+  }
+
+  &.qq {
+    background-color: #12B7F5;
+  }
+}
+
+.oauth-login {
+  margin-bottom: 50px;
+
+  .head {
+    margin: 20px 0;
+    font-size: 15px;
+    color: #FFFFFF;
+  }
 }

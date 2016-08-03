@@ -8,12 +8,12 @@
 @endsection
 
 @section('content')
-    <div class="">
+    <div class="grey">
         <div class="container video-show">
             <?php $canRead = $readable->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
             <div class="Header"></div>
             <h1 class="center">
-                {{ $readable ->title }}
+                {!! $readable ->title !!}
             </h1>
 
             <div class="author">

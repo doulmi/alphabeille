@@ -99,8 +99,8 @@
                 <li class="visible-xs">
                     @if(Auth::guest())
                         <div class="nav-btns center">
-                            <a href="{{url('/login')}}">@lang('labels.login')</a><br/>
-                            <a href="{{url('/register')}}">@lang('labels.register')</a><br/>
+                            <a href="{{url('/login')}}">@lang('labels.login')</a>
+                            <a href="{{url('/register')}}">@lang('labels.register')</a>
                         </div>
                     @else
                         <div class="nav-btns center">
@@ -116,11 +116,10 @@
                             <a href="{{url('/logout')}}">@lang('labels.disconnect')</a>
                         </div>
                     @endif
-                    <div class="nav-btns center ">
-                        <a href="{{url('/')}}" class="nav-xs-btn">@lang('title.index')</a>
+                    <div class="nav-btns center">
+                        <a href="{{url('/')}}" class="nav-xs-btn">@lang('labels.index')</a>
                         <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a>
                         <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a>
-
                         <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a>
                         <a href="{{url('/talkshows')}}" class="nav-xs-btn">@lang('labels.talkshows')</a>
                         {{--<a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>--}}

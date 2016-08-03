@@ -280,6 +280,7 @@ return [
     'manageWords' => '单词管理',
     'addWord' => '添加单词',
     'modifyWord' => '修改单词',
+    'index' => '首页',
 ];
 
 
