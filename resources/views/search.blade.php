@@ -30,7 +30,7 @@
         @if(count($lessons) != 0)
             <div class="Card-Collection" >
                 <?php $readables = $lessons; $type = 'lesson'?>
-                @include('utils.readableList')
+                @include('components.readableList')
             </div>
         @endif
 
@@ -40,7 +40,7 @@
         @if( count($talkshows) != 0)
             <div class="Card-Collection">
                 <?php $readables = $talkshows; $type = 'talkshow' ?>
-                @include('utils.readableList')
+                @include('components.readableList')
             </div>
         @endif
 
@@ -50,7 +50,7 @@
         @if( count($minitalks) != 0)
             <div class="Card-Collection">
                 <?php $readables = $minitalks; $type = 'minitalk'?>
-                @include('utils.readableList')
+                @include('components.readableList')
             </div>
         @endif
     </div>

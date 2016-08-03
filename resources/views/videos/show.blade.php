@@ -1,30 +1,30 @@
 @extends('app')
 
-@section('title'){{ $video->title }}@endsection
+@section('title'){{ $readable->title }}@endsection
 
 @section('header')
-    <meta name="description" content="{{$video->description}}">
-    <meta name="Keywords" content="{{ $video->keywords }}">
+    <meta name="description" content="{{$readable->description}}">
+    <meta name="Keywords" content="{{ $readable->keywords }}">
 @endsection
 
 @section('content')
     <div class="">
         <div class="container video-show">
-            <?php $canRead = $video->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
+            <?php $canRead = $readable->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
             <div class="Header"></div>
             <h1 class="center">
-                {{ $video ->title }}
+                {{ $readable ->title }}
             </h1>
 
             <div class="author">
-                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$video->created_at}}
+                Par <a href="{{url('/')}}">alpha-beille.com</a> | {{$readable->created_at}}
             </div>
             <div class="row">
                 <div class="col-md-7">
                     <video id="my_video" class="video-js vjs-default-skin"
                            controls preload
                            data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
-                        <source src="{{$video->video_url}}" type='video/mp4'>
+                        <source src="{{$readable->video_url}}" type='video/mp4'>
                     </video>
                     <div class="subtitle">
                         <div class="center">
@@ -103,7 +103,7 @@
                     @endif
                 </div>
                 <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
-                     data-description="@lang('labels.shareTo')" data-image="{{$video->avatar}}">
+                     data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}">
                     @lang('labels.share'):
                 </div>
             @endif
@@ -117,74 +117,12 @@
             {{--</h2>--}}
             {{--@include('utils.readableList')--}}
 
-            <div id="disqus_thread">
-                <h1 class="black">@lang('labels.comments')</h1>
-                @if(Auth::guest())
-                    <div class="center">
-                        <a href="{{url('login')}}">@lang('labels.login')</a>
-                        @lang('labels.loginToReply')
-                    </div>
-                @else
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img src="{{Auth::user()->avatar}}" alt="avatar"
-                                     class="img-circle media-object avatar hidden-xs">
-                            </a>
-                        </div>
-
-                        <div class="media-body">
-                            <form v-on:submit="onPostComment" method="POST"
-                                  id="replyForm">
-                                {{csrf_field()}}
-
-                                <textarea name="content" data-provide="markdown" rows="10" v-model="newPost.content"
-                                          placeholder="@lang('labels.addComment')" id="comment-content"></textarea>
-                                <input type="hidden" name="id" value="{{$video->id}}">
-                                <button type="submit" class="pull-right btn btn-submit">@lang('labels.reply')</button>
-                            </form>
-                        </div>
-                    </div>
-                @endif
-
-                <div class="comments" v-if="commentVisible">
-                    <ul id="comments">
-                        <li v-for="comment in comments" class="comment">
-                            <div class="media">
-                                <a class="media-left">
-                                    <img v-bind:src="comment.avatar" alt="avatar"
-                                         class="img-circle media-object avatar">
-                                </a>
-
-                                <div class="media-body">
-                                    <h5 class="media-heading">
-                                        @{{comment.name}}
-                                    </h5>
-                                    <p class="discuss-content">
-                                        @{{{ comment.content }}}
-                                    </p>
-                                    <span class="time">@{{comment.created_at}}</span>
-                                </div>
-                                @if(!Auth::guest())
-                                    <div class="comment-footer">
-                                        <button class="btn btn-reply"
-                                        @click="reply(comment.userId,comment.name)">@lang('labels.reply')</button>
-                                    </div>
-                                @endif
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="Header hidden-xs"></div>
-            </div>
+            @include('components.comments')
         </div>
         <div id='goTop'></div>
         @endsection
 
-
         @section('otherjs')
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
             <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 
@@ -192,11 +130,6 @@
                 $('#goTop').goTop();
 
                 $('img.Card-image').lazyload();
-
-                function removeHTML(strText) {
-                    var regEx = /<[^>]*>/g;
-                    return strText.replace(regEx, "");
-                }
 
                 $(function () {
                     $(".heart").on("click", function () {
@@ -275,7 +208,6 @@
                 var player;
                 var currentTime;
 
-                Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
                 // 注册 partial
                 var vm = new Vue({
                     el: 'body',
@@ -292,71 +224,46 @@
                         active: -1,
                         currentFr: "@lang('startToSearchWord')",
                         currentZh: "",
-                        comments: [],
                         favorite: '{{$like ? 'is-active' : ''}}',
                         isFavorite: '{{$like}}',
                         collect: '{{$collect ? 'is-active' : ''}}',
                         isCollect: '{{$collect}}',
                         lineActive: '',
-                        repeatOne: -1,  //>=0 则说明循环开启
-                        newComment: {
-                            name: '{{Auth::user() ? Auth::user()->name : ''}}',
-                            avatar: '{{Auth::user() ? Auth::user()->avatar : ''}}',
-                            content: ''
-                        },
-
-                        newPost: {
-                            id: '{{$video->id}}',
-                            content: ''
-                        }
+                        repeatOne: -1  //>=0 则说明循环开启
                     },
 
                     ready() {
-                        var pointStr = '{{$video->points}}';
+                        var pointStr = '{{$readable->points}}';
                         this.points = pointStr.split(',');
                         this.pointsCount = this.points.length;
 
                         @if($canRead)
-                                this.linesFr = "{!!$video->parsed_content!!}".split('||');
-                        this.linesZh = "{!!$video->parsed_content_zh!!}".split('||');
+                                this.linesFr = "{!!$readable->parsed_content!!}".split('||');
+                        this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                         @endif
 
-                                this.$http.get('{{url($type . "Comments/" . $video->id)}}', function (response) {
-                            this.comments = response;
-                        }.bind(this));
-                    },
-
-                    computed: {
-                        commentVisible() {
-                            return this.comments instanceof Array && this.comments.length > 0;
-                        }
                     },
 
                     methods: {
-                        reply(userId, userName) {
-                            window.location.href = "#replyForm";
-                            this.newPost.content = '@' + userName;
-                        },
-
                         seekTo(no) {
                             var time = this.points[no];
                             player.currentTime(time);
                         },
 
                         favoriteEvent() {
-                            this.$http.post('{{url("/" . $type . "s/" . $video->id . '/favorite')}}', function (response) {
+                            this.$http.post('{{url("/" . $type . "s/" . $readable->id . '/favorite')}}', function (response) {
                             }.bind(this));
                         },
 
                         collectEvent() {
-                            this.$http.post('{{url("/". $type . "s/" . $video->id . '/collect')}}', function (response) {
+                            this.$http.post('{{url("/". $type . "s/" . $readable->id . '/collect')}}', function (response) {
                             }.bind(this));
                         },
 
                         punchinEvent() {
                             var punchin = $('#punchin');
 
-                            this.$http.post('{{url("/". $type . "s/" . $video->id . '/punchin')}}', function (response) {
+                            this.$http.post('{{url("/". $type . "s/" . $readable->id . '/punchin')}}', function (response) {
                                 punchin.html(parseInt(punchin.html()) + 1);
                                 var series = response.series;
                                 var isBreakup = response.break;
@@ -367,31 +274,6 @@
                                 }
                                 $('#punchinlink').hide();
                             }.bind(this));
-                        },
-
-                        onPostComment: function (e) {
-                            e.preventDefault();
-
-                            var comment = this.newComment;
-                            var post = this.newPost;
-
-                            if (removeHTML(post.content).length < 10) {
-                                toastr.error("@lang('labels.tooShortComment')");
-                                return;
-                            }
-                            comment.content = post.content;
-
-                            this.$http.post("{{url('/'. $type .'Comments')}}", post, function (data) {
-                                this.comments.unshift(comment);
-                                this.newPost.content = '';
-
-                                toastr.success("@lang('labels.feelFreeToComment')", "@lang('labels.commentSuccess')");
-                                comment = {
-                                    name: '{{Auth::user() ? Auth::user()->name : ''}}',
-                                    avatar: '{{Auth::user() ? Auth::user()->avatar: ''}}',
-                                    body: ''
-                                };
-                            }.bind(this))
                         },
 
                         timeupdate() {

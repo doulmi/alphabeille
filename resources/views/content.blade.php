@@ -150,13 +150,13 @@
                     <span class='title black'>{{ trans('labels.suggestLessons')}}</span>
                 </h2>
                 <?php $readables = $lessons; $type = 'lesson'?>
-                @include('utils.readableList')
+                @include('components.readableList')
             @elseif($readable instanceof \App\Talkshow)
                 <h2 class="Heading-Fancy row">
                     <span class='title black'>{{ trans('labels.suggestTalkshows')}}</span>
                 </h2>
                 <?php $readables = $talkshows; $type = 'talkshow'?>
-                @include('utils.readableList')
+                @include('components.readableList')
             @endif
 
             <div id="disqus_thread">

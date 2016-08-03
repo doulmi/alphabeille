@@ -20,7 +20,7 @@
                 </h2>
                 <div class="Card-Collection">
                     <?php $readables = $lessons; $type = 'lessons'?>
-                    @include('utils.readableList')
+                    @include('components.readableList')
 
                     @if(count($lessons) > 8)
                         <h2 class="row center">
@@ -36,7 +36,7 @@
                 </h2>
                 <div class="Card-Collection">
                     <?php $readables = $talkshows; $type = 'talkshows'?>
-                    @include('utils.readableList')
+                    @include('components.readableList')
 
                     @if( count($talkshows) > 8)
                         <h2 class="row center">
@@ -52,7 +52,7 @@
                 </h2>
                 <div class="Card-Collection">
                     <?php $readables = $minitalks; $type = 'minitalks'?>
-                    @include('utils.readableList')
+                    @include('components.readableList')
 
                     @if( count($minitalks) > 8)
                         <h2 class="row center">
@@ -68,7 +68,7 @@
                 </h2>
                 <div class="Card-Collection">
                     <?php $readables = $videos; $type = 'videos'?>
-                    @include('utils.readableList')
+                    @include('components.readableList')
 
                     @if( count($videos) > 8)
                         <h2 class="row center">

@@ -19,10 +19,10 @@
 
         <div class="Card-Collection">
             <?php $readables = $topics; $type = 'topic'?>
-           @include('utils.readableList')
+           @include('components.readableList')
 
             <?php $pages = $topics; ?>
-            @include('utils.pageNavigator')
+            @include('components.pageNavigator')
 
 
         </div>

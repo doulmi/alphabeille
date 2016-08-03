@@ -21,6 +21,7 @@ $nightFallBg: #FFF;
 $nightFallSecond: #32CDFF;
 $morningBg: #F7F7F7;
 $morningSecond: #32CDFF;
+$texture : '/img/texture.png';
 
 *::selection {
   background: $primaryColor;
@@ -63,179 +64,12 @@ button {
 
 body {
   margin-top: 0;
-}
-
-.moon {
-  animation: moon_star 5s ease-in-out infinite;
-  -webkit-animation: moon_star 5s ease-in-out infinite;
-  background-color: #fff;
-  border-radius: 50%;
-  box-shadow: #FFFFFF 26px 7px 0 -1px, rgba(255, 255, 255, 0.1) -36px -19px 0 -1px, rgba(255, 255, 255, 0.1) -51px -34px 0 -1px, #FFFFFF -52px -62px 0 -1px, #FFFFFF 14px -37px, rgba(255, 255, 255, 0.1) 41px -19px, #FFFFFF 34px -50px, rgba(255, 255, 255, 0.1) 14px -71px 0 -1px, #FFFFFF 64px -21px 0 -1px, rgba(255, 255, 255, 0.1) 32px -85px 0 -1px, #FFFFFF 64px -90px, rgba(255, 255, 255, 0.1) 60px -67px 0 -1px, #FFFFFF 34px -127px, rgba(255, 255, 255, 0.1) -26px -103px 0 -1px;
-  height: 4px;
-  width: 4px;
-  opacity: 1;
-  position: absolute;
-  left: 0px;
-  top: 155px;
-}
-
-.moon:before {
-  animation: moon 9s ease-in-out infinite;
-  -webkit-animation: moon 9s ease-in-out infinite;
-  border-radius: 50%;
-  box-shadow: #FFFFFF -35px 0;
-  content: '';
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  top: -106px;
-  -webkit-transform: rotate(-5deg);
-  -webkit-transform-origin: 0 50%;
-}
-
-.moon:after {
-  animation: moon 9s ease-in-out infinite;
-  -webkit-animation: moon 9s ease-in-out infinite;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) -5px 0 0;
-  content: '';
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  top: -106px;
-  left: -30px;
-  transform: rotate(-5deg);
-  -webkit-transform: rotate(-5deg);
-  transform-origin: 30px 50%;
-  -webkit-transform-origin: 30px 50%;
-}
-
-@keyframes moon {
-  50% {
-    transform: rotate(10deg);
-    -webkit-transform: rotate(10deg);
-  }
-}
-
-@-webkit-keyframes moon {
-  50% {
-    transform: rotate(10deg);
-    -webkit-transform: rotate(10deg);
-  }
-}
-
-@keyframes moon_star {
-  50% {
-    box-shadow: rgba(255, 255, 255, 0.1) 26px 7px 0 -1px, #FFFFFF -36px -19px 0 -1px, #FFFFFF -51px -34px 0 -1px, rgba(255, 255, 255, 0.1) -52px -62px 0 -1px, rgba(255, 255, 255, 0.1) 14px -37px, #FFFFFF 41px -19px, rgba(255, 255, 255, 0.1) 34px -50px, #FFFFFF 14px -71px 0 -1px, rgba(255, 255, 255, 0.1) 64px -21px 0 -1px, #FFFFFF 32px -85px 0 -1px, rgba(255, 255, 255, 0.1) 64px -90px, #FFFFFF 60px -67px 0 -1px, rgba(255, 255, 255, 0.1) 34px -127px, #FFFFFF -26px -103px 0 -1px;
-  }
-}
-
-@-webkit-keyframes moon_star {
-  50% {
-    box-shadow: rgba(255, 255, 255, 0.1) 26px 7px 0 -1px, #FFFFFF -36px -19px 0 -1px, #FFFFFF -51px -34px 0 -1px, rgba(255, 255, 255, 0.1) -52px -62px 0 -1px, rgba(255, 255, 255, 0.1) 14px -37px, #FFFFFF 41px -19px, rgba(255, 255, 255, 0.1) 34px -50px, #FFFFFF 14px -71px 0 -1px, rgba(255, 255, 255, 0.1) 64px -21px 0 -1px, #FFFFFF 32px -85px 0 -1px, rgba(255, 255, 255, 0.1) 64px -90px, #FFFFFF 60px -67px 0 -1px, rgba(255, 255, 255, 0.1) 34px -127px, #FFFFFF -26px -103px 0 -1px;
-  }
-}
-
-.sunny {
-  animation: sunny 9s linear infinite;
-  -webkit-animation: sunny 9s linear infinite;
-  background: #ffe400;
-  border-radius: 100%;
-  box-shadow: rgba(255, 255, 0, 0.1) 0 0 5px 5px;
-  content: '';
-  height: 90px;
-  width: 90px;
-  position: absolute;
-  left: 0;
-  top: 60px;
-}
-
-.sunny:before {
-  animation: sunglow 9s ease-in-out infinite;
-  -webkit-animation: sunglow 9s ease-in-out infinite;
-  background: #FFEE44;
-  box-shadow: rgba(255, 255, 0, 1) 0 0 5px 1px;
-  border-radius: 100%;
-  content: '';
-  height: 86px;
-  width: 86px;
-  position: absolute;
-  left: 2px;
-  top: 2px;
-}
-
-.sunny:after {
-  animation: sunshadow 9s ease-in-out infinite;
-  -webkit-animation: sunshadow 9s ease-in-out infinite;
-  background: #000000;
-  border-radius: 50%;
-  content: '';
-  height: 15px;
-  width: 120px;
-  opacity: 0.2;
-  position: absolute;
-  left: -15px;
-  bottom: -40px;
-  transform: scale(.7);
-  -webkit-transform: scale(.7);
-}
-
-@keyframes sunny {
-  50% {
-    transform: translateY(-20px);
-    -webkit-transform: translateY(-20px);
-    box-shadow: rgba(255, 255, 0, 0.2) 0 0 5px 15px;
-  }
-}
-
-@-webkit-keyframes sunny {
-  50% {
-    transform: translateY(-20px);
-    -webkit-transform: translateY(-20px);
-    box-shadow: rgba(255, 255, 0, 0.2) 0 0 5px 15px;
-  }
-}
-
-@keyframes sunglow {
-  50% {
-    box-shadow: rgba(255, 255, 0, 0.1) 0 0 5px 10px;
-  }
-}
-
-@-webkit-keyframes sunglow {
-  50% {
-    box-shadow: rgba(255, 255, 0, 0.1) 0 0 5px 10px;
-  }
-}
-
-@keyframes sunshadow {
-  50% {
-    transform: translateY(20px) scale(1);
-    -webkit-transform: translateY(20px) scale(1);
-    opacity: .05;
-  }
-}
-
-@-webkit-keyframes sunshadow {
-  50% {
-    transform: translateY(20px) scale(1);
-    -webkit-transform: translateY(20px) scale(1);
-    opacity: .05;
-  }
-}
-
-.moon-panel {
-  margin-left: 150px;
-  position: relative;
-}
-
-.sunny-panel {
-  position: relative;
-  left: 10%;
+  background-image: url($texture);
 }
 
 .night {
-  background: $nightBg;
+  background-color: $nightBg;
+  background-image: url($texture);
   position: relative;
   color: #ccc;
 
@@ -271,7 +105,8 @@ body {
 }
 
 .night-fall {
-  background: $nightFallBg;
+  background-color: $nightFallBg;
+  background-image: url($texture);
   position: relative;
   color: #ccc;
 
@@ -287,7 +122,8 @@ body {
 }
 
 .morning {
-  background: $morningBg;
+  background-color: $morningBg;
+  background-image: url($texture);
   position: relative;
   color: #2C4766;
 
@@ -2599,6 +2435,15 @@ body {
   margin-bottom: 60px;
 }
 
+.comment-name {
+  color: #1caff6;
+}
+
+.comment-name {
+  color: darken(#1caff6, 5%);
+  text-decoration: none;
+}
+
 .discussion-list .discussion-item:hover {
   background-color: #fff6da;
   border-radius: 5px;
@@ -2619,6 +2464,7 @@ body {
 
 .time {
   color: #999;
+  margin-left: 5px;
 }
 
 .discuss-content {
@@ -2639,38 +2485,27 @@ body {
 }
 
 .comment {
-  /*border-top: 2px solid #f3f3f3;*/
-  /*background: #ffffff;*/
-  padding: 40px 40px;
+  padding: 10px 40px;
 }
 
 .comment-footer {
-  float: right;
   margin-bottom: 10px;
 }
 
 .comment-footer a:hover {
-  color: $primaryColor;
+  color: $navbarColor;
 }
 
 .btn-reply {
+  font-size: 14px !important;
   background-color: transparent;
   color: #7089a9;
+  text-decoration: none;
 }
 
 .btn-reply:hover {
-  background: rgba(255, 211, 70, 0.5);
-  /*color : white;*/
-}
-
-.btn-like {
-  background: transparent;
-  color: #7089a9;
-}
-
-.btn-like:hover {
-  background-color: rgba(255, 0, 0, 0.5);
-  color: white;
+  text-decoration: none;
+  color: #000000;
 }
 
 .btn-new {
@@ -3635,7 +3470,7 @@ $timing-function: ease-out;
   padding-right: 1%;
   padding-left: 1%;
   margin-right: auto;
-  background: white;
+  background-color: white;
   margin-left: auto;
 
   tr {

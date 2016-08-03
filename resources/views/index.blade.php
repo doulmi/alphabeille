@@ -9,6 +9,7 @@
     <meta name="Keywords" content="@lang('labels.index.keywords')">
     <meta name="google-site-verification" content="p4OOrrT_9YZ-IQLDF02ChLQuNHEW7xodyKVeZoe8FU8"/>
     <meta name="baidu-site-verification" content="4Y6Akg4Bz5"/>
+    <meta property="qc:admins" content="326707660761400152514456375" />
     {{--<link href="http://vjs.zencdn.net/5.10.7/video-js.css" rel="stylesheet">--}}
 @endsection
 
@@ -48,7 +49,7 @@
                     <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
                 <?php $readables = $minitalks; $type = 'minitalk' ?>
-                @include('utils.readableList')
+                @include('components.readableList')
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
         </div>
@@ -61,7 +62,7 @@
                     <span class='title'>@lang('titles.lessons')</span>
                 </h2>
                 <?php $readables = $lessons; $type = 'lesson' ?>
-                @include('utils.readableList')
+                @include('components.readableList')
                 <a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>
             </div>
         </div>
@@ -73,7 +74,7 @@
                     <span class='title'>@lang('labels.videos')</span>
                 </h2>
                 <?php $readables = $videos; $type = 'video' ?>
-                @include('utils.readableList')
+                @include('components.readableList')
                 <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
             </div>
         </div>
@@ -85,7 +86,7 @@
                     <span class='title'>@lang('labels.talkshows')</span>
                 </h2>
                 <?php $readables = $talkshows; $type = 'talkshow' ?>
-                @include('utils.readableList')
+                @include('components.readableList')
                 <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
             </div>
         </div>

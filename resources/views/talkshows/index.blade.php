@@ -24,8 +24,8 @@
         </h2>
 
         <div class="Card-Collection">
-            @include('utils.readableList')
-            @include('utils.pageNavigator')
+            @include('components.readableList')
+            @include('components.pageNavigator')
         </div>
     </div>
 @endsection

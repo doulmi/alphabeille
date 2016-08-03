@@ -90,13 +90,13 @@
             }
 
             registerBtn.click(function () {
-                $(this).html('@lang('labels.onRegister')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
+                $(this).html('<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
                 registerForm.submit();
                 $(this).prop('disabled', true);
             });
 
             loginBtn.click(function () {
-                $(this).html('@lang('labels.onLogin')<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
+                $(this).html('<div class="spinner" id="loader"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div>');
                 loginForm.submit();
                 $(this).prop('disabled', true);
             });

@@ -32,7 +32,7 @@
             <div class="Card-Collection" >
 
                 <?php $readables = $lessons; $type = 'lesson'?>
-                @include('utils.readableList')
+                @include('components.readableList')
 
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/lessons/free')}}">@lang('labels.more')</a>
@@ -46,7 +46,7 @@
         @if( count($talkshows) != 0)
             <div class="Card-Collection">
                 <?php $readables = $talkshows; $type = 'talkshow' ?>
-                @include('utils.readableList')
+                @include('components.readableList')
 
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/talkshows/free')}}">@lang('labels.more')</a>
@@ -60,7 +60,7 @@
         @if( count($minitalks) != 0)
             <div class="Card-Collection">
                 <?php $readables = $minitalks; $type = 'minitalk'?>
-                @include('utils.readableList')
+                @include('components.readableList')
 
                 <h2 class="row center">
                     <a class="btn btn-default more aniview" av-animation="slideInRight" href="{{url('/minitalks/free')}}">@lang('labels.more')</a>
