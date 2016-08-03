@@ -12,7 +12,7 @@
 
 @section('text')
     @include('navbar')
-    <div class="login fullscreen">
+    <div class="login fullscreen ">
         <div class="wrapper">
             <div class="login-container">
                 @if ($errors->has('email'))
@@ -41,6 +41,20 @@
                     <a class="link link-right" id="toRegister" @click.stop.prevent="toRegister"
                        href="">@lang('labels.noCount')</a>
                     <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>
+                    <br/>
+
+                    第三方登录：
+                    <ul>
+                       <li>
+                           <a href="{{url('qq/login')}}" class="svg-icon svg-qq"></a>
+                       </li>
+                        <li>
+                            <a href="{{url('wechat/login')}}" class="svg-icon svg-wechat"></a>
+                        </li>
+                        <li>
+                            <a href="{{url('facebook/login')}}" class="svg-icon svg-facebook"></a>
+                        </li>
+                    </ul>
                 </form>
 
                 {{--register--}}
