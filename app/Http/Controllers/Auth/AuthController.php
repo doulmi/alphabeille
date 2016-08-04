@@ -6,6 +6,7 @@ use App\Events\UserLogin;
 use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
@@ -83,7 +84,10 @@ class AuthController extends Controller
                 'name' => $this->autoName($data['email']),
                 'confirmation_code' => str_random(64),
                 'remember_token' => str_random(10),
-                'download' => 4
+                'download' => 4,
+                'hasEmail' => true,
+                'sex' => 'unknown',
+                'last_login_at' => Carbon::now(),
             ]);
 
 //        $member = Role::where('name', 'Member')->first();
@@ -166,6 +170,9 @@ class AuthController extends Controller
                 'sex' => $sex,
                 'location' => $user['original']['province'] . ' ' . $user['original']['city'],
                 'birthYear' => $user['original']['year'],
+                'hasEmail' => false,
+                'email' => $user->getId(),
+                'last_login_at' => Carbon::now(),
             ]);
         }
         Auth::login($authUser);

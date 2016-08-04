@@ -18,6 +18,7 @@ class AddSocialiteIdsToUsersTable extends Migration
             $table->string('wechat_id')->index()->unique()->nullable();
             $table->integer('birthYear');
             $table->string('location');
+            $table->boolean('hasEmail');
             $table->enum('sex', ['male', 'female', 'unknown']);
         });
     }
@@ -35,6 +36,7 @@ class AddSocialiteIdsToUsersTable extends Migration
             $table->dropColumn('wechat_id');
             $table->dropColumn('birthYear');
             $table->dropColumn('location');
+            $table->dropColumn('hasEmail');
             $table->dropColumn('sex');
         });
     }
