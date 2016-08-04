@@ -28,12 +28,10 @@
                        @click.stop.prevent="toRegister" href="">@lang('labels.register')</a>
                 </div>
 
-
                 {{--login--}}
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}" id="login-form"
                       v-if="isLogin">
                     {!! csrf_field() !!}
-
 
                     <input type="email" id='login-email' autofocus name='email' placeholder="@lang('labels.email')"
                            value="{{ old('email') }}">

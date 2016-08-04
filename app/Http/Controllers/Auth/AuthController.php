@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Overtrue\Socialite\SocialiteManager;
@@ -97,8 +98,8 @@ class AuthController extends Controller
     private function authenticated(Request $request, $user)
     {
         event(new UserLogin());
-        $redirectUrl = $request->get('redirect_url', '/');
-        return redirect(Session::get('prevUrl'));
+//        $redirectUrl = $request->get('redirect_url', '/');
+        return redirect(Session::get('prevUrl', '/'));
     }
 
     /**
@@ -145,12 +146,29 @@ class AuthController extends Controller
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('qq')->user();
 
-        dd($user);
-        User::create([
-            'email' => $user->getEmail(),
-            'password' => bcrypt(str_random(16)),
-            'name' => $user->getNickname(),
-        ]);
+        if($user['original']['gender'] == '男') {
+            $sex = 'male';
+        } else if($user['original']['gender'] == '女') {
+            $sex = 'female';
+        } else {
+            $sex = 'unknown';
+        }
+
+        $authUser = User::where('qq_id', $user->getId())->get();
+        if(!$authUser) {
+            //用户不存在，我们需要为其注册一个对应的用户
+            $authUser = User::create([
+                'password' => bcrypt(str_random(16)),
+                'name' => $user->getNickname(),
+                'qq_id' => $user->getId(),
+                'avatar' => $user->getAvatar(),
+                'sex' => $sex,
+                'location' => $user['original']['province'] . ' ' . $user['original']['city'],
+                'birthYear' => $user['original']['year'],
+            ]);
+        }
+        Auth::login($authUser);
+        return redirect(Session::get('prevUrl', '/'));
     }
 
     public function githubLogin()
@@ -164,7 +182,6 @@ class AuthController extends Controller
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('github')->user();
 
-        dd($user);
         User::create([
             'email' => $user->getEmail(),
             'password' => bcrypt(str_random(16)),
