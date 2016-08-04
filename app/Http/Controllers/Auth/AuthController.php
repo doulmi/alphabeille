@@ -123,6 +123,7 @@ class AuthController extends Controller
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('facebook')->user();
 
+        dd($user);
         User::create([
             'email' => $user->getEmail(),
             'password' => bcrypt(str_random(16)),
@@ -154,7 +155,7 @@ class AuthController extends Controller
             $sex = 'unknown';
         }
 
-        $authUser = User::where('qq_id', $user->getId())->get();
+        $authUser = User::where('qq_id', $user->getId())->first();
         if(!$authUser) {
             //用户不存在，我们需要为其注册一个对应的用户
             $authUser = User::create([

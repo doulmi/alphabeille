@@ -43,11 +43,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('alipay/result', 'AlipayController@result');
 });
 
-Route::get('verifyEmail/{confirmation_code}', function($confirmation_code) {
+Route::get('verifyEmail/{confirmation_code}', function ($confirmation_code) {
     return view('emails.register', compact('confirmation_code'));
 });
 
-Route::get('images', function() {
+Route::get('images', function () {
     return view('images');
 });
 
@@ -96,6 +96,7 @@ Route::get('facebook/callback', 'Auth\AuthController@facebookCallback');
 Route::get('wechat/login', 'Auth\AuthController@wechatLogin');
 Route::get('qq/login', 'Auth\AuthController@qqLogin');
 Route::get('qq/callback', 'Auth\AuthController@qqCallback');
+
 Route::get('github/login', 'Auth\AuthController@githubLogin');
 Route::get('github/callback', 'Auth\AuthController@githubCallback');
 
