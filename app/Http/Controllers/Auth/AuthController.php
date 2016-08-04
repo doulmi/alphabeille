@@ -4,16 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserLogin;
 use App\Events\UserRegister;
-use Bican\Roles\Models\Role;
+use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Overtrue\Socialite\SocialiteManager;
 use Validator;
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
@@ -75,16 +74,16 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        if($data['email'][0])
-        $user = User::create([
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'avatar' => '/img/default_avatar/' . strtoupper($data['email'][0]) . '.png',
-            'name' => $this->autoName($data['email']),
-            'confirmation_code' => str_random(64),
-            'remember_token' => str_random(10),
-            'download' => 4
-        ]);
+        if ($data['email'][0])
+            $user = User::create([
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'avatar' => '/img/default_avatar/' . strtoupper($data['email'][0]) . '.png',
+                'name' => $this->autoName($data['email']),
+                'confirmation_code' => str_random(64),
+                'remember_token' => str_random(10),
+                'download' => 4
+            ]);
 
 //        $member = Role::where('name', 'Member')->first();
 
@@ -95,7 +94,8 @@ class AuthController extends Controller
         return $user;
     }
 
-    private function authenticated(Request $request, $user) {
+    private function authenticated(Request $request, $user)
+    {
         event(new UserLogin());
         $redirectUrl = $request->get('redirect_url', '/');
         return redirect(Session::get('prevUrl'));
@@ -111,12 +111,14 @@ class AuthController extends Controller
         return explode('@', $email)[0];
     }
 
-    public function facebookLogin() {
+    public function facebookLogin()
+    {
         $socialite = new SocialiteManager(config('services'));
         return $socialite->driver('facebook')->redirect();
     }
 
-    public function facebookCallback() {
+    public function facebookCallback()
+    {
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('facebook')->user();
 
@@ -127,18 +129,40 @@ class AuthController extends Controller
         ]);
     }
 
-    public function wechatLogin() {
+    public function wechatLogin()
+    {
 
     }
 
-    public function qqLogin() {
+    public function qqLogin()
+    {
         $socialite = new SocialiteManager(config('services'));
         return $socialite->driver('qq')->redirect();
     }
 
-    public function qqCallback() {
+    public function qqCallback()
+    {
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('qq')->user();
+
+        dd($user);
+        User::create([
+            'email' => $user->getEmail(),
+            'password' => bcrypt(str_random(16)),
+            'name' => $user->getNickname(),
+        ]);
+    }
+
+    public function githubLogin()
+    {
+        $socialite = new SocialiteManager(config('services'));
+        return $socialite->driver('github')->redirect();
+    }
+
+    public function githubCallback()
+    {
+        $socialite = new SocialiteManager(config('services'));
+        $user = $socialite->driver('github')->user();
 
         dd($user);
         User::create([

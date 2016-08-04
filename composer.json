@@ -21,7 +21,8 @@
         "cviebrock/eloquent-sluggable": "4.0",
         "lokielse/omnipay-alipay": "dev-master",
         "sunra/php-simple-html-dom-parser": "^1.5",
-        "overtrue/socialite": "~1.0"
+        "overtrue/socialite": "~1.0",
+        "guzzlehttp/guzzle": "~4.0"
     },
 
     "require-dev": {

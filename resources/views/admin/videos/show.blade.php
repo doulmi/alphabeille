@@ -81,13 +81,7 @@
                 <script src="/js/moment-with-locales.js"></script>
                 <script src="/js/bootstrap-datetimepicker.min.js"></script>
                 <script>
-                    var desc = $('#description');
-                    var content = $('#content');
                     $(function () {
-                        content.change(function () {
-                            desc.val(content.val().slice(0, 100) + '...');
-                        });
-
                         var datepickerConfig = {
                             locale: 'fr',
                             sideBySide: true,

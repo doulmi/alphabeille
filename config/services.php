@@ -45,5 +45,11 @@ return [
         'client_id'     => env('QQ_APP_ID'),
         'client_secret' => env('QQ_APP_SECRET'),
         'redirect'      => env('QQ_REDIRECT'),
+    ],
+
+    'github' => [
+        'client_id'     => '6be20dc1aaf15dd772e3',
+        'client_secret' => '8fcc78cbd7e29fa6c2ccc65bdb6ed699eb26827e',
+        'redirect'      => 'http://localhost:8888/github/callback',
     ]
 ];
