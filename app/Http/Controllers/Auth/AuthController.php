@@ -9,7 +9,6 @@ use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Overtrue\Socialite\SocialiteManager;
@@ -154,7 +153,7 @@ class AuthController extends Controller
             $sex = 'unknown';
         }
 
-        $authUser = User::where('qq_id', $user->getId())->get();
+        $authUser = User::where('qq_id', $user->getId())->first();
         if(!$authUser) {
             //用户不存在，我们需要为其注册一个对应的用户
             $authUser = User::create([
@@ -167,7 +166,7 @@ class AuthController extends Controller
                 'birthYear' => $user['original']['year'],
             ]);
         }
-        Auth::login($authUser);
+        \Auth::login($authUser);
         return redirect(Session::get('prevUrl', '/'));
     }
 
