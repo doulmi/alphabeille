@@ -135,11 +135,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'domain' => 'http://alpha-beille.com',
-=======
-    'domain' => null,
->>>>>>> parent of ee33fea... login socail bug
+    'domain' => env('APP_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
