@@ -144,7 +144,7 @@
             @endif
 
             {{--推荐部分--}}
-            <div class="Header"></div>
+            <div class="Header hidden-xs"></div>
             @if($readable instanceof \App\Lesson)
                 <h2 class="Heading-Fancy row">
                     <span class='title black'>{{ trans('labels.suggestLessons')}}</span>

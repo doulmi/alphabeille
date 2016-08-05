@@ -21,7 +21,7 @@ $nightFallBg: #FFF;
 $nightFallSecond: #32CDFF;
 $morningBg: #F7F7F7;
 $morningSecond: #32CDFF;
-$texture : '/img/texture.png';
+$texture: '/img/texture.png';
 
 *::selection {
   background: $primaryColor;
@@ -2081,24 +2081,6 @@ body {
   background: linear-gradient(to bottom, #444, #222);
 }
 
-.audioplayer-bar-played {
-  background: -webkit-gradient(linear, left top, right top, from(#007fd1), to(#c600ff));
-  background: -webkit-linear-gradient(left, #007fd1, #c600ff);
-  background: -moz-linear-gradient(left, #007fd1, #c600ff);
-  background: -ms-radial-gradient(left, #007fd1, #c600ff);
-  background: -o-linear-gradient(left, #007fd1, #c600ff);
-  background: linear-gradient(to right, #007fd1, #c600ff);
-}
-
-.audioplayer-volume-adjust div div {
-  background: -webkit-gradient(linear, left bottom, left top, from(#007fd1), to(#c600ff));
-  background: -webkit-linear-gradient(bottom, #007fd1, #c600ff);
-  background: -moz-linear-gradient(bottom, #007fd1, #c600ff);
-  background: -ms-radial-gradient(bottom, #007fd1, #c600ff);
-  background: -o-linear-gradient(bottom, #007fd1, #c600ff);
-  background: linear-gradient(to top, #007fd1, #c600ff);
-}
-
 .audioplayer-bar,
 .audioplayer-bar div,
 .audioplayer-volume-adjust div {
@@ -2353,10 +2335,6 @@ body {
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 768px) {
-
-}
-
 .msg-header {
   padding: 20px;
   background: white;
@@ -2605,6 +2583,7 @@ body {
     background-position: 0 -168px;
   }
 }
+
 .svg-logo {
   margin-top: -10px;
   width: 40px;
@@ -2806,6 +2785,9 @@ body {
 
 .markdown-content {
   //text-align: justify;
+  h2 {
+    margin: 60px 0 30px 0;
+  }
 }
 
 .markdown-content p {
@@ -2836,6 +2818,7 @@ body {
 @media (min-width: 768px) {
   .lesson-content {
     width: 650px;
+
   }
 }
 
@@ -2923,17 +2906,17 @@ body {
 }
 
 .lesson-content .markdown-content {
-  font-family:  "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+  font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
 
   p {
     font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
   }
 }
 
-.title, h2, blockquote {
-  font-family: "Coconbold", "Microsoft YaHei", sans-serif;
-  color: $quoteFont;
-}
+//.title, h2, blockquote {
+//  font-family: "Coconbold", "Microsoft YaHei", sans-serif;
+//  color: $quoteFont;
+//}
 
 .markdown-content blockquote strong,
 .lesson-content .markdown-content blockquote p {
@@ -3216,6 +3199,27 @@ body {
     }
   }
 
+  .markdown-content {
+    //text-align: justify;
+    h2 {
+      margin: 60px 0 30px 0;
+      font-size: 24px;
+    }
+  }
+
+  .lesson-content {
+    h1 {
+      font-size: 24px;
+      font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+    }
+  }
+
+  .disqus_thread {
+    h1 {
+      font-size: 24px;
+      font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+    }
+  }
 }
 
 .scroll-bar {
@@ -3645,6 +3649,7 @@ $seek-transition-time: 0.3s;
 .menu-bg {
   background-color: #F3F3F3;
 }
+
 .subscribe-pros {
   margin-bottom: 3rem;
   padding-top: 3rem;
@@ -3808,8 +3813,6 @@ $seek-transition-time: 0.3s;
     padding-top: 3.125rem;
   }
 
-
-
   .subscribe-plan__special {
     position: absolute;
     top: .75rem;
@@ -3850,6 +3853,7 @@ $seek-transition-time: 0.3s;
     }
   }
 }
+
 .subscribe-plan__special--gold:after, .subscribe-plan__special:after {
   border-right-color: transparent !important;
 }

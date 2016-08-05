@@ -98,6 +98,7 @@ return [
     'adText' => '成为会员，即可获得Alphabeille法语提供的所有内容字幕及额外服务！',
     'backToLearn' => '马上成为法语达人',
     'adBtn' => '所有内容只需10€/月',
+    'adBtnShort' => '所有内容只需10€/月',
     'loginAccount' => '登陆您的账号',
     'emptyMsgbox' => '您还未收到任何信息',
     'newMsg' => '未读',

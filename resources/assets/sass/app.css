@@ -562,7 +562,7 @@ body {
   top: 45%;
   left: 0;
   width: 100%;
-  height: 400px;
+  height: 500px;
   margin-top: -200px;
   overflow: hidden; }
 
@@ -684,15 +684,12 @@ body {
   background: transparent;
   margin-top: -50px;
   padding-top: 10px;
-  margin-left: 64%;
+  margin-left: 80%;
   z-index: 5;
   border-color: transparent; }
 
-@media (max-width: 450px) {
-  #login-addon {
-    margin-left: 75%; } }
 #login-addon span {
-  color: grey; }
+  color: #1C1C1C; }
 
 .link {
   padding-top: 10px; }
@@ -1360,14 +1357,12 @@ body {
     transform: scaleY(1);
     -webkit-transform: scaleY(1); } }
 .errors {
-  width: 40%;
-  margin: 0 30% 0 30%;
   padding: 10px 0 10px 0;
-  background: lightpink;
+  background: #F05F70;
   color: white;
-  border-radius: 200px;
-  -moz-border-radius: 200px;
-  -webkit-border-radius: 200px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); }
 
 .pagination > li:first-child > a, .pagination > li:first-child > span {
@@ -1719,22 +1714,6 @@ body {
   background: -ms-radial-gradient(top, #444, #222);
   background: -o-linear-gradient(top, #444, #222);
   background: linear-gradient(to bottom, #444, #222); }
-
-.audioplayer-bar-played {
-  background: -webkit-gradient(linear, left top, right top, from(#007fd1), to(#c600ff));
-  background: -webkit-linear-gradient(left, #007fd1, #c600ff);
-  background: -moz-linear-gradient(left, #007fd1, #c600ff);
-  background: -ms-radial-gradient(left, #007fd1, #c600ff);
-  background: -o-linear-gradient(left, #007fd1, #c600ff);
-  background: linear-gradient(to right, #007fd1, #c600ff); }
-
-.audioplayer-volume-adjust div div {
-  background: -webkit-gradient(linear, left bottom, left top, from(#007fd1), to(#c600ff));
-  background: -webkit-linear-gradient(bottom, #007fd1, #c600ff);
-  background: -moz-linear-gradient(bottom, #007fd1, #c600ff);
-  background: -ms-radial-gradient(bottom, #007fd1, #c600ff);
-  background: -o-linear-gradient(bottom, #007fd1, #c600ff);
-  background: linear-gradient(to top, #007fd1, #c600ff); }
 
 .audioplayer-bar,
 .audioplayer-bar div,
@@ -2310,6 +2289,9 @@ body {
   font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
   padding: 0; }
 
+.markdown-content h2 {
+  margin: 60px 0 30px 0; }
+
 .markdown-content p {
   font-size: 1.25em;
   line-height: 1.72;
@@ -2401,10 +2383,6 @@ body {
   font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
   .lesson-content .markdown-content p {
     font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
-
-.title, h2, blockquote {
-  font-family: "Coconbold", "Microsoft YaHei", sans-serif;
-  color: #252422; }
 
 .markdown-content blockquote strong,
 .lesson-content .markdown-content blockquote p {
@@ -2622,7 +2600,19 @@ body {
       .product-select li:nth-child(3) {
         right: 0px; }
       .product-select li:hover {
-        transform: scale(1); } }
+        transform: scale(1); }
+
+  .markdown-content h2 {
+    margin: 60px 0 30px 0;
+    font-size: 24px; }
+
+  .lesson-content h1 {
+    font-size: 24px;
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
+
+  .disqus_thread h1 {
+    font-size: 24px;
+    font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; } }
 .scroll-bar {
   height: 0 !important; }
 
