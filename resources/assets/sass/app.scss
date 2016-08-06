@@ -3771,12 +3771,12 @@ $seek-transition-time: 0.3s;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     text-decoration: none;
-    background: #2ecc71;
+    background: #7FC861;
     color: #fff;
     fill: #fff;
 
     &:hover {
-      background: darken(#2ecc71, 5%);
+      background: darken(#7FC861, 5%);
     }
   }
 
@@ -3953,4 +3953,11 @@ $seek-transition-time: 0.3s;
     font-size: 15px;
     color: #FFFFFF;
   }
+}
+
+.vip:before {
+  content: 'VIP';
+  position:absolute;
+  bottom: 0;
+  color : #BC002D ;
 }

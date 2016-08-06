@@ -2978,11 +2978,11 @@ body {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     text-decoration: none;
-    background: #2ecc71;
+    background: #7FC861;
     color: #fff;
     fill: #fff; }
     .subscribe-plans .plan-btn:hover {
-      background: #29b765; }
+      background: #70c14e; }
   .subscribe-plans .plan-length {
     text-transform: uppercase;
     font-size: 1.8rem;
@@ -3109,5 +3109,11 @@ body {
     margin: 20px 0;
     font-size: 15px;
     color: #FFFFFF; }
+
+.vip:before {
+  content: 'VIP';
+  position: absolute;
+  bottom: 0;
+  color: #BC002D; }
 
 /*# sourceMappingURL=app.css.map */

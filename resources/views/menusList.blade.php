@@ -3,7 +3,7 @@
 
     <div class="col-md-6">
         <div class="subscribe-pros">
-            <h1 class="subscribe-pros__title">借助Alphabeille法语，您可以更快掌握一口流利的法语</h1>
+            <h1 class="subscribe-pros__title">Alphabeille VIP使用方法</h1>
 
             <div class="item">
                 <span class="i icon">
@@ -63,27 +63,27 @@
     <div class="col-md-6">
         <div class="subscribe-plans">
             <h2 class="subscribe-plans_title center">
-                选择您的计划
+                选择你的订阅
             </h2>
             @foreach($menus as $i => $menu)
-                @if($i == 1)
-                    <a href="{{url('subscription/' . $menu->id)}}" class="subscribe-plan subscribe-plan--special">
+                @if($i == 2)
+                    <a href="{{url('alipay/pay/' . $menu->id)}}" class="subscribe-plan subscribe-plan--special">
                     <span class="subscribe-plan__special subscribe-plan__special--gold">
                         <span class="text">最热门</span>
                     </span>
                 @else
-                    <a href="{{url('subscription/' . $menu->id)}}" class="subscribe-plan">
+                    <a href="{{url('alipay/pay/' . $menu->id)}}" class="subscribe-plan">
                 @endif
                 <button class="plan-btn" href="">现在购买</button>
                 <p class="plan-length">{{$menu->duration}} 个月</p>
                 <p class="plan-price">
-                    <span class="plan-price-value">{{$menu->price / $menu->duration}} 元</span>
-                    <span class="plan-price-month">/月</span>
+                    <span class="plan-price-value">总共 {{$menu->price}}元</span>
+                    {{--<span class="plan-price-month">/月</span>--}}
                 </p>
 
-                <p class="plan-price-legend">
-                    总共 {{$menu->price}}元
-                </p>
+                {{--<p class="plan-price-legend">--}}
+                    {{--总共 {{$menu->price}}元--}}
+                {{--</p>--}}
             </a>
             @endforeach
         </div>

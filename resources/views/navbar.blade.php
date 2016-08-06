@@ -8,9 +8,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand tooltips-bottom shake shake-slow" href="{{ url('/') }}"
+            <a class="navbar-brand tooltips-bottom " href="{{ url('/') }}"
                data-tooltips="@lang('labels.backIndex')">
-                <i class="svg-icon svg-logo" id="icon-white"></i>
+                <i class="svg-icon svg-logo shake shake-slow" id="icon-white"></i>
+                <span class="top15">Alphabeille</span>
             </a>
         </div>
 
@@ -32,7 +33,7 @@
                            aria-haspopup="true"
                            aria-expanded="true">
                             <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>
-                            <span>{{Auth::user()->name}}</span>
+                            <span @if(Auth::user()->level() > 1)class="vip"@endif>{{Auth::user()->name}}</span>
                             <i class="glyphicon glyphicon-menu-down"></i>
                         </a>
 
@@ -68,32 +69,31 @@
                 @endif
 
                 @if(Auth::guest())
-                <li class="dropdown flag-btn hidden-xs">
-                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="true">
-                        <div class="flag flag-svg-tiny flag-{{App::getLocale()}}"></div>
-                        <span class="glyphicon glyphicon-chevron-down"></span></a>
-                    <ul class="dropdown-menu bullet" role="menu">
-                        @foreach (Config::get('languages') as $lang => $language)
-                            @if ($lang != App::getLocale())
-                                <li>
-                                    <a href="{{ route('lang.switch', $lang) }}">
-                                        <div class="flag flag-svg-micro flag-{{$lang}}"></div>
-                                        <strong>{{$language}}</strong></a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </li>
+                    <li class="dropdown flag-btn hidden-xs">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="true">
+                            <div class="flag flag-svg-tiny flag-{{App::getLocale()}}"></div>
+                            <span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <ul class="dropdown-menu bullet" role="menu">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                    <li>
+                                        <a href="{{ route('lang.switch', $lang) }}">
+                                            <div class="flag flag-svg-micro flag-{{$lang}}"></div>
+                                            <strong>{{$language}}</strong></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
                 @endif
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">
-                        <a type="button" href='{{ url("/login")}}'
-                           class="shake-horizontal">@lang('labels.login')</a>
+                        <a type="button" href='{{ url("/login")}}'>@lang('labels.login')</a>
                     </li>
                     <li class="nav-btn hidden-xs">
-                        <a href='{{ url("/register") }}' class="shake-horizontal">@lang('labels.register')</a>
+                        <a href='{{ url("/register") }}'>@lang('labels.register')</a>
                     </li>
                 @endif
                 <li class="visible-xs">
@@ -106,7 +106,9 @@
                         <div class="nav-btns center">
                             <a href="{{ url('/users/' . Auth::user()->id) }}">
                                 <img class="avatar avatar-small" src="{{Auth::user()->avatar}}" alt="avatar">
-                                <span>{{Auth::user()->name}}</span>
+                                <span>{{Auth::user()->name}}
+
+                                </span>
                             </a><br/>
                         </div>
                         <div class="nav-btns center">
