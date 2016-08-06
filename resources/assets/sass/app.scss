@@ -186,10 +186,6 @@ body {
   background-color: $primaryColor;
 }
 
-.flag-btn {
-  margin-top: -5px;
-}
-
 .navbar-search-input {
   min-width: 100px;
   height: 36px;
@@ -340,7 +336,7 @@ body {
 
 .navbar-nav > li > .dropdown-menu {
   margin-top: -10px;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px 0 10px 0;
   min-width: 160px;
   left: 20px;
@@ -964,6 +960,7 @@ body {
   margin-left: auto;
 }
 
+
 @media (min-width: 992px) {
   .Card-Collection {
     width: 970px
@@ -974,6 +971,7 @@ body {
   .Card-Collection {
     width: 1170px
   }
+
 }
 
 .Card-block:hover {
@@ -1235,6 +1233,11 @@ body {
   #menu-xs {
     border-color: $primaryBgColor;
     background-color: $primaryBgColor;
+  }
+
+  .center-nav {
+    position:relative;
+    left: 15%;
   }
 
   .jumbotron.ad-jumbotron {
@@ -1600,7 +1603,7 @@ body {
 }
 
 .top15 {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .avatar.avatar-small {
@@ -3972,4 +3975,12 @@ $seek-transition-time: 0.3s;
 
 .video-author {
   margin-bottom: 40px;
+}
+
+.center-nav {
+  margin-left: 30px;
+}
+
+.logo-text {
+  margin-top: -15px;
 }

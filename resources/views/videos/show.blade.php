@@ -72,7 +72,9 @@
             </div>
         </div>
     </div>
+
     <div class="container video-show">
+        @if($canRead)
         <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
         <div class="row">
             <div class="col-md-8">
@@ -82,6 +84,7 @@
 
             </div>
         </div>
+        @endif
 
         <div class="Header"></div>
         @if(!Auth::guest())

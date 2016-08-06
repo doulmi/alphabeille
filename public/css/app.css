@@ -4783,9 +4783,6 @@ body {
   position: relative;
   background-color: #FEE817; }
 
-.flag-btn {
-  margin-top: -5px; }
-
 .navbar-search-input {
   min-width: 100px;
   height: 36px;
@@ -4903,7 +4900,7 @@ body {
 
 .navbar-nav > li > .dropdown-menu {
   margin-top: -10px;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px 0 10px 0;
   min-width: 160px;
   left: 20px; }
@@ -5607,6 +5604,9 @@ body {
   #menu-xs {
     border-color: #32CDFF;
     background-color: #32CDFF; }
+  .center-nav {
+    position: relative;
+    left: 15%; }
   .jumbotron.ad-jumbotron {
     height: 640px;
     background-image: none;
@@ -5900,7 +5900,7 @@ body {
   margin-top: -20px; }
 
 .top15 {
-  margin-top: 10px; }
+  margin-top: 15px; }
 
 .avatar.avatar-small {
   width: 24px;
@@ -7766,6 +7766,12 @@ body {
 
 .video-author {
   margin-bottom: 40px; }
+
+.center-nav {
+  margin-left: 30px; }
+
+.logo-text {
+  margin-top: -15px; }
 
 .menu {
   border-radius: 5px;

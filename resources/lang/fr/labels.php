@@ -293,5 +293,10 @@ return [
     'modifyWord' => '修改单词',
     'index' => 'Accueil',
     'videoDesc' => 'Synthèse du vidéo',
+    'channels' => 'Ce site',
+    'basicCourses'=> 'Cours débutant',
+    'oralFormation' => 'Formation Orale',
+    'privateCourses' => 'Cours privé',
+    'ourCourses' => 'Nos cours',
 ];
 

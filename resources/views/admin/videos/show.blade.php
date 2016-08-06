@@ -83,7 +83,7 @@
                 <script>
                     $(function () {
                         var datepickerConfig = {
-                            locale: 'fr',
+//                            locale: 'fr',
                             sideBySide: true,
                             toolbarPlacement: 'bottom',
                             showClose: true,
@@ -92,11 +92,11 @@
                         var datepicker = $('#picker');
                         datepicker.datetimepicker(datepickerConfig);
 
-                        var publishDate = $('#publishDate');
-                        datepicker.on("dp.change", function (e) {
-                            coursesDate.val($(this).data().DateTimePicker.date()._d);
-                            console.log($(this).data().DateTimePicker.date()._d)
-                        });
+                       $('#showTime').val('{{$video->showTime}}');
+//                        var publishDate = $('#publishDate');
+//                        datepicker.on("dp.change", function (e) {
+//                            coursesDate.val($(this).data().DateTimePicker.date()._d);
+//                        });
 //                var $input = $('.datepicker').pickadate({
 //                    formatSubmit: 'yyyy/mm/dd',
 //                    container: '#container',

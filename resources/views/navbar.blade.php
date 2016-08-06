@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-guest navbar-fixed-top" id='navbar' role="navigation">
-    <div class="container-fluid container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" id="navbar-toggle" data-toggle="collapse"
                     data-target="#navbar-collapse-1" aria-expanded="false">
@@ -8,23 +8,53 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand tooltips-bottom " href="{{ url('/') }}"
-               data-tooltips="@lang('labels.backIndex')">
-                <i class="svg-icon svg-logo shake shake-slow" id="icon-white"></i>
-                <span class="top15">Alphabeille</span>
+            <a class="navbar-brand tooltips-bottom " href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
+                <i class="svg-icon svg-logo shake shake-slow" id="icon-white">
+                </i>
+            </a>
+            <a class="navbar-brand tooltips-bottom " href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
+            <img class="logo-text" src="/img/logo-text.png" alt="Alphabeille蜂言法语">
             </a>
         </div>
 
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-            <ul class="nav navbar-nav hidden-xs">
-                <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
-                <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
-                <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
-                <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
-            </ul>
 
+            {{--<ul class="dropdown-menu bullet">--}}
+            {{--<li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>--}}
+            {{--<li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>--}}
+            {{--<li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>--}}
+            {{--<li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>--}}
+            {{--</ul>--}}
+            <ul class="nav navbar-nav center-nav" id="menu-xs">
+                <li class="dropdown profile-btn hidden-xs">
+                    <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
+                        <span>@lang('labels.channels')</span>
+                        <i class="glyphicon glyphicon-menu-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu bullet" role="menu">
+                        <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
+                        <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
+                        <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
+                        <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
+                    </ul>
+
+                </li>
+                <li class="dropdown profile-btn hidden-xs">
+                    <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
+                        <span>@lang('labels.ourCourses')</span>
+                        <i class="glyphicon glyphicon-menu-down"></i>
+                    </a>
+                        <ul class="dropdown-menu bullet" role="menu">
+                            <li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>
+                            <li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>
+                            <li><a href="{{ url('/privateCourses') }}">@lang('labels.privateCourses')</a>
+                        </ul>
+                </li>
+            </ul>
 
             <ul class="nav navbar-nav navbar-right " id="menu-xs">
                 @if(!Auth::guest())
@@ -68,12 +98,12 @@
                     @endif
                 @endif
 
-                @if(Auth::guest())
-                    <li class="dropdown flag-btn hidden-xs">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="true">
-                            <div class="flag flag-svg-tiny flag-{{App::getLocale()}}"></div>
-                            <span class="glyphicon glyphicon-chevron-down"></span></a>
+                {{--                @if(Auth::guest())--}}
+                <li class="dropdown flag-btn hidden-xs">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
+                        <div class="flag flag-svg-tiny flag-{{App::getLocale()}}"></div>
+                        {{--<span class="glyphicon glyphicon-chevron-down"></span></a>--}}
                         <ul class="dropdown-menu bullet" role="menu">
                             @foreach (Config::get('languages') as $lang => $language)
                                 @if ($lang != App::getLocale())
@@ -85,8 +115,8 @@
                                 @endif
                             @endforeach
                         </ul>
-                    </li>
-                @endif
+                </li>
+                {{--@endif--}}
 
                 @if(Auth::guest())
                     <li class="nav-btn hidden-xs">

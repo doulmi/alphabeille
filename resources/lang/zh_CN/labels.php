@@ -283,7 +283,12 @@ return [
     'modifyWord' => '修改单词',
     'index' => '首页',
     'videoDesc' => '视频详解',
-    'addComment' => '留下你的评论吧 '
+    'addComment' => '留下你的评论吧 ',
+    'channels' => '精选频道',
+    'basicCourses'=> '新手入门',
+    'oralFormation' => '口语集训',
+    'privateCourses' => '私教1v1',
+    'ourCourses' => '我们的课程',
 ];
 
 
