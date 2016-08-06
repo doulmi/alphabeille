@@ -2783,19 +2783,15 @@ body {
   margin-bottom: 40px; }
 
 .video-show {
-  border-radius: 20px;
   height: auto;
   position: relative;
-  padding-top: 2%;
-  padding-right: 1%;
-  padding-left: 1%;
-  margin-right: auto;
-  background-color: white;
-  margin-left: auto; }
+  padding-top: 2%; }
   .video-show tr {
     vertical-align: middle; }
     .video-show tr td:first-child {
       vertical-align: top; }
+  .video-show blockquote {
+    border-left: 4px solid #59A3D3; }
   .video-show .subtitle {
     padding: 15px;
     background-color: #000;
@@ -3115,5 +3111,14 @@ body {
   position: absolute;
   bottom: 0;
   color: #BC002D; }
+
+.video-title {
+  font-weight: 200;
+  font-size: 27px;
+  line-height: 32px;
+  display: block; }
+
+.video-author {
+  margin-bottom: 40px; }
 
 /*# sourceMappingURL=app.css.map */

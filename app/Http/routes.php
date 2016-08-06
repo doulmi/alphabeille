@@ -153,6 +153,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('api/videos/{id}/points', 'Admin\VideoController@getPoints');
     Route::get('videos/preview', 'Admin\VideoController@preview');
 
+    //utils
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
     Route::get('/updateViews/{day}', 'Admin\AdminController@updateViews');
@@ -160,6 +161,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
     Route::get('testHelper', 'Admin\VideoController@testHelper');
     Route::get('generateDict', 'Admin\AdminController@generateDict');
+    Route::get('videoLevels', 'Admin\AdminController@videoLevels');
 });
 
 $api = app('Dingo\Api\Routing\Router');

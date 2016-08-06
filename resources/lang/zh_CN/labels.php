@@ -282,6 +282,8 @@ return [
     'addWord' => '添加单词',
     'modifyWord' => '修改单词',
     'index' => '首页',
+    'videoDesc' => '视频详解',
+    'addComment' => '留下你的评论吧 '
 ];
 
 

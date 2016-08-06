@@ -9,7 +9,7 @@
     <meta property="og:title" content="{{$readable->title}}" />
     <meta property="og:image" content="{{$readable->avatar}}" />
 
-    <div class="body grey">
+    <div >
         <?php $canRead = $readable->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
         <div class="Header"></div>
 

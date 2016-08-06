@@ -3492,15 +3492,9 @@ $timing-function: ease-out;
 }
 
 .video-show {
-  border-radius: 20px;
   height: auto;
   position: relative;
   padding-top: 2%;
-  padding-right: 1%;
-  padding-left: 1%;
-  margin-right: auto;
-  background-color: white;
-  margin-left: auto;
 
   tr {
     vertical-align: middle;
@@ -3508,6 +3502,13 @@ $timing-function: ease-out;
     td:first-child {
       vertical-align: top;
     }
+  }
+
+  blockquote {
+    background:#EBF7FE;
+  //  font-size: 17.5px;
+  //  color: rgb(77, 147, 193);
+    border-left: 4px solid #59A3D3;
   }
 
   .subtitle {
@@ -3960,4 +3961,15 @@ $seek-transition-time: 0.3s;
   position:absolute;
   bottom: 0;
   color : #BC002D ;
+}
+
+.video-title {
+  font-weight: 200;
+  font-size: 27px;
+  line-height: 32px;
+  display: block;
+}
+
+.video-author {
+  margin-bottom: 40px;
 }

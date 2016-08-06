@@ -166,4 +166,13 @@ class AdminController extends Controller
     public function generateDict() {
         Helper::generateDict();
     }
+
+    public function videoLevels() {
+        $videos = Video::all();
+        foreach($videos as $video) {
+            $video->update([
+                'level' => 'beginner'
+            ]);
+        }
+    }
 }

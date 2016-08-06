@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\UserPunchin;
+use App\Editor\Markdown\Markdown;
 use App\Video;
-use App\VideoCollect;
-use App\VideoFavorite;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 
 class VideoController extends ReadableController
 {
+    private $markdown;
+    /**
+     * @param $makrdown
+     */
+    public function __construct(Markdown $markdown)
+    {
+        $this->markdown = $markdown;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -29,12 +32,11 @@ class VideoController extends ReadableController
         Redis::incr('video:view:' . $readable->id);
 
         $readables = $this->random();
-//        $next = Talkshow::where('id', '>', $id)->orderBy('id')->limit(1)->first(['id']);
-//        $pre = Talkshow::where('id', '<', $id)->orderBy('id', 'desc')->limit(1)->first(['id']);
         $fr = explode('||', $readable->parsed_content);
         $zh = explode('||', $readable->parsed_content_zh);
 
         list($like, $collect, $punchin) = $this->getStatus($readable);
+        $readable->desc = $this->markdown->parse($readable->description);
 
         $type = 'video';
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin']));

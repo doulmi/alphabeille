@@ -292,5 +292,6 @@ return [
     'addWord' => '添加单词',
     'modifyWord' => '修改单词',
     'index' => 'Accueil',
+    'videoDesc' => 'Synthèse du vidéo',
 ];
 
