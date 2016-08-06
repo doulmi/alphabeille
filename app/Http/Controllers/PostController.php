@@ -18,11 +18,11 @@ class PostController extends Controller
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];
-        $lessons = Lesson::published()->orderBy('id', 'DESC')->limit($num)->get();
+        $lessons = Lesson::published()->orderBy('free', 'DESC')->orderBy('id', 'DESC')->limit($num)->get();
 
-        $talkshows = Talkshow::published()->latest()->limit($num)->get();
-        $minitalks = Minitalk::published()->latest()->limit($num)->get();
-        $videos = Video::published()->latest()->limit($num)->get();
+        $talkshows = Talkshow::published()->orderBy('free', 'DESC')->latest()->limit($num)->get();
+        $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get();
+        $videos = Video::published()->orderBy('free', 'DESC')->latest()->limit($num)->get();
         return view('index', compact(['lessons', 'talkshows', 'minitalks', 'videos']));
     }
 
@@ -62,4 +62,15 @@ class PostController extends Controller
         return view('payment', compact('menu'));
     }
 
+    public function basicCourses() {
+        return view('cours/basicCourses');
+    }
+
+    public function oralFormation() {
+        return view('cours/oralFormation');
+    }
+
+    public function privateCourses() {
+        return view('cours/privateCourses');
+    }
 }

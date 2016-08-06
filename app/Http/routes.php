@@ -5,6 +5,9 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
 
 Route::get('/', 'PostController@index');
+Route::get('basicCourses', 'PostController@basicCourses');
+Route::get('oralFormation', 'PostController@oralFormation');
+Route::get('privateCourses', 'PostController@privateCourses');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('chat', 'ChatController');

@@ -171,14 +171,11 @@
                     $('.popover').popover('hide');      // 当点击body的非弹出框相关的内容的时候，关闭所有popover
                 }
             });
-            var spans = $(".video-content span");
 
             var closeBtn = '<button type="button" id="close" class="close" onclick="$(\'.popver\').popover(\'hide\');">&times;</button>';
             var collect = '<a href="#"><i class="glyphicon " :class="favWord"></i></a>';
 
-//                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
-            //POPOVER
-            spans.click(function () {
+            var activePopover = function() {
                 var word = $(this).html().trim().toLowerCase();
                 $('.popover').popover('hide');          // 当点击一个按钮的时候把其他的所有内容先关闭。
 
@@ -217,7 +214,10 @@
                         }
                     });
                 }
-            });
+            }
+//                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
+            //POPOVER
+            $(".video-content span").click(activePopover);
         });
 
         var player;
@@ -303,8 +303,8 @@
                             this.active = i;
                             this.currentZh = this.linesZh[i];
                             this.currentFr = this.linesFr[i];
+//                            $(".video-show .subtitle span").click(activePopover);
                         }
-
                     }
                 },
 
