@@ -13,7 +13,7 @@ class ChangeVideosDescToText extends Migration
     public function up()
     {
         Schema::table('videos', function (Blueprint $table) {
-            $table->text('desc')->change();
+            $table->text('description')->change();
         });
     }
 
