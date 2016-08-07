@@ -3037,7 +3037,8 @@ body {
   border-right-color: transparent !important; }
 
 .popover {
-  width: 400px; }
+  max-width: 500px;
+  width: 500px; }
 
 .fav-btn {
   text-decoration: none;
@@ -3128,5 +3129,22 @@ body {
 
 .logo-text {
   margin-top: -15px; }
+
+.word-list .times {
+  width: 10%; }
+.word-list .word {
+  width: 20%; }
+.word-list .word-text {
+  color: #32CDFF;
+  font-weight: bold; }
+.word-list .no {
+  width: 5%; }
+.word-list .explication {
+  width: 60%; }
+.word-list .remove-btn {
+  cursor: pointer;
+  color: #32CDFF; }
+.word-list .remove-btn {
+  color: #19c7ff; }
 
 /*# sourceMappingURL=app.css.map */

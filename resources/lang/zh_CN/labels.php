@@ -179,7 +179,7 @@ return [
     'relativeLessons' => '相关小文章',
     'relativeTalkshows' => '相关脱口秀',
     'relativeDiscussions' => '相关帖子',
-    'relativeMinitalks' => '相关Minitalk',
+    'relativeMinitalks' => '相关脱口秀',
     'nothing' => '没有找到相关内容哟',
     'freeLessons' => '免费课程',
     'freeTalkshows' => '免费脱口秀',
@@ -194,7 +194,7 @@ return [
     'myCollect' => '我的收藏',
     'collectTalkshows' => '收藏的脱口秀',
     'collectLessons' => '收藏的小文章',
-    'collectMinitalks' => '收藏的Minitalks',
+    'collectMinitalks' => '收藏的脱口秀',
     'nothingCollect' => '您尚未收藏任何内容',
     'paymentProcess' => '支付流程',
     'payStep1' => '打开手机支付宝',
@@ -232,9 +232,9 @@ return [
     'talkshows.description' => 'Alphabeille法语脱口秀，有趣、有料、有八卦，地道法语轻松学',
     'talkshows.keywords' => '法语脱口秀',
 
-    'minitalks.title' => 'Alphabeille法语Minitalk',
-    'minitalks.description' => 'Alphabeille法语Minitalk，有趣、有料、有八卦，地道法语轻松学',
-    'minitalks.keywords' => '法语Minitalk',
+    'minitalks.title' => 'Alphabeille法语脱口秀',
+    'minitalks.description' => 'Alphabeille法语脱口秀，有趣、有料、有八卦，地道法语轻松学',
+    'minitalks.keywords' => '法语提偶口秀',
 
     'forum.title' => 'Alphabeille法语论坛',
     'forum.description' => 'Alphabeille法语论坛，在这里',
@@ -250,7 +250,7 @@ return [
     'advantages.cours48' => '48节1v1课程',
     'advantages.cours96' => '96节1v1课程',
 
-    'minitalks' => 'Minitalks',
+    'minitalks' => '脱口秀',
     'minitalkSubtitle' => '有趣、有料、有八卦, 带你学地道法语',
     'investYourself' => '投资你自己',
     'login.title' => 'Alphabeille法语登录/注册界面，欢迎您的到来',
@@ -259,10 +259,10 @@ return [
     'ourLessons' => '我们的课程',
     'payFailed' => '支付失败了，再试试吧，也许网络不好',
     'loginLabel' => '登录',
-    'manageMinitalks' => '管理Minitalks',
+    'manageMinitalks' => '管理脱口秀',
     'manageComments' => '评论管理',
     'lessonComment' => 'Texte评论',
-    'minitalkComment' => 'Minitalk评论',
+    'minitalkComment' => '脱口秀评论',
     'talkshowComment' => '脱口秀评论',
     'addVideos' => '添加视频',
     'manageVideos' => '管理视频',
@@ -289,6 +289,9 @@ return [
     'oralFormation' => '口语集训',
     'privateCourses' => '私教1v1',
     'ourCourses' => '我们的课程',
+    'myWords' => '我的单词本',
+    'times' => '查询次数',
+    'doPoint' => '根据内容自动断点',
 ];
 
 

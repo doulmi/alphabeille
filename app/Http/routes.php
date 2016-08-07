@@ -11,6 +11,8 @@ Route::get('privateCourses', 'PostController@privateCourses');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('chat', 'ChatController');
+    Route::get('users/words', 'UserController@words');
+    Route::post('api/wordFav/{wordFavId}/delete', 'WordController@destroy');
 
     Route::get('lessons/collect', 'LessonController@collects');
     Route::post('lessons/{id}/favorite', 'LessonController@favorite');
@@ -92,7 +94,7 @@ Route::get('comments/like/{commentId}', 'CommentController@like');
 Route::put('users', 'UserController@update');
 Route::get('search', 'PostController@search');
 Route::get('free', 'PostController@free');
-Route::get('api/words/{word}', 'WordController@show');
+Route::get('api/words/{word}/{readable_id}/{readable_type}', 'WordController@show');
 
 Route::get('facebook/login', 'Auth\AuthController@facebookLogin');
 Route::get('facebook/callback', 'Auth\AuthController@facebookCallback');
@@ -165,6 +167,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('testHelper', 'Admin\VideoController@testHelper');
     Route::get('generateDict', 'Admin\AdminController@generateDict');
     Route::get('videoLevels', 'Admin\AdminController@videoLevels');
+    Route::get('tmchange', 'Admin\AdminController@tmchange');
 });
 
 $api = app('Dingo\Api\Routing\Router');

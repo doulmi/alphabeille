@@ -19,13 +19,6 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-
-            {{--<ul class="dropdown-menu bullet">--}}
-            {{--<li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>--}}
-            {{--<li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>--}}
-            {{--<li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>--}}
-            {{--<li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>--}}
-            {{--</ul>--}}
             <ul class="nav navbar-nav center-nav" id="menu-xs">
                 <li class="dropdown profile-btn hidden-xs">
                     <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -37,7 +30,7 @@
                     <ul class="dropdown-menu bullet" role="menu">
                         <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
                         <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
-                        <li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>
+                        {{--<li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>--}}
                         <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
                     </ul>
 
@@ -71,6 +64,7 @@
                             <li>
                                 <a href="{{ url('/users/' . Auth::user()->id) }}"><strong>@lang('labels.profile')</strong></a>
                             </li>
+                            <li><a href="{{ url('/users/words') }}"><strong>@lang('labels.myWords')</strong></a>
                             <li><a href="{{ url('/users/collect') }}"><strong>@lang('labels.myCollect')</strong></a>
                             <li><a href="{{ url('/logout') }}"><strong>@lang('labels.disconnect')</strong></a>
                             </li>
@@ -153,7 +147,7 @@
                         <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a>
                         <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a>
                         <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a>
-                        <a href="{{url('/talkshows')}}" class="nav-xs-btn">@lang('labels.talkshows')</a>
+{{--                        <a href="{{url('/talkshows')}}" class="nav-xs-btn">@lang('labels.talkshows')</a>--}}
                         {{--<a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>--}}
                         {{--<a href="{{url('/discussions')}}" class="nav-xs-btn">@lang('titles.discussions')</a>--}}
                     </div>

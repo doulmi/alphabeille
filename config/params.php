@@ -2,6 +2,6 @@
 
 return [
     'indexPageLimit' => 8,
-    'pageLimit' => 25,
+    'pageLimit' => 24,
     'updatedDays' => 3,
 ];

@@ -133,6 +133,10 @@ class VideoController extends Controller
         $data = $request->all();
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
 
+        if(!$data['doPoint']) {
+            unset($data['points']);
+        }
+
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
             $times = explode(' ', $data['publish_at']);
             $times0 = explode('/', $times[0]);

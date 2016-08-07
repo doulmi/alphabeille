@@ -3863,7 +3863,8 @@ $seek-transition-time: 0.3s;
 }
 
 .popover {
-  width: 400px;
+  max-width: 500px;
+  width: 500px;
 }
 
 .fav-btn {
@@ -3983,4 +3984,36 @@ $seek-transition-time: 0.3s;
 
 .logo-text {
   margin-top: -15px;
+}
+
+.word-list {
+
+  .times {
+    width: 10%
+  }
+
+  .word {
+    width: 20%;
+  }
+
+  .word-text {
+    color : #32CDFF;
+    font-weight: bold;
+  }
+
+  .no {
+    width: 5%;
+  }
+  .explication {
+    width: 60%;
+  }
+
+  .remove-btn {
+    cursor: pointer;
+    color : #32CDFF;
+  }
+
+  .remove-btn {
+    color : darken(#32CDFF, 5%);
+  }
 }

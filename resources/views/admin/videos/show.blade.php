@@ -57,6 +57,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="doPoint">@lang('labels.doPoint')</label>
+                        <input type="text" class="form-control" id="doPoint" name="doPoint" value="{{$edit ? 0 : 1}}"/>
+                    </div>
+
+                    <div class="form-group">
                         <label for="content">@lang('labels.content')</label>
                             <textarea class="name-input form-control" rows="10" id="content"
                                       name="content">{{$edit ? $video->content : ''}}</textarea>

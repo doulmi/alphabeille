@@ -175,4 +175,32 @@ class AdminController extends Controller
             ]);
         }
     }
+
+    public function tmchange() {
+        $talkshows = Talkshow::all();
+        foreach($talkshows as $talkshow) {
+            Minitalk::create([
+                'title' => $talkshow->title,
+                'description' => $talkshow->description,
+                'avatar' => $talkshow->avatar,
+                'audio_url' => $talkshow->audio_url,
+                'download_url' => $talkshow->audio_url,
+                'content' => $talkshow->content,
+                'keywords' => $talkshow->keywords,
+                'wechat_part' => '',
+                'is_published' => 1,
+                'publish_at' => $talkshow->publish_at,
+                'likes' => 0,
+                'free' => 0,
+                'views' => 0,
+                'created_at' => $talkshow->created_at,
+                'updated_at' => $talkshow->updated_at,
+                'deleted_at' => $talkshow->deleted_at,
+                'slug' => $talkshow->slug,
+                'parsed_content' => $talkshow->parsed_content,
+                'parsed_wechat_part' => '',
+                'points' => ''
+            ]);
+        }
+    }
 }

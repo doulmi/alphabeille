@@ -12,6 +12,8 @@ use App\Talkshow;
 use App\TalkshowCollect;
 use App\User;
 use App\Video;
+use App\WordFavorite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -135,5 +137,17 @@ class UserController extends Controller
         $videos = Video::whereIn('id', $videosIds)->get(['id', 'avatar', 'title']);
 
         return view('collect', compact('lessons', 'talkshows', 'minitalks', 'videos'));
+    }
+
+    public function words() {
+        $user = Auth::user();
+        $words = WordFavorite::with('word')->where('user_id', $user->id)->whereDate('updated_at', '>=', Carbon::now()->startOfMonth())->latest()->get();
+
+        $wordss = [];
+        foreach($words as $word) {
+            $updated_at = $word->updated_at;
+            $wordss[$updated_at->day . '/' . $updated_at->month . '/' . $updated_at->year][] = $word;
+        }
+        return view('users.words', compact('wordss'));
     }
 }

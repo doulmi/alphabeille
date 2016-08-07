@@ -45,10 +45,9 @@
                             <table>
                                 <tbody>
                                 <tr v-for="line in linesFr">
-                                    <td class='width40 '><a href='#@{{ $index }}'
-                                                            @click.stop.prevent='seekTo($index)'
-                                                            class='seek-btn'
-                                                            :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                    <td class='width40 '>
+                                        <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)' class='seek-btn'
+                                           :class="played.indexOf($index) > -1 > 'active' : ''"></a>
                                     </td>
                                     <td>
                                         <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
@@ -58,6 +57,20 @@
                                 </tbody>
                             </table>
                         </div>
+                        {{--<div class="notes">--}}
+                            {{--<div class="form-group">--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<input type="text" class="note-input form-control" placeholder="@lang('labels.addNote')" v-model="newNote">--}}
+                                    {{--<a href="#" @click.stop.prevent="saveNote" class="input-group-addon navbar-note-btn"><span class="glyphicon glyphicon glyphicon-plus"></span></a>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+
+                            {{--<table  class="table table-striped">--}}
+                                {{--<tr v-for="note in notes">--}}
+                                    {{--<td>@{{ $index }}</td>--}}
+                                    {{--<td>@{{{note}}}</td> </tr>--}}
+                            {{--</table>--}}
+                        {{--</div>--}}
                     @else
                         @include('blockContent')
                     @endif
@@ -75,15 +88,15 @@
 
     <div class="container video-show">
         @if($canRead)
-        <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
-        <div class="row">
-            <div class="col-md-8">
-                {!! $readable->desc !!}
-            </div>
-            <div class="col-md-4">
+            <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
+            <div class="row">
+                <div class="col-md-8">
+                    {!! $readable->desc !!}
+                </div>
+                <div class="col-md-4">
 
+                </div>
             </div>
-        </div>
         @endif
 
         <div class="Header"></div>
@@ -124,13 +137,13 @@
         @endif
     </div>
 
-    <div class="container">
+    <div class="Card-Collection">
         {{--推荐部分--}}
-        {{--<div class="Header"></div>--}}
-        {{--<h2 class="Heading-Fancy row">--}}
-        {{--<span class='title black'>{{ trans('labels.suggestVideos')}}</span>--}}
-        {{--</h2>--}}
-        {{--@include('utils.readableList')--}}
+        <div class="Header"></div>
+        <h2 class="Heading-Fancy row">
+            <span class='title black'>{{ trans('labels.suggestVideos')}}</span>
+        </h2>
+        @include('components.readableList')
 
         @include('components.comments')
     </div>
@@ -173,9 +186,8 @@
             });
 
             var closeBtn = '<button type="button" id="close" class="close" onclick="$(\'.popver\').popover(\'hide\');">&times;</button>';
-            var collect = '<a href="#"><i class="glyphicon " :class="favWord"></i></a>';
 
-            var activePopover = function() {
+            var activePopover = function () {
                 var word = $(this).html().trim().toLowerCase();
                 $('.popover').popover('hide');          // 当点击一个按钮的时候把其他的所有内容先关闭。
 
@@ -185,26 +197,32 @@
                     $(this).popover({
                         placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
                         title: function () {
-                            return collect + $(this).html() + closeBtn;
+                            return $(this).html() + closeBtn;
                         },
                         content: function () {
                             return result; // 把content变成html
                         }
                     });
                     $(this).popover('toggle');
+
+                    //添加查询次数
+                    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {
+                    });
                 } else {
                     //无缓存则从服务器获取信息
                     $(this).popover({
                         placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
                         title: function () {
-                            return collect + $(this).html() + closeBtn;
-                        },
-                        content: function () {
-                            return "@lang('labels.loading')";
+                            return $(this).html() + closeBtn;
                         }
+//                        ,
+//                        content: function () {
+                        {{--return "@lang('labels.loading')";--}}
+                        //                        }
                     });
+
                     $(this).popover('toggle');          // 然后只把自己打开。
-                    $.get("{{url('api/words')}}" + "/" + word, function (response) {
+                    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {
                         $(".popover-content").html(response['msg']);
                         if (response['status'] == 200) {
                             localStorage.setItem('dict:fr:' + word, response['msg']);
@@ -214,7 +232,7 @@
                         }
                     });
                 }
-            }
+            };
 //                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
             //POPOVER
             $(".video-content span").click(activePopover);
@@ -244,7 +262,9 @@
                 collect: '{{$collect ? 'is-active' : ''}}',
                 isCollect: '{{$collect}}',
                 lineActive: '',
-                repeatOne: -1  //>=0 则说明循环开启
+                repeatOne: -1,  //>=0 则说明循环开启
+                newNote : '',
+                notes : []
             },
 
             ready() {
@@ -256,7 +276,6 @@
                         this.linesFr = "{!!$readable->parsed_content!!}".split('||');
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
-
             },
 
             methods: {
@@ -264,6 +283,7 @@
                     var time = this.points[no];
                     player.currentTime(time);
                 },
+
 
                 favoriteEvent() {
                     this.$http.post('{{url("/" . $type . "s/" . $readable->id . '/favorite')}}', function (response) {
@@ -334,6 +354,11 @@
 
                 toggleZh() {
                     this.zh = !this.zh;
+                },
+                saveNote() {
+                    console.log(this.newNote);
+                    this.notes.push(this.newNote);
+                    this.newNote= '';
                 }
             }
         });

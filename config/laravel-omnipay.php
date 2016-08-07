@@ -14,18 +14,6 @@ return [
 				'landingPage'    => '',
 				'headerImageUrl' => ''
 			]
-		],
-
-		'alipay' => [
-			'driver' => 'Alipay_Express',
-			'options' => [
-				'partner' => '2088222835724472',
-				'key' => '2016072001642324',
-				'sellerEmail' =>'alphabeillestudio@gmail.com	',
-				'returnUrl' => '',
-				'notifyUrl' => ''
-			]
 		]
 	]
-
 ];
