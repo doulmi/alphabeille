@@ -2775,7 +2775,11 @@ body {
 
     padding: 1rem 0 1rem 1.6rem;
     border-left: .5rem solid $blockquote;
+    background-color: #EBF7FE;
     margin-top: 1.75rem;
+    code {
+      background-color: #EBF7FE;
+    }
   }
 
   code {
@@ -2924,7 +2928,8 @@ body {
 //}
 
 .markdown-content blockquote strong,
-.lesson-content .markdown-content blockquote p {
+.lesson-content .markdown-content blockquote p,
+.lesson-content .markdown-content blockquote p span{
   font-family: "Coconbold", "Microsoft YaHei", sans-serif;
   color: $quoteFont;
 }

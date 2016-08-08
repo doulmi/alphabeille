@@ -33,10 +33,11 @@ class Helper
     }
 
     //convert 00:00:00.000 to second
-    private static function toSecond($var) {
+    private static function toSecond($var)
+    {
         $times = preg_split('/[:|,]/', $var);
         $second = intval($times[0]) * 60 * 60 + intval($times[1]) * 60 + intval($times[2]);
-        $second .=  '.' . $times[3];
+        $second .= '.' . $times[3];
 
         return floatval($second);
     }
@@ -76,14 +77,14 @@ class Helper
                     if (trim($line) == '') {
                         $sub = new \stdClass();
                         $sub->no = $no;
-                        if(str_contains($subTime, '-->')) {
+                        if (str_contains($subTime, '-->')) {
                             $times = explode(' -->', $subTime);
-                            if(count($times) == 2) {
+                            if (count($times) == 2) {
                                 list($sub->startTime, $sub->endTime) = $times;
-                            } else{
+                            } else {
                                 $sub->startTime = $times[0];
                             }
-                            $points .=  self::toSecond($sub->startTime) . ',';
+                            $points .= self::toSecond($sub->startTime) . ',';
                         }
                         $sub->fr = $subFr;
                         $sub->zh = $subZh;
@@ -110,6 +111,10 @@ class Helper
         return [$frs, substr($zh, 0, strlen($zh) - 2), substr($points, 0, strlen($points) - 1)];
     }
 
+    public static function isChineseChar($char) {
+        return preg_match('/[\x7f-\xff]/', $char) && !str_contains( 'ùûüÿ€àâæçéèêëïîôœÉÈÊËÀÂÎÏÔÙÛ《》', $char);
+    }
+
     /**
      * 将单词用<span>围起来
      * @param $src
@@ -120,27 +125,29 @@ class Helper
         $in = false;
         $dest = '';
         $pattern = '/(\s|,|\.|-|;|:|《|》|\?|!|[|]|\(|\)|{|}|<|>|\')/';
-        $len = strlen($src);
+
+        $len = mb_strlen($src,'utf8');
         for ($i = 0; $i < $len; $i++) {
+            $char = mb_substr($src, $i, 1, 'utf-8');
             if ($in) { //in word
-                if (preg_match($pattern, $src[$i])) {
-                    $dest .= '</span>' . $src[$i];
+                if (preg_match($pattern, $char) || self::isChineseChar($char)) {
+                    $dest .= '</span>' . $char;
                     $in = false;
                 } else {
-                    $dest .= $src[$i];
+                    $dest .= $char;
                 }
             } else {
-                if (preg_match($pattern, $src[$i])) {
-                    $dest .= $src[$i];
-                } else {
-                    $dest .= '<span>' . $src[$i];
+                if (preg_match($pattern, $char) || self::isChineseChar($char)) {
+                    $dest .= $char;
+                } else {    //非标点、
+                    $dest .= '<span>' . $char;
                     $in = true;
                 }
             }
         }
         $dest = preg_replace('/<span>([A-Za-z]*)<\/span>\'/', '$1\'', $dest);
-
-        $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«)<\/span>/', '$1', $dest);
+        $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«|strong|\/strong|br|hr|h\d|\/h\d)<\/span>/', '$1', $dest);
+        preg_match_all('/<<span>img.*<\/span>>/', $dest, $data);
         return $dest;
     }
 

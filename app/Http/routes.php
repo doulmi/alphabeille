@@ -171,6 +171,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('generateDict', 'Admin\AdminController@generateDict');
     Route::get('videoLevels', 'Admin\AdminController@videoLevels');
     Route::get('tmchange', 'Admin\AdminController@tmchange');
+    Route::get('dict', 'PostController@dict');
 });
 
 $api = app('Dingo\Api\Routing\Router');

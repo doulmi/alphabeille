@@ -97,15 +97,24 @@ class MinitalkController extends Controller {
         $edit = true;
         $minitalk = Minitalk::findOrFail($id);
         $time = $minitalk->publish_at;
+        $isPm = $time->hour >= 12? true: false;
 
-        $minitalk->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
+        $minitalk->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' .  ($isPm ? $time->hour - 12 : $time->hour) . ':' . $time->minute .  ($isPm ? ' PM' : ' AM');
         return view('admin.minitalks.show', compact('edit', 'minitalk'));
     }
 
     private function getSaveData(Request $request) {
         $data = $request->all();
-//        list($data['parsed_content'], $data['parsed_content_zh']) = Helper::parsePointLink($data['content']);
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
+
+        $parsed_content = str_replace('‘', '\'', $data['content']);
+        $parsed_content = str_replace('’', '\'', $parsed_content);
+        $parsed_content = str_replace('《', '«', $parsed_content);
+        $parsed_content = str_replace('》', '»', $parsed_content);
+        $parsed_content = str_replace('  ', ' ', $parsed_content);
+        $parsed_content = str_replace('，', ',', $parsed_content);
+        $parsed_content = str_replace('。', '.', $parsed_content);
+
+        $data['parsed_content'] = Helper::emberedWord($this->markdown->parse($parsed_content));
         $data['parsed_wechat_part'] = $this->markdown->parse($data['wechat_part']);
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {

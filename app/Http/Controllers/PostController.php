@@ -10,14 +10,69 @@ use App\Talkshow;
 
 use App\Http\Requests;
 use App\Video;
+use App\Word;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
 {
-    public function test() {
-        $lesson = Lesson::find(3);
+    public function dict()
+    {
+        for ($i = 98; $i < 97 + 24; $i++) {
+            Word::create([
+                'word' => chr($i),
+                'explication' => chr($i) . ', ' . chr($i - 32) . '是拉丁字母中的第' . $i . '个字母。'
+            ]);
+        }
+
+        $i = 97 + 25;
+
+        Word::create([
+            'word' => chr($i),
+            'explication' => chr($i) . ', ' . chr($i - 32) . '是拉丁字母中的第' . $i . '个字母。'
+        ]);
+
+        $minitalks = Minitalk::all();
+        foreach($minitalks as $minitalk) {
+            $parsed_content = str_replace('‘', '\'', $minitalk->parsed_content);
+            $parsed_content = str_replace('’', '\'', $parsed_content);
+            $parsed_content = str_replace('《', '«', $parsed_content);
+            $parsed_content = str_replace('》', '»', $parsed_content);
+            $parsed_content = str_replace('  ', ' ', $parsed_content);
+            $parsed_content = str_replace('，', ',', $parsed_content);
+            $parsed_content = str_replace('。', '.', $parsed_content);
+            $minitalk->parsed_content = $parsed_content;
+
+            $minitalk->parsed_content = Helper::emberedWord($minitalk->parsed_content);
+            $minitalk->save();
+        }
+
+        $lessons = Lesson::all();
+        foreach($lessons as $lesson) {
+            $parsed_content = str_replace('‘', '\'', $lesson->parsed_content);
+            $parsed_content = str_replace('’', '\'', $parsed_content);
+            $parsed_content = str_replace('《', '«', $parsed_content);
+            $parsed_content = str_replace('》', '»', $parsed_content);
+            $parsed_content = str_replace('  ', ' ', $parsed_content);
+            $parsed_content = str_replace('，', ',', $parsed_content);
+            $parsed_content = str_replace('。', '.', $parsed_content);
+            $lesson->parsed_content = $parsed_content;
+
+            $lesson->parsed_content = Helper::emberedWord($lesson->parsed_content);
+            $lesson->save();
+        }
+    }
+
+    public function test()
+    {
+//
+//        $str ='hello World陈锋誉is啊googd  bo男';
+//        for ( $i = 0; $i < mb_strlen($str,'utf8'); $i ++) {
+//            $char = mb_substr($str, $i, 1, 'utf-8');
+//            var_dump($char . " : " . $this->isChineseChar($char));
+//        };
+        $lesson = Minitalk::find(11);
         $parsed_content = str_replace('‘', '\'', $lesson->parsed_content);
         $parsed_content = str_replace('’', '\'', $parsed_content);
         $parsed_content = str_replace('《', '«', $parsed_content);
@@ -27,9 +82,9 @@ class PostController extends Controller
         $parsed_content = str_replace('。', '.', $parsed_content);
         $lesson->parsed_content = $parsed_content;
 
+//        dd($lesson->parsed_content);
         $lesson->parsed_content = Helper::emberedWord($lesson->parsed_content);
         $lesson->save();
-        dd($lesson->parsed_content);
     }
 
     public function index()
@@ -79,15 +134,18 @@ class PostController extends Controller
         return view('payment', compact('menu'));
     }
 
-    public function basicCourses() {
+    public function basicCourses()
+    {
         return view('cours/basicCourses');
     }
 
-    public function oralFormation() {
+    public function oralFormation()
+    {
         return view('cours/oralFormation');
     }
 
-    public function privateCourses() {
+    public function privateCourses()
+    {
         return view('cours/privateCourses');
     }
 }

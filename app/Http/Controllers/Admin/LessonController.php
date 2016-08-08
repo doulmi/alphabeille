@@ -99,17 +99,25 @@ class LessonController extends Controller
         $edit = true;
         $lesson = Lesson::findOrFail($id);
         $time = $lesson->publish_at;
+        $isPm = $time->hour >= 12? true: false;
 
-        $lesson->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
+        $lesson->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' .  ($isPm ? $time->hour - 12 : $time->hour) . ':' . $time->minute .  ($isPm ? ' PM' : ' AM');
         return view('admin.lessons.show', compact('edit', 'lesson'));
     }
 
     private function getSaveData(Request $request) {
         $data = $request->all();
-        $data['parsed_content'] = $this->markdown->parse($data['content']);
-        $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
-        Helper::emberedHtml($data['parsed_content']);
 
+        $parsed_content = str_replace('‘', '\'', $data['content']);
+        $parsed_content = str_replace('’', '\'', $parsed_content);
+        $parsed_content = str_replace('《', '«', $parsed_content);
+        $parsed_content = str_replace('》', '»', $parsed_content);
+        $parsed_content = str_replace('  ', ' ', $parsed_content);
+        $parsed_content = str_replace('，', ',', $parsed_content);
+        $parsed_content = str_replace('。', '.', $parsed_content);
+
+        $data['parsed_content'] = Helper::emberedWord($this->markdown->parse($parsed_content));
+        $data['parsed_content_zh_CN'] = Helper::emberedWord($this->markdown->parse($data['content_zh_CN']));
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
             $times = explode(' ', $data['publish_at']);

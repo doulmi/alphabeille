@@ -232,8 +232,8 @@
                 }
             };
 
-            $(".markdown-content span").click(activePopover);
-        });
+//            $(".markdown-content span").click(activePopover);
+//        });
 //                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
             //POPOVER
             $(".video-content span").click(activePopover);

@@ -2281,7 +2281,10 @@ body {
   font-size: 1.25rem;
   padding: 1rem 0 1rem 1.6rem;
   border-left: 0.5rem solid #2196F3;
+  background-color: #EBF7FE;
   margin-top: 1.75rem; }
+  .markdown-content blockquote code {
+    background-color: #EBF7FE; }
 .markdown-content code {
   color: #2196F3;
   background-color: #FFF;
@@ -2385,7 +2388,8 @@ body {
     font-family: "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif; }
 
 .markdown-content blockquote strong,
-.lesson-content .markdown-content blockquote p {
+.lesson-content .markdown-content blockquote p,
+.lesson-content .markdown-content blockquote p span {
   font-family: "Coconbold", "Microsoft YaHei", sans-serif;
   color: #252422; }
 
