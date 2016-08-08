@@ -13,7 +13,7 @@
                 </i>
             </a>
             <a class="navbar-brand tooltips-bottom " href="{{ url('/') }}" data-tooltips="@lang('labels.backIndex')">
-            <img class="logo-text" src="/img/logo-text.png" alt="Alphabeille蜂言法语">
+                <img class="logo-text" src="/img/logo-text.png" alt="Alphabeille蜂言法语">
             </a>
         </div>
 
@@ -41,11 +41,11 @@
                         <span>@lang('labels.ourCourses')</span>
                         <i class="glyphicon glyphicon-menu-down"></i>
                     </a>
-                        <ul class="dropdown-menu bullet" role="menu">
-                            <li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>
-                            <li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>
-                            <li><a href="{{ url('/privateCourses') }}">@lang('labels.privateCourses')</a>
-                        </ul>
+                    <ul class="dropdown-menu bullet" role="menu">
+                        <li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>
+                        <li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>
+                        <li><a href="{{ url('/privateCourses') }}">@lang('labels.privateCourses')</a>
+                    </ul>
                 </li>
             </ul>
 
@@ -120,47 +120,42 @@
                         <a href='{{ url("/register") }}'>@lang('labels.register')</a>
                     </li>
                 @endif
+                <li class="visible-xs"> <a href="{{url('/')}}" class="nav-xs-btn">@lang('labels.index')</a> </li>
+                <li class="visible-xs"> <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a> </li>
+                <li class="visible-xs"> <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a> </li>
+                <li class="visible-xs"> <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a> </li>
+                @if(Auth::guest())
+                    <li class="visible-xs">
+                        <a href="{{url('/login')}}">@lang('labels.login')</a>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="{{url('/register')}}">@lang('labels.register')</a>
+                    </li>
+                @else
+                    {{--<li class="visible-xs">--}}
+                        {{--<a href="{{ url('/users/' . Auth::user()->id) }}">--}}
+                            {{--<img class="avatar avatar-small" src="{{Auth::user()->avatar}}" alt="avatar">--}}
+                            {{--<span>{{Auth::user()->name}}</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                    <li class="visible-xs">
+                        <a href="{{url('/users/collect')}}">
+                            @lang('labels.myCollect')
+                        </a>
+                    </li>
+                    <li class="visible-xs">
+                        <a href="{{url('/logout')}}">@lang('labels.disconnect')</a>
+                    </li>
+                @endif
+
                 <li class="visible-xs">
-                    @if(Auth::guest())
-                        <div class="nav-btns center">
-                            <a href="{{url('/login')}}">@lang('labels.login')</a>
-                            <a href="{{url('/register')}}">@lang('labels.register')</a>
-                        </div>
-                    @else
-                        <div class="nav-btns center">
-                            <a href="{{ url('/users/' . Auth::user()->id) }}">
-                                <img class="avatar avatar-small" src="{{Auth::user()->avatar}}" alt="avatar">
-                                <span>{{Auth::user()->name}}
-
-                                </span>
-                            </a><br/>
-                        </div>
-                        <div class="nav-btns center">
-                            <a href="{{url('/users/collect')}}">
-                                @lang('labels.myCollect')
-                            </a>
-                            <a href="{{url('/logout')}}">@lang('labels.disconnect')</a>
-                        </div>
-                    @endif
-                    <div class="nav-btns center">
-                        <a href="{{url('/')}}" class="nav-xs-btn">@lang('labels.index')</a>
-                        <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a>
-                        <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a>
-                        <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a>
-{{--                        <a href="{{url('/talkshows')}}" class="nav-xs-btn">@lang('labels.talkshows')</a>--}}
-                        {{--<a href="{{url('/free')}}" class="nav-xs-btn">@lang('labels.free')</a>--}}
-                        {{--<a href="{{url('/discussions')}}" class="nav-xs-btn">@lang('titles.discussions')</a>--}}
-                    </div>
-                    <div class="center nav-btns">
-                        @foreach (Config::get('languages') as $lang => $language)
-                            <a href="{{ route('lang.switch', $lang) }}" class="nav-xs-btn">
-                                {{--<div class="flag flag-svg-small flag-{{$lang}}"></div>--}}
-                                {{$language}}
-                            </a>
-                        @endforeach
-                    </div>
+                    @foreach (Config::get('languages') as $lang => $language)
+                        <a href="{{ route('lang.switch', $lang) }}" class="nav-xs-btn">
+                            {{--<div class="flag flag-svg-small flag-{{$lang}}"></div>--}}
+                            {{$language}}
+                        </a>
+                    @endforeach
                 </li>
-
             </ul>
             @if(!Request::is('/'))
                 <form action="{{url('search')}}" class="navbar-form navbar-right hidden-md hidden-sm hidden-xs"

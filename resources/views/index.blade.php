@@ -43,15 +43,17 @@
                 </div>
             </div>
 
-            <div class="Header"></div>
             <div class="Card-Collection row">
-                <h2 class="Heading-Fancy row">
-                    <span class='title'>@lang('labels.minitalks')</span>
+                <div class="Header"></div>
+
+                <h2 class="Heading-Fancy ">
+                    <span class='title'>@lang('labels.videos')</span>
                 </h2>
-                <?php $readables = $minitalks; $type = 'minitalk' ?>
+                <?php $readables = $videos; $type = 'video' ?>
                 @include('components.readableList')
-                <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
+                <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
             </div>
+
         </div>
 
         <div class="night-fall">
@@ -68,26 +70,15 @@
         </div>
 
         <div class="morning">
-            <div class="Card-Collection row">
-                <div class="Header"></div>
-                <h2 class="Heading-Fancy ">
-                    <span class='title'>@lang('labels.videos')</span>
-                </h2>
-                <?php $readables = $videos; $type = 'video' ?>
-                @include('components.readableList')
-                <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
-            </div>
-        </div>
-
-        <div class="night-fall">
             <div class="Header"></div>
+
             <div class="Card-Collection row">
-                <h2 class="Heading-Fancy ">
-                    <span class='title'>@lang('labels.talkshows')</span>
+                <h2 class="Heading-Fancy row">
+                    <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
-                <?php $readables = $talkshows; $type = 'talkshow' ?>
+                <?php $readables = $minitalks; $type = 'minitalk' ?>
                 @include('components.readableList')
-                <a class="btn btn-default more" href="{{url('/talkshows')}}">@lang('labels.more')</a>
+                <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
         </div>
 

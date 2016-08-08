@@ -19,7 +19,7 @@
                       id="replyForm">
                     {{csrf_field()}}
 
-                    <textarea name="content" data-provide="markdown" rows="10" v-model="newPost.content"
+                    <textarea name="content" data-provide="markdown" rows="5" v-model="newPost.content"
                               placeholder="@lang('labels.addComment')" id="comment-content"></textarea>
                     <input type="hidden" name="id" value="{{$readable->id}}">
                     <button type="submit" class="pull-right btn btn-submit" >@lang('labels.reply')</button>

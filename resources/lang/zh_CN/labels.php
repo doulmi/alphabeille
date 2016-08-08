@@ -269,7 +269,7 @@ return [
     'setPoint' => '断点',
     'video_url' => '视频链接',
     'videos' => '短视频',
-    'videos.title' => 'Alphabeille法语Minitalk',
+    'videos.title' => 'Alphabeille法语短视频',
     'videos.description' => 'Alphabeille法语短视频，有趣、有料、有八卦，地道法语轻松学',
     'videos.keywords' => '法语,法语视频,法语短视频,短视频',
     'suggestLessons' => '推荐小文章',
@@ -292,6 +292,14 @@ return [
     'myWords' => '我的单词本',
     'times' => '查询次数',
     'doPoint' => '根据内容自动断点',
+    'videosubtitle' => '从电影，动画开始让你听懂法语，说好法语',
+    'basicCourses.title' => 'Alphabeille法语 699两个月带你法语入门 !',
+    'basicCourses.description' => 'Alphabeille法语 699两个月带你法语入门 !',
+    'basicCourses.keywords' => '法语入门，两个月法语入门',
+    'oralFormation.title' => 'Alphabeille法语 1v1 3个月法语口语集训',
+    'oralFormation.description' => 'Alphabeille法语 1v1 3个月法语口语集训',
+    'oralFormation.keywords' => '法语口语，口语集训，3个月学法语',
+    'collectVideos' => '收藏的视频',
 ];
 
 

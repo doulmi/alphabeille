@@ -279,7 +279,7 @@ return [
     'setPoint' => '断点',
     'video_url' => '视频链接',
     'videos' => 'Vidéos',
-    'videos.title' => 'Alphabeille法语脱口秀',
+    'videos.title' => 'Alphabeille法语短视频',
     'videos.description' => 'Alphabeille法语短视频，有趣、有料、有八卦，地道法语轻松学',
     'videos.keywords' => '法语,法语视频,法语短视频,短视频',
     'suggestLessons' => 'Petits textes',
@@ -298,6 +298,13 @@ return [
     'oralFormation' => 'Formation Orale',
     'privateCourses' => 'Cours privé',
     'ourCourses' => 'Nos cours',
-    'doPoint' => '根据内容自动断点'
+    'doPoint' => '根据内容自动断点',
+    'videosubtitle' => '',
+    'basicCourses.title' => 'Alphabeille法语 699两个月带你法语入门 !',
+    'basicCourses.description' => 'Alphabeille法语 699两个月带你法语入门 !',
+    'basicCourses.keywords' => '法语入门，两个月法语入门',
+    'oralFormation.title' => 'Alphabeille法语 1v1 3个月法语口语集训',
+    'oralFormation.description' => 'Alphabeille法语 1v1 3个月法语口语集训',
+    'oralFormation.keywords' => '法语口语，口语集训，3个月学法语',
 ];
 

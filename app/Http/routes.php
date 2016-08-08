@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('videos/{id}/collect', 'VideoController@collect');
 
     Route::get('users/collect', 'UserController@collect');
+
 //    Route::post('post/upload', 'PostController@upload');
     Route::post('uploadAvatar', 'UserController@uploadAvatar');
     Route::post('modifyPwd', 'UserController@modifyPwd');
@@ -57,7 +58,7 @@ Route::get('images', function () {
 });
 
 Route::get('lessonComments/{lesson_id}', 'LessonController@comments');
-Route::get('talkshowComments/{talkshow_id}', 'TalkshowController@comments');
+Route::get('talkshowComments/{talkshow_id}', 'MinitalkController@comments');
 Route::get('minitalkComments/{minitalk_id}', 'MinitalkController@comments');
 Route::get('videoComments/{video_id}', 'VideoController@comments');
 
@@ -71,13 +72,14 @@ Route::get('lessons/free', 'LessonController@free');
 Route::get('lessons/{id}/{lan}', 'LessonController@show');
 Route::resource('lessons', 'LessonController');
 
-Route::get('talkshows/free', 'TalkshowController@free');
-Route::resource('talkshows', 'TalkshowController');
+//Route::get('talkshows/free', 'TalkshowController@free');
+//Route::resource('talkshows', 'TalkshowController');
+Route::resource('talkshows', 'MinitalkController');
 
-Route::get('videos/free', 'VideoController@free');
+//Route::get('videos/free', 'VideoController@free');
 Route::resource('videos', 'VideoController');
 
-Route::get('minitalks/free', 'MinitalkController@free');
+//Route::get('minitalks/free', 'MinitalkController@free');
 Route::resource('minitalks', 'MinitalkController');
 
 Route::resource('messages', 'MessageController');

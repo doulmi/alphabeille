@@ -255,7 +255,7 @@
                 favWord: 'glyphicon-heart-empty',
                 played: [],    //  保存已经播放过的橘子
                 active: -1,
-                currentFr: "@lang('startToSearchWord')",
+                currentFr: "@lang('labels.startToSearchWord')",
                 currentZh: "",
                 favorite: '{{$like ? 'is-active' : ''}}',
                 isFavorite: '{{$like}}',

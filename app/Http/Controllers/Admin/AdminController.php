@@ -101,6 +101,11 @@ class AdminController extends Controller
         foreach($talkshows as $talkshow) {
             Redis::set('talkshow:view:' . $talkshow->id, $faker->numberBetween(100, 200) * $day);
         }
+
+        $videos = Video::all();
+        foreach($videos as $video) {
+            Redis::set('video:view:' . $video->id, $faker->numberBetween(100, 200) * $day);
+        }
     }
 
     public function readables() {

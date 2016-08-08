@@ -8,17 +8,12 @@
 @endsection
 
 @section('content')
-    <div class="night">
-        <div class="Header">
-        </div>
-
-        <div class="Header">
-        </div>
+    <div class="morning">
+        <div class="Header"></div>
+        <div class="Header"></div>
 
         <h2 class="Heading-Fancy row">
-            <span class="Heading-Fancy-subtitle">
-                @lang('labels.videosubtitle')
-            </span>
+            <span class="Heading-Fancy-subtitle">@lang('labels.videosubtitle')</span>
             <span class='title'>@lang('labels.videos')</span>
         </h2>
 

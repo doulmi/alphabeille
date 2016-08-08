@@ -136,7 +136,7 @@ class UserController extends Controller
         $minitalks = Minitalk::whereIn('id', $minitalksIds)->get(['id', 'avatar', 'title', 'slug']);
         $videos = Video::whereIn('id', $videosIds)->get(['id', 'avatar', 'title']);
 
-        return view('collect', compact('lessons', 'talkshows', 'minitalks', 'videos'));
+        return view('users.collect', compact('lessons', 'talkshows', 'minitalks', 'videos'));
     }
 
     public function words() {
