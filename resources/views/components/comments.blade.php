@@ -15,8 +15,7 @@
             </div>
 
             <div class="media-body">
-                <form v-on:submit="onPostComment" method="POST"
-                      id="replyForm">
+                <form v-on:submit="onPostComment" method="POST" id="replyForm">
                     {{csrf_field()}}
 
                     <textarea name="content" data-provide="markdown" rows="5" v-model="newPost.content"

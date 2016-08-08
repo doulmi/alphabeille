@@ -182,6 +182,7 @@
                         && !target.hasClass('popover-title')
                         && !target.hasClass('arrow')) {
                     $('.popover').popover('hide');      // 当点击body的非弹出框相关的内容的时候，关闭所有popover
+                    $('.popover-content').html("@lang('labels.loading')");
                 }
             });
 
@@ -190,6 +191,7 @@
             var activePopover = function () {
                 var word = $(this).html().trim().toLowerCase();
                 $('.popover').popover('hide');          // 当点击一个按钮的时候把其他的所有内容先关闭。
+                $('.popover-content').html("@lang('labels.loading')");
 
                 var result = localStorage.getItem('dict:fr:' + word);
                 if (result && result != '') {
@@ -199,40 +201,39 @@
                         title: function () {
                             return $(this).html() + closeBtn;
                         },
-                        content: function () {
-                            return result; // 把content变成html
+                        content : function() {
+                            return result;
                         }
                     });
                     $(this).popover('toggle');
+//                    $('.popover').showPopup();
 
                     //添加查询次数
-                    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {
-                    });
+                    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {});
                 } else {
                     //无缓存则从服务器获取信息
                     $(this).popover({
                         placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
                         title: function () {
                             return $(this).html() + closeBtn;
+                        },
+                        content : function() {
+                            $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {
+                                $(".popover-content").html(response['msg']);
+                                if (response['status'] == 200) {
+                                    localStorage.setItem('dict:fr:' + word, response['msg']);
+                                }
+                                return response['msg'];
+                            });
                         }
-//                        ,
-//                        content: function () {
-                        {{--return "@lang('labels.loading')";--}}
-                        //                        }
                     });
 
                     $(this).popover('toggle');          // 然后只把自己打开。
-                    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {
-                        $(".popover-content").html(response['msg']);
-                        if (response['status'] == 200) {
-                            localStorage.setItem('dict:fr:' + word, response['msg']);
-                            if (response['isFav']) {
-
-                            }
-                        }
-                    });
                 }
             };
+
+            $(".markdown-content span").click(activePopover);
+        });
 //                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
             //POPOVER
             $(".video-content span").click(activePopover);

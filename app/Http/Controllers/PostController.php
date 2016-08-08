@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Lesson;
 use App\Minitalk;
 use App\Subscription;
@@ -15,6 +16,22 @@ use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
 {
+    public function test() {
+        $lesson = Lesson::find(3);
+        $parsed_content = str_replace('‘', '\'', $lesson->parsed_content);
+        $parsed_content = str_replace('’', '\'', $parsed_content);
+        $parsed_content = str_replace('《', '«', $parsed_content);
+        $parsed_content = str_replace('》', '»', $parsed_content);
+        $parsed_content = str_replace('  ', ' ', $parsed_content);
+        $parsed_content = str_replace('，', ',', $parsed_content);
+        $parsed_content = str_replace('。', '.', $parsed_content);
+        $lesson->parsed_content = $parsed_content;
+
+        $lesson->parsed_content = Helper::emberedWord($lesson->parsed_content);
+        $lesson->save();
+        dd($lesson->parsed_content);
+    }
+
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];

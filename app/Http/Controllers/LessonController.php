@@ -30,10 +30,10 @@ class LessonController extends ReadableController
         }
         $topicController = new TopicController();
         $id = $lesson->id;
-        Redis::incr('lesson:view:' . $id);
+//        Redis::incr('lesson:view:' . $id);
 
         $topic = $lesson->topic;
-        Redis::incr('topic:view:' . $topic->id);
+//        Redis::incr('topic:view:' . $topic->id);
 
 //        $topics = $topicController->random();
         $lessons = $this->random(4);

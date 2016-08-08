@@ -115,7 +115,7 @@ class Helper
      * @param $src
      * @return mixed|string
      */
-    private static function emberedWord($src)
+    public static function emberedWord($src)
     {
         $in = false;
         $dest = '';
@@ -139,6 +139,8 @@ class Helper
             }
         }
         $dest = preg_replace('/<span>([A-Za-z]*)<\/span>\'/', '$1\'', $dest);
+
+        $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«)<\/span>/', '$1', $dest);
         return $dest;
     }
 

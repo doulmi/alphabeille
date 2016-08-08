@@ -2768,37 +2768,39 @@ body {
   left: 0;
 }
 
-.markdown-content blockquote {
-  margin-bottom: 1.75rem;
-  font-size: 1.25rem;
-
-  padding: 1rem 0 1rem 1.6rem;
-  border-left: .5rem solid $blockquote;
-  margin-top: 1.75rem;
-  //background: #F5F5F5;
-}
-
-.markdown-content code {
-  color: $blockquote;
-  background-color: #FFF;
-  font-size: 100%;
-  font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
-  padding: 0;
-}
-
 .markdown-content {
-  //text-align: justify;
+  blockquote {
+    margin-bottom: 1.75rem;
+    font-size: 1.25rem;
+
+    padding: 1rem 0 1rem 1.6rem;
+    border-left: .5rem solid $blockquote;
+    margin-top: 1.75rem;
+  }
+
+  code {
+    color: $blockquote;
+    background-color: #FFF;
+    font-size: 100%;
+    font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+    padding: 0;
+  }
+
   h2 {
     margin: 60px 0 30px 0;
   }
-}
 
-.markdown-content p {
-  font-size: 1.25em;
-  line-height: 1.72;
-  margin: 0 0 1em;
-  color: #111;
-  margin-bottom: 26px;
+  p {
+    font-size: 1.25em;
+    line-height: 1.72;
+    margin: 0 0 1em;
+    color: #111;
+    margin-bottom: 26px;
+  }
+  
+  span {
+    cursor: pointer;
+  }
 }
 
 .lesson-content {
