@@ -16,13 +16,7 @@
     @yield('othercss' )
 </head>
 <body>
-<div class="scroll-element scroll-y scroll-scrolly_visible">
-    <div class="scroll-element_outer">
-        <div class="scroll-element_size"></div>
-        <div class="scroll-element_track"></div>
-        <div class="scroll-bar" style="height: 8px; top: 78.2451px;"></div>
-    </div>
-</div>
+
 {{--<div class="sky hidden-xs">--}}
     {{--<div class="cloud variant-1"></div>--}}
     {{--<div class="cloud variant-2"></div>--}}

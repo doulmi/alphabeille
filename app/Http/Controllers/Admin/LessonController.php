@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Editor\Markdown\Markdown;
+use App\Helper;
 use App\Lesson;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -107,13 +108,16 @@ class LessonController extends Controller
         $data = $request->all();
         $data['parsed_content'] = $this->markdown->parse($data['content']);
         $data['parsed_content_zh_CN'] = $this->markdown->parse($data['content_zh_CN']);
+        Helper::emberedHtml($data['parsed_content']);
 
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
             $times = explode(' ', $data['publish_at']);
             $times0 = explode('/', $times[0]);
+            $times1 = explode(':', $times[1]);
+            $pm = $times[2] == 'PM';
 
-            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times[1] . ':00';
+            $data['publish_at'] = $times0[2] . '-' . $times0[0] . '-' . $times0[1] . ' ' . ($pm ? $times1[0] + 12: $times1[0]) . ':' . $times1[1] . ':00';
         } else {
             $data['publish_at'] = Carbon::now('Europe/Paris');
         }

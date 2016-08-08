@@ -104,6 +104,7 @@ Route::get('qq/callback', 'Auth\AuthController@qqCallback');
 
 Route::get('github/login', 'Auth\AuthController@githubLogin');
 Route::get('github/callback', 'Auth\AuthController@githubCallback');
+Route::get('test', 'PostController@test');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
