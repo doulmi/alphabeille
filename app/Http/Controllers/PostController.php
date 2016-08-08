@@ -35,6 +35,41 @@ class PostController extends Controller
 
         $minitalks = Minitalk::all();
         foreach($minitalks as $minitalk) {
+//            $parsed_content = str_replace('‘', '\'', $minitalk->parsed_content);
+//            $parsed_content = str_replace('’', '\'', $parsed_content);
+//            $parsed_content = str_replace('《', '«', $parsed_content);
+//            $parsed_content = str_replace('》', '»', $parsed_content);
+//            $parsed_content = str_replace('  ', ' ', $parsed_content);
+//            $parsed_content = str_replace('，', ',', $parsed_content);
+//            $parsed_content = str_replace('。', '.', $parsed_content);
+//            $minitalk->parsed_content = $parsed_content;
+//
+//            $minitalk->parsed_content = Helper::emberedWord($minitalk->parsed_content);
+            $minitalk->publish_at = date('Y-m-d h:i:s');
+            $minitalk->save();
+//            dd($minitalk);
+        }
+
+        $lessons = Lesson::all();
+        foreach($lessons as $lesson) {
+//            $parsed_content = str_replace('‘', '\'', $lesson->parsed_content);
+//            $parsed_content = str_replace('’', '\'', $parsed_content);
+//            $parsed_content = str_replace('《', '«', $parsed_content);
+//            $parsed_content = str_replace('》', '»', $parsed_content);
+//            $parsed_content = str_replace('  ', ' ', $parsed_content);
+//            $parsed_content = str_replace('，', ',', $parsed_content);
+//            $parsed_content = str_replace('。', '.', $parsed_content);
+//            $lesson->parsed_content = $parsed_content;
+//
+//            $lesson->parsed_content = Helper::emberedWord($lesson->parsed_content);
+            $lesson->publish_at = date('Y-m-d h:i:s');
+            $lesson->save();
+        }
+    }
+
+    public function parse() {
+        $minitalks = Minitalk::all();
+        foreach($minitalks as $minitalk) {
             $parsed_content = str_replace('‘', '\'', $minitalk->parsed_content);
             $parsed_content = str_replace('’', '\'', $parsed_content);
             $parsed_content = str_replace('《', '«', $parsed_content);
@@ -63,7 +98,6 @@ class PostController extends Controller
             $lesson->save();
         }
     }
-
     public function test()
     {
 //

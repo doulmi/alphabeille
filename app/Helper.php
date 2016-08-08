@@ -148,6 +148,8 @@ class Helper
         $dest = preg_replace('/<span>([A-Za-z]*)<\/span>\'/', '$1\'', $dest);
         $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«|strong|\/strong|br|hr|h\d|\/h\d)<\/span>/', '$1', $dest);
         preg_match_all('/<<span>img.*<\/span>>/', $dest, $data);
+        $img = preg_replace('/<\/?span>/', '', $data[0][0]);
+        $dest = str_replace($data[0][0], $img, $dest);
         return $dest;
     }
 

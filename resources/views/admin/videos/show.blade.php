@@ -88,7 +88,6 @@
                 <script>
                     $(function () {
                         var datepickerConfig = {
-//                            locale: 'fr',
                             sideBySide: true,
                             toolbarPlacement: 'bottom',
                             showClose: true,
@@ -97,21 +96,7 @@
                         var datepicker = $('#picker');
                         datepicker.datetimepicker(datepickerConfig);
 
-                       $('#showTime').val('{{$video->showTime}}');
-//                        var publishDate = $('#publishDate');
-//                        datepicker.on("dp.change", function (e) {
-//                            coursesDate.val($(this).data().DateTimePicker.date()._d);
-//                        });
-//                var $input = $('.datepicker').pickadate({
-//                    formatSubmit: 'yyyy/mm/dd',
-//                    container: '#container',
-//                    closeOnSelect: true,
-//                    closeOnClear: false,
-//                    today: true
-//                });
-//
-//                var picker = $input.pickadate('picker');
-//                picker.set('select', today)
+                       $('#showTime').val('{{$edit ? $video->showTime : ''}}');
                     });
                 </script>
 @endsection
