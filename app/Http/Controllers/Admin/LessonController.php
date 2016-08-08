@@ -116,7 +116,7 @@ class LessonController extends Controller
         $parsed_content = str_replace('，', ',', $parsed_content);
         $parsed_content = str_replace('。', '.', $parsed_content);
 
-        $data['parsed_content'] = Helper::emberedWord($this->markdown->parse($parsed_content));
+//        $data['parsed_content'] = Helper::emberedWord($this->markdown->parse($parsed_content));
         $data['parsed_content_zh_CN'] = Helper::emberedWord($this->markdown->parse($data['content_zh_CN']));
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
