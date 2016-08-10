@@ -100,7 +100,7 @@
             <tr>
                 <?php
                 $urls = [];
-                $cols = ['id', 'word', 'explication', 'pronounce'];
+                $cols = ['id', 'word', 'explication', 'frequency', 'audio'];
                 ?>
                 @foreach($cols as $colName)
                     <th> @lang('labels.' . $colName) </th>
@@ -114,7 +114,8 @@
                     <td scope="row">{{$word->id}}</td>
                     <td>{{$word->word}}</td>
                     <td>{{$word->explication}}</td>
-                    <td></td>
+                    <td>{{$word->frequency}}</td>
+                    <td>{{$word->audio ? '有' : '无'}}</td>
                     <td>
                         <a href="#" class="btn btn-success" data-toggle="modal"
                            data-target="#modifyModal" onclick="modify({{$word->id}})">@lang('labels.modify')</a>

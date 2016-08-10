@@ -29,7 +29,7 @@ class VideoController extends ReadableController
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('video:view:' . $readable->id);
+//        Redis::incr('video:view:' . $readable->id);
 
         $readables = $this->random();
         $fr = explode('||', $readable->parsed_content);
