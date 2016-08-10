@@ -106,9 +106,9 @@ class VideoController extends Controller
         $edit = true;
         $video = Video::findOrFail($id);
         $time = $video->publish_at;
-        $isPm = $time->hour >= 12? true: false;
+//        $isPm = $time->hour >= 12? true: false;
 
-        $video->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' .  ($isPm ? $time->hour - 12 : $time->hour) . ':' . $time->minute .  ($isPm ? ' PM' : ' AM');
+        $video->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.videos.show', compact(['edit', 'video']));
     }
 
@@ -131,6 +131,7 @@ class VideoController extends Controller
 
     private function getSaveData(Request $request) {
         $data = $request->all();
+
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
 
         if(!$data['doPoint']) {
@@ -141,9 +142,8 @@ class VideoController extends Controller
             $times = explode(' ', $data['publish_at']);
             $times0 = explode('/', $times[0]);
             $times1 = explode(':', $times[1]);
-            $pm = $times[2] == 'PM';
 
-            $data['publish_at'] = $times0[2] . '-' . $times0[0] . '-' . $times0[1] . ' ' . ($pm ? $times1[0] + 12: $times1[0]) . ':' . $times1[1] . ':00';
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times1[1] . ':00';
         } else {
             $data['publish_at'] = Carbon::now('Europe/Paris');
         }

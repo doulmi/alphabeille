@@ -99,9 +99,8 @@ class LessonController extends Controller
         $edit = true;
         $lesson = Lesson::findOrFail($id);
         $time = $lesson->publish_at;
-        $isPm = $time->hour >= 12? true: false;
 
-        $lesson->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' .  ($isPm ? $time->hour - 12 : $time->hour) . ':' . $time->minute .  ($isPm ? ' PM' : ' AM');
+        $lesson->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.lessons.show', compact('edit', 'lesson'));
     }
 
@@ -123,9 +122,8 @@ class LessonController extends Controller
             $times = explode(' ', $data['publish_at']);
             $times0 = explode('/', $times[0]);
             $times1 = explode(':', $times[1]);
-            $pm = $times[2] == 'PM';
 
-            $data['publish_at'] = $times0[2] . '-' . $times0[0] . '-' . $times0[1] . ' ' . ($pm ? $times1[0] + 12: $times1[0]) . ':' . $times1[1] . ':00';
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times1[1] . ':00';
         } else {
             $data['publish_at'] = Carbon::now('Europe/Paris');
         }

@@ -115,6 +115,7 @@
     <script>
         $(function () {
             var datepickerConfig = {
+                locale: 'fr',
                 sideBySide: true,
                 toolbarPlacement: 'bottom',
                 showClose: true,

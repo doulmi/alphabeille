@@ -102,6 +102,7 @@
         $(function () {
             var datepickerConfig = {
                 sideBySide: true,
+                locale: 'fr',
                 toolbarPlacement: 'bottom',
                 showClose: true,
                 ignoreReadonly: true

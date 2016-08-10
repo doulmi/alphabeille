@@ -97,9 +97,8 @@ class MinitalkController extends Controller {
         $edit = true;
         $minitalk = Minitalk::findOrFail($id);
         $time = $minitalk->publish_at;
-        $isPm = $time->hour >= 12? true: false;
 
-        $minitalk->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' .  ($isPm ? $time->hour - 12 : $time->hour) . ':' . $time->minute .  ($isPm ? ' PM' : ' AM');
+        $minitalk->showTime = $time->day . '/' . $time->month . '/' . $time->year . ' ' . $time->hour . ':' . $time->minute;
         return view('admin.minitalks.show', compact('edit', 'minitalk'));
     }
 
@@ -121,9 +120,8 @@ class MinitalkController extends Controller {
             $times = explode(' ', $data['publish_at']);
             $times0 = explode('/', $times[0]);
             $times1 = explode(':', $times[1]);
-            $pm = $times[2] == 'PM';
 
-            $data['publish_at'] = $times0[2] . '-' . $times0[0] . '-' . $times0[1] . ' ' . ($pm ? $times1[0] + 12: $times1[0]) . ':' . $times1[1] . ':00';
+            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times1[1] . ':00';
         } else {
             $data['publish_at'] = Carbon::now('Europe/Paris');
         }
