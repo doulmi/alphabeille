@@ -63,13 +63,13 @@
 
                     <div class="form-group">
                         <label for="content">@lang('labels.content')</label>
-                            <textarea class="name-input form-control" rows="10" id="content"
+                            <textarea class="name-input form-control" rows="10" id="content"  data-provide="markdown"
                                       name="content">{{$edit ? $video->content : ''}}</textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="description">@lang('labels.description')</label>
-                            <textarea class="name-input form-control" rows="10" id="description"
+                            <textarea class="name-input form-control" rows="10" id="description"  data-provide="markdown"
                                       name="description">{{ $edit ? $video->description : ''}}</textarea>
                     </div>
 

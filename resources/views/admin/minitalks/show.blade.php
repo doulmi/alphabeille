@@ -70,19 +70,21 @@
 
         <div class="form-group">
             <label for="wechat_part">@lang('labels.wechatPart')</label>
-                <textarea class="name-input form-control" rows="10" id="wechat_part"
-                          name="wechat_part">{{$edit ? $minitalk->wechat_part : ''}}</textarea>
+            <textarea name="wechat_part" id="wechat_part" rows="10" data-provide="markdown" >{{$edit ? $minitalk->wechat_part : ''}}</textarea>
+                {{--<textarea class="name-input form-control" rows="10" id="wechat_part"--}}
+{{--                          name="wechat_part">{{$edit ? $minitalk->wechat_part : ''}}</textarea>--}}
         </div>
+
 
         <div class="form-group">
             <label for="content">@lang('labels.content')</label>
-                <textarea class="name-input form-control" rows="10" id="content"
+                <textarea class="name-input form-control" rows="10" id="content" data-provide="markdown"
                           name="content">{{$edit ? $minitalk->content : ''}}</textarea>
         </div>
 
         <div class="form-group">
             <label for="description">@lang('labels.description')</label>
-                <textarea class="name-input form-control" rows="10" id="description"
+                <textarea class="name-input form-control" rows="10" id="description" data-provide="markdown"
                           name="description">{{$edit ? $minitalk->description : ''}}</textarea>
         </div>
         @endsection

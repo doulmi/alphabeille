@@ -85,19 +85,19 @@
 
         <div class="form-group">
             <label for="content">@lang('labels.content')</label>
-                <textarea class="name-input form-control" rows="10" id="content"
+                <textarea class="name-input form-control" rows="10" id="content"  data-provide="markdown"
                           name="content">{{$edit ? $lesson->content : ''}}</textarea>
         </div>
 
         <div class="form-group">
             <label for="content_zh_CN">@lang('labels.content_zh_CN')</label>
-                <textarea class="name-input form-control" rows="10" id="content_zh_CN"
+                <textarea class="name-input form-control" rows="10" id="content_zh_CN"  data-provide="markdown"
                           name="content_zh_CN">{{ $edit ? $lesson->content_zh_CN : ''}}</textarea>
         </div>
 
         <div class="form-group">
             <label for="description">@lang('labels.description')</label>
-                    <textarea class="name-input form-control" rows="10" id="description"
+                    <textarea class="name-input form-control" rows="10" id="description"  data-provide="markdown"
                               name="description">{{ $edit ? $lesson->description : ''}}</textarea>
         </div>
 @endsection
