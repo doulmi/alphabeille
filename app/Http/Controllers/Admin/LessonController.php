@@ -18,6 +18,7 @@ class LessonController extends Controller
 {
 
     private $markdown;
+
     /**
      * @param $makrdown
      */
@@ -25,6 +26,7 @@ class LessonController extends Controller
     {
         $this->markdown = $markdown;
     }
+
     /**
      * Display a listing of the resource.
      *
