@@ -3150,4 +3150,8 @@ body {
 .word-list .remove-btn {
   color: #19c7ff; }
 
+.audio-play-btn {
+  background: #F7F7F7;
+  margin-left: 8px; }
+
 /*# sourceMappingURL=app.css.map */

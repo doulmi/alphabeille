@@ -174,85 +174,8 @@
                 $(this).addClass("active");
             });
 
-            $('body').click(function (event) {
-                var target = $(event.target);       // 判断自己当前点击的内容
-                if (!target.hasClass('popover')
-                        && !target.hasClass('pop')
-                        && !target.hasClass('popover-content')
-                        && !target.hasClass('audio-play-btn')
-                        && !target.hasClass('popover-title')
-                        && !target.hasClass('glyphicon')
-                        && !target.hasClass('arrow')) {
-                    $('.popover').popover('hide');      // 当点击body的非弹出框相关的内容的时候，关闭所有popover
-                    $('.popover-content').html("@lang('labels.loading')");
-                }
-            });
-
-            var closeBtn = '<button type="button" id="close" class="close" onclick="$(\'.popver\').popover(\'hide\');">&times;</button>';
-
-            var activePopover = function () {
-                var word = $(this).html().trim().toLowerCase();
-                $('.popover').popover('hide');          // 当点击一个按钮的时候把其他的所有内容先关闭。
-                $('.popover-content').html("@lang('labels.loading')");
-
-                var result = localStorage.getItem('dict:fr:' + word);
-                if (result && result != '') {
-                    var audio = localStorage.getItem('dict:fr:audio:' + word);
-                    var audioBtn = '';
-                    if(audio && audio != '') {
-                        audioBtn = '<button type="button" class="audio-play-btn" onclick="playWordAudio(\'' + audio + '\')"><i class="glyphicon glyphicon-volume-up"></i></button>'
-                    } else {
-                        audioBtn = '';
-                    }
-
-                    //有缓存的情况下
-                    $(this).popover({
-                        placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
-                        title: function () {
-                            return $(this).html() + audioBtn + closeBtn;
-                        },
-                        content : function() {
-                            return result;
-                        }
-                    });
-                    $(this).popover('toggle');
-//                    $('.popover').showPopup();
-
-                    //添加查询次数
-                    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {});
-                } else {
-                    //无缓存则从服务器获取信息
-
-                    var audioBtn = '<button type="button" class="audio-play-btn" onclick="playWordAudio(\'' + audio + '\')"><i class="glyphicon glyphicon-volume-up"></i></button>'
-                    $(this).popover({
-                        placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
-                        title: function () {
-                            return $(this).html() + audioBtn + closeBtn;
-                        },
-                        content : function() {
-                            $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/video', function (response) {
-                                $(".popover-content").html(response['msg']);
-//                                audioBtn = '<button type="button" class="audio-play-btn" onclick="playWordAudio(\'' + audio + '\')"><i class="glyphicon glyphicon-volume-up"></i></button>';
-                                if (response['status'] == 200) {
-                                    localStorage.setItem('dict:fr:' + word, response['msg']);
-                                    if(response['audio'] != '') {
-                                        localStorage.setItem('dict:fr:' + word, response['msg']);
-                                    }
-                                }
-                                return response['msg'];
-                            });
-                        }
-                    });
-
-                    $(this).popover('toggle');          // 然后只把自己打开。
-                }
-            };
-
-//            $(".markdown-content span").click(activePopover);
-//        });
-//                    var collect = '<a href="#" ><i class="svg-icon svg-icon-heart"></i></a>';
-            //POPOVER
-            $(".video-content span").click(activePopover);
+            @include('components.dict')
+            $(".video-content span").click(activePopover)
         });
 
         var player;

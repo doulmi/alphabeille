@@ -99,6 +99,20 @@
 
                        $('#showTime').val('{{$edit ? $video->showTime : ''}}');
                     });
+
+                    function save() {
+                        var description = $('#description');
+                        if(description.html() != '') {
+                            localStorage.setItem('video:{{$video->id}}:description', description.html());
+                        }
+
+                        var content = $('#content');
+                        if(description.html() != '') {
+                            localStorage.setItem('video:{{$video->id}}:content', description.html());
+                        }
+                    }
+
+                    setTimeout("save()",1000*60);//1000为1秒钟,设置为1分钟。
                 </script>
 @endsection
 

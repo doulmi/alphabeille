@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
-    private $cols = ['id', 'word', 'explication'];
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +19,7 @@ class WordController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -53,7 +51,7 @@ class WordController extends Controller
      */
     public function show($src, $readable_id, $readable_type)
     {
-        $word = Word::where('word', $src)->first($this->cols);
+        $word = Word::where('word', $src)->first();
         $origin = false;
         if ($word) {
             $origin = true;
@@ -61,44 +59,43 @@ class WordController extends Controller
 
         //复数
         if (!$word && ends_with($src, 's')) {
-            $word = Word::where('word', substr($src, 0, -1))->first($this->cols);
+            $word = Word::where('word', substr($src, 0, -1))->first();
         }
         /** 第一组动词 **/
         //0.现在时, 现在分词, 复合过去时
         if (!$word && preg_match('/(.*)(e|es|ons|ez|ent|ant|é)$/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'er')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'er')->first();
         }
 
         //2. 未完成过去式
         if (!$word && preg_match('/(.*)(ai(s|t|ent)|i(ons|ez))$/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'er')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'er')->first();
         }
         //3. 简单过去式, 简单将来时，条件现在时
         if (!$word && preg_match('/(.*)(erai(t|s)?|eras|era|âmes|erons|erions|âtes|erez|eriez|èrent|eront|eraient)$/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'er')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'er')->first();
         }
 
         //由于ai|as|a会强制替代掉上面正则的erai, eras, era所以需要单独拿出来
         if (!$word && preg_match('/(.*)(ai|as|a)/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'er')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'er')->first();
         }
 
         /* 第二组动词 */
         //现在时，复合过去时，未完成过去式, 现在分词
         if (!$word && preg_match('/(.*)(issais|iss|issait|issiez|issez|issi?ons|issaient|iss(e|a)nt|i)$/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'ir')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'ir')->first();
         }
 
         //由于is|it会替换上面的issais|issait, 所以单独拿出来
         if (!$word && preg_match('/(.*)(is|it)$/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'ir')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'ir')->first();
         }
 
         //简单过去式，简单将来时，条件现在时
         if (!$word && preg_match('/(.*)(irai(t|s)?|irai?s|isses?|issi?(ons|ent|iez)|ira|îmes|iraient|iri?ons|îtes|iri?ez|ir(e|o)nt)$/', $src, $data)) {
-            $word = Word::where('word', $data[1] . 'ir')->first($this->cols);
+            $word = Word::where('word', $data[1] . 'ir')->first();
         }
-
 
         if ($word) {
             $this->favorite($word, $readable_id, $readable_type);
@@ -108,7 +105,9 @@ class WordController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'msg' => $word->explication
+                'msg' => $word->explication,
+                'audio' => $word->audio,
+                'freq' => $word->frequency
             ]);
         } else {
             return response()->json([
