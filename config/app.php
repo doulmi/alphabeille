@@ -155,10 +155,10 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,
-//        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -217,7 +217,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
-        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class
+        'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
+        'Location' => Stevebauman\Location\Facades\Location::class,
     ],
 
 ];

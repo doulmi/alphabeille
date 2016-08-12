@@ -7,6 +7,7 @@ use App\Video;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redis;
+use Stevebauman\Location\Facades\Location;
 
 class VideoController extends ReadableController
 {
@@ -40,5 +41,10 @@ class VideoController extends ReadableController
 
         $type = 'video';
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin']));
+    }
+
+    public function yt() {
+        $location = Location::get("217.128.63.152");
+        dd($location);
     }
 }

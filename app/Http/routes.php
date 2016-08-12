@@ -176,6 +176,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('parse', 'PostController@parse');
 });
 
+Route::get('yt', 'VideoController@yt');
+
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {
