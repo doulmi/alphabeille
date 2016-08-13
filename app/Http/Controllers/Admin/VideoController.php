@@ -132,7 +132,18 @@ class VideoController extends Controller
     private function getSaveData(Request $request) {
         $data = $request->all();
 
-        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
+        $content = str_replace('！', '!', $data['content']);
+        $content = str_replace('？', '?', $content);
+        $content = str_replace('  ', ' ', $content);
+        $content = str_replace('‘', '\'', $content);
+        $content = str_replace('’', '\'', $content);
+        $content = str_replace('“', '\"', $content);
+        $content = str_replace('”', '\"', $content);
+        $content = str_replace('。', '.', $content);
+        $content = str_replace('，', ',', $content);
+        $content = str_replace('…', '...', $content);
+
+        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
 
         if(!$data['doPoint']) {
             unset($data['points']);
