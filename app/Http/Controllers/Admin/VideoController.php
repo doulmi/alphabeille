@@ -137,12 +137,13 @@ class VideoController extends Controller
         $content = str_replace('‘', '\'', $content);
         $content = str_replace('’', '\'', $content);
         $content = str_replace('“', '\'', $content);
-        $content = str_replace('”', '\'', $content);
-        $content = str_replace('\"', '\'', $content);
+        $content = str_replace('“', '\'', $content);
+        $content = str_replace('"', '\'', $content);
         $content = str_replace('。', '.', $content);
         $content = str_replace('，', ',', $content);
         $content = str_replace('…', '...', $content);
         $content = str_replace('\n\n', '\n', $content);
+        $data['content'] = $content;
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
 

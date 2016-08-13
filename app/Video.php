@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Foundation\Auth\User;
 
 class Video extends Readable
 {
