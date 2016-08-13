@@ -91,8 +91,8 @@
             <h1 class="video-title">{{ $readable ->title}}</h1>
             <div class="video-author">
                 @lang('labels.publishAt'){{$readable->created_at}},
-                <a href="{{url('users/' . $listener->id)}}">{{$listener->name}}</a>@lang('labels.listen'), <a href="{{url('users/' . $translator->id)}}">{{$translator->name}}</a>@lang('labels.translate'),
-<a href="{{url('users/' . $verifier->id)}}">{{$verifier->name}}</a>@lang('labels.verifier'),
+                <a href="{{url('users/' . $readable->listener->id)}}">{{$readable->listener->name}}</a>@lang('labels.listen'), <a href="{{url('users/' . $readable->translator->id)}}">{{$readable->translator->name}}</a>@lang('labels.translate'),
+<a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier'),
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Auth\User;
 
 class Video extends Readable
 {
@@ -13,11 +14,11 @@ class Video extends Readable
     public static function findByIdOrSlugOrFail($idOrSlug)
     {
         if (is_numeric($idOrSlug)) {
-            $entity = Video::find($idOrSlug);
+            $entity = Video::with(['translator', 'listener', 'verifier'])->find($idOrSlug);
             if($entity) return $entity;
         }
         //如果不是数字，或者是数字也没找到
-        $entity = Video::where('slug', $idOrSlug)->first();
+        $entity = Video::with(['translator', 'listener', 'verifier'])->where('slug', $idOrSlug)->first();
         if ($entity) {
             return $entity;
         } else {
@@ -26,14 +27,14 @@ class Video extends Readable
     }
 
     public function translator() {
-        return User::where('id', $this->translator_id)->first();
+        return $this->hasOne(User::class, 'id', 'translator_id');
     }
 
     public function listener() {
-        return User::where('id', $this->listener_id)->first();
+        return $this->hasOne(User::class, 'id', 'listener_id');
     }
 
     public function verifier() {
-        return User::where('id', $this->verifier_id)->first();
+        return $this->hasOne(User::class, 'id', 'verifier_id');
     }
 }

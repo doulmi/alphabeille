@@ -29,9 +29,6 @@ class VideoController extends ReadableController
     public function show(Request $request, $idOrSlug)
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
-        $listener = $readable->listener();
-        $verifier = $readable->verifier();
-        $translator = $readable->translator();
 
         Redis::incr('video:view:' . $readable->id);
 
@@ -50,7 +47,7 @@ class VideoController extends ReadableController
             //中国，使用本地
 //            $youtube = false;
 //        }
-        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube', 'listener', 'verifier', 'translator']));
+        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
     }
 
     public function level($level)
