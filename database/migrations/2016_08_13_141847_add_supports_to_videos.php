@@ -16,7 +16,7 @@ class AddSupportsToVideos extends Migration
         Schema::table('videos', function (Blueprint $table) {
             $table->integer('listener_id')->unsigned()->default(3);
             $table->integer('translator_id')->unsigned()->default(2);
-            $table->integer('verifier_id')->unsigned()->default(1);
+            $table->integer('verifier_id')->unsigned()->default(2);
             $table->integer('lastMonthViews');
             $table->string('originSrc');
 

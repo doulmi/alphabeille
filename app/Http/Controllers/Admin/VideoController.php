@@ -69,13 +69,9 @@ class VideoController extends Controller
     {
         $data = $this->getSaveData($request);
         $data['slug'] = '';
-        $data['translator_id'] = 2;
-        $data['verifier_id'] = 2;
-        $data['listener_id'] = 3;
 
         Video::create($data);
 
-//        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createVideoSuccess'));
         return redirect('admin/videos');
     }
