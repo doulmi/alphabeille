@@ -7,7 +7,6 @@ use App\Video;
 
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
-use Stevebauman\Location\Facades\Location;
 
 class VideoController extends ReadableController
 {
@@ -30,6 +29,9 @@ class VideoController extends ReadableController
     public function show(Request $request, $idOrSlug)
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
+        $listener = $readable->listener();
+        $verifier = $readable->verifier();
+        $translator = $readable->translator();
 
         Redis::incr('video:view:' . $readable->id);
 
@@ -48,7 +50,7 @@ class VideoController extends ReadableController
             //中国，使用本地
 //            $youtube = false;
 //        }
-        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
+        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube', 'listener', 'verifier', 'translator']));
     }
 
     public function level($level)
