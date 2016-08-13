@@ -14,9 +14,9 @@ class AddSupportsToVideos extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::table('videos', function (Blueprint $table) {
-            $table->integer('listener_id')->unsigned()->default(3);
-            $table->integer('translator_id')->unsigned()->default(2);
-            $table->integer('verifier_id')->unsigned()->default(2);
+            $table->integer('listener_id')->unsigned()->default(5);
+            $table->integer('translator_id')->unsigned()->default(3);
+            $table->integer('verifier_id')->unsigned()->default(3);
             $table->integer('lastMonthViews');
             $table->string('originSrc');
 
