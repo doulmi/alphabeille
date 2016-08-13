@@ -137,7 +137,7 @@ class VideoController extends Controller
         $content = str_replace('‘', '\'', $content);
         $content = str_replace('’', '\'', $content);
         $content = str_replace('“', '\'', $content);
-        $content = str_replace('“', '\'', $content);
+        $content = str_replace('”', '\'', $content);
         $content = str_replace('"', '\'', $content);
         $content = str_replace('。', '.', $content);
         $content = str_replace('，', ',', $content);
