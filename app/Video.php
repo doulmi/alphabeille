@@ -26,7 +26,8 @@ class Video extends Readable
     }
 
     public function translator() {
-        return $this->hasOne(User::class, 'id', 'translator_id');
+        return User::where('id', $this->translator_id);
+//        return $this->hasOne(User::class, 'id', 'translator_id');
     }
 
     public function listener() {
@@ -34,6 +35,7 @@ class Video extends Readable
     }
 
     public function verifier() {
-        return $this->hasOne(User::class, 'id', 'verifier_id');
+        return User::where('id', $this->listener_id);
+//        return $this->hasOne(User::class, 'id', 'verifier_id');
     }
 }
