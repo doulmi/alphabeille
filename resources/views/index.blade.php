@@ -9,7 +9,7 @@
     <meta name="Keywords" content="@lang('labels.index.keywords')">
     <meta name="google-site-verification" content="p4OOrrT_9YZ-IQLDF02ChLQuNHEW7xodyKVeZoe8FU8"/>
     <meta name="baidu-site-verification" content="4Y6Akg4Bz5"/>
-    <meta property="qc:admins" content="326707660761400152514456375" />
+    <meta property="qc:admins" content="326707660761400152514456375"/>
     {{--<link href="http://vjs.zencdn.net/5.10.7/video-js.css" rel="stylesheet">--}}
 @endsection
 
@@ -36,16 +36,19 @@
                     <div class="col-md-6 video-panel">
                         <div class="top-48"></div>
                         <video id="my_video" class="video-js vjs-default-skin"
-                               controls preload data-setup='{ "aspectRatio":"1920:1080" }' data-setup='{"language":"fr"}'>
-                            <source src="http://o9dnc9u2v.bkt.clouddn.com/videos/Alphabeille_1080P.mp4" type='video/mp4'>
+                               controls preload data-setup='{ "aspectRatio":"1920:1080" }'
+                               data-setup='{"language":"fr"}'>
+                            <source src="http://o9dnc9u2v.bkt.clouddn.com/videos/Alphabeille_1080P.mp4"
+                                    type='video/mp4'>
                         </video>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="morning">
+            <div class="Header"></div>
 
             <div class="Card-Collection row">
-                <div class="Header"></div>
-
                 <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('labels.videos')</span>
                 </h2>
@@ -53,7 +56,6 @@
                 @include('components.readableList')
                 <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
             </div>
-
         </div>
 
         <div class="night-fall">
@@ -81,7 +83,6 @@
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
         </div>
-
         @include('subscribe')
     </div>
 @endsection
@@ -92,7 +93,7 @@
     <script>
         $('img.Card-image').lazyload();
 
-        videojs("my_video").ready(function(){
+        videojs("my_video").ready(function () {
             $('#my_video').show();
         });
     </script>

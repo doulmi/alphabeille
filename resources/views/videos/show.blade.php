@@ -14,11 +14,20 @@
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7">
+                    <a href="{{url('videos/level/' . $readable->level)}}"><span class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span></a>
+                    <span class="">
+                        <i class="glyphicon glyphicon-headphones"></i>
+                        <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
+                    </span>
+                    @if($youtube)
+                        <div id="video-placeholder" class="embed-responsive embed-responsive-16by9"></div>
+                    @else
                     <video id="my_video" class="video-js vjs-default-skin"
                            controls preload
                            data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
                         <source src="{{$readable->video_url}}" type='video/mp4'>
                     </video>
+                    @endif
                     <div class="subtitle">
                         <div class="center">
                             @if($canRead)
@@ -79,9 +88,11 @@
         </div>
 
         <div class="container">
-            <h1 class="video-title">{{ $readable ->title }}</h1>
+            <h1 class="video-title">{{ $readable ->title}}</h1>
             <div class="video-author">
-                Par <a href="{{url('/')}}">alpha-beille.com</a>, {{$readable->created_at}}
+                @lang('labels.publishAt'){{$readable->created_at}},
+                <a href="{{url('users/' . $readable->listener->id)}}">{{$readable->listener->name}}</a>@lang('labels.listen'), <a href="{{url('users/' . $readable->translator->id)}}">{{$readable->translator->name}}</a>@lang('labels.translate'),
+<a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier'),
             </div>
         </div>
     </div>
@@ -151,7 +162,11 @@
 @endsection
 
 @section('otherjs')
-    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    @if($youtube)
+        <script src="https://www.youtube.com/iframe_api"></script>
+    @else
+        <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 
     <script>
@@ -224,7 +239,6 @@
                     player.currentTime(time);
                 },
 
-
                 favoriteEvent() {
                     this.$http.post('{{url("/" . $type . "s/" . $readable->id . '/favorite')}}', function (response) {
                     }.bind(this));
@@ -263,7 +277,6 @@
                             this.active = i;
                             this.currentZh = this.linesZh[i];
                             this.currentFr = this.linesFr[i];
-//                            $(".video-show .subtitle span").click(activePopover);
                         }
                     }
                 },
@@ -303,12 +316,50 @@
             }
         });
 
+        @if($youtube)
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('video-placeholder', {
+                width: 600,
+                height: 400,
+                videoId: "{{$readable->originSrc}}",
+                playerVars: {
+                    color: 'white',
+                    playlist: 'taJ60kskkns,FG0fTKAqZ5g'
+                }
+            });
+
+            player.currentTime = function(time) {
+                if(time == 'undefined') {
+                    return player.getCurrentTime();
+                } else {
+                    player.seekTo(time);
+                }
+            }
+        }
+
+        @else
         videojs("my_video").ready(function () {
             player = this;
 
             player.on('timeupdate', vm.timeupdate);
             player.play();
             $('#my_video').show();
+        });
+        @endif
+
+        $(document).keydown(function (e) {
+            switch (e.which) {
+                case 32:    //空格，作为播放和停止的快捷键
+                    var tag = e.target.tagName.toLowerCase();
+                    if(tag != 'input' && tag != 'textarea') {
+                        if(player.paused()) {
+                            player.play();
+                        } else {
+                            player.pause();
+                        }
+                        e.preventDefault();
+                    }
+            }
         });
     </script>
 @endsection

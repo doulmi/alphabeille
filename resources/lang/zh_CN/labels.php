@@ -300,6 +300,11 @@ return [
     'oralFormation.description' => 'Alphabeille法语 1v1 3个月法语口语集训',
     'oralFormation.keywords' => '法语口语，口语集训，3个月学法语',
     'collectVideos' => '收藏的视频',
+    'levels' => '程度分级',
+    'publishAt' => '发布于',
+    'translate' => '翻译',
+    'verifier' => '校验',
+    'listen' => '听写',
 ];
 
 

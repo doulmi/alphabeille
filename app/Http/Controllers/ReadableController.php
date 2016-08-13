@@ -192,7 +192,12 @@ class ReadableController extends Controller
         $model = $this->getModel();
         $type = $this->getType();
         $pageLimit = config('params')['pageLimit'];
-        $readables = $model::published()->latest()->orderBy('free')->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at']);
+        if($type == 'video') {
+            $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level'];
+        } else {
+            $cols = ['id', 'avatar', 'title', 'slug', 'created_at'];
+        }
+        $readables = $model::published()->latest()->orderBy('free')->paginate($pageLimit, $cols);
         return view($type . 's.index', compact(['readables', 'type']));
     }
 

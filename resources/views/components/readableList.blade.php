@@ -11,6 +11,12 @@
             <div class="col-md-3 col-xs-6 col-sm-4">
                 <div class="Card">
 
+                    @if($readable->level)
+                        <span class="Card-difficulty {{$readable->level}}">
+                            @lang('labels.' . $readable->level)
+                        </span>
+                    @endif
+
                     @if($readable->free)
                         <span class="Card-new-status Label Label-x-small">
                             @lang('labels.free')

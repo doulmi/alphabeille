@@ -38,6 +38,18 @@
                 <li class="dropdown profile-btn hidden-xs">
                     <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="true">
+                        <span>@lang('labels.levels')</span>
+                        <i class="glyphicon glyphicon-menu-down"></i>
+                    </a>
+                    <ul class="dropdown-menu bullet" role="menu">
+                        <li><a href="{{ url('/videos/level/beginner') }}">@lang('labels.beginner')</a>
+                        <li><a href="{{ url('/videos/level/intermediate') }}">@lang('labels.intermediate')</a>
+                        <li><a href="{{ url('/videos/level/advanced') }}">@lang('labels.advanced')</a>
+                    </ul>
+                </li>
+                <li class="dropdown profile-btn hidden-xs">
+                    <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
                         <span>@lang('labels.ourCourses')</span>
                         <i class="glyphicon glyphicon-menu-down"></i>
                     </a>

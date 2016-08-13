@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Editor\Markdown\Markdown;
 use App\Video;
 
-use App\Http\Requests;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 
 class VideoController extends ReadableController
 {
     private $markdown;
+
     /**
      * @param $makrdown
      */
@@ -23,10 +24,10 @@ class VideoController extends ReadableController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idOrSlug)
+    public function show(Request $request, $idOrSlug)
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
 
@@ -40,11 +41,21 @@ class VideoController extends ReadableController
         $readable->desc = $this->markdown->parse($readable->description);
 
         $type = 'video';
-        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin']));
+//        $location = Location::get($request->ip());
+//        $youtube = true;
+        $youtube = false;
+//        if ($location->countryCode == 'ZH') {
+            //中国，使用本地
+//            $youtube = false;
+//        }
+        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
     }
 
-    public function yt() {
-        $location = Location::get("217.128.63.152");
-        dd($location);
+    public function level($level)
+    {
+        $pageLimit = config('params')['pageLimit'];
+        $readables = Video::where('level', $level)->published()->latest()->orderBy('free')->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at', 'level']);
+        $type = 'video';
+        return view('videos.index', compact(['readables', 'type']));
     }
 }

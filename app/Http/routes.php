@@ -78,6 +78,7 @@ Route::resource('talkshows', 'MinitalkController');
 
 //Route::get('videos/free', 'VideoController@free');
 Route::resource('videos', 'VideoController');
+Route::get('videos/level/{level}', 'VideoController@level');
 
 //Route::get('minitalks/free', 'MinitalkController@free');
 Route::resource('minitalks', 'MinitalkController');

@@ -306,5 +306,10 @@ return [
     'oralFormation.title' => 'Alphabeille法语 1v1 3个月法语口语集训',
     'oralFormation.description' => 'Alphabeille法语 1v1 3个月法语口语集训',
     'oralFormation.keywords' => '法语口语，口语集训，3个月学法语',
+    'levels' => 'Niveaus',
+    'publishAt' => 'Publié à ',
+    'translate' => '翻译',
+    'verifier' => '校验',
+    'listen' => '听写',
 ];
 
