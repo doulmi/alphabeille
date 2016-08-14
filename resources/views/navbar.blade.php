@@ -133,7 +133,6 @@
                 <li class="visible-xs"> <a href="{{url('/')}}" class="nav-xs-btn">@lang('labels.index')</a> </li>
                 <li class="visible-xs"> <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a> </li>
                 <li class="visible-xs"> <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a> </li>
-{{--                <li class="visible-xs"> <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a> </li>--}}
                 @if(Auth::guest())
                     <li class="visible-xs">
                         <a href="{{url('/login')}}">@lang('labels.login')</a>

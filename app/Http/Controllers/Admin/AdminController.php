@@ -76,35 +76,19 @@ class AdminController extends Controller
         }
     }
 
-    public function updateViews($day) {
+    public function updateViews() {
         $faker = Factory::create();
-        $lessons = Lesson::all();
-        foreach($lessons as $lesson) {
-            Redis::set('lesson:view:' . $lesson->id, $faker->numberBetween(100, 220) * $day);
-        }
-
-        $topics = Topic::all();
-        foreach($topics as $topic) {
-            $views = 0;
-            foreach($topic->lessons as $lesson) {
-                $views += Redis::get('lesson:view' . $lesson->id);
-            }
-            Redis::set('topic:view:' . $topic->id, $views);
-        }
 
         $minitalks = Minitalk::all();
         foreach($minitalks as $minitalk) {
-            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(200, 400)  * $day);
-        }
-
-        $talkshows = Talkshow::all();
-        foreach($talkshows as $talkshow) {
-            Redis::set('talkshow:view:' . $talkshow->id, $faker->numberBetween(100, 200) * $day);
+            $old = Redis::get('minitalk:view:' . $minitalk->id);
+            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(40, 60) + $old);
         }
 
         $videos = Video::all();
         foreach($videos as $video) {
-            Redis::set('video:view:' . $video->id, $faker->numberBetween(100, 200) * $day);
+            $old = Redis::get('video:view:' . $video->id);
+            Redis::set('video:view:' . $video->id, $faker->numberBetween(80, 120) + $old );
         }
     }
 

@@ -39,8 +39,7 @@ class Readable extends Model {
 
     public function scopePublished($query)
     {
-//        return $query->where('is_published', 1)->whereDate('publish_at', '<=', Carbon::now()->toDateString());
-        return $query->whereDate('publish_at', '<=', Carbon::now()->toDateString());
+        return $query->whereDate('publish_at', '<=', Carbon::now("Europe/Paris")->toDateString());
     }
 
     /**

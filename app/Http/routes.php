@@ -169,7 +169,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     //utils
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
-    Route::get('/updateViews/{day}', 'Admin\AdminController@updateViews');
+    Route::get('/updateViews', 'Admin\AdminController@updateViews');
     Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
     Route::get('testHelper', 'Admin\VideoController@testHelper');
