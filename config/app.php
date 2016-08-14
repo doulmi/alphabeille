@@ -158,7 +158,7 @@ return [
         TomLingham\Searchy\SearchyServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
+//        Stevebauman\Location\LocationServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         /*
