@@ -453,6 +453,9 @@ body {
 
 .ads-body {
   font-size: 18px;
+  width: 200%;
+  margin-left: -50%;
+  text-align: center;
 }
 
 .umbra {
@@ -2348,6 +2351,18 @@ body {
   font-size: 1.5rem;
 }
 
+.ads-btns {
+  position: relative;
+  top: -350px;
+  //background: #F4F4F4;
+  padding: 60px 125px;
+}
+
+.blockcontent {
+  margin-top: 23px;
+  height: 100px;
+}
+
 .btn-ads-login:hover {
   color: white;
 }
@@ -2569,8 +2584,8 @@ body {
 /* Icon */
 .svg-icon {
   display: inline-block;
-  //background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/all.svg);
-  background-image: url(../img/icons.svg);
+  background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/all.svg);
+  //background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/icons.svg);
   background-size: 300px;
   margin-top: 10px;
 }
@@ -3520,6 +3535,7 @@ $timing-function: ease-out;
   padding: 10px;
   border-radius: 5px;
   overflow: auto;
+  margin-top: 10px;
 }
 
 .grey h1 {

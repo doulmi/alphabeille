@@ -30,7 +30,7 @@
                     <td>{{$video->free}}</td>
                     <th scope="row">{{$video->id}}</th>
                     <td>
-                        <a class="btn btn-info" href="{{url('admin/videos/' . $video->id .'/points')}}">@lang('labels.setPoint')</a>
+{{--                        <a class="btn btn-info" href="{{url('admin/videos/' . $video->id .'/points')}}">@lang('labels.setPoint')</a>--}}
                         <a class="btn btn-info" href="{{url('admin/videos/' . $video->id .'/edit')}}">@lang('labels.modify')</a>
                         <a class="btn btn-success" href="{{url('admin/videoComments/create/' . $video->id)}}">@lang('labels.comments')</a>
                         <button class="btn btn-danger" onclick="deleteContent('{{$video->id}}')">@lang('labels.delete')</button>

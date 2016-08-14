@@ -14,11 +14,30 @@
             </a>
         </div>
 
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown flag-btn hidden-xs">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="true">
+                        <div class="flag flag-svg-tiny flag-{{App::getLocale()}}"></div>
+                        {{--<span class="glyphicon glyphicon-chevron-down"></span></a>--}}
+                        <ul class="dropdown-menu bullet" role="menu">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                    <li>
+                                        <a href="{{ route('lang.switch', $lang) }}">
+                                            <div class="flag flag-svg-micro flag-{{$lang}}"></div>
+                                            <strong>{{$language}}</strong></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                </li>
                 <li><a href="#" class="black">@lang('labels.welcome'): {{Auth::user()->name}} </a></li>
             </ul>
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

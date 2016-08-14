@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Editor\Markdown\Markdown;
+use App\UserTraces;
 use App\Video;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 
@@ -33,6 +35,16 @@ class VideoController extends ReadableController
         Redis::incr('video:view:' . $readable->id);
 
         $readables = $this->random();
+        $user = Auth::user();
+
+        if($user) {
+            UserTraces::create([
+                'user_id' => $user->id,
+                'readable_type' => 'App\Video',
+                'readable_id' => $readable->id
+            ]);
+        }
+
         $fr = explode('||', $readable->parsed_content);
         $zh = explode('||', $readable->parsed_content_zh);
 

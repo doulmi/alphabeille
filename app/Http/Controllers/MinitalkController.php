@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Minitalk;
+use App\UserTraces;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,6 +28,16 @@ class MinitalkController extends ReadableController
 //        $comments = $readable->comments;
         $content = $readable->parsed_content;
         $wechat_part = $readable->parsed_wechat_part;
+
+
+        $user = Auth::user();
+        if($user) {
+            UserTraces::create([
+                'user_id' => $user->id,
+                'readable_type' => 'App\Minitalk',
+                'readable_id' => $readable->id
+            ]);
+        }
 
         list($like, $collect, $punchin) = $this->getStatus($readable);
 

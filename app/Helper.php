@@ -42,7 +42,6 @@ class Helper
         return floatval($second);
     }
 
-
     /**
      * 分析srt格式字幕，自动生成断点
      * @param $src

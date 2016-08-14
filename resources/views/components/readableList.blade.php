@@ -21,10 +21,10 @@
                         <span class="Card-new-status Label Label-x-small">
                             @lang('labels.free')
                         </span>
-                    @elseif($readable->isNew())
-                        <span class="Card-new-status Label Label-x-small">
-                            @lang('labels.new')
-                        </span>
+                    {{--@elseif($readable->isNew())--}}
+                        {{--<span class="Card-new-status Label Label-x-small">--}}
+                            {{--@lang('labels.new')--}}
+                        {{--</span>--}}
                     @endif
                     <div class="Card-image">
                         <a href="{{ url($type . 's/' .$readable->slug) }}">

@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
@@ -68,7 +70,11 @@ class MinitalkController extends Controller {
         $data = $this->getSaveData($request);
         $data['slug'] = '';
 
-        Minitalk::create($data);
+        $minitalk = Minitalk::create($data);
+        $user = Auth::user();
+        if($user) {
+            Log::info($user->name . ' update video ' . $minitalk->id);
+        }
 //        Redis::incr('audio:count');
         Session::flash('success', trans('labels.createMinitalkSuccess'));
         return redirect('admin/minitalks');
@@ -139,6 +145,11 @@ class MinitalkController extends Controller {
         $data = $this->getSaveData($request);
         $minitalk = Minitalk::findOrFail($id);
         $minitalk->update($data);
+
+        $user = Auth::user();
+        if($user) {
+            Log::info($user->name . ' update minitalk ' . $id);
+        }
         return redirect('admin/minitalks');
     }
 
@@ -151,6 +162,11 @@ class MinitalkController extends Controller {
     public function destroy($id) {
         $minital = Minitalk::findOrFail($id);
         $minital->delete();
+
+        $user = Auth::user();
+        if($user) {
+            Log::info($user->name . ' update minitalk' . $id);
+        }
         return response()->json([
             'status' => 200
         ]);

@@ -62,14 +62,14 @@
                 @lang('labels.manageContent')
                 <i class="glyphicon glyphicon-menu-right pull-right"></i>
             </a>
-            <a href="{{url('admin/topics')}}" class="list-group-item item">
-                <i class="glyphicon glyphicon-list-alt"></i>
-                @lang('labels.manageTopics')
-            </a>
-            <a href="{{url('admin/lessons')}}" class="list-group-item item">
-                <i class="glyphicon glyphicon-file"></i>
-                @lang('labels.manageLessons')
-            </a>
+            {{--<a href="{{url('admin/topics')}}" class="list-group-item item">--}}
+                {{--<i class="glyphicon glyphicon-list-alt"></i>--}}
+                {{--@lang('labels.manageTopics')--}}
+            {{--</a>--}}
+            {{--<a href="{{url('admin/lessons')}}" class="list-group-item item">--}}
+                {{--<i class="glyphicon glyphicon-file"></i>--}}
+                {{--@lang('labels.manageLessons')--}}
+            {{--</a>--}}
             {{--<a href="{{url('admin/talkshows')}}" class="list-group-item item">--}}
                 {{--<i class="glyphicon glyphicon-volume-up"></i>--}}
                 {{--@lang('labels.manageTalkshows')--}}

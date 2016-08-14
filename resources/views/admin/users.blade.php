@@ -119,6 +119,7 @@
                                     class="glyphicon glyphicon-triangle-bottom"></i></a>
                     </th>
                 @endforeach
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -157,7 +158,8 @@
                         <td>{{$user->wechat}}</td>
                         <td>{{$user->qq}}</td>
                         <td>{{$user->created_at->diffForHumans()}}</td>
-                        <th>{{$user->last_login_at->diffForHumans()}}</th>
+                        <td>{{$user->last_login_at->diffForHumans()}}</td>
+                        <td><a href="{{url('admin/traces/' . $user->id)}}">Trace</a></td>
                     </tr>
                 @endif
             @endforeach

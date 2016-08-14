@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
+use App\UserTraces;
 use Bican\Roles\Models\Role;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function traces($userId)
+    {
+        $traces = UserTraces::where('user_id', $userId)->latest()->paginate(100);
+        $user = User::findOrFail($userId);
+        return view('admin.traces', compact(['traces', 'user']));
+    }
     public function index()
     {
         $orderBy = Input::get('orderBy', 'created_at');

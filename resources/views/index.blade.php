@@ -62,19 +62,6 @@
             <div class="Header"></div>
 
             <div class="Card-Collection row">
-                <h2 class="Heading-Fancy ">
-                    <span class='title'>@lang('titles.lessons')</span>
-                </h2>
-                <?php $readables = $lessons; $type = 'lesson' ?>
-                @include('components.readableList')
-                <a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>
-            </div>
-        </div>
-
-        <div class="morning">
-            <div class="Header"></div>
-
-            <div class="Card-Collection row">
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('labels.minitalks')</span>
                 </h2>
@@ -82,7 +69,28 @@
                 @include('components.readableList')
                 <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
+            {{--<div class="Card-Collection row">--}}
+                {{--<h2 class="Heading-Fancy ">--}}
+                    {{--<span class='title'>@lang('titles.lessons')</span>--}}
+                {{--</h2>--}}
+                {{--<?php $readables = $lessons; $type = 'lesson' ?>--}}
+                {{--@include('components.readableList')--}}
+                {{--<a class="btn btn-default more" href="{{url('/lessons')}}">@lang('labels.more')</a>--}}
+            {{--</div>--}}
         </div>
+
+        {{--<div class="night-fall">--}}
+            {{--<div class="Header"></div>--}}
+
+            {{--<div class="Card-Collection row">--}}
+                {{--<h2 class="Heading-Fancy row">--}}
+                    {{--<span class='title'>@lang('labels.minitalks')</span>--}}
+                {{--</h2>--}}
+                {{--<?php $readables = $minitalks; $type = 'minitalk' ?>--}}
+                {{--@include('components.readableList')--}}
+                {{--<a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
         @include('subscribe')
     </div>
 @endsection

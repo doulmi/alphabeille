@@ -9,7 +9,9 @@ use App\Http\Requests;
 use App\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class VideoController extends Controller
@@ -70,8 +72,12 @@ class VideoController extends Controller
         $data = $this->getSaveData($request);
         $data['slug'] = '';
 
-        Video::create($data);
+        $video = Video::create($data);
 
+        $user = Auth::user();
+        if($user) {
+            Log::info($user->name . ' add video ' . $video->id);
+        }
         Session::flash('success', trans('labels.createVideoSuccess'));
         return redirect('admin/videos');
     }
@@ -125,6 +131,11 @@ class VideoController extends Controller
         $data = $this->getSaveData($request);
 
         $video->update($data);
+
+        $user = Auth::user();
+        if($user) {
+            Log::info($user->name . ' update video ' . $id);
+        }
         return redirect('admin/videos');
     }
 
@@ -147,9 +158,9 @@ class VideoController extends Controller
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
 
-        if(!$data['doPoint']) {
-            unset($data['points']);
-        }
+//        if(!$data['doPoint']) {
+//            unset($data['points']);
+//        }
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
             $times = explode(' ', $data['publish_at']);
@@ -174,6 +185,11 @@ class VideoController extends Controller
     {
         $video = Video::findOrFail($id);
         $video->delete();
+
+        $user = Auth::user();
+        if($user) {
+            Log::info($user->name . ' delete video ' . $id);
+        }
         return response()->json([
             'status' => 200
         ]);

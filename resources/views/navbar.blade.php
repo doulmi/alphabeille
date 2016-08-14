@@ -28,10 +28,8 @@
                     </a>
 
                     <ul class="dropdown-menu bullet" role="menu">
-                        <li><a href="{{ url('/lessons') }}">@lang('labels.lessons')</a>
-                        <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
-                        {{--<li><a href="{{ url('/talkshows') }}">@lang('labels.talkshows')</a>--}}
                         <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
+                        <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
                     </ul>
 
                 </li>
@@ -88,20 +86,20 @@
                         <i class="svg-icon svg-icon-miel"></i>
                         <span class="white label-svg-miel" id="punchin">{{Auth::user()->series}}</span>
                     </li>
-                    @if(($msgCount =Auth::user()->unreadMessageCount()) > 0)
-                        <li class="hidden-xs">
-                            <a href="{{url('messages')}}">
-                                <i class="svg-icon svg-icon-notification"></i>
-                                <span class="white label-svg-notification">{{$msgCount}}</span>
-                            </a>
-                        </li>
-                    @else
-                        <li class="hidden-xs">
-                            <a href="{{url('messages')}}">
-                                <i class="svg-icon svg-icon-notification half-opacity"></i>
-                            </a>
-                        </li>
-                    @endif
+                    {{--@if(($msgCount =Auth::user()->unreadMessageCount()) > 0)--}}
+                        {{--<li class="hidden-xs">--}}
+                            {{--<a href="{{url('messages')}}">--}}
+                                {{--<i class="svg-icon svg-icon-notification"></i>--}}
+                                {{--<span class="white label-svg-notification">{{$msgCount}}</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@else--}}
+                        {{--<li class="hidden-xs">--}}
+                            {{--<a href="{{url('messages')}}">--}}
+                                {{--<i class="svg-icon svg-icon-notification half-opacity"></i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@endif--}}
                 @endif
 
                 {{--                @if(Auth::guest())--}}
@@ -135,7 +133,7 @@
                 <li class="visible-xs"> <a href="{{url('/')}}" class="nav-xs-btn">@lang('labels.index')</a> </li>
                 <li class="visible-xs"> <a href="{{url('/videos')}}" class="nav-xs-btn">@lang('labels.videos')</a> </li>
                 <li class="visible-xs"> <a href="{{url('/minitalks')}}" class="nav-xs-btn">@lang('labels.minitalks')</a> </li>
-                <li class="visible-xs"> <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a> </li>
+{{--                <li class="visible-xs"> <a href="{{url('/lessons')}}" class="nav-xs-btn">@lang('labels.lessons')</a> </li>--}}
                 @if(Auth::guest())
                     <li class="visible-xs">
                         <a href="{{url('/login')}}">@lang('labels.login')</a>

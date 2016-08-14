@@ -10,7 +10,7 @@
 @section('content')
     <div class="container-fluid grey">
         <div class="Header"></div>
-        <?php $canRead = $readable->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
+        <?php $canRead = $readable->free || (Auth::user() && Auth::user()->level() > 1) ?>
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7">
@@ -19,15 +19,15 @@
                         <i class="glyphicon glyphicon-headphones"></i>
                         <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
                     </span>
-                    @if($youtube)
-                        <div id="video-placeholder" class="embed-responsive embed-responsive-16by9"></div>
-                    @else
+{{--                    @if($youtube)--}}
+                        {{--<div id="video-placeholder" class="embed-responsive embed-responsive-16by9"></div>--}}
+                    {{--@else--}}
                     <video id="my_video" class="video-js vjs-default-skin"
                            controls preload
                            data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
                         <source src="{{$readable->video_url}}" type='video/mp4'>
                     </video>
-                    @endif
+                    {{--@endif--}}
                     <div class="subtitle">
                         <div class="center">
                             @if($canRead)
@@ -92,7 +92,7 @@
             <div class="video-author">
                 @lang('labels.publishAt'){{$readable->created_at}},
                 <a href="{{url('users/' . $readable->listener->id)}}">{{$readable->listener->name}}</a>@lang('labels.listen'), <a href="{{url('users/' . $readable->translator->id)}}">{{$readable->translator->name}}</a>@lang('labels.translate'),
-<a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier'),
+<a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier')
             </div>
         </div>
     </div>
