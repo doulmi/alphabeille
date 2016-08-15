@@ -11,24 +11,27 @@
             <div class="col-md-3 col-xs-6 col-sm-4">
                 <div class="Card">
 
-                    @if($readable->level)
-                        <span class="Card-difficulty {{$readable->level}}">
+                    @if($readable instanceof \App\Video)
+                        @if($readable->level)
+                            <span class="Card-difficulty {{$readable->level}}">
                             @lang('labels.' . $readable->level)
                         </span>
+                        @endif
                     @endif
 
                     @if($readable->free)
                         <span class="Card-new-status Label Label-x-small">
                             @lang('labels.free')
                         </span>
-                    {{--@elseif($readable->isNew())--}}
+                        {{--@elseif($readable->isNew())--}}
                         {{--<span class="Card-new-status Label Label-x-small">--}}
-                            {{--@lang('labels.new')--}}
+                        {{--@lang('labels.new')--}}
                         {{--</span>--}}
                     @endif
                     <div class="Card-image">
                         <a href="{{ url($type . 's/' .$readable->slug) }}">
-                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/holder.jpg" data-original="{{$readable->avatar}}" class="Card-image"
+                            <img src="http://o9dnc9u2v.bkt.clouddn.com/images/holder.jpg"
+                                 data-original="{{$readable->avatar}}" class="Card-image"
                                  alt="{{$readable->title}}">
                             <div class="Card-overlay">
                                 <i class="glyphicon glyphicon-play-circle"></i>
