@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Sunra\PhpSimple\HtmlDomParser;
 
 class VideoController extends Controller
 {
@@ -75,7 +76,7 @@ class VideoController extends Controller
         $video = Video::create($data);
 
         $user = Auth::user();
-        if($user) {
+        if ($user) {
             Log::info($user->name . ' add video ' . $video->id);
         }
         Session::flash('success', trans('labels.createVideoSuccess'));
@@ -94,10 +95,15 @@ class VideoController extends Controller
         return $video;
     }
 
-    public function preview(Request $request)
+    public function preview($data)
     {
-        $tmp = $request->all();
-        return view('admin.videos.preview', compact('tmp'));
+        $readable = new \stdClass();
+        foreach($data as $key => $t) {
+            $readable->$key =  $t;
+        }
+        $readable->desc = $readable->description;
+        $readable->id = 1;
+        return view('admin.videos.preview', compact('readable'));
     }
 
     /**
@@ -126,20 +132,32 @@ class VideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $video = Video::findOrFail($id);
-
         $data = $this->getSaveData($request);
+        if ($data['preview']) {
+            return $this->preview($data);
+//            $data['id'] = 1;
+//            $video = Video::create($data);
+//
+//            dd($video);
+        } else {
+            $video = Video::findOrFail($id);
 
-        $video->update($data);
+            $video->update($data);
 
-        $user = Auth::user();
-        if($user) {
-            Log::info($user->name . ' update video ' . $id);
+            $user = Auth::user();
+            if ($user) {
+                Log::info($user->name . ' update video ' . $id);
+            }
+            return redirect('admin/videos');
         }
-        return redirect('admin/videos');
     }
+//
+//    private function preview(Request $request) {
+//
+//    }
 
-    private function getSaveData(Request $request) {
+    private function getSaveData(Request $request)
+    {
         $data = $request->all();
 
         $content = str_replace('！', '!', $data['content']);
@@ -157,6 +175,7 @@ class VideoController extends Controller
         $data['content'] = $content;
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
+        $data['parsed_desc'] = $this->getParsedDesc($data['description']);
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
             $times = explode(' ', $data['publish_at']);
@@ -171,6 +190,11 @@ class VideoController extends Controller
         return $data;
     }
 
+    private function getParsedDesc($desc) {
+        $parsedDesc = $this->markdown->parse($desc);
+        $root = HtmlDomParser::str_get_html($parsedDesc);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -183,7 +207,7 @@ class VideoController extends Controller
         $video->delete();
 
         $user = Auth::user();
-        if($user) {
+        if ($user) {
             Log::info($user->name . ' delete video ' . $id);
         }
         return response()->json([

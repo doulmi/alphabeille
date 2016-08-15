@@ -76,7 +76,15 @@ class AdminController extends Controller
         }
     }
 
-    public function updateViews() {
+    public function parseDesc() {
+        $videos = Video::all();
+        foreach($videos as $video) {
+            $video->parsed_desc = $this->markdown->parse($video->description);
+            $video->update();
+        }
+    }
+
+    public function updateViews($from) {
         $faker = Factory::create();
 
         $minitalks = Minitalk::all();
@@ -85,7 +93,7 @@ class AdminController extends Controller
             Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(40, 60) + $old);
         }
 
-        $videos = Video::all();
+        $videos = Video::where('id', '>', $from)->get();
         foreach($videos as $video) {
             $old = Redis::get('video:view:' . $video->id);
             Redis::set('video:view:' . $video->id, $faker->numberBetween(80, 120) + $old );

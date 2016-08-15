@@ -186,6 +186,7 @@ return [
     'favorite' => 'J\'aime',
     'relativeLessons' => 'Textes concernants',
     'relativeTalkshows' => 'Talk-shows concernants',
+    'relativeVideos' => 'Videos concernantes',
     'relativeDiscussions' => 'Commentaires concernants',
     'nothing' => 'Non trouvé',
     'freeLessons' => 'Cours gratuits',
@@ -315,5 +316,6 @@ return [
     'addMinitalk' => 'Add Talkshow',
     'keywords' => 'Keywords',
     'publish_at' => 'Publish at',
+    'preview' => 'Preview',
 ];
 

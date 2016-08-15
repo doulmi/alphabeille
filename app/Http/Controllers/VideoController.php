@@ -49,7 +49,7 @@ class VideoController extends ReadableController
         $zh = explode('||', $readable->parsed_content_zh);
 
         list($like, $collect, $punchin) = $this->getStatus($readable);
-        $readable->desc = $this->markdown->parse($readable->description);
+//        $readable->desc = $this->markdown->parse($readable->description);
 
         $type = 'video';
 //        $location = Location::get($request->ip());

@@ -9,49 +9,43 @@
 @endsection
 
 @section('content')
-    <div class="night">
+    <div class="morning">
         <div class="Header">
         </div>
         <div class="Header"></div>
 
-        <div class="moon-panel hidden-xs">
-            <div class="moon"></div>
-        </div>
-        <h2 class="Heading-Fancy row">
-            <span class='title'>@lang('labels.relativeLessons')</span>
-        </h2>
-        @if( count($talkshows) == 0 && count($lessons) == 0 )
+        @if( count($minitalks) == 0 && count($videos) == 0 )
             <div class="Card-Collection search-result">
-            @lang('labels.nothing')
+                @lang('labels.nothing')
             </div>
             <div class="Header"></div>
-        @endif
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+        @else
+            @if( count($videos) != 0)
+                <h2 class="Heading-Fancy row">
+                    <span class='title'>@lang('labels.relativeVideos')</span>
+                </h2>
+                <div class="Card-Collection">
+                    <?php $readables = $videos; $type = 'video' ?>
+                    @include('components.readableList')
+                </div>
+            @endif
 
-        @if(count($lessons) != 0)
-            <div class="Card-Collection" >
-                <?php $readables = $lessons; $type = 'lesson'?>
-                @include('components.readableList')
-            </div>
-        @endif
-
-        <h2 class="Heading-Fancy row">
-            <span class='title'>@lang('labels.relativeTalkshows')</span>
-        </h2>
-        @if( count($talkshows) != 0)
-            <div class="Card-Collection">
-                <?php $readables = $talkshows; $type = 'talkshow' ?>
-                @include('components.readableList')
-            </div>
-        @endif
-
-        <h2 class="Heading-Fancy row">
-            <span class='title'>@lang('labels.relativeMinitalks')</span>
-        </h2>
-        @if( count($minitalks) != 0)
-            <div class="Card-Collection">
-                <?php $readables = $minitalks; $type = 'minitalk'?>
-                @include('components.readableList')
-            </div>
+            <div class="Header"></div>
+            @if( count($minitalks) != 0)
+                <h2 class="Heading-Fancy row">
+                    <span class='title'>@lang('labels.relativeMinitalks')</span>
+                </h2>
+                <div class="Card-Collection">
+                    <?php $readables = $minitalks; $type = 'minitalk'?>
+                    @include('components.readableList')
+                </div>
+            @endif
+            <div class="Header"></div>
         @endif
     </div>
 @endsection

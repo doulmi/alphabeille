@@ -307,6 +307,8 @@ return [
     'listen' => '听写',
     'addMinitalk' => '增加脱口秀',
     'publish_at' => '发布于',
+    'preview' => '预览',
+    'relativeVideos' => '相关视频',
 ];
 
 

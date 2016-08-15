@@ -24,7 +24,7 @@
             <tbody id="tbody">
             @foreach($videos as $video)
                 <tr id="row-{{$video->id}}">
-                    <td>{{$video->title}}</td>
+                    <td><a href="{{url('videos/' . $video->id)}}" TARGET = "_blank">{{$video->title}}</a></td>
                     <td>{{$video->likes}}</td>
                     <td>{{$video->views}}</td>
                     <td>{{$video->free}}</td>

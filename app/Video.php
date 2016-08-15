@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class Video extends Readable
 {
     protected $fillable = [
-        'title', 'description', 'likes', 'views', 'avatar', 'free', 'download_url', 'video_url', 'content', 'parsed_content','keywords', 'is_published', 'publish_at','slug', 'parsed_content_zh', 'points', 'level', 'translator_id', 'listener_id', 'verifier_id', 'lastMonthViews', 'originSrc'
+        'id', 'title', 'description', 'likes', 'views', 'avatar', 'free', 'download_url', 'video_url', 'content', 'parsed_content','keywords', 'is_published', 'publish_at','slug', 'parsed_content_zh', 'points', 'level', 'translator_id', 'listener_id', 'verifier_id', 'lastMonthViews', 'originSrc', 'parsed_desc'
     ];
 
     public static function findByIdOrSlugOrFail($idOrSlug)

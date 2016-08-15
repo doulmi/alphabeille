@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper;
-use App\Lesson;
 use App\Minitalk;
 use App\Subscription;
-use App\Talkshow;
 
 use App\Http\Requests;
 use App\Video;
-use App\Word;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use TomLingham\Searchy\Facades\Searchy;
@@ -20,14 +16,10 @@ class PostController extends Controller
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];
-        $lessons = Lesson::published()->orderBy('free', 'DESC')->orderBy('id', 'DESC')->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at']);
-
-//        $talkshows = Talkshow::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at','level']);
-
         $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at']);
 
         $videos = Video::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at','level']);
-        return view('index', compact(['lessons', 'talkshows', 'minitalks', 'videos']));
+        return view('index', compact(['minitalks', 'videos']));
     }
 
     public function menus()
@@ -45,19 +37,13 @@ class PostController extends Controller
     public function search()
     {
         $keys = Input::get('keys', '');
-        $talkshows = Searchy::talkshows(['title', 'content', 'content_zh_CN'])->query($keys)->get();
-        $lessons = Searchy::lessons(['title', 'content', 'content_zh_CN'])->query($keys)->get();
-        $discussions = Searchy::discussions(['title', 'content'])->query($keys)->get();
-        $minitalks = Searchy::minitalks(['title', 'content'])->query($keys)->get();
-        return view('search', compact(['talkshows', 'lessons', 'discussions', 'minitalks']));
+        $minitalks = Searchy::minitalks(['title', 'content', 'wechat_part'])->query($keys)->get();
+        $videos = Searchy::videos(['title', 'content', 'description'])->query($keys)->get();
+        return view('search', compact(['minitalks', 'videos']));
     }
 
     public function free()
     {
-        $talkshows = Talkshow::where('free', 1)->get();
-        $lessons = Lesson::where('free', 1)->get();
-        $minitalks = Minitalk::where('free', 1)->get();
-        return view('free', compact(['talkshows', 'lessons', 'minitalks']));
     }
 
     public function subscription($id)

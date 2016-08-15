@@ -6,10 +6,10 @@
 
 @section('content')
     @if($edit)
-        <form role="form" action="{{url('admin/videos/' . $video->id)}}" method="POST">
+        <form role="form" target="_blank" action="{{url('admin/videos/' . $video->id)}}" method="POST" id="videoForm">
             <input type="hidden" name="_method" value="PUT"/>
             @else
-                <form role="form" action="{{url('admin/videos')}}" method="POST">
+                <form role="form" action="{{url('admin/videos')}}" method="POST" id="videoForm">
                     @endif
                     {!! csrf_field() !!}
 
@@ -64,14 +64,15 @@
                     </div>
 
                     {{--<div class="form-group">--}}
-                        {{--<label for="doPoint">@lang('labels.doPoint')</label>--}}
-                        {{--<input type="text" class="form-control" id="doPoint" name="doPoint" value="1"/>--}}
+                    {{--<label for="doPoint">@lang('labels.doPoint')</label>--}}
+                    {{--<input type="text" class="form-control" id="doPoint" name="doPoint" value="1"/>--}}
                     {{--</div>--}}
 
                     <div class="form-group">
                         <label>@lang('labels.level')</label>
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 @{{ level }}
                                 <span class="caret"></span>
                             </button>
@@ -96,8 +97,11 @@
                                       name="description">{{ $edit ? $video->description : ''}}</textarea>
                     </div>
 
+                    <input type="hidden" name="preview" id="preview" value="0">
                     @endsection
                     @section('actions')
+                        <a class="btn btn-primary pull-right" style="margin-bottom:30px"
+                           onclick="preview()">@lang('labels.preview')</a>
                         <button type="submit" class="btn btn-primary  pull-right">@lang('labels.submit')</button>
                 </form>
                 @endsection
@@ -110,6 +114,11 @@
                 <script src="/js/bootstrap-datetimepicker.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
                 <script>
+                    function preview() {
+                        $('#preview').val(1);
+                        $('#videoForm').submit();
+                    }
+
                     $(function () {
                         var datepickerConfig = {
                             locale: 'fr',
@@ -124,27 +133,13 @@
                         $('#showTime').val('{{$edit ? $video->showTime : ''}}');
                     });
 
-                    {{--function save() {--}}
-                    {{--var description = $('#description');--}}
-                    {{--if(description.html() != '') {--}}
-                    {{--localStorage.setItem('video:{{$video->id}}:description', description.html());--}}
-                    {{--}--}}
-
-                    {{--var content = $('#content');--}}
-                    {{--if(description.html() != '') {--}}
-                    {{--localStorage.setItem('video:{{$video->id}}:content', description.html());--}}
-                    {{--}--}}
-                    {{--}--}}
-
-                    {{--setTimeout("save()",1000*60);//1000为1秒钟,设置为1分钟。--}}
-
                     new Vue({
-                        el : 'body',
-                        data : {
-                            level : "{{$edit ? $video->level : 'beginner'}}"
+                        el: 'body',
+                        data: {
+                            level: "{{$edit ? $video->level : 'beginner'}}"
                         },
 
-                        methods : {
+                        methods: {
                             setLevel(level) {
                                 this.level = level;
                                 $('.dropdown').removeClass('open');

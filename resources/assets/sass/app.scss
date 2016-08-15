@@ -2367,6 +2367,14 @@ body {
   color: white;
 }
 
+.video-show ul li p,
+.video-show ol li p {
+  font-size: 30px;
+  color: #32CDFF;
+  margin-top: 40px;
+  border-bottom: 1px solid #32CDFF;
+}
+
 .inbox {
   padding: 20px;
   border-radius: 3px;
