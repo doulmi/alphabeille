@@ -54,7 +54,7 @@
                     <ul class="dropdown-menu bullet" role="menu">
                         <li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>
                         <li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>
-                        <li><a href="{{ url('/privateCourses') }}">@lang('labels.privateCourses')</a>
+                        {{--<li><a href="{{ url('/privateCourses') }}">@lang('labels.privateCourses')</a>--}}
                     </ul>
                 </li>
             </ul>

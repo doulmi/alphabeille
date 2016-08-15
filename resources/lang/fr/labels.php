@@ -317,5 +317,8 @@ return [
     'keywords' => 'Keywords',
     'publish_at' => 'Publish at',
     'preview' => 'Preview',
+    'menu6' => '半年',
+    'menu12' => '一年',
+    'menu24' => '两年',
 ];
 

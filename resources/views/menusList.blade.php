@@ -3,7 +3,7 @@
 
     <div class="col-md-6">
         <div class="subscribe-pros">
-            <h1 class="subscribe-pros__title">Alphabeille VIP使用方法</h1>
+            <h1 class="subscribe-pros__title">Alphabeille VIP特权</h1>
 
             <div class="item">
                 <span class="i icon">
@@ -11,10 +11,10 @@
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon_enjoy_grammar"></use>
                     </svg>
                 </span>
-                <h2 class="title">享受法语</h2>
+                <h2 class="title">看视频学法语</h2>
                 <p class="texts">
-                    短视频，日记形式的小文章，脱口秀，Minitalk！<br>
-                    让你在快乐中学习到纯真又地道的法语
+                    短视频以生动活泼的方式学习地道法语表达<br/>
+                    内容涉及动画片，电影预告和短篇喜剧，新闻报道等生活的方方面面
                 </p>
             </div>
 
@@ -24,10 +24,10 @@
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon_unlimited_access"></use>
                     </svg>
                 </span>
-                <h2 class="title">永远不会忘记你学过的知识</h2>
+                <h2 class="title">脱口秀</h2>
                 <p class="texts">
-                    学习历史和数据分析<br>
-                    词汇保存和 PDF 下载
+                    真实法语对话，时尚的主题<br>
+                    提供音频下载，帮助你利用碎片化时间离线学习
                 </p>
 
             </div>
@@ -38,26 +38,24 @@
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon_never_forget"></use>
                     </svg>
                 </span>
-                <h2 class="title">随时随地享受无限访问权</h2>
+                <h2 class="title">单词查询功能</h2>
                 <p class="texts">
-                    移动应用推出离线模式<br>
-                    可访问网站所有内容及字幕
+                    可点击网站上任意生词获得字典解释和发音<br>
+                    提供可下载的单词查询记录，帮你找出你的"难点单词"
                 </p>
             </div>
 
             <div class="item">
                 <span class="i icon">
                     <svg>
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon_instant_feedback"></use>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon_enjoy_grammar"></use>
                     </svg>
                 </span>
-                <h2 class="title">外教一对一，让你学以致用</h2>
+                <h2 class="title">新内容</h2>
                 <p class="texts">
-                    平台数百位法语外教<br>
-                    更加及时地让你体会到你的进步
+                    每天我们将至少更新一期新的内容<br/>
                 </p>
             </div>
-
         </div>
     </div>
     <div class="col-md-6">
@@ -66,7 +64,7 @@
                 选择你的订阅
             </h2>
             @foreach($menus as $i => $menu)
-                @if($i == 2)
+                @if($i == 1)
                     <a href="{{url('alipay/pay/' . $menu->id)}}" class="subscribe-plan subscribe-plan--special">
                     <span class="subscribe-plan__special subscribe-plan__special--gold">
                         <span class="text">最热门</span>
@@ -75,7 +73,7 @@
                     <a href="{{url('alipay/pay/' . $menu->id)}}" class="subscribe-plan">
                 @endif
                 <button class="plan-btn" href="">现在购买</button>
-                <p class="plan-length">{{$menu->duration}} 个月</p>
+                <p class="plan-length">@lang('labels.menu' . $menu->duration)</p>
                 <p class="plan-price">
                     <span class="plan-price-value">总共 {{$menu->price}}元</span>
                     {{--<span class="plan-price-month">/月</span>--}}

@@ -1,8 +1,6 @@
 @extends('base')
 
-@section('title')
-    @lang('labels.paymentProcess')
-@endsection
+@section('title')@lang('labels.paymentProcess')@endsection
 
 @section('text')
     @include('navbar')

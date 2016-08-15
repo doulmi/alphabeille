@@ -1,8 +1,6 @@
 @extends('app')
 
-@section('title')
-    @lang('labels.menus.title')
-@endsection
+@section('title')@lang('labels.menus.title')@endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.menus.description')">

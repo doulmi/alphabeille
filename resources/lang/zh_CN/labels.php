@@ -309,6 +309,9 @@ return [
     'publish_at' => '发布于',
     'preview' => '预览',
     'relativeVideos' => '相关视频',
+    'menu6' => '半年',
+    'menu12' => '一年',
+    'menu24' => '两年',
 ];
 
 
