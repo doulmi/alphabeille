@@ -19,7 +19,7 @@
                     <span class='title'>@lang('labels.collectMinitalks')</span>
                 </h2>
                 <div class="Card-Collection">
-                    <?php $readables = $minitalks; $type = 'minitalks'?>
+                    <?php $readables = $minitalks; $type = 'minitalk'?>
                     @include('components.readableList')
 
                     @if( count($minitalks) > 8)
@@ -31,11 +31,12 @@
             @endif
 
             @if( count($videos) != 0)
+                <div class="Header"></div>
                 <h2 class="Heading-Fancy row">
                     <span class='title'>@lang('labels.collectVideos')</span>
                 </h2>
                 <div class="Card-Collection">
-                    <?php $readables = $videos; $type = 'videos'?>
+                    <?php $readables = $videos; $type = 'video'?>
                     @include('components.readableList')
 
                     @if( count($videos) > 8)
