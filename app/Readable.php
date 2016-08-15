@@ -20,7 +20,7 @@ class Readable extends Model {
 
     public function isNew()
     {
-        return (Carbon::now()->diffInDays($this->created_at)) < Config::get('params')['updatedDays'];
+        return (Carbon::now('Europe/Paris')->diffInDays($this->created_at)) < Config::get('params')['updatedDays'];
     }
 
     public function comments()
@@ -39,7 +39,7 @@ class Readable extends Model {
 
     public function scopePublished($query)
     {
-        return $query->whereDate('publish_at', '<=', Carbon::now("Europe/Paris")->toDateString());
+        return $query->whereDate('publish_at', '<=', Carbon::now('Europe/Paris')->toDateString());
     }
 
     /**

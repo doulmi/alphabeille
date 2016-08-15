@@ -181,7 +181,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('parseDesc', 'Admin\AdminController@parseDesc');
 });
 
-Route::get('yt', 'VideoController@yt');
+//Route::get('yt', 'VideoController@yt');
+Route::get('about', function() {
+    return view('about.about');
+});
 
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {

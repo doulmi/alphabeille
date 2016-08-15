@@ -126,17 +126,17 @@ class UserController extends Controller
 
     public function collect() {
         $userId = Auth::user()->id;
-        $lessonsIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Lesson')->lists('collectable_id')->toArray();
-        $talkshowsIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Talkshow')->lists('collectable_id')->toArray();
+//        $lessonsIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Lesson')->lists('collectable_id')->toArray();
+//        $talkshowsIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Talkshow')->lists('collectable_id')->toArray();
         $minitalksIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Minitalk')->lists('collectable_id')->toArray();
         $videosIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Video')->lists('collectable_id')->toArray();
 
-        $lessons = Lesson::whereIn('id', $lessonsIds)->get(['id', 'avatar', 'title', 'slug']);
-        $talkshows = Talkshow::whereIn('id', $talkshowsIds)->get(['id', 'avatar', 'title', 'slug']);
+//        $lessons = Lesson::whereIn('id', $lessonsIds)->get(['id', 'avatar', 'title', 'slug']);
+//        $talkshows = Talkshow::whereIn('id', $talkshowsIds)->get(['id', 'avatar', 'title', 'slug']);
         $minitalks = Minitalk::whereIn('id', $minitalksIds)->get(['id', 'avatar', 'title', 'slug']);
         $videos = Video::whereIn('id', $videosIds)->get(['id', 'avatar', 'title']);
 
-        return view('users.collect', compact('lessons', 'talkshows', 'minitalks', 'videos'));
+        return view('users.collect', compact(['minitalks', 'videos']));
     }
 
     public function words() {

@@ -182,7 +182,10 @@ class VideoController extends Controller
             $times0 = explode('/', $times[0]);
             $times1 = explode(':', $times[1]);
 
-            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times1[1] . ':00';
+//            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times1[1] . ':00';
+            $data['publish_at'] = Carbon::create($times0[2], $times0[1], $times0[0], $times1[0], $times1[1], 0, 'Europe/Paris');
+//            $data['publish_at'] = Carbon::create($times0[2], $times0[1], $times0[0], $times1[0], $times1[1], 0, 'Europe/Paris');
+//            dd($data['publish_at']);
         } else {
             $data['publish_at'] = Carbon::now('Europe/Paris');
         }

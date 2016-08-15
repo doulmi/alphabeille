@@ -5,7 +5,7 @@
             <br/>
             <a href="http://www.miitbeian.gov.cn/">浙ICP备16019157号</a></div>
         <ul id="footer-menu" class="col-md-7 pull-right col-xs-12 col-sm-6">
-            <li><a href="/about-us" class="white">About Us</a></li>
+            <li><a href="{{url('about')}}" class="white">About Us</a></li>
             <li><a href="/about-us/terms-and-conditions" class="white">Terms & Conditions</a></li>
             <li><a href="/about-us/privacy-policy" class="white">Privacy Policy</a></li>
             <li class="noborder"><a href="/about-us/contact-us" class="white">Contact Us</a></li>
