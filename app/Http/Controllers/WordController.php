@@ -57,10 +57,21 @@ class WordController extends Controller
             $origin = true;
         }
 
-        //复数
+        //阳性,复数
         if (!$word && ends_with($src, 's')) {
             $word = Word::where('word', substr($src, 0, -1))->first();
         }
+
+        //阴性,复数
+        if (!$word && ends_with($src, 'es')) {
+            $word = Word::where('word', substr($src, 0, -2))->first();
+        }
+
+        //阴性
+        if (!$word && ends_with($src, 'e')) {
+            $word = Word::where('word', substr($src, 0, -1))->first();
+        }
+
         /** 第一组动词 **/
         //0.现在时, 现在分词, 复合过去时
         if (!$word && preg_match('/(.*)(e|es|ons|ez|ent|ant|é)$/', $src, $data)) {
