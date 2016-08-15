@@ -135,10 +135,6 @@ class VideoController extends Controller
         $data = $this->getSaveData($request);
         if ($data['preview']) {
             return $this->preview($data);
-//            $data['id'] = 1;
-//            $video = Video::create($data);
-//
-//            dd($video);
         } else {
             $video = Video::findOrFail($id);
 
@@ -192,7 +188,7 @@ class VideoController extends Controller
 
     private function getParsedDesc($desc) {
         $parsedDesc = $this->markdown->parse($desc);
-        $root = HtmlDomParser::str_get_html($parsedDesc);
+        return $parsedDesc;
     }
 
     /**
