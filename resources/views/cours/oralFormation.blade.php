@@ -83,7 +83,7 @@
                 <span id="voice_progress" class="progress_bar" style="width: 0%;"></span>
             </div>
 
-            <div id="preview-contents" style="padding-left: 35px; padding-right: 35px; padding-bottom: 375px;">
+            <div id="preview-contents" style="padding-bottom: 75px;">
                 <div id="wmd-preview" class="preview-content"></div>
                 <div id="wmd-preview-section-1" class="wmd-preview-section preview-content">
 
@@ -117,7 +117,7 @@
                         <p>扫码加我们微信助教</p>
 
                         <p><img src="http://o9dnc9u2v.bkt.clouddn.com/images/qr-alphabeilleStudio.png"
-                                alt="enter image description here" title=""></p>
+                                alt="Alphabeille外教" style="width:300px" title=""></p>
 
                     </center>
                 </div>

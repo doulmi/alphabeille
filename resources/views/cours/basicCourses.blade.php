@@ -115,13 +115,13 @@
                         小班微信授课，每周三节课，一节30分钟。主讲老师巴黎三大翻译专业毕业，口语流利，已留法长达六年，熟知法语教学和法国文化，更有法籍外教定期亲自帮你纠正发音，让你学一口纯正法语，现在+微信Alphabeillestudio即可报名
                         !</p>
 
-                    <p>扫码加我们微信助教</p></div>
+                </div>
                 <div id="wmd-preview-section-footnotes" class="preview-content"></div>
-                <p>
-                    <center>
-                    <img src="http://o9dnc9u2v.bkt.clouddn.com/images/qr-alphabeilleStudio.png"
-                        alt="助教QR" title="" style="width:300px">
-                    </center>
+                <center><p>扫码加我们微信助教</p>
+                    <p>
+                        <img src="http://o9dnc9u2v.bkt.clouddn.com/images/qr-alphabeilleStudio.png"
+                             alt="助教QR" title="" style="width:300px">
+                </center>
                 </p>
             </div>
         </div>
