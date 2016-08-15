@@ -73,14 +73,18 @@ class VideoController extends Controller
         $data = $this->getSaveData($request);
         $data['slug'] = '';
 
-        $video = Video::create($data);
+        if ($data['preview'] == 1) {
+            return $this->preview($data);
+        } else {
+            $video = Video::create($data);
 
-        $user = Auth::user();
-        if ($user) {
-            Log::info($user->name . ' add video ' . $video->id);
+            $user = Auth::user();
+            if ($user) {
+                Log::info($user->name . ' add video ' . $video->id);
+            }
+            Session::flash('success', trans('labels.createVideoSuccess'));
+            return redirect('admin/videos');
         }
-        Session::flash('success', trans('labels.createVideoSuccess'));
-        return redirect('admin/videos');
     }
 
     /**
@@ -133,7 +137,7 @@ class VideoController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->getSaveData($request);
-        if ($data['preview']) {
+        if ($data['preview'] == 1) {
             return $this->preview($data);
         } else {
             $video = Video::findOrFail($id);

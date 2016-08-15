@@ -102,7 +102,7 @@
                     @section('actions')
                         <a class="btn btn-primary pull-right" style="margin-bottom:30px"
                            onclick="preview()">@lang('labels.preview')</a>
-                        <button type="submit" class="btn btn-primary  pull-right">@lang('labels.submit')</button>
+                        <a class="btn btn-primary  pull-right" onclick="submitForm()">@lang('labels.submit')</a>
                 </form>
                 @endsection
 
@@ -116,7 +116,16 @@
                 <script>
                     function preview() {
                         $('#preview').val(1);
-                        $('#videoForm').submit();
+                        var form = $('#videoForm');
+                        form.prop("target", '_blank');
+                        form.submit();
+                    }
+
+                    function submitForm() {
+                        $('#preview').val(0);
+                        var form = $('#videoForm');
+                        form.prop("target", '');
+                        form.submit();
                     }
 
                     $(function () {
