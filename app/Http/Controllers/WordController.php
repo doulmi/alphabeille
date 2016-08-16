@@ -43,14 +43,7 @@ class WordController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  string $src
-     * @return \Illuminate\Http\Response
-     */
-    public function show($src, $readable_id, $readable_type)
-    {
+    public function getWord($src) {
         $word = Word::where('word', $src)->first();
         $origin = false;
         if ($word) {
@@ -108,6 +101,22 @@ class WordController extends Controller
             $word = Word::where('word', $data[1] . 'ir')->first();
         }
 
+        //去掉accent
+        if( !$word ) {
+            $word = Word::where('word', str_slug($src))->first();
+        }
+        return [$word, $origin];
+    }
+    /*
+     * Display the specified resource.
+     *
+     * @param  string $src
+     * @return \Illuminate\Http\Response
+     */
+    public function show($src, $readable_id, $readable_type)
+    {
+        list($word, $origin) = $this->getWord($src);
+
         if ($word) {
             $this->favorite($word, $readable_id, $readable_type);
             if (!$origin) {
@@ -148,7 +157,6 @@ class WordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**

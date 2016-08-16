@@ -186,6 +186,8 @@ Route::get('about', function() {
     return view('about.about');
 });
 
+Route::get('test', 'PostController@test');
+
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {

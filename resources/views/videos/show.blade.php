@@ -17,7 +17,7 @@
                     <a href="{{url('videos/level/' . $readable->level)}}"><span class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span></a>
                     <span class="">
                         <i class="glyphicon glyphicon-headphones"></i>
-                        <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
+{{--                        <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>--}}
                     </span>
 {{--                    @if($youtube)--}}
                         {{--<div id="video-placeholder" class="embed-responsive embed-responsive-16by9"></div>--}}

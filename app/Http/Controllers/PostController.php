@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Minitalk;
 use App\Subscription;
 
@@ -13,6 +14,11 @@ use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
 {
+    public function test() {
+        $video = Video::findOrfail(9);
+        $words = Helper::getWordsNotInDict($video->content);
+    }
+
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];

@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/6/27
- * Time: 22:39
- */
 
 namespace App;
 
 
+use App\Http\Controllers\WordController;
 use Illuminate\Support\Facades\Redis;
 use Sunra\PhpSimple\HtmlDomParser;
 
@@ -111,7 +106,7 @@ class Helper
     }
 
     public static function isChineseChar($char) {
-        return preg_match('/[\x7f-\xff]/', $char) && !str_contains( 'ùûüÿ€àâæçéèêëïîôœÉÈÊËÀÂÎÏÔÙÛ《》', $char);
+        return preg_match('/[\x7f-\xff]/', $char) && !str_contains('ùûüÿ€àâæçÇéèêëïîôœÉÈÊËÀÂÎÏÔÙÛ《》', $char);
     }
 
     /**
@@ -145,6 +140,7 @@ class Helper
             }
         }
         $dest = preg_replace('/<span>([A-Za-z]*)<\/span>\'/', '$1\'', $dest);
+        $dest = str_replace('Aujourd\'<span>hui<\/span>', 'Aujourd\'hui', $dest);
         $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«|strong|\/strong|br|hr|h\d|\/h\d)<\/span>/', '$1', $dest);
         preg_match_all('/<<span>img.*<\/span>>/', $dest, $data);
         if($data[0]) {
@@ -155,28 +151,55 @@ class Helper
     }
 
 
-//    private static function getAllWords($src)
-//    {
-//        $words = str_word_count(str_replace('-', '', $src), 1, self::getFrAccent());
-//        $count = count($words);
-//        foreach ($words as $i => &$word) {
-//            if (strlen($word) > 1) {
-//                if ($word[1] == '\'') {
-//                    $word = substr($word, 2);
-//                }
-//
-//                if (!Redis::get('dict:fr:' . $word)) {
-//                    $word = self::strtolowerFr($word);
-//
-//                }
-//            }
-//            echo $i . "/" . $count . "<br/>";
-//        }
-//    }
+    private static function removeAllChineseChars($src) {
+        $lines = preg_split('/\n|\r\n?/', $src);
+        $out = '';
+        foreach ($lines as $i => $line) {
+            $accent = array('À', 'Â', 'Ä', 'È', 'É', 'Ê', 'Ë', 'Î', 'Ï', 'Ô', 'Œ', 'Ù', 'Û', 'Ü', 'Ÿ', 'â', 'ê', 'ô', 'û', 'î', 'ä', 'ë', 'ö', 'ü', 'ï', 'é', 'è', 'ç', 'à', 'œ', 'ù', 'ÿ', 'Ç', 'ç', '«', '»', '€');
+            $lineWithoutAccent = str_replace($accent, "", $line);
+            if (!preg_match('/[\x7f-\xff]/', $lineWithoutAccent)) {
+                if($i != 0) {
+                   $out .= "\n";
+                }
+                $out .= $line;
+            }
+        }
+        return $out;
+    }
+
+    public static function getWordsNotInDict($src)
+    {
+        $src = self::removeAllChineseChars($src);
+        $words = str_word_count(str_replace('-', '', $src), 1, self::getFrAccent());
+        $out = [];
+        foreach($words as $word) {
+            if(preg_match('/[a-zA-Z]*\'([a-zA-Z]*)/', $word, $data)) {
+                $new = self::strtolowerFr($data[1]);
+            } else {
+                $new = self::strtolowerFr($word);
+            }
+            $out[] = $new;
+        }
+
+        $words = array_unique($out);
+        $out = [];
+        $controller = new WordController();
+        foreach($words as $word) {
+//            $isInDict = Word::where('word', 'like', $word)->first();
+            $result = $controller->getWord($word)[0];
+            if(!$result) {
+                $out[] = $word;
+                echo $word . " is not in dict: " . "<br/>";
+            } else {
+                echo $word . ":\t\t\t\t" . $result->explication . "<br/><br/><br/><br/>";
+            }
+        }
+        return $out;
+    }
 
     private static function getFrAccent()
     {
-        return 'ùûüÿ€àâæçéèêëïîôœÉÈÊËÀÂÎÏÔÙÛ《》';
+        return 'ùûüÿ€àâæçéèêëïîôœÉÈÊËÀÂÎÏÇÔÙÛ《》';
     }
 
     private static function strtolowerFr(&$string)
@@ -185,8 +208,8 @@ class Helper
         $string = str_replace('€', '##_128', $string);
 
         $string = str_replace(
-            array('É', 'È', 'Ê', 'Ë', 'À', 'Â', 'Î', 'Ï', 'Ô', 'Ù', 'Û'),
-            array('é', 'è', 'ê', 'ë', 'à', 'â', 'î', 'ï', 'ô', 'ù', 'û'),
+            array('É', 'È', 'Ê', 'Ë', 'À', 'Â', 'Î', 'Ï', 'Ô', 'Ù', 'Û', 'Ç'),
+            array('é', 'è', 'ê', 'ë', 'à', 'â', 'î', 'ï', 'ô', 'ù', 'û', 'ç'),
             $string
         );
 

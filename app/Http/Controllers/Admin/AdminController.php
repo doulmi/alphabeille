@@ -37,12 +37,12 @@ class AdminController extends Controller
     }
 
     public function saveParsedContent() {
-        $lessons = Lesson::all();
-        foreach($lessons as $lesson) {
-            $lesson->parsed_content = $this->markdown->parse($lesson->content);
-            $lesson->parsed_content_zh_CN = $this->markdown->parse($lesson->content_zh_CN);
-            $lesson->save();
-        }
+//        $lessons = Lesson::all();
+//        foreach($lessons as $lesson) {
+//            $lesson->parsed_content = $this->markdown->parse($lesson->content);
+//            $lesson->parsed_content_zh_CN = $this->markdown->parse($lesson->content_zh_CN);
+//            $lesson->save();
+//        }
 
         $minitalks = Minitalk::all();
         foreach($minitalks as $minitalk) {
@@ -51,15 +51,16 @@ class AdminController extends Controller
             $minitalk->save();
         }
 
-        $talkshows = Talkshow::all();
-        foreach($talkshows as $talkshow) {
-            $talkshow->parsed_content = $this->markdown->parse($talkshow->content);
-            $talkshow->save();
-        }
+//        $talkshows = Talkshow::all();
+//        foreach($talkshows as $talkshow) {
+//            $talkshow->parsed_content = $this->markdown->parse($talkshow->content);
+//            $talkshow->save();
+//        }
 
         $videos = Video::all();
         foreach($videos as $video) {
             $video->parsed_content = Helper::parsePointLink($this->markdown->parse($video->content));
+            $video->parsed_desc = Helper::parsePointLink($this->markdown->parse($video->description));
             $video->save();
         }
     }

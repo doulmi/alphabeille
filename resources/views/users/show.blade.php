@@ -10,7 +10,6 @@
 @section('text')
     @include('navbar')
     <div class="body fullscreen">
-
         <div class="Header"></div>
         <div class="Header"></div>
 
@@ -46,8 +45,6 @@
                     <div class="info-sidebar list-group">
                         <a href="#" id="infoBtn" class="list-group-item active"> @lang('labels.accountInfo') </a>
                         <a href="#" id="pwdBtn" class="list-group-item">@lang('labels.accountPwd')</a>
-                        {{--<a href="#" id="achieveBtn" class="list-group-item">@lang('labels.achievement')</a>--}}
-                        {{--<a href="#" id="punchinBtn" class="list-group-item">@lang('labels.punchin')</a>--}}
                         {{--<a href="#" id="lifetimeBtn" class="list-group-item">@lang('labels.lifetime')</a>--}}
                     </div>
                 </div>

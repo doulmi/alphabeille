@@ -24,7 +24,7 @@ class WordController extends Controller
 
         if ($search != '') {
 //            $words = Searchy::words(['word', 'explication'])->query($search)->get();
-            $words= Word::where('word', 'like', '%' . $search . '%')->paginate($limit);
+            $words= Word::where('word', 'like', $search)->paginate($limit);
         } else {
             $words = Word::paginate($limit);
         }
