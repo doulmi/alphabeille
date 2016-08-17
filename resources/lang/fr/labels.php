@@ -324,5 +324,6 @@ return [
     'originSrc' => 'YoutubeId',
     'frSrc' => 'French Subtitle',
     'zhSrc' => 'Chinese Subtitle',
+    'published' => 'Publié',
 ];
 

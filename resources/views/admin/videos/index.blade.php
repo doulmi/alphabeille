@@ -13,10 +13,10 @@
         <table class="table">
             <thead>
             <tr>
+                <th>@lang('labels.avatar')</th>
                 <th>@lang('labels.title')</th>
-                <th>@lang('labels.likes')</th>
-                <th>@lang('labels.views')</th>
-                <th>@lang('labels.free')</th>
+                <th>@lang('labels.published')</th>
+                <th>@lang('labels.originSrc')</th>
                 <th>id</th>
                 <th>@lang('labels.actions')</th>
             </tr>
@@ -24,10 +24,10 @@
             <tbody id="tbody">
             @foreach($videos as $video)
                 <tr id="row-{{$video->id}}">
+                    <th scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></th>
                     <td><a href="{{url('videos/' . $video->id)}}" TARGET = "_blank">{{$video->title}}</a></td>
-                    <td>{{$video->likes}}</td>
-                    <td>{{$video->views}}</td>
-                    <td>{{$video->free}}</td>
+                    <th scope="row">{{$video->publish_at->isPast() ? 1 : 0 }}</th>
+                    <th scope="row">{{$video->originSrc}}</th>
                     <th scope="row">{{$video->id}}</th>
                     <td>
 {{--                        <a class="btn btn-info" href="{{url('admin/videos/' . $video->id .'/points')}}">@lang('labels.setPoint')</a>--}}

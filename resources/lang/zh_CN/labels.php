@@ -315,6 +315,7 @@ return [
     'originSrc' => 'Youtube Id',
     'frSrc' => '法语字幕',
     'zhSrc' => '中文字幕',
+    'published' => '已发布',
 ];
 
 
