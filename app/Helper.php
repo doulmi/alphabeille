@@ -4,8 +4,6 @@ namespace App;
 
 
 use App\Http\Controllers\WordController;
-use Illuminate\Support\Facades\Redis;
-use Sunra\PhpSimple\HtmlDomParser;
 
 class Helper
 {
@@ -38,11 +36,29 @@ class Helper
     }
 
     /**
-     * 分析srt格式字幕，自动生成断点
+     * parseSubtitle的反过程，
+     * 将一个subs数组转化为文本srt字幕
+     * @param $subs
+     */
+    public static function composeSubtitle($subs)
+    {
+        $subStr = '';
+        foreach ($subs as $i => $sub) {
+            $subStr .= ($i + 1) . "\r\n";
+            $subStr .= $sub->startTime . ' -->' . $sub->endTime . "\r\n";
+            $subStr .= $sub->fr . "\r\n";
+            $subStr .= $sub->zh . "\r\n";
+            $subStr .= "\r\n";
+        }
+        return $subStr;
+    }
+
+    /**
+     * 分析srt格式字幕，
      * @param $src
      * @return array
      */
-    public static function parsePointLink($src)
+    public static function parseSubtitle($src)
     {
         $lines = preg_split('/\n|\r\n?/', $src);
         $state = 1;     //1: SRT_NUMBER; 2: SRT_TIME; 3: SRT_FR; 4: SRT_ZH; 5: SRT_BLANK
@@ -51,9 +67,9 @@ class Helper
         $subTime = '';
         $subFr = '';
         $subZh = '';
-        $fr = '';
-        $zh = '';
-        $points = '';
+//        $fr = '';
+//        $zh = '';
+//        $points = '';
         foreach ($lines as $line) {
             switch ($state) {
                 case 1:
@@ -78,12 +94,12 @@ class Helper
                             } else {
                                 $sub->startTime = $times[0];
                             }
-                            $points .= self::toSecond($sub->startTime) . ',';
+//                            $points .= self::toSecond($sub->startTime) . ',';
                         }
                         $sub->fr = $subFr;
                         $sub->zh = $subZh;
-                        $fr .= $subFr . '||';
-                        $zh .= $subZh . '||';
+//                        $fr .= $subFr . '||';
+//                        $zh .= $subZh . '||';
                         $subFr = '';
                         $subZh = '';
                         $state = 1;
@@ -100,12 +116,89 @@ class Helper
                     }
             }
         }
-        $frs = substr($fr, 0, strlen($fr) - 2);
-        $frs = self::emberedWord($frs);
-        return [$frs, substr($zh, 0, strlen($zh) - 2), substr($points, 0, strlen($points) - 1)];
+        return $subs;
+//        return [$fr, substr($zh, 0, strlen($zh) - 2), substr($points, 0, strlen($points) - 1)];
     }
 
-    public static function isChineseChar($char) {
+    /**
+     * 分析srt格式字幕，自动生成断点
+     * @param $src
+     * @return array
+     */
+    public static function parsePointLink($src)
+    {
+        $subs = self::parseSubtitle($src);
+        $fr = '';
+        $zh = '';
+        $points = '';
+
+        foreach ($subs as $i => $sub) {
+            if ($i != 0) {
+                $fr .= '||';
+                $zh .= '||';
+                $points .= ',';
+            }
+            $fr .= $sub->fr;
+            $zh .= $sub->zh;
+            $points .= self::toSecond($sub->startTime);
+        }
+        $fr = self::emberedWord($fr);
+        return [$fr, $zh, $points];
+    }
+
+    private static function findCorrespondSub($fr, $zhSubs)
+    {
+        //找到对应时间点的字幕
+        $possibleSub = '';
+        $max = 10000;
+        $find = false;
+        $startTime = self::toSecond($fr->startTime);
+        $result = '';
+        foreach ($zhSubs as $zh) {
+            if (trim($zh->startTime) == trim($fr->startTime)) {
+                $result = $zh;
+                $find = true;
+                break;
+            } else {
+                $limit = abs(self::toSecond($zh->startTime) - $startTime);
+                if ($limit < $max) {
+                    $possibleSub = $zh;
+                    $max = $limit;
+                }
+            }
+        }
+
+        if($find) {
+            return $result->zh;
+        } else {
+            return $possibleSub->zh;
+        }
+    }
+
+    /**将中文字幕和法文字幕合并成一个中法文字幕文件*/
+    public static function merge($frSrc, $zhSrc)
+    {
+        $frSubs = self::parseSubtitle($frSrc);
+        $zhSubs = self::parseSubtitle($zhSrc);
+
+        $count = count($frSubs);
+        $sameLines = $count != count($zhSubs);
+        if ($sameLines) {
+            for ($i = 0; $i < $count; $i++) {
+
+                $frSubs[$i]->zh = self::findCorrespondSub($frSubs[$i], $zhSubs);
+            }
+        } else {
+            //生成单一字幕
+            for ($i = 0; $i < $count; $i++) {
+                $frSubs[$i]->zh = $zhSubs[$i]->zh;
+            }
+        }
+        return ($sameLines ? "same lines\n" : "not same lines\n") . self::composeSubtitle($frSubs);
+    }
+
+    public static function isChineseChar($char)
+    {
         return preg_match('/[\x7f-\xff]/', $char) && !str_contains('ùûüÿ€àâæçÇéèêëïîôœÉÈÊËÀÂÎÏÔÙÛ《》', $char);
     }
 
@@ -120,7 +213,7 @@ class Helper
         $dest = '';
         $pattern = '/(\s|,|\.|-|;|:|《|》|\?|!|[|]|\(|\)|{|}|<|>|\')/';
 
-        $len = mb_strlen($src,'utf8');
+        $len = mb_strlen($src, 'utf8');
         for ($i = 0; $i < $len; $i++) {
             $char = mb_substr($src, $i, 1, 'utf-8');
             if ($in) { //in word
@@ -143,7 +236,7 @@ class Helper
         $dest = str_replace('Aujourd\'<span>hui<\/span>', 'Aujourd\'hui', $dest);
         $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«|strong|\/strong|br|hr|h\d|\/h\d)<\/span>/', '$1', $dest);
         preg_match_all('/<<span>img.*<\/span>>/', $dest, $data);
-        if($data[0]) {
+        if ($data[0]) {
             $img = preg_replace('/<\/?span>/', '', $data[0][0]);
             $dest = str_replace($data[0][0], $img, $dest);
         }
@@ -151,15 +244,21 @@ class Helper
     }
 
 
-    private static function removeAllChineseChars($src) {
+    /**
+     * 删除字幕文件中的所有中文
+     * @param $src
+     * @return string
+     */
+    private static function removeAllChineseChars($src)
+    {
         $lines = preg_split('/\n|\r\n?/', $src);
         $out = '';
         foreach ($lines as $i => $line) {
             $accent = array('À', 'Â', 'Ä', 'È', 'É', 'Ê', 'Ë', 'Î', 'Ï', 'Ô', 'Œ', 'Ù', 'Û', 'Ü', 'Ÿ', 'â', 'ê', 'ô', 'û', 'î', 'ä', 'ë', 'ö', 'ü', 'ï', 'é', 'è', 'ç', 'à', 'œ', 'ù', 'ÿ', 'Ç', 'ç', '«', '»', '€');
             $lineWithoutAccent = str_replace($accent, "", $line);
             if (!preg_match('/[\x7f-\xff]/', $lineWithoutAccent)) {
-                if($i != 0) {
-                   $out .= "\n";
+                if ($i != 0) {
+                    $out .= "\n";
                 }
                 $out .= $line;
             }
@@ -167,13 +266,19 @@ class Helper
         return $out;
     }
 
+
+    /**
+     * 取得字幕中所有还不被字典所包含的词汇
+     * @param $src
+     * @return array
+     */
     public static function getWordsNotInDict($src)
     {
         $src = self::removeAllChineseChars($src);
         $words = str_word_count(str_replace('-', ' ', $src), 1, self::getFrAccent());
         $out = [];
-        foreach($words as $word) {
-            if(preg_match('/[a-zA-Z]*\'([a-zA-Z]*)/', $word, $data)) {
+        foreach ($words as $word) {
+            if (preg_match('/[a-zA-Z]*\'([a-zA-Z]*)/', $word, $data)) {
                 $new = self::strtolowerFr($data[1]);
             } else {
                 $new = self::strtolowerFr($word);
@@ -184,10 +289,10 @@ class Helper
         $words = array_unique($out);
         $out = [];
         $controller = new WordController();
-        foreach($words as $word) {
+        foreach ($words as $word) {
 //            $isInDict = Word::where('word', 'like', $word)->first();
             $result = $controller->getWord($word)[0];
-            if(!$result) {
+            if (!$result) {
                 $out[] = $word;
             }
         }

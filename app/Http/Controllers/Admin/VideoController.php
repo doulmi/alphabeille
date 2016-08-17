@@ -163,6 +163,20 @@ class VideoController extends Controller
         return view('admin.unknown', compact('words'));
     }
 
+    /**
+     * 合并中法字幕文件到一个文件中
+     */
+    public function merge(Request $request) {
+        $frSrc = $request->get('frSrc');
+        $zhSrc = $request->get('zhSrc');
+        $mergedSub = Helper::merge( $frSrc, $zhSrc );
+        return view('admin.videos.mergeResult', compact('mergedSub'));
+    }
+
+    public function showMerge() {
+        return view('admin.videos.merge');
+    }
+
     private function getSaveData(Request $request)
     {
         $data = $request->all();

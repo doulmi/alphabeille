@@ -321,6 +321,8 @@ return [
     'menu12' => '一年',
     'menu24' => '两年',
     'unknown' => 'Unknown Words',
-    'originSrc' => 'YoutubeId'
+    'originSrc' => 'YoutubeId',
+    'frSrc' => 'French Subtitle',
+    'zhSrc' => 'Chinese Subtitle',
 ];
 

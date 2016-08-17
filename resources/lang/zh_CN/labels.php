@@ -312,7 +312,9 @@ return [
     'menu12' => '一年',
     'menu24' => '两年',
     'unknown' => '未知单词',
-    'originSrc' => 'Youtube Id'
+    'originSrc' => 'Youtube Id',
+    'frSrc' => '法语字幕',
+    'zhSrc' => '中文字幕',
 ];
 
 

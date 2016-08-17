@@ -60,6 +60,12 @@ class VideoController extends ReadableController
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
     }
 
+
+    /**
+     * 取得对外api的结果
+     * @param $url
+     * @return mixed
+     */
     protected function httpGet($url)
     {
         $curl = curl_init($url);

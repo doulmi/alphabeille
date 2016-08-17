@@ -163,6 +163,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('api/videos/{id}/points', 'Admin\VideoController@getPoints');
     Route::get('videos/preview', 'Admin\VideoController@preview');
     Route::get('videos/{id}/unknown', 'Admin\VideoController@unknownWords');
+    Route::get('merge', 'Admin\VideoController@showMerge');
+    Route::post('merge', 'Admin\VideoController@merge');
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('traces/{user_id}', 'Admin\UserController@traces');

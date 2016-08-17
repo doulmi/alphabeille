@@ -19,6 +19,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Video;
 use Faker\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends Controller
@@ -77,6 +78,8 @@ class AdminController extends Controller
         }
     }
 
+
+    //重新解析所有Video的Description，并保存
     public function parseDesc() {
         $videos = Video::all();
         foreach($videos as $video) {
@@ -85,6 +88,7 @@ class AdminController extends Controller
         }
     }
 
+    //更新网站内容的观看次数
     public function updateViews($from) {
         $faker = Factory::create();
 
