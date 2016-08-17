@@ -42,8 +42,8 @@ class PostController extends Controller
     public function search()
     {
         $keys = Input::get('keys', '');
-        $minitalks = Searchy::minitalks(['title', 'content', 'wechat_part'])->query($keys)->get();
-        $videos = Searchy::videos(['title', 'content', 'description'])->query($keys)->get();
+        $minitalks = Minitalk::where('title', 'like', "%$keys%")->orWhere('content', 'like', "%$keys%")->orWhere('wechat_part', 'like', "%$keys%")->get();
+        $videos = Video::where('title', 'like', '%' . $keys . '%')->orWhere('content', 'like', '%' . $keys .'%')->orWhere('description', 'like', '%' . $keys . '%')->get();
         return view('search', compact(['minitalks', 'videos']));
     }
 

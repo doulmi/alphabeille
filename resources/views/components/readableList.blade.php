@@ -19,6 +19,7 @@
                         @endif
                     @endif
 
+
                     @if($readable->free)
                         <span class="Card-new-status Label Label-x-small">
                             @lang('labels.free')
