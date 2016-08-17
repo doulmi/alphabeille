@@ -19,11 +19,9 @@
                     <span class="">
                         <i class="glyphicon glyphicon-headphones"></i>
                     </span>
-                    <video id="my_video" class="video-js vjs-default-skin"
-                           controls preload
-                           data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
-                        <source src="{{$readable->video_url}}" type='video/mp4'>
-                    </video>
+                    <div class="video-container">
+                        <div id="video-placeholder"></div>
+                    </div>
                     <div class="subtitle">
                         <div class="center">
                             @if($canRead)
@@ -106,7 +104,7 @@
 @endsection
 
 @section('otherjs')
-    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
@@ -213,13 +211,32 @@
             }
         });
 
-        videojs("my_video").ready(function () {
-            player = this;
+        function onYouTubeIframeAPIReady() {
+            console.log("https://www.youtube.com/watch?v={{$readable->originSrc}}");
+            player = new YT.Player('video-placeholder', {
+                videoId: "{{$readable->originSrc}}",
+                playerVars: {
+                    color: 'white'
+                },
+                events: {
+                    onReady: initialize
+                }
+            });
 
-            player.on('timeupdate', vm.timeupdate);
-            player.play();
-            $('#my_video').show();
-        });
+            function initialize(){
+                setInterval(vm.timeupdate, 1000);
+            }
+
+            player.currentTime = function (time) {
+                console.log(time);
+                if (time == undefined || time == '') {
+                    console.log(player.getCurrentTime);
+                    return player.getCurrentTime();
+                } else {
+                    player.seekTo(time);
+                }
+            }
+        }
 
         $(document).keydown(function (e) {
             switch (e.which) {

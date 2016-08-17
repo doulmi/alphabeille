@@ -156,6 +156,13 @@ class VideoController extends Controller
 //
 //    }
 
+    public function unknownWords($id)
+    {
+        $video = Video::findOrFail($id);
+        $words = Helper::getWordsNotInDict($video->content);
+        return view('admin.unknown', compact('words'));
+    }
+
     private function getSaveData(Request $request)
     {
         $data = $request->all();

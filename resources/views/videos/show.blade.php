@@ -13,21 +13,26 @@
         <?php $canRead = $readable->free || (Auth::user() && Auth::user()->level() > 1) ?>
         <div class="container">
             <div class="row video-show">
-                <div class="col-md-7">
-                    <a href="{{url('videos/level/' . $readable->level)}}"><span class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span></a>
+                <div class="col-md-7" id="videoPanel">
+                    <a href="{{url('videos/level/' . $readable->level)}}"><span
+                                class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span></a>
                     <span class="">
                         <i class="glyphicon glyphicon-headphones"></i>
-{{--                        <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>--}}
+                        <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
                     </span>
-{{--                    @if($youtube)--}}
+                    @if($youtube)
+                        {{--<div id="video-placeholder"></div>--}}
+                        <div class="video-container">
+                            <div id="video-placeholder"></div>
+                        </div>
                         {{--<div id="video-placeholder" class="embed-responsive embed-responsive-16by9"></div>--}}
-                    {{--@else--}}
-                    <video id="my_video" class="video-js vjs-default-skin"
-                           controls preload
-                           data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
-                        <source src="{{$readable->video_url}}" type='video/mp4'>
-                    </video>
-                    {{--@endif--}}
+                    @else
+                        <video id="my_video" class="video-js vjs-default-skin"
+                               controls preload
+                               data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
+                            <source src="{{$readable->video_url}}" type='video/mp4'>
+                        </video>
+                    @endif
                     <div class="subtitle">
                         <div class="center">
                             @if($canRead)
@@ -35,18 +40,19 @@
                                 <p v-show="zh">@{{{currentZh}}}</p>
                             @endif
                         </div>
-                        <div class="control-panel">
-                            <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
-                                        class="glyphicon glyphicon-chevron-left"></i></a>
-                            <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' ">重复单句</a>
-                            <a href="#" :disabled="active == pointsCount - 1 " @click.stop.prevent='next'><i
-                                        class="glyphicon glyphicon-chevron-right"></i></a>
+                    </div>
+                    <div class="control-panel">
+                        <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
+                                    class="glyphicon glyphicon-chevron-left"></i></a>
+                        <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' ">重复单句</a>
+                        <a href="#" :disabled="active == pointsCount - 1 " @click.stop.prevent='next'><i
+                                    class="glyphicon glyphicon-chevron-right"></i></a>
 
-                            <a href="#" @click.stop.prevent='toggleFr' :class="fr ? 'active' : ''">法</a>
-                            <a href="#" @click.stop.prevent='toggleZh' :class="zh ? 'active' : ''">中</a>
-                        </div>
+                        <a href="#" @click.stop.prevent='toggleFr' :class="fr ? 'active' : ''">法</a>
+                        <a href="#" @click.stop.prevent='toggleZh' :class="zh ? 'active' : ''">中</a>
                     </div>
                 </div>
+
 
                 <div class="col-md-5">
                     @if($canRead)
@@ -67,18 +73,18 @@
                             </table>
                         </div>
                         {{--<div class="notes">--}}
-                            {{--<div class="form-group">--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input type="text" class="note-input form-control" placeholder="@lang('labels.addNote')" v-model="newNote">--}}
-                                    {{--<a href="#" @click.stop.prevent="saveNote" class="input-group-addon navbar-note-btn"><span class="glyphicon glyphicon glyphicon-plus"></span></a>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                        {{--<div class="input-group">--}}
+                        {{--<input type="text" class="note-input form-control" placeholder="@lang('labels.addNote')" v-model="newNote">--}}
+                        {{--<a href="#" @click.stop.prevent="saveNote" class="input-group-addon navbar-note-btn"><span class="glyphicon glyphicon glyphicon-plus"></span></a>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
 
-                            {{--<table  class="table table-striped">--}}
-                                {{--<tr v-for="note in notes">--}}
-                                    {{--<td>@{{ $index }}</td>--}}
-                                    {{--<td>@{{{note}}}</td> </tr>--}}
-                            {{--</table>--}}
+                        {{--<table  class="table table-striped">--}}
+                        {{--<tr v-for="note in notes">--}}
+                        {{--<td>@{{ $index }}</td>--}}
+                        {{--<td>@{{{note}}}</td> </tr>--}}
+                        {{--</table>--}}
                         {{--</div>--}}
                     @else
                         @include('blockContent')
@@ -91,8 +97,11 @@
             <h1 class="video-title">{{ $readable ->title}}</h1>
             <div class="video-author">
                 @lang('labels.publishAt'){{$readable->created_at}},
-                <a href="{{url('users/' . $readable->listener->id)}}">{{$readable->listener->name}}</a>@lang('labels.listen'), <a href="{{url('users/' . $readable->translator->id)}}">{{$readable->translator->name}}</a>@lang('labels.translate'),
-<a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier')
+                <a href="{{url('users/' . $readable->listener->id)}}">{{$readable->listener->name}}</a>@lang('labels.listen')
+                ,
+                <a href="{{url('users/' . $readable->translator->id)}}">{{$readable->translator->name}}</a>@lang('labels.translate')
+                ,
+                <a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier')
             </div>
         </div>
     </div>
@@ -164,6 +173,7 @@
 @section('otherjs')
     @if($youtube)
         <script src="https://www.youtube.com/iframe_api"></script>
+
     @else
         <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     @endif
@@ -218,8 +228,8 @@
                 isCollect: '{{$collect}}',
                 lineActive: '',
                 repeatOne: -1,  //>=0 则说明循环开启
-                newNote : '',
-                notes : []
+                newNote: '',
+                notes: []
             },
 
             ready() {
@@ -311,32 +321,38 @@
                 saveNote() {
                     console.log(this.newNote);
                     this.notes.push(this.newNote);
-                    this.newNote= '';
+                    this.newNote = '';
                 }
             }
         });
 
         @if($youtube)
         function onYouTubeIframeAPIReady() {
+            console.log("https://www.youtube.com/watch?v={{$readable->originSrc}}");
             player = new YT.Player('video-placeholder', {
-                width: 600,
-                height: 400,
                 videoId: "{{$readable->originSrc}}",
                 playerVars: {
-                    color: 'white',
-                    playlist: 'taJ60kskkns,FG0fTKAqZ5g'
+                    color: 'white'
+                },
+                events: {
+                    onReady: initialize
                 }
             });
 
-            player.currentTime = function(time) {
-                if(time == 'undefined') {
+            function initialize(){
+                setInterval(vm.timeupdate, 1000);
+            }
+
+            player.currentTime = function (time) {
+                console.log(time);
+                if (time == undefined || time == '') {
+                    console.log(player.getCurrentTime);
                     return player.getCurrentTime();
                 } else {
                     player.seekTo(time);
                 }
             }
         }
-
         @else
         videojs("my_video").ready(function () {
             player = this;
@@ -351,8 +367,8 @@
             switch (e.which) {
                 case 32:    //空格，作为播放和停止的快捷键
                     var tag = e.target.tagName.toLowerCase();
-                    if(tag != 'input' && tag != 'textarea') {
-                        if(player.paused()) {
+                    if (tag != 'input' && tag != 'textarea') {
+                        if (player.paused()) {
                             player.play();
                         } else {
                             player.pause();

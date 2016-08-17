@@ -963,7 +963,6 @@ body {
   margin-left: auto;
 }
 
-
 @media (min-width: 992px) {
   .Card-Collection {
     width: 970px
@@ -1262,53 +1261,12 @@ body {
   border-color: $primaryBgColor;
 }
 
-@media screen and (max-width: 767px) {
-  #menu-xs {
-    border-color: $primaryBgColor;
-    background-color: $primaryBgColor;
-  }
-
-  .center-nav {
-    position:relative;
-    left: 15%;
-  }
-
-  .jumbotron.ad-jumbotron {
-    height: 640px;
-    //background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/indexBg.png);
-    background-image: none;
-    background: #32CDFF;
-    h1 {
-      font-size: 20px;
-    }
-  }
-
-  .Card-Collection {
-    padding-right: 5%;
-    padding-left: 5%;
-  }
-
-  .discuss-content, .discuss-content * {
-    font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
-  }
-
-  .avatar, .media-left img {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
-    width: 32px !important;
-    height: 32px !important;
-  }
-
-  .index-ad {
-    padding-right: 10%;
-    padding-left: 10%;
-  }
-
-  .navbar-guest {
-    background: $primaryBgColor;
-    border: $primaryBgColor;
-  }
+.video-content {
+  height: 465px;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+  margin-top: 10px;
 }
 
 .prePage {
@@ -2854,7 +2812,7 @@ body {
     color: #111;
     margin-bottom: 26px;
   }
-  
+
   span {
     cursor: pointer;
   }
@@ -2982,7 +2940,7 @@ body {
 
 .markdown-content blockquote strong,
 .lesson-content .markdown-content blockquote p,
-.lesson-content .markdown-content blockquote p span{
+.lesson-content .markdown-content blockquote p span {
   font-family: "Coconbold", "Microsoft YaHei", sans-serif;
   color: $quoteFont;
 }
@@ -3538,14 +3496,6 @@ $timing-function: ease-out;
   overflow: auto;
 }
 
-.video-content {
-  height: 465px;
-  padding: 10px;
-  border-radius: 5px;
-  overflow: auto;
-  margin-top: 10px;
-}
-
 .grey h1 {
   margin: 1em 0 10px 0;
 }
@@ -3569,16 +3519,16 @@ $timing-function: ease-out;
   }
 
   blockquote {
-    background:#EBF7FE;
-  //  font-size: 17.5px;
-  //  color: rgb(77, 147, 193);
+    background: #EBF7FE;
+    //  font-size: 17.5px;
+    //  color: rgb(77, 147, 193);
     border-left: 4px solid #59A3D3;
   }
 
   .subtitle {
     padding: 15px;
     background-color: #000;
-    height: 100px;
+    height: 130px;
     color: #fff;
 
     p {
@@ -3685,6 +3635,7 @@ $seek-transition-time: 0.3s;
 .control-panel {
   z-index: 2;
   position: absolute;
+  padding-left: 15px;
   bottom: 5px;
 
   a {
@@ -3924,7 +3875,7 @@ $seek-transition-time: 0.3s;
 }
 
 .popover {
-  max-width: 500px;
+  max-width: 100%;
   width: 500px;
 }
 
@@ -4023,9 +3974,9 @@ $seek-transition-time: 0.3s;
 
 .vip:before {
   content: 'VIP';
-  position:absolute;
+  position: absolute;
   bottom: 0;
-  color : #BC002D ;
+  color: #BC002D;
 }
 
 .video-title {
@@ -4058,7 +4009,7 @@ $seek-transition-time: 0.3s;
   }
 
   .word-text {
-    color : #32CDFF;
+    color: #32CDFF;
     font-weight: bold;
   }
 
@@ -4071,11 +4022,11 @@ $seek-transition-time: 0.3s;
 
   .remove-btn {
     cursor: pointer;
-    color : #32CDFF;
+    color: #32CDFF;
   }
 
   .remove-btn {
-    color : darken(#32CDFF, 5%);
+    color: darken(#32CDFF, 5%);
   }
 }
 
@@ -4083,3 +4034,112 @@ $seek-transition-time: 0.3s;
   background: #F7F7F7;
   margin-left: 8px;
 }
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  #menu-xs {
+    border-color: $primaryBgColor;
+    background-color: $primaryBgColor;
+  }
+
+  .center-nav {
+    position: relative;
+    left: 15%;
+  }
+
+  .jumbotron.ad-jumbotron {
+    height: 640px;
+    //background-image: url(http://o9dnc9u2v.bkt.clouddn.com/images/indexBg.png);
+    background-image: none;
+    background: #32CDFF;
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+  .Card-Collection {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  .discuss-content, .discuss-content * {
+    font-family: "Raleway", "Open Sans", "Arial", "Roboto", "Times New Roman", "Microsoft YaHei", "华文细黑", "FangSong", "幼圆", sans-serif;
+  }
+
+  .avatar, .media-left img {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .index-ad {
+    padding-right: 10%;
+    padding-left: 10%;
+  }
+
+  .navbar-guest {
+    background: $primaryBgColor;
+    border: $primaryBgColor;
+  }
+
+  .video-content {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 25px;
+  }
+
+  .col-md-7, .col-md-5 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .video-show .subtitle {
+    padding: 15px;
+    background-color: transparent !important;
+    height: 10px !important;
+    position: relative !important;
+    color: #f5f5f5;
+    top: -65px;
+
+    span, p {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+
+  .control-panel {
+    background-color: black;
+    z-index: 2;
+    margin-top: 30px;
+    position: absolute;
+    width: 100%;
+  }
+
+  .vjs-has-started .vjs-control-bar {
+    bottom: -55px;
+  }
+
+  .button-frilles {
+    margin-left: calc(50% - 35px);
+    margin-top: 20px;
+  }
+}
+
+

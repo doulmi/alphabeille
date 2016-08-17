@@ -31,7 +31,15 @@
                                         <td>{{$i + 1}}</td>
                                         <td class="word-text">{!! $word->word->word !!}</td>
                                         <td>{{$word->times}}</td>
-                                        <td>{!! $word->word->explication !!}</td>
+                                        <td id="td-{{$i}}">
+                                            @if(strlen($word->word->explication) > 400)
+                                                {!! substr($word->word->explication, 0, 400) !!}
+                                                <br/>
+                                                <button class="btn-link" onclick='more("{{$i}}", "{{str_replace("\r\n", '', $word->word->explication)}}")'>@lang('labels.more')</button>
+                                            @else
+                                                {!! $word->word->explication !!}
+                                            @endif
+                                        </td>
                                         <td><i onclick="removeWord({{$word->id}})"
                                                class="glyphicon glyphicon-remove remove-btn"></i></a> </td>
                                     </tr>
@@ -51,6 +59,11 @@
             $.post('{{url("api/wordFav")}}/' + id + '/delete', {'_token': '{{csrf_token()}}'}, function (data) {
                 $('#word-' + id).remove();
             });
+        }
+
+        function more(id, explication) {
+            console.log(explication);
+            $('#td-' + id).html(explication);
         }
     </script>
 @endsection

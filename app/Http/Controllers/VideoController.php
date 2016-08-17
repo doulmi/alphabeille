@@ -9,6 +9,7 @@ use App\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class VideoController extends ReadableController
 {
@@ -32,7 +33,7 @@ class VideoController extends ReadableController
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
 
-//        Redis::incr('video:view:' . $readable->id);
+        Redis::incr('video:view:' . $readable->id);
 
         $readables = $this->random();
         $user = Auth::user();
@@ -49,17 +50,27 @@ class VideoController extends ReadableController
         $zh = explode('||', $readable->parsed_content_zh);
 
         list($like, $collect, $punchin) = $this->getStatus($readable);
-//        $readable->desc = $this->markdown->parse($readable->description);
 
         $type = 'video';
-//        $location = Location::get($request->ip());
-//        $youtube = true;
-        $youtube = false;
-//        if ($location->countryCode == 'ZH') {
-            //中国，使用本地
-//            $youtube = false;
-//        }
+        $url = "http://api.wipmania.com/" . $request->ip();
+//        $url = "http://api.wipmania.com/217.128.63.152";
+        $response = $this->httpGet($url);
+
+        $youtube = $response == 'CN' || $response == 'XX' ? false : true;
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
+    }
+
+    protected function httpGet($url)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HEADER, 0 ); // 过滤HTTP头
+//        curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
+//        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
+//        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
+//        curl_setopt($curl, CURLOPT_CAINFO, public_path() . '/cacert.pem');//证书地址
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
     }
 
     public function level($level)

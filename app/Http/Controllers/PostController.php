@@ -16,7 +16,6 @@ class PostController extends Controller
 {
     public function test() {
         $video = Video::findOrfail(9);
-        $words = Helper::getWordsNotInDict($video->content);
     }
 
     public function index()

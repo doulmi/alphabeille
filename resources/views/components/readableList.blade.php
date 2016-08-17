@@ -47,7 +47,7 @@
                         <div class="hidden-xs Card-footer-content">
                             <span class="topic-view">
                                 <i class="glyphicon glyphicon-headphones"></i>
-                                {{--<span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>--}}
+                                <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
                             </span>
                         </div>
                     </div>

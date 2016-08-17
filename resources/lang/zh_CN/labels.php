@@ -1,5 +1,4 @@
 <?php
-
 return [
     'start' => '开始学习',
     'login' => '登录',
@@ -312,6 +311,8 @@ return [
     'menu6' => '半年',
     'menu12' => '一年',
     'menu24' => '两年',
+    'unknown' => '未知单词',
+    'originSrc' => 'Youtube Id'
 ];
 
 

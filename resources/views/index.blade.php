@@ -35,7 +35,7 @@
                         <video id="my_video" class="video-js vjs-default-skin"
                                controls preload data-setup='{ "aspectRatio":"1920:1080" }'
                                data-setup='{"language":"fr"}'>
-                            <source src="http://o9dnc9u2v.bkt.clouddn.com/videos/Alphabeille_1080P.mp4"
+                            <source src="http://o9dnc9u2v.bkt.clouddn.com/videos/howToUse.mp4"
                                     type='video/mp4'>
                         </video>
                     </div>

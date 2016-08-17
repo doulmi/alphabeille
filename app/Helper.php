@@ -170,7 +170,7 @@ class Helper
     public static function getWordsNotInDict($src)
     {
         $src = self::removeAllChineseChars($src);
-        $words = str_word_count(str_replace('-', '', $src), 1, self::getFrAccent());
+        $words = str_word_count(str_replace('-', ' ', $src), 1, self::getFrAccent());
         $out = [];
         foreach($words as $word) {
             if(preg_match('/[a-zA-Z]*\'([a-zA-Z]*)/', $word, $data)) {
@@ -189,9 +189,6 @@ class Helper
             $result = $controller->getWord($word)[0];
             if(!$result) {
                 $out[] = $word;
-                echo $word . " is not in dict: " . "<br/>";
-            } else {
-                echo $word . ":\t\t\t\t" . $result->explication . "<br/><br/><br/><br/>";
             }
         }
         return $out;
