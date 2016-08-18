@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="originSrc">@lang('labels.originSrc')</label>
                         <input name='originSrc' type="text" class="form-control" id="originSrc"
-                               value="{{$edit ? $video->originSrc : ''}}"/>
+                               v-model="youtubeId">
                     </div>
 
                     <div class="form-group">
@@ -28,13 +28,13 @@
                     <div class="form-group">
                         <label for="avatar">@lang('labels.avatar')</label>
                         <input type="text" class="form-control" id="avatar" name="avatar"
-                               value="{{$edit ? $video->avatar : 'http://o9dnc9u2v.bkt.clouddn.com/videos/'}}"/>
+                               v-model="jpg"/>
                     </div>
 
                     <div class="form-group">
                         <label for="video_url">@lang('labels.video_url')</label>
                         <input type="text" class="form-control" id="video_url" name="video_url"
-                               value="{{$edit ? $video->video_url : 'http://o9dnc9u2v.bkt.clouddn.com/videos/'}}"/>
+                               v-model="mp4"/>
                     </div>
 
                     <div class="form-group">
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <label for="download_url">@lang('labels.download_url')</label>
                         <input type="text" class="form-control" id="download_url" name="download_url"
-                               value="{{$edit ? $video->download_url : 'http://o9dnc9u2v.bkt.clouddn.com/videos/'}}"/>
+                               v-model="mp4"/>
                     </div>
 
                     <div class="input-group date" id="picker">
@@ -145,7 +145,18 @@
                     new Vue({
                         el: 'body',
                         data: {
-                            level: "{{$edit ? $video->level : 'beginner'}}"
+                            level: "{{$edit ? $video->level : 'beginner'}}",
+                            youtubeId: "{{$edit ? $video->originSrc : ''}}"
+                        },
+
+                        computed : {
+                            mp4() {
+                                return 'http://o9dnc9u2v.bkt.clouddn.com/videos/' + this.youtubeId + '.mp4';
+                            },
+
+                            jpg() {
+                                return 'http://o9dnc9u2v.bkt.clouddn.com/videos/' + this.youtubeId + '.jpg'
+                            }
                         },
 
                         methods: {
