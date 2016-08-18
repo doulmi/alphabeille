@@ -38,16 +38,21 @@ class VideoController extends Controller
         $orderBy = Input::get('orderBy', 'created_at');
         $dir = Input::get('dir', 'DESC');
         $limit = Input::get('limit', 50);
-        $search = trim(Input::get('search', ''));
-        $searchField = trim(Input::get('searchField', ''));
+        $desc = Input::get('dest', 0);
+        $zh = Input::get('zh', 0);
+//        $search = trim(Input::get('search', ''));
+//        $searchField = trim(Input::get('searchField', ''));
 
-        if ($searchField != '' && $search != '') {
-            if ($searchField != 'role') {
-                $videos = Video::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
-            }
-        } else {
-            $videos = Video::orderBy($orderBy, $dir)->paginate($limit);
-        }
+//        if ($searchField != '' && $search != '') {
+//            if ($searchField != 'role') {
+//                $videos = Video::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
+//            }
+//        } else {
+//        if($zh) {
+//            $videos = Video::where('');
+//        }
+        $videos = Video::orderBy($orderBy, $dir)->paginate($limit);
+//        }
         return view('admin.videos.index', compact(['videos']));
     }
 
@@ -192,6 +197,7 @@ class VideoController extends Controller
         $content = str_replace('。', '.', $content);
         $content = str_replace('，', ',', $content);
         $content = str_replace('…', '...', $content);
+        $content = str_replace('!', '.', $content);
         $content = str_replace('\n\n', '\n', $content);
         $data['content'] = $content;
 

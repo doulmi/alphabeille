@@ -316,6 +316,8 @@ return [
     'frSrc' => '法语字幕',
     'zhSrc' => '中文字幕',
     'published' => '已发布',
+    'videosNoDesc' => '无描述视频',
+    'videosNoZh' => '无中文翻译视频',
 ];
 
 

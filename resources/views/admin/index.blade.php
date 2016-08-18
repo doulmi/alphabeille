@@ -82,6 +82,14 @@
                 <i class="glyphicon glyphicon-play"></i>
                 @lang('labels.manageVideos')
             </a>
+            <a href="{{url('admin/videos?zh=1')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-dict"></i>
+                @lang('labels.videosNoZh')
+            </a>
+            <a href="{{url('admin/videos?desc=1')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-dict"></i>
+                @lang('labels.videosNoDesc')
+            </a>
             <a href="{{url('admin/comments/lesson')}}" class="list-group-item item">
                 <i class="glyphicon glyphicon-music"></i>
                 @lang('labels.manageComments')
@@ -90,6 +98,7 @@
                 <i class="glyphicon glyphicon-dict"></i>
                 @lang('labels.manageWords')
             </a>
+
         </div>
     </div>
 

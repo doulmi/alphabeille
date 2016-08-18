@@ -59,16 +59,16 @@
                         <div class="video-content grey">
                             <table>
                                 <tbody>
-                                <tr v-for="line in linesFr">
-                                    <td class='width40 '>
+                                <tr v-for="no in pointsCount">
+                                    <td class='width40'>
                                         <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)' class='seek-btn'
                                            :class="played.indexOf($index) > -1 > 'active' : ''"></a>
                                     </td>
                                     <td>
-                                        <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
+                                    <td>
+                                        <p>@{{{ linesFr[no] }}}</p>
                                     </td>
                                 </tr>
-                                {{--@endforeach--}}
                                 </tbody>
                             </table>
                         </div>

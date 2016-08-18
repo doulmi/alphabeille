@@ -47,16 +47,16 @@
                         <div class="video-content grey">
                             <table>
                                 <tbody>
-                                <tr v-for="line in linesFr">
-                                    <td class='width40 '>
+                                <tr v-for="no in pointsCount">
+                                    <td class='width40'>
                                         <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)' class='seek-btn'
                                            :class="played.indexOf($index) > -1 > 'active' : ''"></a>
                                     </td>
                                     <td>
-                                        <p :class="active == $index ? 'active' : ''">@{{{line}}}</p>
+                                    <td>
+                                        <p>@{{{ linesFr[no] }}}</p>
                                     </td>
                                 </tr>
-                                {{--@endforeach--}}
                                 </tbody>
                             </table>
                         </div>
@@ -129,6 +129,7 @@
                 lines: [],
                 linesFr: [],
                 linesZh: [],
+                count : 0,
                 fr: true,
                 zh: true,
                 pointsCount: 0,
@@ -150,7 +151,8 @@
 
                 @if($canRead)
                         this.linesFr = "{!!$readable->parsed_content!!}".split('||');
-                this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
+                        this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
+                console.log(this.linesFr);
                 @endif
             },
 
@@ -204,7 +206,6 @@
                     this.zh = !this.zh;
                 },
                 saveNote() {
-                    console.log(this.newNote);
                     this.notes.push(this.newNote);
                     this.newNote = '';
                 }
@@ -212,7 +213,6 @@
         });
 
         function onYouTubeIframeAPIReady() {
-            console.log("https://www.youtube.com/watch?v={{$readable->originSrc}}");
             player = new YT.Player('video-placeholder', {
                 videoId: "{{$readable->originSrc}}",
                 playerVars: {
@@ -228,9 +228,7 @@
             }
 
             player.currentTime = function (time) {
-                console.log(time);
                 if (time == undefined || time == '') {
-                    console.log(player.getCurrentTime);
                     return player.getCurrentTime();
                 } else {
                     player.seekTo(time);
