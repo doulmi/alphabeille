@@ -327,6 +327,7 @@
         });
 
         @if($youtube)
+
         function onYouTubeIframeAPIReady() {
             console.log("https://www.youtube.com/watch?v={{$readable->originSrc}}");
             player = new YT.Player('video-placeholder', {
@@ -339,7 +340,7 @@
                 }
             });
 
-            function initialize(){
+            function initialize() {
                 setInterval(vm.timeupdate, 1000);
             }
 
@@ -353,6 +354,7 @@
                 }
             }
         }
+
         @else
         videojs("my_video").ready(function () {
             player = this;
