@@ -17,7 +17,7 @@ class AutoVideos extends Command
      *
      * @var string
      */
-    protected $signature = 'videos {path}';
+    protected $signature = 'videos {path} {i=0}';
 
     /**
      * The console command description.
@@ -48,11 +48,16 @@ class AutoVideos extends Command
         //1. get ids from path
         $ids = $this->getYoutubeIds($this->argument('path'));
         $count = count($ids);
+        $start = $this->argument('i');
         foreach ($ids as $i => $id) {
+            if($i + 1 < $start) {
+                continue;
+            }
+            echo ($i + 1) ."/$count - $id : ";
             if($this->oneSql($id)) {
-                echo "$i/$count - $id : success\n";
+                echo "success\n";
             } else {
-                echo "$i/$count - $id : failed\n";
+                echo "failed\n";
             }
         }
     }
@@ -141,6 +146,9 @@ class AutoVideos extends Command
         $content = str_replace('…', '...', $content);
         $content = str_replace('!', '.', $content);
         $content = str_replace('\n\n', '\n', $content);
+        $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
+        $content = str_replace('–', '-', $content);
+        $content = str_replace('♪', '', $content);
         $data['content'] = $content;
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);

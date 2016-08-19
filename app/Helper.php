@@ -140,7 +140,11 @@ class Helper
             }
             $fr .= $sub->fr;
             $zh .= $sub->zh;
-            $points .= self::toSecond($sub->startTime);
+            if(!isset($sub->startTime)) {
+                dd($sub->fr . "\n" . $sub->zh);
+            } else {
+                $points .= self::toSecond($sub->startTime);
+            }
         }
         $fr = self::emberedWord($fr);
         return [$fr, $zh, $points];

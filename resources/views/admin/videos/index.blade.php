@@ -60,8 +60,8 @@
                                href="{{url('admin/videos/' . $video->id . '/unknown')}}">@lang('labels.unknown')</a>
                             <a class="btn btn-success"
                                href="{{url('admin/videoComments/create/' . $video->id)}}">@lang('labels.comments')</a>
-                            <button class="btn btn-danger"
-                                    onclick="deleteContent('{{$video->id}}')">@lang('labels.delete')</button>
+                            <a class="btn btn-danger"
+                                    onclick="deleteContent('{{$video->id}}')">@lang('labels.delete')</a>
                         </td>
                     </tr>
                 @endforeach

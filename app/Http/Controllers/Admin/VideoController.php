@@ -192,6 +192,7 @@ class VideoController extends Controller
             if(trim(str_replace('||', '', $video->parsed_content_zh)) == '' ) {
                 $video->parsed_content_zh = '';
             }
+
             $video->save();
         }
     }
