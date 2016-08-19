@@ -180,7 +180,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('videoLevels', 'Admin\AdminController@videoLevels');
     Route::get('tmchange', 'Admin\AdminController@tmchange');
     Route::get('dict', 'PostController@dict');
-    Route::get('parse', 'PostController@parse');
+    Route::get('parse', 'Admin\VideoController@parse');
     Route::get('parseDesc', 'Admin\AdminController@parseDesc');
 });
 

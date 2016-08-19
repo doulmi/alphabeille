@@ -318,6 +318,7 @@ return [
     'published' => '已发布',
     'videosNoDesc' => '无描述视频',
     'videosNoZh' => '无中文翻译视频',
+    'allVideos' => '所有视频'
 ];
 
 

@@ -40,19 +40,20 @@ class VideoController extends Controller
         $limit = Input::get('limit', 50);
         $desc = Input::get('dest', 0);
         $zh = Input::get('zh', 0);
-//        $search = trim(Input::get('search', ''));
-//        $searchField = trim(Input::get('searchField', ''));
+        $search = Input::get('search', '');
 
-//        if ($searchField != '' && $search != '') {
-//            if ($searchField != 'role') {
-//                $videos = Video::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
-//            }
-//        } else {
-//        if($zh) {
-//            $videos = Video::where('');
-//        }
-        $videos = Video::orderBy($orderBy, $dir)->paginate($limit);
-//        }
+        $builder = Video::orderBy($orderBy, $dir);
+        if($zh != 0) {
+            $builder->where('parsed_content_zh', '');
+        }
+        if ($desc != 0) {
+            $builder->where('parsed_desc', '');
+        }
+        if ($search != '') {
+            $builder->where('title', 'like', "%$search%")->orWhere('originSrc', $search);
+        }
+        $videos = $builder->paginate($limit);
+
         return view('admin.videos.index', compact(['videos']));
     }
 
@@ -107,8 +108,8 @@ class VideoController extends Controller
     public function preview($data)
     {
         $readable = new \stdClass();
-        foreach($data as $key => $t) {
-            $readable->$key =  $t;
+        foreach ($data as $key => $t) {
+            $readable->$key = $t;
         }
         $readable->desc = $readable->description;
         $readable->id = 1;
@@ -171,15 +172,28 @@ class VideoController extends Controller
     /**
      * 合并中法字幕文件到一个文件中
      */
-    public function merge(Request $request) {
+    public function merge(Request $request)
+    {
         $frSrc = $request->get('frSrc');
         $zhSrc = $request->get('zhSrc');
-        $mergedSub = Helper::merge( $frSrc, $zhSrc );
+        $mergedSub = Helper::merge($frSrc, $zhSrc);
         return view('admin.videos.mergeResult', compact('mergedSub'));
     }
 
-    public function showMerge() {
+    public function showMerge()
+    {
         return view('admin.videos.merge');
+    }
+
+    public function parse()
+    {
+        $videos = Video::all();
+        foreach ($videos as $video) {
+            if(trim(str_replace('||', '', $video->parsed_content_zh)) == '' ) {
+                $video->parsed_content_zh = '';
+            }
+            $video->save();
+        }
     }
 
     private function getSaveData(Request $request)
@@ -200,11 +214,15 @@ class VideoController extends Controller
         $content = str_replace('!', '.', $content);
         $content = str_replace('\n\n', '\n', $content);
         $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
-        $content = str_replace('—', '-', $content);
+        $content = str_replace('–', '-', $content);
         $content = str_replace('♪', '', $content);
         $data['content'] = $content;
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
+
+        if (trim(str_replace('||', '', $data['parsed_content_zh']) == '')) {
+            $data['parsed_content_zh'] = '';
+        }
         $data['parsed_desc'] = $this->getParsedDesc($data['description']);
 
         if (isset($data['publish_at']) && $data['publish_at'] != '') {
@@ -212,10 +230,7 @@ class VideoController extends Controller
             $times0 = explode('/', $times[0]);
             $times1 = explode(':', $times[1]);
 
-//            $data['publish_at'] = $times0[2] . '-' . $times0[1] . '-' . $times0[0] . ' ' . $times1[0] . ':' . $times1[1] . ':00';
             $data['publish_at'] = Carbon::create($times0[2], $times0[1], $times0[0], $times1[0], $times1[1], 0, 'Europe/Paris')->subHour(7);
-//            $data['publish_at'] = Carbon::create($times0[2], $times0[1], $times0[0], $times1[0], $times1[1], 0, 'Europe/Paris');
-//            dd($data['publish_at']);
         } else {
             $data['publish_at'] = Carbon::now('Europe/Paris');
         }
@@ -223,7 +238,8 @@ class VideoController extends Controller
         return $data;
     }
 
-    private function getParsedDesc($desc) {
+    private function getParsedDesc($desc)
+    {
         $parsedDesc = $this->markdown->parse($desc);
         return $parsedDesc;
     }

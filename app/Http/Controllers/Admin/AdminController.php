@@ -45,12 +45,12 @@ class AdminController extends Controller
 //            $lesson->save();
 //        }
 
-        $minitalks = Minitalk::all();
-        foreach($minitalks as $minitalk) {
-            $minitalk->parsed_content = $this->markdown->parse($minitalk->content);
-            $minitalk->parsed_wechat_part = $this->markdown->parse($minitalk->wechat_part);
-            $minitalk->save();
-        }
+//        $minitalks = Minitalk::all();
+//        foreach($minitalks as $minitalk) {
+//            $minitalk->parsed_content = $this->markdown->parse($minitalk->content);
+//            $minitalk->parsed_wechat_part = $this->markdown->parse($minitalk->wechat_part);
+//            $minitalk->save();
+//        }
 
 //        $talkshows = Talkshow::all();
 //        foreach($talkshows as $talkshow) {
