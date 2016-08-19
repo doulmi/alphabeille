@@ -10,12 +10,23 @@ use App\Http\Requests;
 use App\Video;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
+use Sunra\PhpSimple\HtmlDomParser;
 use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
 {
     public function test() {
-        $video = Video::findOrfail(9);
+//        $root = HtmlDomParser::file_get_html("https://www.youtube.com/watch?v=dyrq5gq9Iao");
+//        $title = $root->
+
+
+//        $title = $root->find('title');
+//        echo $title->plaintext;
+
+//        $descr = $root->find('meta[description]');
+//        echo $descr->plaintext;
+//        $title = $root->find("title", 1);
+//        dd($title->innertext);
     }
 
     public function index()
