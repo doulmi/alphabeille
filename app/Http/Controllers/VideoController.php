@@ -38,7 +38,7 @@ class VideoController extends ReadableController
         $readables = $this->random();
         $user = Auth::user();
 
-        if($user) {
+        if ($user) {
             UserTraces::create([
                 'user_id' => $user->id,
                 'readable_type' => 'App\Video',
@@ -53,7 +53,7 @@ class VideoController extends ReadableController
 
         $type = 'video';
         $url = "http://api.wipmania.com/" . $request->ip();
-//        $url = "http://api.wipmania.com/217.128.63.152";
+//        $url = "http://api.wipmania.com/93.30.107.172";
         $response = $this->httpGet($url);
 
         $youtube = $response == 'CN' || $response == 'XX' ? false : true;
@@ -69,11 +69,10 @@ class VideoController extends ReadableController
     protected function httpGet($url)
     {
         $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HEADER, 0 ); // 过滤HTTP头
-//        curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
-//        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
-//        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
-//        curl_setopt($curl, CURLOPT_CAINFO, public_path() . '/cacert.pem');//证书地址
+        curl_setopt($curl, CURLOPT_HEADER, 0); // 过滤HTTP头
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
         $response = curl_exec($curl);
         curl_close($curl);
         return $response;
