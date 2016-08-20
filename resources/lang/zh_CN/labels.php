@@ -311,14 +311,16 @@ return [
     'menu6' => '半年',
     'menu12' => '一年',
     'menu24' => '两年',
-    'unknown' => '未知单词',
+    'unknown' => '未知',
     'originSrc' => 'Youtube Id',
     'frSrc' => '法语字幕',
     'zhSrc' => '中文字幕',
     'published' => '已发布',
     'videosNoDesc' => '无描述视频',
     'videosNoZh' => '无中文翻译视频',
-    'allVideos' => '所有视频'
+    'allVideos' => '所有视频',
+    'points' => '断点'
+
 ];
 
 
