@@ -57,6 +57,11 @@ class VideoController extends Controller
         return view('admin.videos.index', compact(['videos']));
     }
 
+    public function extraFr($id) {
+        $video = Video::find($id);
+        echo(Helper::extraFr($video->content));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

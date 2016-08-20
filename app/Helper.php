@@ -53,6 +53,15 @@ class Helper
         return $subStr;
     }
 
+    public static function extraFr($src) {
+        $subs = self::parseSubtitle($src);
+        $result = '';
+        foreach($subs as $sub) {
+            $result .= $sub->fr . "<br/><br/>";
+        }
+        return $result;
+    }
+
     /**
      * 分析srt格式字幕，
      * @param $src
@@ -111,7 +120,7 @@ class Helper
                             // 检测内容是否包含中文
                             $subZh = $subZh . $line;
                         } else {
-                            $subFr = $subFr . $line;
+                            $subFr = $subFr . $line . ' ';
                         }
                     }
             }

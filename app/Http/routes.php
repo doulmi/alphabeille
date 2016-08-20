@@ -168,6 +168,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('traces/{user_id}', 'Admin\UserController@traces');
+    Route::get('extraFr/{id}', 'Admin\VideoController@extraFr');
 
     //utils
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
