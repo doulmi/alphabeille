@@ -183,6 +183,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('dict', 'PostController@dict');
     Route::get('parse', 'Admin\VideoController@parse');
     Route::get('parseDesc', 'Admin\AdminController@parseDesc');
+
+    Route::get('uploadSql', function() {
+        return view('admin.uploadSql');
+    });
+    Route::post('uploadSql', 'Admin\AdminController@uploadSql');
 });
 
 //Route::get('yt', 'VideoController@yt');

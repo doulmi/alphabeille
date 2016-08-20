@@ -66,6 +66,14 @@ class AdminController extends Controller
         }
     }
 
+    public function uploadSql(Request $request) {
+        $sql = $request->file('sql');
+
+        $destinationPath = '/var/www/';
+        $filename = 'videos-' . time() . '.sql';
+        $sql->move($destinationPath, $filename);
+    }
+
     public function changeDate() {
         $users = User::all();
 

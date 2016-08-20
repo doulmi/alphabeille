@@ -24,7 +24,7 @@
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false">
-                    @lang('labels.' . (Request::has('zh') ? (Request::has('desc') ? 'allVideos' : 'videosNoDesc') : 'videosNoZh'))
+                    @lang('labels.' . (Request::has('zh') ? 'videosNoZh' : (Request::has('desc') ? 'videosNoDesc' : 'allVideos' )))
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
