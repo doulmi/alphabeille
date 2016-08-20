@@ -285,6 +285,18 @@ class VideoController extends Controller
     {
         $video = Video::findOrFail($id);
         $video->points = $request->get('points', '');
+
+        //重写content
+        $subs = Helper::parseSubtitle($video->content);
+
+        $points = explode(',', $video->points);
+        foreach($subs as $i => $sub) {
+            $sub->startTime = Helper::reverseSecond($points[$i]);
+        }
+
+        $video->content = Helper::composeSubtitle($subs);
+
+
         $video->save();
 
         return redirect('admin/videos');

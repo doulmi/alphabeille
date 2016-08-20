@@ -35,6 +35,25 @@ class Helper
         return floatval($second);
     }
 
+    //convert second to 00:00:00.000
+    public static function reverseSecond($var) {
+        $hour = intval($var / 60 / 60);
+        $hour = $hour < 10 ? '0'.$hour : $hour;
+        $min = intval($var / 60 - $hour * 60 * 60);
+        $min = $min < 10 ? '0' . $min : $min;
+        $sec = intval($var - $hour * 60 * 60 - $min * 60);
+        $sec = $sec < 10 ? '0' . $sec : $sec;
+        $micro = explode('.', $var);
+        if(isset($micro[1])) {
+            $micro = $micro[1];
+            $micro = $micro < 10 ? '0' . $micro : $micro;
+            $micro = $micro < 100 ? '0' . $micro : $micro;
+        } else{
+            $micro = '000';
+        }
+        return "$hour:$min:$sec,$micro";
+    }
+
     /**
      * parseSubtitle的反过程，
      * 将一个subs数组转化为文本srt字幕

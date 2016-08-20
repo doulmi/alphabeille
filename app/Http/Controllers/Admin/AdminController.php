@@ -38,26 +38,6 @@ class AdminController extends Controller
     }
 
     public function saveParsedContent() {
-//        $lessons = Lesson::all();
-//        foreach($lessons as $lesson) {
-//            $lesson->parsed_content = $this->markdown->parse($lesson->content);
-//            $lesson->parsed_content_zh_CN = $this->markdown->parse($lesson->content_zh_CN);
-//            $lesson->save();
-//        }
-
-//        $minitalks = Minitalk::all();
-//        foreach($minitalks as $minitalk) {
-//            $minitalk->parsed_content = $this->markdown->parse($minitalk->content);
-//            $minitalk->parsed_wechat_part = $this->markdown->parse($minitalk->wechat_part);
-//            $minitalk->save();
-//        }
-
-//        $talkshows = Talkshow::all();
-//        foreach($talkshows as $talkshow) {
-//            $talkshow->parsed_content = $this->markdown->parse($talkshow->content);
-//            $talkshow->save();
-//        }
-
         $videos = Video::all();
         foreach($videos as $video) {
             $video->parsed_content = Helper::parsePointLink($this->markdown->parse($video->content));
