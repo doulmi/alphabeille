@@ -329,15 +329,17 @@ return [
     //0: listen => 1: check fr => 2: need translate => 3: on translate => 4: chech zh => 5：done => 6 : publish
     'state' => 'Status',
     'videos.state' => 'All',
-    'videos.state0' => 'listen',
-    'videos.state1' => 'check fr',
-    'videos.state2' => 'translate',
-    'videos.state3' => 'translating',
-    'videos.state4' => 'check zh',
+    'videos.state0' => 'Dictée',
+    'videos.state1' => 'A Vérifier',
+    'videos.state2' => 'A traduire',
+    'videos.state3' => 'En cours de Tra',
+    'videos.state4' => 'En cours de Véri',
     'videos.state5' => 'Ok',
-    'videos.state6' => 'published',
+    'videos.state6' => 'Publiée',
     'tasks' => 'All tasks',
     'myTasks' => 'My tasks',
     'translator' => 'Translator',
+
+
 ];
 
