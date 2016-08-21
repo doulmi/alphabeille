@@ -110,6 +110,16 @@ Route::get('github/callback', 'Auth\AuthController@githubCallback');
 Route::get('test', 'PostController@test');
 Route::get('words', 'WordController@index');
 
+Route::group(['prefix' => 'translator', 'middleware' => 'admin'], function() {
+    Route::get('tasks', 'TaskController@index');
+    Route::get('tasks/{user_id}', 'TaskController@show');
+    Route::get('tasks/{video_id}/preview', 'TaskController@preview');
+    Route::get('tasks/{video_id}/translate', 'TaskController@translate');
+    Route::post('tasks/{task_id}/save', 'TaskController@save');
+    Route::post('tasks/{task_id}/submit', 'TaskController@submit');
+    Route::post('tasks/{task_id}/submitForce', 'TaskController@submitForce');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::get('/users', 'Admin\UserController@index')->name('adminUsers');
@@ -163,12 +173,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('api/videos/{id}/points', 'Admin\VideoController@getPoints');
     Route::get('videos/preview', 'Admin\VideoController@preview');
     Route::get('videos/{id}/unknown', 'Admin\VideoController@unknownWords');
+    Route::get('videos/changeLevel/{id}/{level}', 'Admin\VideoController@changeLevel');
+    Route::get('videos/changeState/{id}/{state}', 'Admin\VideoController@changeState');
     Route::get('merge', 'Admin\VideoController@showMerge');
     Route::post('merge', 'Admin\VideoController@merge');
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('traces/{user_id}', 'Admin\UserController@traces');
     Route::get('extraFr/{id}', 'Admin\VideoController@extraFr');
+    Route::get('tasks', 'Admin\TaskController@index');
+    Route::get('tasks/{task_id}/translate', 'Admin\TaskController@translate');
+    Route::post('tasks/{task_id}/save', 'Admin\TaskController@save');
+    Route::post('tasks/{task_id}/submit', 'Admin\TaskController@submit');
+    Route::post('tasks/{task_id}/submitForce', 'Admin\TaskController@submitForce');
 
     //utils
     Route::get('/addUsers', 'Admin\AdminController@addUsers');

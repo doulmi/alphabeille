@@ -47,11 +47,11 @@ class AdminController extends Controller
     }
 
     public function uploadSql(Request $request) {
-        $sql = $request->file('sql');
+        $sql = $request->get('sql');
 
-        $destinationPath = '/var/www/';
-        $filename = 'videos-' . time() . '.sql';
-        $sql->move($destinationPath, $filename);
+        $destinationPath = '/var/www/sql/';
+        $filename = $destinationPath . 'videos-' . time() . '.sql';
+        file_put_contents($filename, $sql);
     }
 
     public function changeDate() {
@@ -65,7 +65,6 @@ class AdminController extends Controller
             }
         }
     }
-
 
     //重新解析所有Video的Description，并保存
     public function parseDesc() {

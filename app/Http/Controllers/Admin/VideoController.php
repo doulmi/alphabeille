@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Sunra\PhpSimple\HtmlDomParser;
 
 class VideoController extends Controller
 {
@@ -30,7 +29,6 @@ class VideoController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -38,23 +36,60 @@ class VideoController extends Controller
         $orderBy = Input::get('orderBy', 'created_at');
         $dir = Input::get('dir', 'DESC');
         $limit = Input::get('limit', 50);
-        $desc = Input::get('dest', 0);
-        $zh = Input::get('zh', 0);
         $search = Input::get('search', '');
+        $state = Input::get('state', '');
 
         $builder = Video::orderBy($orderBy, $dir);
-        if($zh != 0) {
-            $builder->where('parsed_content_zh', '');
-        }
-        if ($desc != 0) {
-            $builder->where('parsed_desc', '');
+//        if($zh != 0) {
+//            $builder->where('parsed_content_zh', '');
+//        }
+//        if ($desc != 0) {
+//            $builder->where('parsed_desc', '');
+//        }
+        if($state != '') {
+            $builder->where('state', $state);
         }
         if ($search != '') {
             $builder->where('title', 'like', "%$search%")->orWhere('originSrc', $search);
         }
-        $videos = $builder->paginate($limit);
 
-        return view('admin.videos.index', compact(['videos']));
+        $videos = $builder->paginate($limit);
+        $levels = ['beginner', 'intermediate', 'advanced'];
+        $states = ['0', '1', '2', '3', '4', '5', '6'];
+        return view('admin.videos.index', compact(['videos', 'levels', 'states']));
+    }
+
+    public function changeLevel($videoId, $level) {
+        $video = Video::find($videoId);
+        if($video) {
+            $video->level = $level;
+            $video->save();
+            return response()->json([
+                'status' => 200
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => 404
+            ]);
+        }
+    }
+
+    public function changeState($videoId, $state) {
+        $video = Video::find($videoId);
+        if($video) {
+            $video->state = $state;
+            $video->save();
+
+            return response()->json([
+                'status' => 200
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => 404
+            ]);
+        }
     }
 
     public function extraFr($id) {

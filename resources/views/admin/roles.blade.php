@@ -14,7 +14,6 @@
                         <h4 class="modal-title">@lang('labels.addRole')</h4>
                     </div>
                     <form role="form" action="{{url('admin/roles')}}" method="POST">
-                        <input name="_method" type="hidden" value="PUT">
                         {!! csrf_field() !!}
                         <div class="modal-body" url="">
                             <div class="form-group">

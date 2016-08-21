@@ -132,7 +132,7 @@ class UserController extends Controller
     public function words() {
         $user = Auth::user();
 //        $words = WordFavorite::with('word')->where('user_id', $user->id)->whereDate('updated_at', '>=', Carbon::now()->startOfMonth())->latest()->get();
-        $words = WordFavorite::with('word')->where('user_id', $user->id)->latest()->get();
+        $words = WordFavorite::with('word')->where('user_id', $user->id)->latest()->paginate(50);
 
         $wordss = [];
         foreach($words as $word) {

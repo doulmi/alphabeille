@@ -71,9 +71,16 @@
                         </a>
 
                         <ul class="dropdown-menu bullet" role="menu">
+                            @if(Auth::user()->level() > 3)
+                                <li><a href="{{ url('/admin') }}"><strong>@lang('labels.admin')</strong></a>
+                            @endif
                             <li>
                                 <a href="{{ url('/users/' . Auth::user()->id) }}"><strong>@lang('labels.profile')</strong></a>
                             </li>
+                            @if(Auth::user()->level() > 2)
+                                <li><a href="{{ url('/translator/tasks') }}"><strong>@lang('labels.tasks')</strong></a>
+                                <li><a href="{{ url('/translator/tasks/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks')</strong></a></li>
+                            @endif
                             <li><a href="{{ url('/users/words') }}"><strong>@lang('labels.myWords')</strong></a>
                             <li><a href="{{ url('/users/collect') }}"><strong>@lang('labels.myCollect')</strong></a>
                             <li><a href="{{ url('/logout') }}"><strong>@lang('labels.disconnect')</strong></a>

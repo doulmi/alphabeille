@@ -325,5 +325,19 @@ return [
     'frSrc' => 'French Subtitle',
     'zhSrc' => 'Chinese Subtitle',
     'published' => 'Publié',
+    'admin' => 'Administrateur',
+    //0: listen => 1: check fr => 2: need translate => 3: on translate => 4: chech zh => 5：done => 6 : publish
+    'state' => 'Status',
+    'videos.state' => 'All',
+    'videos.state0' => 'listen',
+    'videos.state1' => 'check fr',
+    'videos.state2' => 'translate',
+    'videos.state3' => 'translating',
+    'videos.state4' => 'check zh',
+    'videos.state5' => 'Ok',
+    'videos.state6' => 'published',
+    'tasks' => 'All tasks',
+    'myTasks' => 'My tasks',
+    'translator' => 'Translator',
 ];
 

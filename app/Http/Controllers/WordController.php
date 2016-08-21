@@ -101,6 +101,11 @@ class WordController extends Controller
             $word = Word::where('word', $data[1] . 'ir')->first();
         }
 
+        //eaux复数
+        if (!$word && ends_with($src, 'x')) {
+            $word = Word::where('word', substr($src, 0, -1))->first();
+        }
+
         //去掉accent
         if( !$word ) {
             $word = Word::where('word', str_slug($src))->first();

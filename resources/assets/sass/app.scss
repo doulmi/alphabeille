@@ -1269,6 +1269,17 @@ body {
   margin-top: 10px;
 }
 
+.md-editor>textarea {
+  font-size: 16px;
+}
+.translate-content {
+  height: 270px;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+  margin-top: 10px;
+}
+
 .prePage {
   position: fixed;
   left: 1%;
@@ -4142,4 +4153,10 @@ $seek-transition-time: 0.3s;
   }
 }
 
+.red {
+  color : red;
+}
 
+.green {
+  color : green;
+}

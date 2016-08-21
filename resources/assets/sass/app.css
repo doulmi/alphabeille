@@ -1003,6 +1003,16 @@ body {
   overflow: auto;
   margin-top: 10px; }
 
+.md-editor > textarea {
+  font-size: 16px; }
+
+.translate-content {
+  height: 270px;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+  margin-top: 10px; }
+
 .prePage {
   position: fixed;
   left: 1%;
@@ -3239,5 +3249,10 @@ body {
   .button-frilles {
     margin-left: calc(50% - 35px);
     margin-top: 20px; } }
+.red {
+  color: red; }
+
+.green {
+  color: green; }
 
 /*# sourceMappingURL=app.css.map */

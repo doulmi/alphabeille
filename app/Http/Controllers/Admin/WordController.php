@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
 use TomLingham\Searchy\Facades\Searchy;
 
 class WordController extends Controller
@@ -49,7 +50,12 @@ class WordController extends Controller
     public function store(Request $request)
     {
         Word::create($request->all());
-        return redirect('admin/words');
+        $prev = redirect()->back()->getTargetUrl();
+        if(str_contains($prev, 'unknown')) {
+            return redirect($prev);
+        } else {
+            return redirect('admin/words');
+        }
     }
 
     /**

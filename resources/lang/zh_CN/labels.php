@@ -319,8 +319,29 @@ return [
     'videosNoDesc' => '无描述视频',
     'videosNoZh' => '无中文翻译视频',
     'allVideos' => '所有视频',
-    'points' => '断点'
+    'points' => '断点',
 
+    'admin' => '后台',
+    'allLevel' => '所有等级',
+    //0: listen => 1: check fr => 2: need translate => 3: on translate => 4: chech zh => 5：done => 6 : publish
+    'state' => '状态',
+    'videos.state' => '所有视频',
+    'videos.state0' => '待听写',
+    'videos.state1' => '待法语校对',
+    'videos.state2' => '待翻译',
+    'videos.state3' => '翻译中',
+    'videos.state4' => '待翻译校对',
+    'videos.state5' => 'Ok',
+    'videos.state6' => '已发布',
+    'tasks' => '所有待领养任务',
+    'myTasks' => '我领养的任务',
+    'translator' => '译者',
+    'beTranslator' => '领取',
+    'hasTranslator' => '有人抢先一步，已经领取这个任务啦，换一个吧 ;p',
+    'successSubmit' => '成功提交字幕',
+    'submitForce' => '一键提交',
+    'submitted' => '已提交',
+    'onTranslate' => '翻译中',
 ];
 
 
