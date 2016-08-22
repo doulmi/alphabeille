@@ -25,7 +25,6 @@ class TaskController extends Controller
         }
         if($request->has('level')) {
             $builder->where('level', $request->get('level'));
-
         }
         $videos = $builder->paginate(50);
 
@@ -93,6 +92,7 @@ class TaskController extends Controller
             }
         } else {
             $readable->listener_id = $user->id;
+            $readable->state = 7;
             $readable->save();
 
             $task = Task::create([

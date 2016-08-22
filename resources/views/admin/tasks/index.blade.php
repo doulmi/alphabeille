@@ -8,28 +8,47 @@
             {{Session::get('success')}}
         </div>
     @endif
-    <div class="btn-group">
+    <div class="">
         <div class="btn-group">
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                aria-haspopup="true"
                aria-expanded="false">
-                @lang('labels.videos.state' . Request::get('state', ''))
+                @lang('labels.videos.state' . Request::get('type', ''))
                 <span class="caret"></span>
             </a>
 
             {{--类型--}}
             <ul class="dropdown-menu">
+                <li><a href="{{url('admin/tasks' . (Request::has('state') ? '?state=' . Request::get('state') : ''))}}">@lang('labels.tasks.all')</a></li>
                 @foreach($types as $type)
-                <li><a href="{{url('admin/tasks')}}">所有</a> </li>
+                    <li>
+                        <a href="{{url('admin/tasks?type=' . $type . (Request::has('state') ? '&state=' . Request::get('state') : ''))}}">@lang('labels.videos.state'.$type)</a>
+                    </li>
                 @endforeach
             </ul>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                @lang('labels.tasks.state' . Request::get('state', ''))
+                <span class="caret"></span>
+            </a>
 
             {{--完成度--}}
             <ul class="dropdown-menu">
-                <li><a href="{{url('admin/tasks')}}">所有状态</a> </li>
-                <li><a href="{{url('admin/tasks')}}">未完成</a> </li>
-                <li><a href="{{url('admin/tasks')}}">已确认</a> </li>
-                <li><a href="{{url('admin/tasks')}}">待确认</a> </li>
+                <li><a href="{{url('admin/tasks' . (Request::has('type') ? '?type=' . Request::get('type') : ''))}}">所有状态</a>
+                </li>
+                <li>
+                    <a href="{{url('admin/tasks?state=0' . (Request::has('type') ? '&type=' . Request::get('type') : ''))}}">未完成</a>
+                </li>
+
+                <li>
+                    <a href="{{url('admin/tasks?state=1' . (Request::has('type') ? '&type=' . Request::get('type') : ''))}}">待确认</a>
+                </li>
+                <li>
+                    <a href="{{url('admin/tasks?state=2' . (Request::has('type') ? '&type=' . Request::get('type') : ''))}}">已确认</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -110,7 +129,7 @@
             });
         };
 
-        var changeState = function(videoId, level, text) {
+        var changeState = function (videoId, level, text) {
             $('#videoState-' + videoId).text(text);
             $.get('{{ url('/admin/videos/changeState/') }}' + '/' + videoId + '/' + level, function (response) {
             });

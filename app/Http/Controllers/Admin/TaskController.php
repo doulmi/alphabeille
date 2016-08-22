@@ -18,17 +18,25 @@ class TaskController extends Controller
     public function index(Request $request) {
         $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->join('users', 'users.id', '=', 'tasks.user_id');
 
+        $types = [7, 3];
+        $reverse = [
+            3 => 2,
+            7 => 1,
+        ];
         if($request->has('state')) {
-            $builder->where('videos.state', $request->get('state'));
+            $state = $request->get('state');
+            switch($state) {
+                case 0 : $builder->where('tasks.is_submit', 0); break;
+                case 1 : $builder->where('tasks.is_submit', 1); break;
+                case 2 : $builder->where('videos.state', 5); break;
+            }
         }
-
         if($request->has('type')) {
-//            $builder->where('tasks.')
+            $builder->where('tasks.type', $reverse[$request->get('type')]);
         }
 
-        $types = [0, 1, 2, 3];
 
-        $videos = $builder->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name'])->paginate(50);
+        $videos = $builder->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->paginate(50);
 
         return view('admin.tasks.index', compact('videos', 'types'));
     }
