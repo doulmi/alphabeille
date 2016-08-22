@@ -187,7 +187,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('tasks/{task_id}/submit', 'Admin\TaskController@submit');
     Route::post('tasks/{task_id}/submitForce', 'Admin\TaskController@submitForce');
 
+
     //utils
+    Route::get('/saveView', 'Admin\AdminController@saveView');
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
     Route::get('/updateViews/{from}', 'Admin\AdminController@updateViews');

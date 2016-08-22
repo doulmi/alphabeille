@@ -44,11 +44,6 @@ class Kernel extends ConsoleKernel
                 Redis::set('minitalk:view:' . $minitalk->id, Redis::get('minitalk:view:' . $minitalk->id) + $faker->randomNumber(2));
             }
 
-            $lessons = Lesson::all();
-            foreach ($lessons as $lesson) {
-                Redis::set('lesson:view:' . $lesson->id, Redis::get('lesson:view:' . $lesson->id) + $faker->randomNumber(2));
-            }
-//            $this->saveViews();
             //save views
             $videos = Video::all();
             foreach ($videos as $video) {
@@ -71,20 +66,6 @@ class Kernel extends ConsoleKernel
                 $video->save();
             }
         })->monthly();
-    }
-
-    private function addViews() {
-
-    }
-
-    private function saveLastMonthViews()
-    {
-
-    }
-
-    private function saveViews()
-    {
-
     }
 }
 

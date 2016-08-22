@@ -75,6 +75,14 @@ class AdminController extends Controller
         }
     }
 
+//
+//    public function saveView() {
+//        $videos = Video::all();
+//        foreach ($videos as $video) {
+//            $video->views = Redis::get('video:view:' . $video->id);
+//        }
+//    }
+
     //更新网站内容的观看次数
     public function updateViews($from) {
         $faker = Factory::create();

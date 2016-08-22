@@ -126,8 +126,6 @@ class Helper
                         }
                         $sub->fr = $subFr;
                         $sub->zh = $subZh;
-//                        $fr .= $subFr . '||';
-//                        $zh .= $subZh . '||';
                         $subFr = '';
                         $subZh = '';
                         $state = 1;
@@ -175,12 +173,14 @@ class Helper
             }
         }
         $fr = self::emberedWord($fr);
+        $zh = str_replace(',', '，', $zh);
+        $zh = str_replace('.', '。', $zh);
         return [$fr, $zh, $points];
     }
 
+    //找到对应时间点的字幕
     private static function findCorrespondSub($fr, $zhSubs)
     {
-        //找到对应时间点的字幕
         $possibleSub = '';
         $max = 10000;
         $find = false;
