@@ -66,21 +66,24 @@
                            aria-haspopup="true"
                            aria-expanded="true">
                             <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>
-                            <span @if(Auth::user()->level() > 1)class="vip"@endif>{{Auth::user()->name}}</span>
+                            <?php $level = Auth::user()->level() ?>
+                            <span @if($level > 1)class="vip"@endif>{{Auth::user()->name}}</span>
                             <i class="glyphicon glyphicon-menu-down"></i>
                         </a>
 
                         <ul class="dropdown-menu bullet" role="menu">
-                            @if(Auth::user()->level() > 3)
+                            <li><a href="{{ url('/users/' . Auth::user()->id) }}"><strong>@lang('labels.profile')</strong></a></li>
+                            @if($level > 3)
                                 <li><a href="{{ url('/admin') }}"><strong>@lang('labels.admin')</strong></a>
+                                <li><a href="{{ url('/translator/tasks?type=1') }}"><strong>@lang('labels.tasks.checkFr')</strong></a>
+                                <li><a href="{{ url('/translator/tasks/' . Auth::user()->id . '/type=1') }}"><strong>@lang('labels.myTasks.checkFr')</strong></a></li>
                             @endif
-                            <li>
-                                <a href="{{ url('/users/' . Auth::user()->id) }}"><strong>@lang('labels.profile')</strong></a>
-                            </li>
-                            @if(Auth::user()->level() > 2)
+
+                            @if($level == 3 || $level == 5)
                                 <li><a href="{{ url('/translator/tasks') }}"><strong>@lang('labels.tasks')</strong></a>
                                 <li><a href="{{ url('/translator/tasks/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks')</strong></a></li>
                             @endif
+
                             <li><a href="{{ url('/users/words') }}"><strong>@lang('labels.myWords')</strong></a>
                             <li><a href="{{ url('/users/collect') }}"><strong>@lang('labels.myCollect')</strong></a>
                             <li><a href="{{ url('/logout') }}"><strong>@lang('labels.disconnect')</strong></a>

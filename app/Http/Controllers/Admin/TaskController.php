@@ -16,16 +16,21 @@ use Illuminate\Support\Facades\Session;
 class TaskController extends Controller
 {
     public function index(Request $request) {
-        $all = $request->get('all', '');
         $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->join('users', 'users.id', '=', 'tasks.user_id');
 
-        if($all == '') {
-            $builder->where('videos.state', 4);
+        if($request->has('state')) {
+            $builder->where('videos.state', $request->get('state'));
         }
+
+        if($request->has('type')) {
+//            $builder->where('tasks.')
+        }
+
+        $types = [0, 1, 2, 3];
 
         $videos = $builder->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name'])->paginate(50);
 
-        return view('admin.tasks.index', compact('videos'));
+        return view('admin.tasks.index', compact('videos', 'types'));
     }
 
     public function translate($taskId) {
@@ -70,22 +75,7 @@ class TaskController extends Controller
 
         $video->state = 5;
 
-        $content = str_replace('！', '!', $task->content);
-        $content = str_replace('？', '?', $content);
-        $content = str_replace('  ', ' ', $content);
-        $content = str_replace('‘', '\'', $content);
-        $content = str_replace('’', '\'', $content);
-        $content = str_replace('“', '\'', $content);
-        $content = str_replace('”', '\'', $content);
-        $content = str_replace('"', '\'', $content);
-        $content = str_replace('。', '.', $content);
-        $content = str_replace('，', ',', $content);
-        $content = str_replace('…', '...', $content);
-        $content = str_replace('!', '.', $content);
-        $content = str_replace('\n\n', '\n', $content);
-        $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
-        $content = str_replace('–', '-', $content);
-        $content = str_replace('♪', '', $content);
+        $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
 
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);

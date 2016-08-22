@@ -115,8 +115,10 @@ Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function(
     Route::get('tasks/{user_id}', 'TaskController@show');
     Route::get('tasks/{video_id}/preview', 'TaskController@preview');
     Route::get('tasks/{video_id}/translate', 'TaskController@translate');
+    Route::get('tasks/{video_id}/checkFr', 'TaskController@checkFr');
     Route::post('tasks/{task_id}/save', 'TaskController@save');
     Route::post('tasks/{task_id}/submit', 'TaskController@submit');
+    Route::post('tasks/{task_id}/submitFr', 'TaskController@submitFr');
     Route::post('tasks/{task_id}/submitForce', 'TaskController@submitForce');
 });
 

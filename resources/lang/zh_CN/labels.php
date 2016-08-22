@@ -333,8 +333,10 @@ return [
     'videos.state4' => '待翻译校对',
     'videos.state5' => 'Ok',
     'videos.state6' => '已发布',
-    'tasks' => '所有待领养任务',
-    'myTasks' => '我领养的任务',
+    'tasks' => '所有待领养翻译',
+    'myTasks' => '我领养的翻译',
+    'tasks.checkFr' => '所有待领养校对',
+    'myTasks.checkFr' => '我领养的校对',
     'translator' => '译者',
     'beTranslator' => '领取',
     'hasTranslator' => '有人抢先一步，已经领取这个任务啦，换一个吧 ;p',
@@ -342,6 +344,8 @@ return [
     'submitForce' => '一键提交',
     'submitted' => '已提交',
     'onTranslate' => '翻译中',
+    'submitFr' => '提交法语字幕',
+    'beFrChecker' => '校对法语字幕',
 ];
 
 

@@ -309,10 +309,10 @@ return [
     'oralFormation.keywords' => '法语口语，口语集训，3个月学法语',
     'levels' => 'Niveaux',
     'publishAt' => 'Publié à ',
-    'translate' => '翻译',
-    'verifier' => '校验',
-    'listen' => '听写',
-    'myWords' => '我的单词本',
+    'translate' => 'Traduire',
+    'verifier' => 'Vérifier',
+    'listen' => 'Dictée',
+    'myWords' => 'My Words',
     'addMinitalk' => 'Add Talkshow',
     'keywords' => 'Keywords',
     'publish_at' => 'Publish at',
@@ -339,7 +339,8 @@ return [
     'tasks' => 'All tasks',
     'myTasks' => 'My tasks',
     'translator' => 'Translator',
-
+    'submitFr' => 'Submit french subs',
+    'beFrChecker' => 'Vérifier fr',
 
 ];
 

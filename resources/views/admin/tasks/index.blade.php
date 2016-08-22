@@ -13,11 +13,22 @@
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                aria-haspopup="true"
                aria-expanded="false">
-                {{Request::has('all') ? '所有' : '待确认的'}}
+                @lang('labels.videos.state' . Request::get('state', ''))
                 <span class="caret"></span>
             </a>
+
+            {{--类型--}}
             <ul class="dropdown-menu">
-                <li><a href="{{url('admin/tasks?all=all')}}">所有</a> </li>
+                @foreach($types as $type)
+                <li><a href="{{url('admin/tasks')}}">所有</a> </li>
+                @endforeach
+            </ul>
+
+            {{--完成度--}}
+            <ul class="dropdown-menu">
+                <li><a href="{{url('admin/tasks')}}">所有状态</a> </li>
+                <li><a href="{{url('admin/tasks')}}">未完成</a> </li>
+                <li><a href="{{url('admin/tasks')}}">已确认</a> </li>
                 <li><a href="{{url('admin/tasks')}}">待确认</a> </li>
             </ul>
         </div>

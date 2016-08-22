@@ -362,29 +362,24 @@ class Helper
         $string = str_replace("##_128", "€", $string);
         return $string;
     }
-//    public static function parsePointLink($src) {
-//        $root = HtmlDomParser::str_get_html($src);
-//
-//        $content = '<table><tbody>';
-//
-//        $i = 0;
-//
-//        foreach ($root->childNodes() as $childNode) {
-//            $tag = $childNode->tag;
-//
-//            if (($tag == 'p' || $tag == 'blockquote') && !$childNode->find('img')) {
-//                $content .= '<tr class='align-top'><td class='width40'><a href='#' . $i . '' @click.stop.prevent='seekTo(' . $i . ')' class='seek-btn'></a></td><td>' . $childNode->outertext . '</td></tr>';
-//            } else {
-//                $content .= '<tr><td></td><td>' . $childNode->outertext . '</td></tr>';
-//            }
-//            $i++;
-//            if ($tag == 'p') {
-//
-//            }
-//        }
-//
-//        $content .= '</tbody></table>';
-//
-//        return $content;
-//    }
+
+    public static function filterSpecialChars($content) {
+        $content = str_replace('！', '!', $content);
+        $content = str_replace('？', '?', $content);
+        $content = str_replace('  ', ' ', $content);
+        $content = str_replace('‘', '\'', $content);
+        $content = str_replace('’', '\'', $content);
+        $content = str_replace('“', '\'', $content);
+        $content = str_replace('”', '\'', $content);
+        $content = str_replace('"', '\'', $content);
+        $content = str_replace('。', '.', $content);
+        $content = str_replace('，', ',', $content);
+        $content = str_replace('…', '...', $content);
+        $content = str_replace('!', '.', $content);
+        $content = str_replace('\n\n', '\n', $content);
+        $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
+        $content = str_replace('–', '-', $content);
+        $content = str_replace('♪', '', $content);
+        return $content;
+    }
 }

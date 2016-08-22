@@ -44,12 +44,23 @@
                 </div>
 
                 <div class="row" style="margin-top : 20px;">
-                    @if(Auth::user()->level() > 2)
-                    <a href="#" onclick="submitForce()" style="margin-left : 10px" class="btn btn-success pull-right">@lang('labels.submitForce')</a>
+                    <?php $level = Auth::user()->level(); ?>
+                    @if($level == 5)
+                        <a href="#" onclick="submitForm('submitForce')" style="margin-left : 10px"
+                           class="btn btn-success pull-right">@lang('labels.submitForce')</a>
                     @endif
-                    <a href="#" onclick="submitForm()" style="margin-left : 10px;"
-                       class="btn btn-primary pull-right">@lang('labels.submit')</a>
-                    <a href="#" onclick="save()" class="btn btn-success pull-right">@lang('labels.save')</a>
+
+                    @if($level >= 4)
+                        <a href="#" onclick="submitForm('submitFr')" style="margin-left : 10px"
+                           class="btn btn-success pull-right">@lang('labels.submitFr')</a>
+                    @endif
+
+                    @if($level != 4)
+                        <a href="#" onclick="submitForm('submit')" style="margin-left : 10px;"
+                           @endif
+                           class="btn btn-primary pull-right">@lang('labels.submit')</a>
+                        <a href="#" onclick="submitForm('save')"
+                           class="btn btn-success pull-right">@lang('labels.save')</a>
                 </div>
             </form>
         </div>
@@ -66,21 +77,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
     <script>
-        function save() {
-            var form = $('#form');
-            form.attr('action', "{{url('translator/tasks/' . $task->id . '/save')}}");
-            form.submit();
-        }
 
-        function submitForm() {
+        function submitForm(type) {
             var form = $('#form');
-            form.attr('action', "{{url('translator/tasks/' . $task->id . '/submit')}}");
-            form.submit();
-        }
-
-        function submitForce() {
-            var form = $('#form');
-            form.attr('action', "{{url('translator/tasks/' . $task->id . '/submitForce')}}");
+            form.attr('action', "{{url('translator/tasks/' . $task->id )}}" + "/" + type);
             form.submit();
         }
 

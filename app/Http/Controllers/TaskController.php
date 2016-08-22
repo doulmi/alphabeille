@@ -14,17 +14,38 @@ use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $levels = ['beginner', 'intermediate', 'advanced'];
-        $videos = Video::where('state', 2)->paginate(50);
+
+        if($request->has('type')) {
+            $builder = Video::where('state', 1);
+        } else {
+            $builder = Video::where('state', 2);
+        }
+        if($request->has('level')) {
+            $builder->where('level', $request->get('level'));
+
+        }
+        $videos = $builder->paginate(50);
 
         return view('tasks.index', compact('videos', 'levels'));
     }
 
-    public function show($userId)
+    public function show(Request $request, $userId)
     {
-        $videos = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->where('tasks.user_id', $userId)->orderBy('tasks.id')->orderBy('videos.state')->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit'])->paginate(50);
+        $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->where('tasks.user_id', $userId);
+        if ($request->has('type')) {
+            //0: listen, 1: checkfr, 2: translate, 3: checkzh
+            $type = $request->get('type');
+            if(!is_numeric($type) || $type < 0 || $type > 4) {
+                abort(404);
+            }
+            $builder->where('tasks.type', $type);
+        } else {
+            $builder->where('tasks.type', '2');
+        }
+        $videos = $builder->orderBy('tasks.id')->orderBy('videos.state')->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit'])->paginate(50);
 
         return view('tasks.myTasks', compact('videos'));
     }
@@ -53,6 +74,31 @@ class TaskController extends Controller
             $task = Task::create([
                 'video_id' => $videoId,
                 'user_id' => $user->id,
+                'type' => 2,
+                'content' => $readable->content,
+            ]);
+        }
+        return view('tasks.translate', compact('readable', 'task'));
+    }
+
+    public function checkFr($videoId)
+    {
+        $readable = Video::findOrFail($videoId);
+        $user = Auth::user();
+        $task = Task::where('video_id', $videoId)->first();
+        if($task) {
+            if ($task->user_id != $user->id) {
+                Session::flash('hasListener', 'hasListener');
+                return redirect('translator/tasks?type=1');
+            }
+        } else {
+            $readable->listener_id = $user->id;
+            $readable->save();
+
+            $task = Task::create([
+                'video_id' => $videoId,
+                'user_id' => $user->id,
+                'type' => 1,
                 'content' => $readable->content,
             ]);
         }
@@ -84,6 +130,24 @@ class TaskController extends Controller
         return redirect('translator/tasks');
     }
 
+    public function submitFr(Request $request, $taskId)
+    {
+        $task = Task::findOrFail($taskId);
+        $task->content = $request->get('content', '');
+        $task->is_submit = true;
+        $task->save();
+
+        $video = $task->video;
+        $video->state = 2;
+        $content = Helper::filterSpecialChars($task->content);
+        $video->content = $content;
+        list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
+        $video->save();
+
+        Session::flash('successSubmit', '1');
+        return redirect('translator/tasks?type=fr');
+    }
+
     public function submitForce(Request $request, $taskId)
     {
         $task = Task::findOrFail($taskId);
@@ -92,25 +156,9 @@ class TaskController extends Controller
         $task->save();
 
         $video = $task->video;
-
         $video->state = 5;
 
-        $content = str_replace('！', '!', $task->content);
-        $content = str_replace('？', '?', $content);
-        $content = str_replace('  ', ' ', $content);
-        $content = str_replace('‘', '\'', $content);
-        $content = str_replace('’', '\'', $content);
-        $content = str_replace('“', '\'', $content);
-        $content = str_replace('”', '\'', $content);
-        $content = str_replace('"', '\'', $content);
-        $content = str_replace('。', '.', $content);
-        $content = str_replace('，', ',', $content);
-        $content = str_replace('…', '...', $content);
-        $content = str_replace('!', '.', $content);
-        $content = str_replace('\n\n', '\n', $content);
-        $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
-        $content = str_replace('–', '-', $content);
-        $content = str_replace('♪', '', $content);
+        $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
 
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);

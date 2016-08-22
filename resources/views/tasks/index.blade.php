@@ -3,10 +3,7 @@
 @section('title')@lang('labels.tasks')@endsection
 
 @section('content')
-
     <div class="">
-
-
         <div class="Card-Collection">
             <div class="Header"></div>
             @if(Session::has('hasTranslator'))
@@ -35,8 +32,9 @@
                         </button>
                         <ul class="dropdown-menu">
                             @foreach($levels as $level)
-                            <li><a href="{{url('translator/tasks?level=' . $level)}}">@lang('labels.' . $level)</a></li>
+                            <li><a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') . '&' : '') . 'level=' . $level)}}">@lang('labels.' . $level)</a></li>
                             @endforeach
+                            <li><a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') : ''))}}">@lang('labels.allLevel')</a></li>
                         </ul>
                     </div>
 
@@ -54,10 +52,15 @@
                                 <th scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></th>
                                 <td><a href="{{url('videos/' . $video->id)}}" TARGET="_blank">{{$video->title}}</a></td>
                                 <td>
+                                    @if(Auth::user()->level() >= 4 && Request::has('type'))
+                                    <a class="btn btn-info"
+                                       href="{{url('translator/tasks/' . $video->id .'/checkFr')}}">@lang('labels.beFrChecker')</a>
+                                    @else
                                     <a class="btn btn-info"
                                        href="{{url('translator/tasks/' . $video->id .'/preview')}}">@lang('labels.preview')</a>
                                     <a class="btn btn-info"
                                        href="{{url('translator/tasks/' . $video->id .'/translate')}}">@lang('labels.beTranslator')</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
