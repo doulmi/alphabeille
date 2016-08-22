@@ -66,10 +66,30 @@ class TaskController extends Controller
         $task->save();
 
         $video = $task->video;
+
         $video->state = 5;
+
+        $content = str_replace('！', '!', $task->content);
+        $content = str_replace('？', '?', $content);
+        $content = str_replace('  ', ' ', $content);
+        $content = str_replace('‘', '\'', $content);
+        $content = str_replace('’', '\'', $content);
+        $content = str_replace('“', '\'', $content);
+        $content = str_replace('”', '\'', $content);
+        $content = str_replace('"', '\'', $content);
+        $content = str_replace('。', '.', $content);
+        $content = str_replace('，', ',', $content);
+        $content = str_replace('…', '...', $content);
+        $content = str_replace('!', '.', $content);
+        $content = str_replace('\n\n', '\n', $content);
+        $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
+        $content = str_replace('–', '-', $content);
+        $content = str_replace('♪', '', $content);
+        $video->content = $content;
+
+        list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
         $video->save();
 
         Session::flash('successSubmit', '1');
-        return redirect('admin/tasks');
     }
 }
