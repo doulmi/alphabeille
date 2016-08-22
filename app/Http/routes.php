@@ -110,7 +110,7 @@ Route::get('github/callback', 'Auth\AuthController@githubCallback');
 Route::get('test', 'PostController@test');
 Route::get('words', 'WordController@index');
 
-Route::group(['prefix' => 'translator', 'middleware' => 'admin'], function() {
+Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function() {
     Route::get('tasks', 'TaskController@index');
     Route::get('tasks/{user_id}', 'TaskController@show');
     Route::get('tasks/{video_id}/preview', 'TaskController@preview');
