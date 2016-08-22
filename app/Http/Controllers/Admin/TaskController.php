@@ -92,5 +92,6 @@ class TaskController extends Controller
         $video->save();
 
         Session::flash('successSubmit', '1');
+        return redirect('admin/tasks');
     }
 }
