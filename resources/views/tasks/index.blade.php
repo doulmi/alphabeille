@@ -76,7 +76,7 @@
                         </tbody>
                     </table>
                     @if(count($videos) < 8)
-                        @for($i = 0 ; $i< 8 - count($video); $i++)
+                        @for($i = 0 ; $i< 8 - count($videos); $i++)
                             <div class="Header"></div>
                         @endfor
                     @endif

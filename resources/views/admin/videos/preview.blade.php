@@ -10,7 +10,6 @@
 @section('content')
     <div class="container-fluid grey">
         <div class="Header"></div>
-        <?php $canRead = $readable->free || (Auth::user() && Auth::user()->level() > 1) ?>
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7">
@@ -24,10 +23,8 @@
                     </div>
                     <div class="subtitle">
                         <div class="center">
-                            @if($canRead)
                                 <p v-show="fr">@{{{currentFr}}}</p>
                                 <p v-show="zh">@{{{currentZh}}}</p>
-                            @endif
                         </div>
                         <div class="control-panel">
                             <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
@@ -43,7 +40,6 @@
                 </div>
 
                 <div class="col-md-5">
-                    @if($canRead)
                         <div class="video-content grey">
                             <table>
                                 <tbody>
@@ -60,23 +56,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{--<div class="notes">--}}
-                        {{--<div class="form-group">--}}
-                        {{--<div class="input-group">--}}
-                        {{--<input type="text" class="note-input form-control" placeholder="@lang('labels.addNote')" v-model="newNote">--}}
-                        {{--<a href="#" @click.stop.prevent="saveNote" class="input-group-addon navbar-note-btn"><span class="glyphicon glyphicon glyphicon-plus"></span></a>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<table  class="table table-striped">--}}
-                        {{--<tr v-for="note in notes">--}}
-                        {{--<td>@{{ $index }}</td>--}}
-                        {{--<td>@{{{note}}}</td> </tr>--}}
-                        {{--</table>--}}
-                        {{--</div>--}}
-                    @else
-                        @include('blockContent')
-                    @endif
                 </div>
             </div>
         </div>
@@ -87,7 +66,6 @@
     </div>
 
     <div class="container video-show">
-        @if($canRead)
             <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
             <div class="row">
                 <div class="col-md-8">
@@ -97,7 +75,6 @@
 
                 </div>
             </div>
-        @endif
 
         <div class="Header"></div>
     </div>
@@ -149,11 +126,8 @@
                 this.points = pointStr.split(',');
                 this.pointsCount = this.points.length;
 
-                @if($canRead)
                         this.linesFr = "{!!$readable->parsed_content!!}".split('||');
                         this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
-                console.log(this.linesFr);
-                @endif
             },
 
             methods: {

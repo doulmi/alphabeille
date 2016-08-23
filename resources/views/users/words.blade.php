@@ -29,15 +29,15 @@
                                 @foreach($words as $i => $word)
                                     <tr id="word-{{$word->id}}">
                                         <td>{{$i + 1}}</td>
-                                        <td class="word-text">{!! $word->word->word !!}</td>
+                                        <td class="word-text">{!! $word->word !!}</td>
                                         <td>{{$word->times}}</td>
                                         <td id="td-{{$i}}">
-                                            @if(strlen($word->word->explication) > 400)
-                                                {!! substr($word->word->explication, 0, 400) !!}
+                                            @if(strlen($word->explication) > 400)
+                                                {!! substr($word->explication, 0, 400) !!}
                                                 <br/>
-                                                <button class="btn-link" onclick='more("{{$i}}", "{{str_replace("\r\n", '', $word->word->explication)}}")'>@lang('labels.more')</button>
+                                                <button class="btn-link" onclick='more("{{$i}}", "{{str_replace("\r\n", '', $word->explication)}}")'>@lang('labels.more')</button>
                                             @else
-                                                {!! $word->word->explication !!}
+                                                {!! $word->explication !!}
                                             @endif
                                         </td>
                                         <td><i onclick="removeWord({{$word->id}})"

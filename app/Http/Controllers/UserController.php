@@ -7,6 +7,7 @@ use App\Lesson;
 use App\Minitalk;
 use App\User;
 use App\Video;
+use App\Word;
 use App\WordFavorite;
 use Illuminate\Http\Request;
 
@@ -131,8 +132,7 @@ class UserController extends Controller
 
     public function words() {
         $user = Auth::user();
-//        $words = WordFavorite::with('word')->where('user_id', $user->id)->whereDate('updated_at', '>=', Carbon::now()->startOfMonth())->latest()->get();
-        $words = WordFavorite::with('word')->where('user_id', $user->id)->latest()->paginate(50);
+        $words = Word::join('word_favorites', 'words.id', '=', 'word_favorites.word_id')->where('user_id', $user->id)->latest()->paginate(50, ['word_favorites.created_at', 'word_favorites.times', 'words.word', 'words.explication', 'words.id', 'word_favorites.updated_at']);
 
         $wordss = [];
         foreach($words as $word) {
