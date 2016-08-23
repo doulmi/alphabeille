@@ -13,16 +13,26 @@
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                aria-haspopup="true"
                aria-expanded="false">
-                @lang('labels.videos.state' . Request::get('type', ''))
+                @if(Request::has('type'))
+                    @lang('labels.videos.state' . Request::get('type', ''))
+                @else
+                    @lang('labels.tasks.all')
+                @endif
                 <span class="caret"></span>
             </a>
 
             {{--类型--}}
             <ul class="dropdown-menu">
-                <li><a href="{{url('admin/tasks' . (Request::has('state') ? '?state=' . Request::get('state') : ''))}}">@lang('labels.tasks.all')</a></li>
+                <?php
+                $typeParam =  Request::has('type') ? 'type=' . Request::get('type') : '';
+                $userParam = Request::has('user') ? 'user=' .Request::get('user') : '';
+                $stateParam = Request::get('state') ? 'state=' . Request::get('state') : '';
+                ?>
+
+                <li><a href="{{url('admin/tasks?' . $stateParam)}}">@lang('labels.tasks.all')</a></li>
                 @foreach($types as $type)
                     <li>
-                        <a href="{{url('admin/tasks?type=' . $type . (Request::has('state') ? '&state=' . Request::get('state') : ''))}}">@lang('labels.videos.state'.$type)</a>
+                        <a href="{{url('admin/tasks?type=' . $type . '&' . $stateParam)}}">@lang('labels.videos.state' . $type)</a>
                     </li>
                 @endforeach
             </ul>
@@ -37,18 +47,26 @@
 
             {{--完成度--}}
             <ul class="dropdown-menu">
-                <li><a href="{{url('admin/tasks' . (Request::has('type') ? '?type=' . Request::get('type') : ''))}}">所有状态</a>
-                </li>
-                <li>
-                    <a href="{{url('admin/tasks?state=0' . (Request::has('type') ? '&type=' . Request::get('type') : ''))}}">未完成</a>
-                </li>
+                <li><a href="{{url('admin/tasks?' . $typeParam . '&' . $userParam)}}">所有状态</a></li>
+                <li><a href="{{url('admin/tasks?state=0&' . $typeParam . '&' . $userParam)}}">未完成</a></li>
+                <li><a href="{{url('admin/tasks?state=1&' . $typeParam . '&' . $userParam)}}">待确认</a></li>
+                <li><a href="{{url('admin/tasks?state=2&' . $typeParam . '&' . $userParam)}}">已确认</a></li>
+            </ul>
+        </div>
 
-                <li>
-                    <a href="{{url('admin/tasks?state=1' . (Request::has('type') ? '&type=' . Request::get('type') : ''))}}">待确认</a>
-                </li>
-                <li>
-                    <a href="{{url('admin/tasks?state=2' . (Request::has('type') ? '&type=' . Request::get('type') : ''))}}">已确认</a>
-                </li>
+        <div class="btn-group">
+            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                {{Request::get('name', 'ALL')}}
+                <span class="caret"></span>
+            </a>
+
+            {{--完成度--}}
+            <ul class="dropdown-menu">
+                @foreach($translators as $translator)
+                    <li> <a href="{{url('admin/tasks?user=' . $translator->id . '&' . $typeParam . '&' . $stateParam)}}">{{$translator->name}}</a> </li>
+                @endforeach
             </ul>
         </div>
     </div>
@@ -68,9 +86,10 @@
                 </tr>
                 </thead>
                 <tbody id="tbody">
-                @foreach($videos as $video)
+                @foreach($videos as $i => $video)
                     <tr id="row-{{$video->video_id}}">
-                        <td scope="row">{{$video->video_id}}</td>
+                        {{--<td scope="row">{{$video->video_id}}</td>--}}
+                        <td scope="row">{{$i+1}}</td>
                         <td>@lang('labels.videos.state' . $video->state)</td>
                         <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                         <td><a href="{{url('videos/' . $video->video_id)}}" TARGET="_blank">{{$video->title}}</a></td>

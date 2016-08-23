@@ -16,7 +16,7 @@ class MustBeTranslator
     public function handle($request, Closure $next)
     {
         $user = $request->user();
-        if($user && ($user->level() >= 3)) {
+        if($user && ($user->can('videos.translate') || $user->can('videos.listen'))) {
             return $next($request);
         }
         abort(404);

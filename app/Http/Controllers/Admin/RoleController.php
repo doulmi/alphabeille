@@ -77,7 +77,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->update($request->all());
+        Session::flash('success', 'updateSuccess');
+        return redirect('admin/roles');
     }
 
     /**

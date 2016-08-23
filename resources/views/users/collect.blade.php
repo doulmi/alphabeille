@@ -13,6 +13,13 @@
             <div class="Card-Collection search-result ">
                 @lang('labels.nothingCollect')
             </div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
         @else
             @if( count($minitalks) != 0)
                 <h2 class="Heading-Fancy row">
@@ -45,6 +52,12 @@
                         </h2>
                     @endif
                 </div>
+
+                @if(count($minitalks) == 0)
+                    <div class="Header"></div>
+                    <div class="Header"></div>
+                    <div class="Header"></div>
+                @endif
             @endif
         @endif
     </div>

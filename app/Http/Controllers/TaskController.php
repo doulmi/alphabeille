@@ -26,7 +26,7 @@ class TaskController extends Controller
         if($request->has('level')) {
             $builder->where('level', $request->get('level'));
         }
-        $videos = $builder->paginate(50);
+        $videos = $builder->select(['slug', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50);
 
         return view('tasks.index', compact('videos', 'levels'));
     }
@@ -44,7 +44,7 @@ class TaskController extends Controller
         } else {
             $builder->where('tasks.type', '2');
         }
-        $videos = $builder->orderBy('tasks.id')->orderBy('videos.state')->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit'])->paginate(50);
+        $videos = $builder->orderBy('videos.state')->orderBy('tasks.id')->select(['tasks.id', 'videos.slug', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit'])->paginate(50);
 
         return view('tasks.myTasks', compact('videos'));
     }
@@ -145,7 +145,7 @@ class TaskController extends Controller
         $video->save();
 
         Session::flash('successSubmit', '1');
-        return redirect('translator/tasks?type=fr');
+        return redirect('translator/tasks?type=1');
     }
 
     public function submitForce(Request $request, $taskId)

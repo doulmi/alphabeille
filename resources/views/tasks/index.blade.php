@@ -32,15 +32,20 @@
                         </button>
                         <ul class="dropdown-menu">
                             @foreach($levels as $level)
-                            <li><a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') . '&' : '') . 'level=' . $level)}}">@lang('labels.' . $level)</a></li>
+                                <li>
+                                    <a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') . '&' : '') . 'level=' . $level)}}">@lang('labels.' . $level)</a>
+                                </li>
                             @endforeach
-                            <li><a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') : ''))}}">@lang('labels.allLevel')</a></li>
+                            <li>
+                                <a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') : ''))}}">@lang('labels.allLevel')</a>
+                            </li>
                         </ul>
                     </div>
 
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>@lang('labels.level')</th>
                             <th>@lang('labels.avatar')</th>
                             <th>@lang('labels.title')</th>
                             <th>@lang('labels.actions')</th>
@@ -49,23 +54,32 @@
                         <tbody id="tbody">
                         @foreach($videos as $video)
                             <tr id="row-{{$video->id}}">
-                                <th scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></th>
-                                <td><a href="{{url('videos/' . $video->id)}}" TARGET="_blank">{{$video->title}}</a></td>
+                                <td>@lang('labels.' . $video->level)</td>
+                                <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
+                                <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a>
+                                </td>
                                 <td>
-                                    @if(Auth::user()->level() >= 4 && Request::has('type'))
-                                    <a class="btn btn-info"
-                                       href="{{url('translator/tasks/' . $video->id .'/checkFr')}}">@lang('labels.beFrChecker')</a>
-                                    @else
-                                    <a class="btn btn-info"
-                                       href="{{url('translator/tasks/' . $video->id .'/preview')}}">@lang('labels.preview')</a>
-                                    <a class="btn btn-info"
-                                       href="{{url('translator/tasks/' . $video->id .'/translate')}}">@lang('labels.beTranslator')</a>
+                                    @if(Auth::user()->can('videos.listen') && Request::has('type'))
+                                        <a class="btn btn-info"
+                                           href="{{url('translator/tasks/' . $video->id .'/checkFr')}}">@lang('labels.beFrChecker')</a>
+                                    @endif
+                                    @if(Auth::user()->can('videos.translate') && !Request::has('type'))
+                                        <a class="btn btn-info"
+                                           href="{{url('translator/tasks/' . $video->id .'/preview')}}">@lang('labels.preview')</a>
+                                        <a class="btn btn-info"
+                                           href="{{url('translator/tasks/' . $video->id .'/translate')}}">@lang('labels.beTranslator')</a>
                                     @endif
                                 </td>
                             </tr>
                         @endforeach
+
                         </tbody>
                     </table>
+                    @if(count($videos) < 8)
+                        @for($i = 0 ; $i< 8 - count($video); $i++)
+                            <div class="Header"></div>
+                        @endfor
+                    @endif
                 </div>
                 <div class="center">
                     {!! $videos->links() !!}

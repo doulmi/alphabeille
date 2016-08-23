@@ -10,7 +10,8 @@
 @section('content')
     <div class="container-fluid grey">
         <div class="Header"></div>
-        <?php $canRead = $readable->free || (Auth::user() && Auth::user()->level() > 1) ?>
+        {{-- 1.免费 or 2.有权限 or 3.自己翻译的 --}}
+        <?php $canRead = $readable->free || (Auth::user() && Auth::user()->can('videos.subs')) || $readable->translator_id == Auth::user()->id ?>
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7" id="videoPanel">

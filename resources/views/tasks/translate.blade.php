@@ -44,18 +44,17 @@
                 </div>
 
                 <div class="row" style="margin-top : 20px;">
-                    <?php $level = Auth::user()->level(); ?>
-                    @if($level == 5)
+                    @if(Auth::user()->isAdmin())
                         <a href="#" onclick="submitForm('submitForce')" style="margin-left : 10px"
                            class="btn btn-success pull-right">@lang('labels.submitForce')</a>
                     @endif
 
-                    @if($level >= 4)
+                    @if(Auth::user()->can('videos.listen'))
                         <a href="#" onclick="submitForm('submitFr')" style="margin-left : 10px"
                            class="btn btn-success pull-right">@lang('labels.submitFr')</a>
                     @endif
 
-                    @if($level != 4)
+                    @if(Auth::user()->can('videos.translate'))
                         <a href="#" onclick="submitForm('submit')" style="margin-left : 10px;"
                            @endif
                            class="btn btn-primary pull-right">@lang('labels.submit')</a>

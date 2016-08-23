@@ -66,20 +66,21 @@
                            aria-haspopup="true"
                            aria-expanded="true">
                             <img class='avatar avatar-small' src="{{Auth::user()->avatar}}"/>
-                            <?php $level = Auth::user()->level() ?>
-                            <span @if($level > 1)class="vip"@endif>{{Auth::user()->name}}</span>
+                            <span @if(Auth::user()->hasRole('vip')) class="vip"@endif>{{Auth::user()->name}}</span>
                             <i class="glyphicon glyphicon-menu-down"></i>
                         </a>
 
                         <ul class="dropdown-menu bullet" role="menu">
                             <li><a href="{{ url('/users/' . Auth::user()->id) }}"><strong>@lang('labels.profile')</strong></a></li>
-                            @if($level > 3)
+                            @if(Auth::user()->can('admin'))
                                 <li><a href="{{ url('/admin') }}"><strong>@lang('labels.admin')</strong></a>
+                            @endif
+                            @if(Auth::user()->can('videos.listen'))
                                 <li><a href="{{ url('/translator/tasks?type=1') }}"><strong>@lang('labels.tasks.checkFr')</strong></a>
-                                <li><a href="{{ url('/translator/tasks/' . Auth::user()->id . '/type=1') }}"><strong>@lang('labels.myTasks.checkFr')</strong></a></li>
+                                <li><a href="{{ url('/translator/tasks/' . Auth::user()->id . '?type=1') }}"><strong>@lang('labels.myTasks.checkFr')</strong></a></li>
                             @endif
 
-                            @if($level == 3 || $level == 5)
+                            @if(Auth::user()->can('videos.translate'))
                                 <li><a href="{{ url('/translator/tasks') }}"><strong>@lang('labels.tasks')</strong></a>
                                 <li><a href="{{ url('/translator/tasks/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks')</strong></a></li>
                             @endif

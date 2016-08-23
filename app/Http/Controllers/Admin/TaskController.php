@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helper;
 use App\Task;
+use App\User;
 use App\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class TaskController extends Controller
             $state = $request->get('state');
             switch($state) {
                 case 0 : $builder->where('tasks.is_submit', 0); break;
-                case 1 : $builder->where('tasks.is_submit', 1); break;
+                case 1 : $builder->where('tasks.is_submit', 1)->where('videos.state', '<>', 5); break;
                 case 2 : $builder->where('videos.state', 5); break;
             }
         }
@@ -35,10 +36,17 @@ class TaskController extends Controller
             $builder->where('tasks.type', $reverse[$request->get('type')]);
         }
 
+        if($request->has('user')) {
+            $userId = $request->get('user');
+            $builder->where('tasks.user_id', $userId);
+            $trans = User::findOrFail($userId);
+        }
 
-        $videos = $builder->select(['tasks.id', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->paginate(50);
+        $translators = User::join('role_user', 'users.id', '=', 'role_user.id')->whereNotin('role_user.role_id', [3, 4])->get(['users.id', 'users.name']);
 
-        return view('admin.tasks.index', compact('videos', 'types'));
+        $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->paginate(50);
+
+        return view('admin.tasks.index', compact('videos', 'types', 'translators', 'trans'));
     }
 
     public function translate($taskId) {
