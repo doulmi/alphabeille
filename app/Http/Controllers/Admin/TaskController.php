@@ -42,7 +42,7 @@ class TaskController extends Controller
             $trans = User::findOrFail($userId);
         }
 
-        $translators = User::join('role_user', 'users.id', '=', 'role_user.id')->whereNotin('role_user.role_id', [3, 4])->get(['users.id', 'users.name']);
+        $translators = User::join('role_user', 'users.id', '=', 'role_user.id')->whereIn('role_user.role_id', [1, 2, 5, 6])->get(['users.id', 'users.name']);
 
         $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->paginate(50);
 
