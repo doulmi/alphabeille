@@ -6,6 +6,7 @@ use App\Helper;
 use App\Task;
 use App\User;
 use App\Video;
+use Bican\Roles\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,7 @@ class TaskController extends Controller
             $trans = User::findOrFail($userId);
         }
 
-        $translators = User::join('role_user', 'users.id', '=', 'role_user.id')->whereIn('role_user.role_id', [1, 2, 5, 6])->get(['users.id', 'users.name']);
+        $translators = DB::table('role_user')->leftJoin('users', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', '<>', '2')->get(['users.id', 'users.name']);
 
         $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->paginate(50);
 
