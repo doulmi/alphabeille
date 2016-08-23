@@ -59,7 +59,7 @@ class TaskController extends Controller
     {
         $readable = Video::findOrFail($videoId);
         $user = Auth::user();
-        $task = Task::where('video_id', $videoId)->first();
+        $task = Task::where('video_id', $videoId)->where('type', 2)->first();
         if($task) {
             if ($task->user_id != $user->id) {
                 Session::flash('hasTranslator', 'hasTranslator');
