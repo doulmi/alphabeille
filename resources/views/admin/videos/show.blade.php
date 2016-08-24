@@ -63,11 +63,6 @@
                         <input type="hidden" id="picker" name="publish_at"/>
                     </div>
 
-                    {{--<div class="form-group">--}}
-                    {{--<label for="doPoint">@lang('labels.doPoint')</label>--}}
-                    {{--<input type="text" class="form-control" id="doPoint" name="doPoint" value="1"/>--}}
-                    {{--</div>--}}
-
                     <div class="form-group">
                         <label>@lang('labels.level')</label>
                         <div class="dropdown">
