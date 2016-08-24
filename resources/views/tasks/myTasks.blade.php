@@ -45,9 +45,13 @@
                                 <td scope="row">{{$video->created_at}}</td>
                                 <td>
                                     @if(!$video->is_submit)
-
-                                        <a class="btn btn-info"
-                                           href="{{url('translator/tasks/' . $video->video_id .'/translate')}}">@lang('labels.translate')</a>
+                                        @if(Request::has('type'))
+                                            <a class="btn btn-info"
+                                               href="{{url('translator/tasks/' . $video->video_id .'/checkFr')}}">@lang('labels.beFrChecker')</a>
+                                        @else
+                                            <a class="btn btn-info"
+                                               href="{{url('translator/tasks/' . $video->video_id .'/translate')}}">@lang('labels.translate')</a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
