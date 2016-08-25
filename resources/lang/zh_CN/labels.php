@@ -352,6 +352,7 @@ return [
     'onTranslate' => '翻译中',
     'submitFr' => '提交法语字幕',
     'beFrChecker' => '校对法语字幕',
+    'autoSaveSuccess' => '自动保存成功',
 ];
 
 

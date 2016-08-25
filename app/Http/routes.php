@@ -117,6 +117,7 @@ Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function(
     Route::get('tasks/{video_id}/translate', 'TaskController@translate');
     Route::get('tasks/{video_id}/checkFr', 'TaskController@checkFr');
     Route::post('tasks/{task_id}/save', 'TaskController@save');
+    Route::post('tasks/{task_id}/autoSave', 'TaskController@autoSave');
     Route::post('tasks/{task_id}/submit', 'TaskController@submit');
     Route::post('tasks/{task_id}/submitFr', 'TaskController@submitFr');
     Route::post('tasks/{task_id}/submitForce', 'TaskController@submitForce');
@@ -184,6 +185,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('tasks', 'Admin\TaskController@index');
     Route::get('tasks/{task_id}/translate', 'Admin\TaskController@translate');
     Route::post('tasks/{task_id}/save', 'Admin\TaskController@save');
+    Route::post('tasks/{task_id}/autoSave', 'Admin\TaskController@autoSave');
     Route::post('tasks/{task_id}/submit', 'Admin\TaskController@submit');
     Route::post('tasks/{task_id}/submitForce', 'Admin\TaskController@submitForce');
 

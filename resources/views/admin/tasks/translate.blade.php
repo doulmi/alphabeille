@@ -75,11 +75,39 @@
             form.submit();
         }
 
+
+        var content = $('#content');
+        var change = false;
+
+        function autoSave() {
+            if(change) {
+                $.post("{{url('translator/tasks/' . $task->id . '/autoSave')}}", {
+                    content: content.val(),
+                    _token: "{{csrf_token()}}"
+                }, function (response) {
+                    if (response['state'] == 200) {
+                        toastr.success("@lang('labels.autoSaveSuccess')");
+                        change = false;
+                    }
+                });
+            }
+        }
+
         $('#goTop').goTop();
 
         $('img.Card-image').lazyload();
 
         $(function () {
+            content.keyup(function () {
+                change = true;
+            });
+
+            //自动保存功能
+            setInterval(function(){
+                autoSave();
+
+            }, 1000 * 30);
+
             @include('components.dict')
             $(".video-content span").click(activePopover)
         });

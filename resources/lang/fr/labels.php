@@ -341,6 +341,7 @@ return [
     'translator' => 'Translator',
     'submitFr' => 'Submit french subs',
     'beFrChecker' => 'Vérifier fr',
+    'autoSaveSuccess' => 'Auto Enregistré',
 
 ];
 

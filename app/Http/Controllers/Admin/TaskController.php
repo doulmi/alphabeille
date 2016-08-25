@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helper;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Task;
 use App\User;
 use App\Video;
-use Bican\Roles\Models\Role;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->join('users', 'users.id', '=', 'tasks.user_id');
 
         $types = [7, 3];
@@ -25,19 +24,25 @@ class TaskController extends Controller
             3 => 2,
             7 => 1,
         ];
-        if($request->has('state')) {
+        if ($request->has('state')) {
             $state = $request->get('state');
-            switch($state) {
-                case 0 : $builder->where('tasks.is_submit', 0); break;
-                case 1 : $builder->where('tasks.is_submit', 1)->where('videos.state', '<>', 5); break;
-                case 2 : $builder->where('videos.state', 5); break;
+            switch ($state) {
+                case 0 :
+                    $builder->where('tasks.is_submit', 0);
+                    break;
+                case 1 :
+                    $builder->where('tasks.is_submit', 1)->where('videos.state', '<>', 5);
+                    break;
+                case 2 :
+                    $builder->where('videos.state', 5);
+                    break;
             }
         }
-        if($request->has('type')) {
+        if ($request->has('type')) {
             $builder->where('tasks.type', $reverse[$request->get('type')]);
         }
 
-        if($request->has('user')) {
+        if ($request->has('user')) {
             $userId = $request->get('user');
             $builder->where('tasks.user_id', $userId);
             $trans = User::findOrFail($userId);
@@ -50,7 +55,8 @@ class TaskController extends Controller
         return view('admin.tasks.index', compact('videos', 'types', 'translators', 'trans'));
     }
 
-    public function translate($taskId) {
+    public function translate($taskId)
+    {
         $task = Task::findOrFail($taskId);
         $readable = Video::findOrFail($task->video_id);
         return view('admin.tasks.translate', compact('readable', 'task'));
@@ -65,6 +71,25 @@ class TaskController extends Controller
 
         return view('admin.tasks.translate', compact('readable', 'task'));
     }
+
+    public function autoSave(Request $request, $taskId)
+    {
+        $task = Task::find($taskId);
+        if ($task) {
+            $user = Auth::user();
+            if ($user->id == $task->user_id) {
+                $task->content = $request->get('content', '');
+                $task->save();
+                return response()->json([
+                    'state' => 200,
+                ]);
+            }
+        }
+        return response()->json([
+            'state' => 403,
+        ]);
+    }
+
 
     public function submit(Request $request, $taskId)
     {

@@ -115,6 +115,24 @@ class TaskController extends Controller
         return view('tasks.translate', compact('readable', 'task'));
     }
 
+    public function autoSave(Request $request, $taskId)
+    {
+        $task = Task::find($taskId);
+        if ($task) {
+            $user = Auth::user();
+            if ($user->id == $task->user_id) {
+                $task->content = $request->get('content', '');
+                $task->save();
+                return response()->json([
+                    'state' => 200,
+                ]);
+            }
+        }
+        return response()->json([
+            'state' => 403,
+        ]);
+    }
+
     public function submit(Request $request, $taskId)
     {
         $task = Task::findOrFail($taskId);
