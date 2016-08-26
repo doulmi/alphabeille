@@ -226,10 +226,13 @@ $api->version('v1', function ($api) {
         $api->get('topics/{count}/{page}', 'TopicController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
         $api->get('topics/{id}', 'TopicController@show')->where(['id' => '[0-9]+']);
         $api->get('talkshows/{count}/{page}', 'TalkshowController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
+        $api->get('videos/{level}/{count}/{page}', 'VideoController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
+
         $api->get('topics/{id}/lessons', 'TopicController@lessons')->where(['id' => '[0-9]+']);
         $api->get('lessons/{id}', 'LessonController@show')->where(['id' => '[0-9]+']);
         $api->get('messages/{id}', 'MessageController@show')->where(['id' => '[0-9]+']);
         $api->get('talkshows/{id}', 'TalkshowController@show')->where(['id' => '[0-9]+']);
+        $api->get('videos/{id}', 'VideoController@show')->where(['id' => '[0-9]+']);
         $api->group(['middleware' => 'jwt.auth'], function ($api) {
             $api->get('users/me', 'AuthenticateController@getAuthenticatedUser');
         });
