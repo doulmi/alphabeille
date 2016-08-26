@@ -54,7 +54,7 @@ class PostController extends Controller
     {
         $keys = Input::get('keys', '');
 //        $minitalks = Minitalk::where('title', 'like', "%$keys%")->orWhere('content', 'like', "%$keys%")->orWhere('wechat_part', 'like', "%$keys%")->get(['']);
-        $videos = Video::where('title', 'like', '%' . $keys . '%')->orWhere('content', 'like', '%' . $keys .'%')->orWhere('description', 'like', '%' . $keys . '%')->paginate(50, ['views', 'id', 'title', 'avatar']);
+        $videos = Video::where('title', 'like', '%' . $keys . '%')->orWhere('content', 'like', '%' . $keys .'%')->orWhere('description', 'like', '%' . $keys . '%')->paginate(50, ['views', 'id', 'title', 'avatar', 'slug']);
         return view('search', compact('videos'));
     }
 
