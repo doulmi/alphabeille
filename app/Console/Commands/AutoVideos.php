@@ -66,6 +66,7 @@ class AutoVideos extends Command
     {
         $root = file_get_contents("https://www.youtube.com/watch?v=" . $id);
         $find = preg_match('/<meta name="title" content="(.*)">/', $root, $data);
+        $duration = preg_match('/<span class="video-time">([\d|:]+)<\/span>/', $root, $d);
         if ($find) {
             $title = html_entity_decode($data[1]);
             $findKeys = preg_match('/<meta name="keywords" content="(.*)">/', $root, $keys);
@@ -83,6 +84,11 @@ class AutoVideos extends Command
             $requestData['free'] = 0;
             $requestData['level'] = 'intermediate';
             $requestData['description'] = '';
+
+            if($duration) {
+                $requestData['duration'] = $d[1];
+            }
+
             $content = $this->getContent($id);
             if(!$content) {
                 return false;
@@ -133,23 +139,7 @@ class AutoVideos extends Command
     {
         $data = $requestData;
 
-        $content = str_replace('！', '!', $data['content']);
-        $content = str_replace('？', '?', $content);
-        $content = str_replace('  ', ' ', $content);
-        $content = str_replace('‘', '\'', $content);
-        $content = str_replace('’', '\'', $content);
-        $content = str_replace('“', '\'', $content);
-        $content = str_replace('”', '\'', $content);
-        $content = str_replace('"', '\'', $content);
-        $content = str_replace('。', '.', $content);
-        $content = str_replace('，', ',', $content);
-        $content = str_replace('…', '...', $content);
-        $content = str_replace('!', '.', $content);
-        $content = str_replace('\n\n', '\n', $content);
-        $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
-        $content = str_replace('–', '-', $content);
-        $content = str_replace('♪', '', $content);
-        $data['content'] = $content;
+        $data['content'] = Helper::filterSpecialChars($data['content']);
 
         list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
         $data['parsed_desc'] = $this->getParsedDesc($data['description']);
