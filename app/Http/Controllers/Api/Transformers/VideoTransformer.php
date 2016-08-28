@@ -17,6 +17,7 @@ class VideoTransformer extends TransformerAbstract
             'free' => $video->free,
             'avatar' => $video->avatar,
             'duration' => $video->duration,
+            'youtubeId' => $video->originSrc
         ];
     }
 }

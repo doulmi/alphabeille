@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Input;
 
 class VideoController extends BaseApiController
 {
-    private $selectedCols = ['id', 'title', 'avatar', 'free', 'level', 'views', 'duration'];
+    private $selectedCols = ['id', 'title', 'avatar', 'free', 'level', 'views', 'duration', 'originSrc'];
 
     /**
      * Display a listing of the resource.
