@@ -50,7 +50,7 @@ class TaskController extends Controller
 
         $translators = DB::table('role_user')->leftJoin('users', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', '<>', '4')->get(['users.id', 'users.name']);
 
-        $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->orderBy('tasks.updated_at', 'DESC')->paginate(1)->appends($request->all());
+        $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->orderBy('tasks.updated_at', 'DESC')->paginate(50)->appends($request->all());
 
         return view('admin.tasks.index', compact('videos', 'types', 'translators', 'trans'));
     }
