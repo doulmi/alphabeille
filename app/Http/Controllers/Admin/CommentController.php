@@ -23,7 +23,7 @@ class CommentController extends Controller
     public function index($type)
     {
         $limit = 25;
-        $comments = Commentable::where('commentable_type', 'App\\' . ucfirst($type))->paginate($limit);
+        $comments = Commentable::where('commentable_type', 'App\\' . ucfirst($type))->paginate($limit)->appends($request->all());;
 
         return view('admin.comments.index', compact('type', 'comments'));
     }

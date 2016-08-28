@@ -31,7 +31,7 @@ class VideoController extends Controller
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $orderBy = Input::get('orderBy', 'created_at');
         $dir = Input::get('dir', 'DESC');
@@ -53,7 +53,7 @@ class VideoController extends Controller
             $builder->where('title', 'like', "%$search%")->orWhere('originSrc', $search);
         }
 
-        $videos = $builder->paginate($limit);
+        $videos = $builder->paginate($limit)->appends($request->all());;
         $levels = ['beginner', 'intermediate', 'advanced'];
         $states = ['0', '1', '2', '3', '4', '5', '6'];
         return view('admin.videos.index', compact(['videos', 'levels', 'states']));

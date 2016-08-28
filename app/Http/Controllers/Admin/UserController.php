@@ -10,19 +10,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function traces($userId)
+    public function traces(Request $request, $userId)
     {
-        $traces = UserTraces::where('user_id', $userId)->latest()->paginate(100);
+        $traces = UserTraces::where('user_id', $userId)->latest()->paginate(100)->appends($request->all());;
         $user = User::findOrFail($userId);
         return view('admin.traces', compact(['traces', 'user']));
     }
-    public function index()
+    public function index(Request $request)
     {
         $orderBy = Input::get('orderBy', 'created_at');
         $dir = Input::get('dir', 'DESC');
@@ -34,17 +35,17 @@ class UserController extends Controller
         } else {
             if($searchField != '' && $search != '') {
                 if( $searchField != 'role') {
-                    $users = User::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit);
+                    $users = User::where($searchField, 'LIKE', "%$search%")->orderBy($orderBy, $dir)->paginate($limit)->appends($request->all());
                 } else {
                     $users = User::with('roles')->get();
                     $filters = $users->filter(function($item) use ($search) {
                         $item->is(strtolower($search));
                     });
 
-                    $users = $filters->paginate($limit);;
+                    $users = $filters->paginate($limit)->appends($request->all());
                 }
             } else {
-                $users = User::orderBy($orderBy, $dir)->paginate($limit);
+                $users = User::orderBy($orderBy, $dir)->paginate($limit)->appends($request->all());
             }
         }
         $loginUser = Auth::user();
@@ -96,8 +97,13 @@ class UserController extends Controller
                 $role = Role::findOrFail($roleId);
                 if ($role) {
                     $user->detachAllRoles();
-                    $user->attachRole($role);
-                    $user->save();
+
+                    if($roleId != 3) {
+                        $user->attachRole($role);
+                        $user->save();
+                    } else {
+                        DB::delete('delete from role_user where user_id = ' . $userId);
+                    }
 
                     $data['status'] = '200';
                     $data['data']['message'] = 'success';

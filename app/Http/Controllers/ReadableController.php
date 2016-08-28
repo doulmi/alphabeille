@@ -173,22 +173,22 @@ class ReadableController extends Controller
         }
     }
 
-    public function collects() {
+    public function collects(Request $request) {
         $pageLimit = config('params')['pageLimit'];
         $model = $this->getModel();
-        $minitalks = Collectable::where('user_id', Auth::user()->id)->where('collectable_type', $model)->paginate($pageLimit);
+        $minitalks = Collectable::where('user_id', Auth::user()->id)->where('collectable_type', $model)->paginate($pageLimit)->appends($request->all());
         return view('minitalks.index', compact('minitalks'));
     }
 
-    public function free() {
+    public function free(Request $request) {
         $model = $this->getModel();
         $type = $this->getType();
         $pageLimit = config('params')['pageLimit'];
-        $minitalks = $model::where('free', 1)->latest()->paginate($pageLimit);
+        $minitalks = $model::where('free', 1)->latest()->paginate($pageLimit)->appends($request->all());
         return view( $type . 's.index', compact( $type . 's'));
     }
 
-    public function index() {
+    public function index(Request $request) {
         $model = $this->getModel();
         $type = $this->getType();
         $pageLimit = config('params')['pageLimit'];
@@ -197,7 +197,7 @@ class ReadableController extends Controller
         } else {
             $cols = ['id', 'avatar', 'title', 'slug', 'created_at', 'free'];
         }
-        $readables = $model::published()->orderBy('free', 'DESC')->latest()->paginate($pageLimit, $cols);
+        $readables = $model::published()->orderBy('free', 'DESC')->latest()->paginate($pageLimit, $cols)->appends($request->all());
         return view($type . 's.index', compact(['readables', 'type']));
     }
 

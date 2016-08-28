@@ -52,9 +52,16 @@ class PostController extends Controller
 
     public function search()
     {
-        $keys = Input::get('keys', '');
-//        $minitalks = Minitalk::where('title', 'like', "%$keys%")->orWhere('content', 'like', "%$keys%")->orWhere('wechat_part', 'like', "%$keys%")->get(['']);
-        $videos = Video::where('title', 'like', '%' . $keys . '%')->orWhere('content', 'like', '%' . $keys .'%')->orWhere('description', 'like', '%' . $keys . '%')->paginate(50, ['views', 'id', 'title', 'avatar', 'slug']);
+        $keyStr = str_slug(Input::get('keys', ''));
+
+        $keys = explode('-', $keyStr);
+        $builder = Video::orderBy('created_at');
+        foreach($keys as $key) {
+            $builder->orWhere('title', 'like', '%' . $key . '%')->orWhere('content', 'like', '%' . $key .'%')->orWhere('description', 'like', '%' . $key . '%');
+        }
+
+        $videos = $builder->paginate(50, ['views', 'id', 'title', 'avatar', 'slug']);
+
         return view('search', compact('videos'));
     }
 

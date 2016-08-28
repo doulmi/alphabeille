@@ -8,69 +8,68 @@
             {{Session::get('success')}}
         </div>
     @endif
-    <div class="">
-        <div class="btn-group">
-            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                @if(Request::has('type'))
-                    @lang('labels.videos.state' . Request::get('type', ''))
-                @else
-                    @lang('labels.tasks.all')
-                @endif
-                <span class="caret"></span>
-            </a>
+    <form action="{{url('admin/tasks')}}" id="taskForm">
+        <div class="">
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    @if(Request::has('type'))
+                        @lang('labels.videos.state' . Request::get('type', ''))
+                    @else
+                        @lang('labels.tasks.all')
+                    @endif
+                    <span class="caret"></span>
+                </a>
 
-            {{--类型--}}
-            <ul class="dropdown-menu">
-                <?php
-                $typeParam =  Request::has('type') ? 'type=' . Request::get('type') : '';
-                $userParam = Request::has('user') ? 'user=' .Request::get('user') : '';
-                $stateParam = Request::get('state') ? 'state=' . Request::get('state') : '';
-                ?>
+                {{--类型--}}
+                <ul class="dropdown-menu">
+                    <li><a onclick="filterType('')">@lang('labels.tasks.all')</a></li>
+                    @foreach($types as $type)
+                        <li>
+                            <a onclick="filterType('{{$type}}')">@lang('labels.videos.state' . $type)</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    @lang('labels.tasks.state' . Request::get('state', ''))
+                    <span class="caret"></span>
+                </a>
 
-                <li><a href="{{url('admin/tasks?' . $stateParam)}}">@lang('labels.tasks.all')</a></li>
-                @foreach($types as $type)
+                {{--完成度--}}
+                <ul class="dropdown-menu">
+                    <li><a onclick="filterState('')">所有状态</a></li>
+                    <li><a onclick="filterState(0)">未完成</a></li>
+                    <li><a onclick="filterState(1)">待确认</a></li>
+                    <li><a onclick="filterState(2)">已确认</a></li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    {{Request::get('userName') == '' ? 'ALL' : Request::get('userName') }}
+                    <span class="caret"></span>
+                </a>
+
+                {{--完成度--}}
+                <ul class="dropdown-menu">
                     <li>
-                        <a href="{{url('admin/tasks?type=' . $type . '&' . $stateParam)}}">@lang('labels.videos.state' . $type)</a>
+                        <a onclick="filterUser('')">ALL</a>
                     </li>
-                @endforeach
-            </ul>
+                    @foreach($translators as $translator)
+                        <li>
+                            <a onclick="filterUser('{{$translator->id}}', '{{$translator->name}}')">{{$translator->name}}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
-        <div class="btn-group">
-            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                @lang('labels.tasks.state' . Request::get('state', ''))
-                <span class="caret"></span>
-            </a>
-
-            {{--完成度--}}
-            <ul class="dropdown-menu">
-                <li><a href="{{url('admin/tasks?' . $typeParam . '&' . $userParam)}}">所有状态</a></li>
-                <li><a href="{{url('admin/tasks?state=0&' . $typeParam . '&' . $userParam)}}">未完成</a></li>
-                <li><a href="{{url('admin/tasks?state=1&' . $typeParam . '&' . $userParam)}}">待确认</a></li>
-                <li><a href="{{url('admin/tasks?state=2&' . $typeParam . '&' . $userParam)}}">已确认</a></li>
-            </ul>
-        </div>
-
-        <div class="btn-group">
-            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                {{Request::get('name', 'ALL')}}
-                <span class="caret"></span>
-            </a>
-
-            {{--完成度--}}
-            <ul class="dropdown-menu">
-                @foreach($translators as $translator)
-                    <li> <a href="{{url('admin/tasks?user=' . $translator->id . '&' . $typeParam . '&' . $stateParam)}}">{{$translator->name}}</a> </li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-    <form id="videoForm" action="{{url('admin/videos')}}" method="GET">
         {!! csrf_field() !!}
         <div class="fullscreen">
             <table class="table">
@@ -104,7 +103,7 @@
                 </tbody>
             </table>
             <div class="center">
-                {!! $videos->render() !!}
+                {!! $videos->links() !!}
             </div>
             @if(Request::has('orderBy') )
                 <input type="hidden" name="orderBy" value="{{ Request::get('orderBy')}}">
@@ -115,6 +114,10 @@
             @if(Request::has('limit'))
                 <input type="hidden" name="limit" value="{{ Request::get('limit')}}">
             @endif
+            <input type="hidden" id="state" name="state" value="{{ Request::get('state', '') }}">
+            <input type="hidden" id="type" name="type" value="{{Request::get('type', '')}}">
+            <input type="hidden" id="user" name="user" value="{{Request::get('user', '')}}">
+            <input type="hidden" id="userName" name="userName" value="{{Request::get('userName', '')}}">
         </div>
     </form>
 @endsection
@@ -153,6 +156,28 @@
             $.get('{{ url('/admin/videos/changeState/') }}' + '/' + videoId + '/' + level, function (response) {
             });
         };
+
+        var stateInput = $('#state');
+        var userInput = $('#user');
+        var userNameInput = $('#userName');
+        var typeInput = $('#type');
+        var form = $('#taskForm');
+
+        var filterState = function (state) {
+            stateInput.val(state);
+            form.submit();
+        };
+
+        var filterType = function (type) {
+            typeInput.val(type);
+            form.submit();
+        };
+
+        var filterUser = function (user, name) {
+            userInput.val(user);
+            userNameInput.val(name);
+            form.submit();
+        }
     </script>
 
 @endsection
