@@ -80,7 +80,7 @@ class VideoController extends ReadableController
     public function level($level)
     {
         $pageLimit = config('params')['pageLimit'];
-        $readables = Video::where('level', $level)->published()->latest()->orderBy('free')->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at', 'level']);
+        $readables = Video::where('level', $level)->published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at', 'level']);
         $type = 'video';
         return view('videos.index', compact(['readables', 'type']));
     }
