@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Input;
 
 class VideoController extends BaseApiController
 {
-    private $selectedCols = ['id', 'title', 'avatar', 'free', 'level', 'views', 'duration', 'originSrc'];
+    private $selectedCols = ['id', 'title', 'avatar', 'state', 'free', 'level', 'views', 'likes', 'duration', 'originSrc'];
 
     /**
      * Display a listing of the resource.
@@ -21,17 +21,22 @@ class VideoController extends BaseApiController
      * @param $page : 页数
      * @return \Illuminate\Http\Response
      */
-    public function index($level, $count, $page)
+    public function index($level, $count, $page, $order='latest')
     {
         if(!in_array($level, ['beginner', 'intermediate', 'advanced', 'all'])) {
            $level = 'all';
         }
 
-        if($level == 'all') {
+        if($order == 'latest') {
             $builder = Video::latest();
         } else {
-            $builder = Video::latest()->where('level', $level);
+            $builder = Video::orderBy($order, 'DESC');
         }
+
+        if($level != 'all') {
+            $builder->latest()->where('level', $level);
+        }
+
         $videos = $builder->paginate($count, $this->selectedCols, 'page', $page);
 
         return $this->response->paginator($videos, new VideoTransformer());
@@ -55,7 +60,7 @@ class VideoController extends BaseApiController
      */
     public function show($id)
     {
-        $video = Video::find($id, ['id', 'title', 'likes', 'views', 'free', 'avatar', 'duration', 'parsed_desc', 'content', 'parsed_content', 'parsed_content_zh', 'points', 'originSrc']);
+        $video = Video::find($id, ['id', 'title', 'state', 'level', 'likes', 'views', 'free', 'avatar', 'duration', 'parsed_desc', 'parsed_content', 'parsed_content_zh', 'points', 'originSrc']);
         if(!$video){
             $this->response->errorNotFound();
         }

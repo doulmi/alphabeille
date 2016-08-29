@@ -1016,19 +1016,20 @@ body {
   margin-right: 1rem;
 }
 
-.Card:hover > .Card-difficulty {
-  left: 10px;
-}
+//.Card:hover > .Card-difficulty {
+//  left: 10px;
+//}
 
 .Card-difficulty {
   color: #e6e6e6;
-  position: absolute;
+  //position: absolute;
   z-index: 1;
-  left: 20px;
-  top: 5px;
+  //left: 20px;
+  //top: 5px;
   text-transform: uppercase;
   font-size: 12px;
   padding: 2px 4px;
+  margin: 0 2px 2px 0;
   border-radius: 2px;
 
   &.beginner {
@@ -1042,6 +1043,18 @@ body {
   &.advanced {
     background-color: #333333;
   }
+
+  &.chinese {
+    background-color : #9c0033;
+  }
+
+  &.desc {
+    background-color : #2DCC70;
+  }
+}
+
+.video-tags {
+  margin-bottom: 2px;
 }
 
 .label {

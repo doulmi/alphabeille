@@ -11,13 +11,13 @@
             <div class="col-md-3 col-xs-6 col-sm-4">
                 <div class="Card">
 
-                    @if($readable instanceof \App\Video)
-                        @if($readable->level)
-                            <span class="Card-difficulty {{$readable->level}}">
-                            @lang('labels.' . $readable->level)
-                        </span>
-                        @endif
-                    @endif
+                    {{--@if($readable instanceof \App\Video)--}}
+                        {{--@if($readable->level)--}}
+                            {{--<span class="Card-difficulty {{$readable->level}}">--}}
+                            {{--@lang('labels.' . $readable->level)--}}
+                        {{--</span>--}}
+                        {{--@endif--}}
+                    {{--@endif--}}
 
 
                     @if($readable->free)
@@ -50,6 +50,23 @@
                                 <i class="glyphicon glyphicon-headphones"></i>
                                 <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
                             </span>
+                            @if($readable instanceof \App\Video)
+                                <div class="video-tags">
+                                    <span class="Card-difficulty {{$readable->level}}">
+                                        @lang('labels.' . $readable->level)
+                                    </span>
+                                    @if($readable->state == 5 || $readable->state == 6)
+                                        <span class="Card-difficulty chinese">
+                                        @lang('labels.zh_CN')
+                                        </span>
+                                    @endif
+                                    @if($readable->state == 6)
+                                        <span class="Card-difficulty desc">
+                                        @lang('labels.notation')
+                                        </span>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -193,7 +193,7 @@ class ReadableController extends Controller
         $type = $this->getType();
         $pageLimit = config('params')['pageLimit'];
         if($type == 'video') {
-            $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free'];
+            $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state'];
         } else {
             $cols = ['id', 'avatar', 'title', 'slug', 'created_at', 'free'];
         }

@@ -353,6 +353,8 @@ return [
     'submitFr' => '提交法语字幕',
     'beFrChecker' => '校对法语字幕',
     'autoSaveSuccess' => '自动保存成功',
+    'zh_CN' => '中文',
+    'notation' => '注解',
 ];
 
 

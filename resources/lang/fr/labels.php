@@ -342,6 +342,7 @@ return [
     'submitFr' => 'Submit french subs',
     'beFrChecker' => 'Vérifier fr',
     'autoSaveSuccess' => 'Auto Enregistré',
-
+    'zh_CN' => 'CH',
+    'notation' => 'Notation',
 ];
 

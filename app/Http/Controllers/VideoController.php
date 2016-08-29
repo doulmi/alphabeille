@@ -9,7 +9,6 @@ use App\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 class VideoController extends ReadableController
 {
@@ -84,5 +83,13 @@ class VideoController extends ReadableController
         $readables = Video::where('level', $level)->published()->latest()->orderBy('free')->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at', 'level']);
         $type = 'video';
         return view('videos.index', compact(['readables', 'type']));
+    }
+
+    public function index(Request $request) {
+        $pageLimit = config('params')['pageLimit'];
+        $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state'];
+        $readables = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, $cols)->appends($request->all());
+        $type = 'video';
+        return view('video'. 's.index', compact(['readables', 'type']));
     }
 }
