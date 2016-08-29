@@ -62,6 +62,54 @@ class AutoVideos extends Command
         }
     }
 
+    /**
+     * 取得该Youtube视频的长度
+     * @param $id
+     * @param $result
+     * @return bool
+     */
+    function getDuration($id)
+    {
+        $root = file_get_contents("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=$id&key=AIzaSyAWbKR4NMTQ1OrQ5WBaPKbkqlEv7x1rooU");
+        $find = preg_match('/T(\d*)M(\d*)S/', $root, $data);
+
+        if ($find) {
+            $min = intval($data[1]);
+            $sec = intval($data[2]);
+            if ($min < 10) {
+                $min = '0' . $min;
+            }
+            if ($sec < 10) {
+                $sec = '0' . $sec;
+            }
+            $duration = $min . ':' . $sec;
+            return $duration;
+        } else {
+            $find = preg_match('/T(\d*)S/', $root, $data);
+            if ($find) {
+                $sec = intval($data[1]);
+                if ($sec < 10) {
+                    $sec = '0' . $sec;
+                }
+                $duration = '00:' . $sec;
+                return $duration;
+            } else {
+                $find = preg_match('/T(\d*)M/', $root, $data);
+                if ($find) {
+                    $min = intval($data[1]);
+                    if ($min < 10) {
+                        $min = '0' . $min;
+                    }
+                    $duration = $min . ":00";
+                    return $duration;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
     private function oneSql($id)
     {
         $root = file_get_contents("https://www.youtube.com/watch?v=" . $id);
@@ -84,6 +132,7 @@ class AutoVideos extends Command
             $requestData['free'] = 0;
             $requestData['level'] = 'intermediate';
             $requestData['description'] = '';
+            $requestData['duration'] = $this->getDuration($id);
 
             if($duration) {
                 $requestData['duration'] = $d[1];
@@ -102,6 +151,11 @@ class AutoVideos extends Command
         }
     }
 
+    /**
+     * 读取对于的字幕文件，写到content中
+     * @param $id
+     * @return bool|string
+     */
     private function getContent($id)
     {
         $dir = new RecursiveDirectoryIterator($this->argument('path'));
@@ -122,6 +176,11 @@ class AutoVideos extends Command
         $video = Video::create($data);
     }
 
+    /**
+     * 取得该文件夹下所有视频的YoutubeId
+     * @param $path
+     * @return array
+     */
     private function getYoutubeIds($path)
     {
         $dir = new RecursiveDirectoryIterator($path);
@@ -135,15 +194,17 @@ class AutoVideos extends Command
         return $ids;
     }
 
+
     private function getSaveData($requestData)
     {
         $data = $requestData;
 
         $data['content'] = Helper::filterSpecialChars($data['content']);
 
-        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($content);
+        list($data['parsed_content'], $data['parsed_content_zh'], $data['points']) = Helper::parsePointLink($data['content']);
         $data['parsed_desc'] = $this->getParsedDesc($data['description']);
         $data['publish_at'] = Carbon::now('Europe/Paris');
+
 
         return $data;
     }

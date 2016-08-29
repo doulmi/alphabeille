@@ -29,7 +29,7 @@ return [
     'beginner' => '初级',
     'advanced' => '高级',
     'learnSlagon' => '每天一个番茄时间学法语',
-    'joinus' => '什么？还不能满足您的需求？需要定制课程？立刻联系我们的客服吧！扫码加微信助',
+    'joinus' => '加入我们',
     'basic' => 'BASIC',
     'pro' => 'PRO',
     'premium' => 'PREMIUM',
@@ -355,6 +355,10 @@ return [
     'autoSaveSuccess' => '自动保存成功',
     'zh_CN' => '中文',
     'notation' => '注解',
+    'translator.title' => 'Alphabeille翻译社群',
+    'translator.description' => 'Alphabeille翻译社群提供一个平台，让对翻译有热忱的同好能够琢磨翻译技巧，同时让更多使用者能够精进法语！',
+    'translator.keywords' => 'Alphabeille翻译社群，法语翻译',
+    'translateVideos' => '翻译<strong>:num</strong>篇',
 ];
 
 

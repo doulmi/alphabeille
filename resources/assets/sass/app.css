@@ -801,18 +801,13 @@ body {
 .topic-like {
   margin-right: 1rem; }
 
-.Card:hover > .Card-difficulty {
-  left: 10px; }
-
 .Card-difficulty {
   color: #e6e6e6;
-  position: absolute;
   z-index: 1;
-  left: 20px;
-  top: 5px;
   text-transform: uppercase;
   font-size: 12px;
   padding: 2px 4px;
+  margin: 0 2px 2px 0;
   border-radius: 2px; }
   .Card-difficulty.beginner {
     background-color: #468847; }
@@ -820,6 +815,13 @@ body {
     background-color: #3A87AD; }
   .Card-difficulty.advanced {
     background-color: #333333; }
+  .Card-difficulty.chinese {
+    background-color: #9c0033; }
+  .Card-difficulty.desc {
+    background-color: #2DCC70; }
+
+.video-tags {
+  margin-bottom: 2px; }
 
 .label.beginner {
   background-color: #468847; }
@@ -3254,5 +3256,20 @@ body {
 
 .green {
   color: green; }
+
+.translator-wall {
+  background-color: #EEEEEE; }
+  .translator-wall .jumbotron {
+    background-color: #32CDFF; }
+  .translator-wall .ad {
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    border: 2px solid white;
+    padding-bottom: 30px;
+    font-size: 16px; }
+  .translator-wall .row {
+    margin-top: 30px; }
 
 /*# sourceMappingURL=app.css.map */

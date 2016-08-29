@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -140,5 +141,20 @@ class UserController extends Controller
             $wordss[$updated_at->day . '/' . $updated_at->month . '/' . $updated_at->year][] = $word;
         }
         return view('users.words', compact('wordss'));
+    }
+
+    public function translators() {
+        $userIds = DB::table('role_user')->whereIn('role_id', [1, 5, 6])->distinct()->lists('user_id');
+        $translators = User::whereIn('id', $userIds)->get(['id', 'avatar', 'name']);
+
+        foreach($translators as $translator) {
+            $translator->translatedNumber = $translator->translatedNumber();
+        }
+
+        $transtlators = array_sort($translators, function($value) {
+            return $value->translatedNumber;
+        });
+
+        return view('translators', compact('translators'));
     }
 }

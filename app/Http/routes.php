@@ -109,6 +109,7 @@ Route::get('github/login', 'Auth\AuthController@githubLogin');
 Route::get('github/callback', 'Auth\AuthController@githubCallback');
 Route::get('test', 'PostController@test');
 Route::get('words', 'WordController@index');
+Route::get('translators', 'UserController@translators');
 
 Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function() {
     Route::get('tasks', 'TaskController@index');

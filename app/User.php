@@ -46,6 +46,18 @@ class User extends Authenticatable implements HasRoleAndPermissionContract {
         return Message::where('to', $this->id)->where('isRead', false)->count();
     }
 
+    public function translatedVideos() {
+        return $this->hasMany(Video::class, 'id', 'video_id');
+    }
+
+    public function translatedNumber() {
+        return Task::where('type', 2)->where('is_submit', 1)->where('user_id', $this->id)->count();
+    }
+
+    public function checkFrNumber() {
+        return Task::where('type', 1)->where('is_submit', 1)->where('user_id', $this->id)->count();
+    }
+
 //    public function roles() {
 //        return $this->belongsToMany(Role::class);
 //    }
