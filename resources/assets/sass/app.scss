@@ -4192,6 +4192,11 @@ $seek-transition-time: 0.3s;
   }
 
   .row {
-    margin-top : 30px;
+    margin-top : 50px;
+
+    .img-circle {
+      width: 81px;
+      height: 81px;
+    }
   }
 }

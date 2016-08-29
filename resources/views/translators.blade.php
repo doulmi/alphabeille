@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="Card-Collection">
+        <div class="container">
             @foreach($translators as $i => $translator)
                 @if($i % 4 == 0)
                     <div class="row">
@@ -26,9 +26,9 @@
                         <div class="col-md-3">
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#">
+                                    <a >
                                         <img src="{{$translator->avatar}}" alt="{{$translator->name . '\'s avatar'}}"
-                                             class="img-circle media-object" width="64px" height="64px">
+                                             class="img-circle media-object" >
                                     </a>
                                 </div>
 

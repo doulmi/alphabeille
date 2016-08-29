@@ -54,9 +54,9 @@
                     <ul class="dropdown-menu bullet" role="menu">
                         <li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>
                         <li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>
-                        {{--<li><a href="{{ url('/privateCourses') }}">@lang('labels.privateCourses')</a>--}}
                     </ul>
                 </li>
+                <li><a href="{{url('translators')}}">@lang('labels.group')</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right " id="menu-xs">

@@ -344,5 +344,7 @@ return [
     'autoSaveSuccess' => 'Auto Enregistré',
     'zh_CN' => 'CH',
     'notation' => 'Notation',
+    'group' => 'Groupe',
 ];
+
 

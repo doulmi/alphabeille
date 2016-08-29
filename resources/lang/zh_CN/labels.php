@@ -359,6 +359,7 @@ return [
     'translator.description' => 'Alphabeille翻译社群提供一个平台，让对翻译有热忱的同好能够琢磨翻译技巧，同时让更多使用者能够精进法语！',
     'translator.keywords' => 'Alphabeille翻译社群，法语翻译',
     'translateVideos' => '翻译<strong>:num</strong>篇',
+    'group' => '翻译社群',
 ];
 
 
