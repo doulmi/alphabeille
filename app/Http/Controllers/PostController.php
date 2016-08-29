@@ -34,7 +34,7 @@ class PostController extends Controller
         $num = Config::get('params')['indexPageLimit'];
         $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free']);
 
-        $videos = Video::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state']);
+        $videos = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state']);
         return view('index', compact(['minitalks', 'videos']));
     }
 
