@@ -19,7 +19,8 @@
             </div>
         </div>
         <div class="container">
-            @foreach($translators as $i => $translator)
+            <?php $i = 0; ?>
+            @foreach($translators as  $translator)
                 @if($i % 4 == 0)
                     <div class="row">
                 @endif
@@ -44,6 +45,7 @@
                 @if($i % 4 == 3)
                     </div>
                 @endif
+                <?php $i ++ ?>
             @endforeach
 
             <div class="Header"></div>
