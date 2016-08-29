@@ -26,11 +26,12 @@ class VideoController extends BaseApiController
         if(!in_array($level, ['beginner', 'intermediate', 'advanced', 'all'])) {
            $level = 'all';
         }
+        $builder = Video::orderBy('free', 'DESC')->orderBy('state', 'DESC');
 
         if($order == 'latest') {
-            $builder = Video::latest();
+            $builder->latest();
         } else {
-            $builder = Video::orderBy($order, 'DESC');
+            $builder->orderBy($order, 'DESC');
         }
 
         if($level != 'all') {
