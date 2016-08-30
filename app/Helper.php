@@ -76,7 +76,7 @@ class Helper
         $subs = self::parseSubtitle($src);
         $result = '';
         foreach($subs as $sub) {
-            $result .= $sub->fr . "<br/><br/>";
+            $result .= $sub->fr . "\r\n\r\n";
         }
         return $result;
     }

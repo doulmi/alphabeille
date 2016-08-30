@@ -169,6 +169,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::resource('words', 'Admin\WordController');
 
+    Route::get('download/{video_id}', 'Admin\VideoController@download');
     Route::resource('videos', 'Admin\VideoController');
     Route::get('videos/{id}/points', 'Admin\VideoController@editPoints');
     Route::post('videos/{id}/points', 'Admin\VideoController@storePoints');

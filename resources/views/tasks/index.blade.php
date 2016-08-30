@@ -45,6 +45,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>@lang('labels.originSrc')</th>
                             <th>@lang('labels.level')</th>
                             <th>@lang('labels.avatar')</th>
                             <th>@lang('labels.title')</th>
@@ -54,6 +55,7 @@
                         <tbody id="tbody">
                         @foreach($videos as $video)
                             <tr id="row-{{$video->id}}">
+                                <td>{{$video->originSrc}}</td>
                                 <td>@lang('labels.' . $video->level)</td>
                                 <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                                 <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a>
@@ -69,6 +71,10 @@
                                         <a class="btn btn-info"
                                            href="{{url('translator/tasks/' . $video->id .'/translate')}}">@lang('labels.beTranslator')</a>
                                     @endif
+                                    @if(Auth::user()->id == 1)
+                                        <a class="btn btn-info" href="{{url('admin/download/' . $video->id)}}">@lang('labels.download')</a>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach

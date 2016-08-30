@@ -26,7 +26,7 @@ class TaskController extends Controller
         if($request->has('level')) {
             $builder->where('level', $request->get('level'));
         }
-        $videos = $builder->select(['slug', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50);
+        $videos = $builder->select(['slug', 'originSrc', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50);
 
         return view('tasks.index', compact('videos', 'levels'));
     }

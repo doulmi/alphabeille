@@ -36,7 +36,7 @@ return [
     'buy' => '我要订阅！',
     'publishOn' => '发布于',
     'discuss' => '看大家的讨论',
-    'download' => '下载音频及字幕',
+    'download' => '下载',
     'whatuwant' => '你想学什么？',
     'checkEmailDesc' => '请点击以下链接确认你的邮箱，邮箱将成为你在 「alphabeille」最重要的身份认证。',
     'plsCheckEmail' => '请确认您的邮箱',
@@ -355,11 +355,11 @@ return [
     'autoSaveSuccess' => '自动保存成功',
     'zh_CN' => '中文',
     'notation' => '注解',
-    'translator.title' => 'Alphabeille翻译社群',
-    'translator.description' => 'Alphabeille翻译社群提供一个平台，让对翻译有热忱的同好能够琢磨翻译技巧，同时让更多使用者能够精进法语！',
-    'translator.keywords' => 'Alphabeille翻译社群，法语翻译',
+    'translator.title' => 'Alphabeille翻译组',
+    'translator.description' => 'Alphabeille提供一个翻译平台，让对翻译有兴趣的朋友锻炼自己的技艺！',
+    'translator.keywords' => 'Alphabeille翻译组，法语翻译',
     'translateVideos' => '翻译<strong>:num</strong>篇',
-    'group' => '翻译社群',
+    'group' => '翻译组',
 ];
 
 

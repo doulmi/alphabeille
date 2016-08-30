@@ -342,4 +342,23 @@ class VideoController extends Controller
         $video = Video::findOrFail($id);
         return $video->points;
     }
+
+    public function download($video_id)
+    {
+        $video = Video::findOrFail($video_id);
+        $file_name = $video->originSrc . '.txt';
+
+        $mime = 'application/force-download';
+        header('Pragma: public'); // required
+        header('Expires: 0'); // no cache
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Cache-Control: private',false);
+        header('Content-Type: '.$mime);
+        header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
+        header('Content-Transfer-Encoding: binary');
+        header('Connection: close');
+
+        echo htmlspecialchars_decode(Helper::extraFr($video->content));
+        exit;
+    }
 }
