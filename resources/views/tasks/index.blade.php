@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="">
-        <div class="Card-Collection">
+        <div class="container">
             <div class="Header"></div>
             @if(Session::has('hasTranslator'))
                 <div class="alert alert-warning alert-dismissible" role="alert">
@@ -45,21 +45,27 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            @if(Auth::user()->isAdmin())
                             <th>@lang('labels.originSrc')</th>
+                            @endif
                             <th>@lang('labels.level')</th>
                             <th>@lang('labels.avatar')</th>
                             <th>@lang('labels.title')</th>
+                            <th>@lang('labels.duration')</th>
                             <th>@lang('labels.actions')</th>
                         </tr>
                         </thead>
                         <tbody id="tbody">
                         @foreach($videos as $video)
                             <tr id="row-{{$video->id}}">
+                                @if(Auth::user()->isAdmin())
                                 <td>{{$video->originSrc}}</td>
+                                @endif
+
                                 <td>@lang('labels.' . $video->level)</td>
                                 <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
-                                <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a>
-                                </td>
+                                <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a> </td>
+                                <td>{{$video->duration}}</td>
                                 <td>
                                     @if(Auth::user()->can('videos.listen') && Request::has('type'))
                                         <a class="btn btn-info"
