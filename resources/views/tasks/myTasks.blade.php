@@ -27,6 +27,9 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            @if(Auth::user()->isAdmin())
+                                <th>@lang('labels.originSrc')</th>
+                            @endif
                             <th>@lang('labels.state')</th>
                             <th>@lang('labels.avatar')</th>
                             <th>@lang('labels.title')</th>
@@ -37,6 +40,9 @@
                         <tbody id="tbody">
                         @foreach($videos as $video)
                             <tr id="row-{{$video->id}}">
+                                @if(Auth::user()->isAdmin())
+                                    <td>{{$video->originSrc}}</td>
+                                @endif
                                 <td scope="row"
                                     class="{{$video->is_submit ? 'green' : 'red'}} ">{{$video->is_submit ? trans('labels.submitted') : trans('labels.onTranslate')}}</td>
                                 <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>

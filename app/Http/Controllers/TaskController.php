@@ -44,7 +44,7 @@ class TaskController extends Controller
         } else {
             $builder->where('tasks.type', '2');
         }
-        $videos = $builder->orderBy('videos.state')->orderBy('tasks.id')->select(['tasks.id', 'videos.slug', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit'])->paginate(50);
+        $videos = $builder->orderBy('videos.state')->orderBy('tasks.id')->select(['tasks.id', 'videos.slug', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit', 'videos.originSrc'])->paginate(50);
 
         return view('tasks.myTasks', compact('videos'));
     }
