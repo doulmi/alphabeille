@@ -32,7 +32,7 @@
                             @endif
                             <th>@lang('labels.state')</th>
                             <th>@lang('labels.avatar')</th>
-                            <th>@lang('labels.title')</th>
+                            <th style="width:50%">@lang('labels.title')</th>
                             <th>@lang('labels.created_at')</th>
                             <th>@lang('labels.actions')</th>
                         </tr>
@@ -58,7 +58,7 @@
                                             <a class="btn btn-info"
                                                href="{{url('translator/tasks/' . $video->video_id .'/translate')}}">@lang('labels.translate')</a>
 
-                                            <a class="btn btn-info"
+                                            <a class="btn btn-danger"
                                                href="{{url('translator/tasks/' . $video->video_id .'/giveup')}}">@lang('labels.giveup')</a>
                                         @endif
                                     @endif
