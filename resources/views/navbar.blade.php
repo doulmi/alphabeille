@@ -45,17 +45,17 @@
                         <li><a href="{{ url('/videos/level/advanced') }}">@lang('labels.advanced')</a>
                     </ul>
                 </li>
-                <li class="dropdown profile-btn hidden-xs">
-                    <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="true">
-                        <span>@lang('labels.ourCourses')</span>
-                        <i class="glyphicon glyphicon-menu-down"></i>
-                    </a>
-                    <ul class="dropdown-menu bullet" role="menu">
-                        <li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>
-                        <li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>
-                    </ul>
-                </li>
+                {{--<li class="dropdown profile-btn hidden-xs">--}}
+                    {{--<a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--}}
+                       {{--aria-expanded="true">--}}
+                        {{--<span>@lang('labels.ourCourses')</span>--}}
+                        {{--<i class="glyphicon glyphicon-menu-down"></i>--}}
+                    {{--</a>--}}
+                    {{--<ul class="dropdown-menu bullet" role="menu">--}}
+                        {{--<li><a href="{{ url('/basicCourses') }}">@lang('labels.basicCourses')</a>--}}
+                        {{--<li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
                 <li><a href="{{url('translators')}}">@lang('labels.group')</a></li>
             </ul>
 

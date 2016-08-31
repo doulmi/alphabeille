@@ -105,6 +105,19 @@ class TaskController extends Controller
         return view('tasks.translate', compact('readable', 'task'));
     }
 
+    public function giveup($videoId)
+    {
+        $user = Auth::user();
+        $task = Task::where('video_id', $videoId)->where('user_id', $user->id)->first();
+        if($task) {
+            $video = Video::find($videoId);
+            $video->state = 2;
+            $video->save();
+            $task->delete();
+        }
+        return redirect('translator/tasks/' . $user->id);
+    }
+
     public function save(Request $request, $taskId)
     {
         $task = Task::findOrFail($taskId);

@@ -107,7 +107,7 @@ Route::get('qq/callback', 'Auth\AuthController@qqCallback');
 
 Route::get('github/login', 'Auth\AuthController@githubLogin');
 Route::get('github/callback', 'Auth\AuthController@githubCallback');
-Route::get('test', 'PostController@test');
+//Route::get('test', 'PostController@test');
 Route::get('words', 'WordController@index');
 Route::get('translators', 'UserController@translators');
 
@@ -118,6 +118,7 @@ Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function(
     Route::get('tasks/{video_id}/translate', 'TaskController@translate');
     Route::get('tasks/{video_id}/checkFr', 'TaskController@checkFr');
     Route::post('tasks/{task_id}/save', 'TaskController@save');
+    Route::get('tasks/{video_id}/giveup', 'TaskController@giveup');
     Route::post('tasks/{task_id}/autoSave', 'TaskController@autoSave');
     Route::post('tasks/{task_id}/submit', 'TaskController@submit');
     Route::post('tasks/{task_id}/submitFr', 'TaskController@submitFr');
@@ -183,14 +184,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('traces/{user_id}', 'Admin\UserController@traces');
-    Route::get('extraFr/{id}', 'Admin\VideoController@extraFr');
+//    Route::get('extraFr/{id}', 'Admin\VideoController@extraFr');
     Route::get('tasks', 'Admin\TaskController@index');
     Route::get('tasks/{task_id}/translate', 'Admin\TaskController@translate');
     Route::post('tasks/{task_id}/save', 'Admin\TaskController@save');
     Route::post('tasks/{task_id}/autoSave', 'Admin\TaskController@autoSave');
     Route::post('tasks/{task_id}/submit', 'Admin\TaskController@submit');
     Route::post('tasks/{task_id}/submitForce', 'Admin\TaskController@submitForce');
-
 
     //utils
     Route::get('/saveView', 'Admin\AdminController@saveView');
@@ -199,13 +199,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/updateViews/{from}', 'Admin\AdminController@updateViews');
     Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
-    Route::get('testHelper', 'Admin\VideoController@testHelper');
-    Route::get('generateDict', 'Admin\AdminController@generateDict');
-    Route::get('videoLevels', 'Admin\AdminController@videoLevels');
-    Route::get('tmchange', 'Admin\AdminController@tmchange');
-    Route::get('dict', 'PostController@dict');
-    Route::get('parse', 'Admin\VideoController@parse');
-    Route::get('parseDesc', 'Admin\AdminController@parseDesc');
+//    Route::get('testHelper', 'Admin\VideoController@testHelper');
+//    Route::get('generateDict', 'Admin\AdminController@generateDict');
+//    Route::get('videoLevels', 'Admin\AdminController@videoLevels');
+//    Route::get('tmchange', 'Admin\AdminController@tmchange');
+//    Route::get('dict', 'PostController@dict');
+//    Route::get('parse', 'Admin\VideoController@parse');
+//    Route::get('parseDesc', 'Admin\AdminController@parseDesc');
 
     Route::get('uploadSql', function() {
         return view('admin.uploadSql');
@@ -218,8 +218,6 @@ Route::get('about', function() {
     return view('about.about');
 });
 
-Route::get('test', 'PostController@test');
-
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers'], function ($api) {
@@ -229,12 +227,12 @@ $api->version('v1', function ($api) {
         $api->get('topics/{id}', 'TopicController@show')->where(['id' => '[0-9]+']);
         $api->get('talkshows/{count}/{page}', 'TalkshowController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
         $api->get('videos/{level}/{count}/{page}/{order}', 'VideoController@index')->where(['count' => '[0-9]+', 'page' => '[0-9]+']);
-
         $api->get('topics/{id}/lessons', 'TopicController@lessons')->where(['id' => '[0-9]+']);
         $api->get('lessons/{id}', 'LessonController@show')->where(['id' => '[0-9]+']);
         $api->get('messages/{id}', 'MessageController@show')->where(['id' => '[0-9]+']);
         $api->get('talkshows/{id}', 'TalkshowController@show')->where(['id' => '[0-9]+']);
         $api->get('videos/{id}', 'VideoController@show')->where(['id' => '[0-9]+']);
+        $api->get('words/{word}/{readable_id}', 'WordController@show');
         $api->group(['middleware' => 'jwt.auth'], function ($api) {
             $api->get('users/me', 'AuthenticateController@getAuthenticatedUser');
         });

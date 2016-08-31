@@ -51,6 +51,9 @@
                                         @else
                                             <a class="btn btn-info"
                                                href="{{url('translator/tasks/' . $video->video_id .'/translate')}}">@lang('labels.translate')</a>
+
+                                            <a class="btn btn-info"
+                                               href="{{url('translator/tasks/' . $video->video_id .'/giveup')}}">@lang('labels.giveup')</a>
                                         @endif
                                     @endif
                                 </td>

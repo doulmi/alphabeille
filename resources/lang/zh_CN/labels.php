@@ -360,6 +360,7 @@ return [
     'translator.keywords' => 'Alphabeille翻译组，法语翻译',
     'translateVideos' => '翻译<strong>:num</strong>篇',
     'group' => '翻译组',
+    'giveup' => '放弃',
 ];
 
 
