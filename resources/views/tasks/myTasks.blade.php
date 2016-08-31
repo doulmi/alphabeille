@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="">
-        <div class="Card-Collection">
+        <div class="container">
             <div class="Header"></div>
             @if(Session::has('hasTranslator'))
                 <div class="alert alert-warning alert-dismissible" role="alert">
