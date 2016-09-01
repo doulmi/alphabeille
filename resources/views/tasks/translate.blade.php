@@ -15,9 +15,14 @@
                 {!! csrf_field() !!}
                 <div class="row video-show">
                     <div class="col-md-5">
-                        <div class="video-container">
-                            <div id="video-placeholder"></div>
-                        </div>
+                        {{--<div class="video-container">--}}
+                        {{--<div id="video-placeholder"></div>--}}
+                        {{--</div>--}}
+                        <video id="my_video" class="video-js vjs-default-skin"
+                               controls preload
+                               data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
+                            <source src="{{$readable->video_url}}" type='video/mp4'>
+                        </video>
 
                         <div class="video-content grey translate-content">
                             <table>
@@ -71,7 +76,8 @@
 @endsection
 
 @section('otherjs')
-    <script src="https://www.youtube.com/iframe_api"></script>
+    {{--<script src="https://www.youtube.com/iframe_api"></script>--}}
+    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
@@ -91,7 +97,7 @@
         var change = false;
 
         function autoSave() {
-            if(change) {
+            if (change) {
                 $.post("{{url('translator/tasks/' . $task->id . '/autoSave')}}", {
                     content: content.val(),
                     _token: "{{csrf_token()}}"
@@ -113,7 +119,7 @@
             });
 
             //自动保存功能
-            setInterval(function(){
+            setInterval(function () {
                 autoSave();
 
             }, 1000 * 30);
@@ -210,29 +216,36 @@
             }
         });
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('video-placeholder', {
-                videoId: "{{$readable->originSrc}}",
-                playerVars: {
-                    color: 'white'
-                },
-                events: {
-                    onReady: initialize
-                }
-            });
+        {{--function onYouTubeIframeAPIReady() {--}}
+            {{--player = new YT.Player('video-placeholder', {--}}
+                {{--videoId: "{{$readable->originSrc}}",--}}
+                {{--playerVars: {--}}
+                    {{--color: 'white'--}}
+                {{--},--}}
+                {{--events: {--}}
+                    {{--onReady: initialize--}}
+                {{--}--}}
+            {{--});--}}
 
-            function initialize() {
-                setInterval(vm.timeupdate, 1000);
-            }
+            {{--function initialize() {--}}
+                {{--setInterval(vm.timeupdate, 1000);--}}
+            {{--}--}}
 
-            player.currentTime = function (time) {
-                if (time == undefined || time == '') {
-                    return player.getCurrentTime();
-                } else {
-                    player.seekTo(time);
-                }
-            }
-        }
+            {{--player.currentTime = function (time) {--}}
+                {{--if (time == undefined || time == '') {--}}
+                    {{--return player.getCurrentTime();--}}
+                {{--} else {--}}
+                    {{--player.seekTo(time);--}}
+                {{--}--}}
+            {{--}--}}
+        {{--}--}}
+        videojs("my_video").ready(function () {
+            player = this;
+
+            player.on('timeupdate', vm.timeupdate);
+            player.play();
+            $('#my_video').show();
+        });
 
         $(document).keydown(function (e) {
             switch (e.which) {

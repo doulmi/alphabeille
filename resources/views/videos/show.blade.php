@@ -328,7 +328,6 @@
         });
 
         @if($youtube)
-
         function onYouTubeIframeAPIReady() {
             console.log("https://www.youtube.com/watch?v={{$readable->originSrc}}");
             player = new YT.Player('video-placeholder', {
