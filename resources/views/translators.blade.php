@@ -12,8 +12,8 @@
         <div class="jumbotron ">
             <div class="container">
                 <div class="col-md-6 col-md-offset-3 ad">
-                    <h2>Alphabeille翻译社群</h2>
-                    Alphabeille翻译社群提供一个平台，让对翻译有热枕的同好能够琢磨翻译技巧，同时让更多使用者能够精进法语能力！
+                    <h2>Alphabeille翻译组</h2>
+                    @lang('labels.translator.description')
                     <div><a class="btn btn-ads" href="mailto:alphabeilleStudio@gmail.com">@lang('labels.joinus')</a></div>
                 </div>
             </div>

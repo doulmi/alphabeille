@@ -3,11 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Video extends Readable
 {
     protected $fillable = [
         'id', 'title', 'description', 'likes', 'views', 'avatar', 'free', 'download_url', 'video_url', 'content', 'parsed_content','keywords', 'is_published', 'publish_at','slug', 'parsed_content_zh', 'points', 'level', 'translator_id', 'listener_id', 'verifier_id', 'lastMonthViews', 'originSrc', 'parsed_desc', 'state', 'duration'
+    ];
+
+    use SearchableTrait;
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        'columns' => [
+            'title' => 10,
+            'description' => 5,
+            'content' => 2
+        ]
     ];
 
     public static function findByIdOrSlugOrFail($idOrSlug)

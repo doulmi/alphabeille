@@ -8,7 +8,9 @@ use App\Subscription;
 
 use App\Http\Requests;
 use App\Video;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Sunra\PhpSimple\HtmlDomParser;
 use TomLingham\Searchy\Facades\Searchy;
@@ -50,18 +52,17 @@ class PostController extends Controller
 //        return json_encode($data);
 //    }
 
-    public function search()
+    public function search(Request $request)
     {
-        $keyStr = str_slug(Input::get('keys', ''));
-
-        $keys = explode('-', $keyStr);
-        $builder = Video::orderBy('created_at');
-        foreach($keys as $key) {
-            $builder->orWhere('title', 'like', '%' . $key . '%')->orWhere('content', 'like', '%' . $key .'%')->orWhere('description', 'like', '%' . $key . '%');
-        }
-
-        $videos = $builder->paginate(50, ['views', 'id', 'title', 'avatar', 'slug']);
-
+        $keys = $request->get('keys', '');
+        $page = $request->has('page') ? $request->page - 1 : 0;
+        $limit = 48;
+        $videos = Video::search($keys)->get();
+        //Paginate bug in 5.2
+        $total = $videos->count();
+        $videos = $videos->slice($page * $limit, $limit);
+        $videos = new \Illuminate\Pagination\LengthAwarePaginator($videos, $total, $limit);
+        $videos->setPath('/search')->appends(['q' => $keys]);
         return view('search', compact('videos'));
     }
 

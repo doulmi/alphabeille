@@ -7,8 +7,8 @@
 @section('content')
     <div class="">
         <div class="Header"></div>
-
         <div class="Card-Collection">
+
             <div class="row">
                 <div class="col-md-12">
                     @if(count($wordss) == 0)
@@ -32,8 +32,8 @@
                                         <td class="word-text">{!! $word->word !!}</td>
                                         <td>{{$word->times}}</td>
                                         <td id="td-{{$i}}">
-                                            @if(strlen($word->explication) > 400)
-                                                {!! substr($word->explication, 0, 400) !!}
+                                            @if(strlen($word->explication) > 100)
+                                                {!! substr($word->explication, 0, 100) !!}
                                                 <br/>
                                                 <button class="btn-link" onclick='more("{{$i}}", "{{str_replace("\r\n", '', $word->explication)}}")'>@lang('labels.more')</button>
                                             @else
