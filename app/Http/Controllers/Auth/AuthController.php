@@ -99,12 +99,27 @@ class AuthController extends Controller
         return $user;
     }
 
+    //防止用户重复登录
+    public function updateSession($user)
+    {
+        $newSessionId = Session::getId();
+        $lastSessionId = Session::getHandler()->read($user->last_session_id);
+        if (strlen($lastSessionId) > 0) {
+            Session::getHandler()->destroy($user->last_session_id);
+        }
+
+        $user->last_session_id = $newSessionId;
+        $user->save();
+    }
+
     private function authenticated(Request $request, $user)
     {
+        $this->updateSession($user);
         event(new UserLogin());
 //        $redirectUrl = $request->get('redirect_url', '/');
         return redirect(Session::get('prevUrl', '/'));
     }
+
 
     /**
      * Generate a defaut username by user's email
