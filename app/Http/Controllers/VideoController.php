@@ -51,30 +51,8 @@ class VideoController extends ReadableController
         list($like, $collect, $punchin) = $this->getStatus($readable);
 
         $type = 'video';
-        $url = "http://api.wipmania.com/" . $request->ip();
-//        $url = "http://api.wipmania.com/93.30.107.172";
-        $response = $this->httpGet($url);
-
-        $youtube = $response == 'CN' || $response == 'XX' ? false : true;
+        $youtube = $user->last_login_foreign;
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
-    }
-
-
-    /**
-     * 取得对外api的结果
-     * @param $url
-     * @return mixed
-     */
-    protected function httpGet($url)
-    {
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HEADER, 0); // 过滤HTTP头
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
-        $response = curl_exec($curl);
-        curl_close($curl);
-        return $response;
     }
 
     public function level($level)

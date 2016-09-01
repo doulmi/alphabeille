@@ -97,20 +97,20 @@
                         <i class="svg-icon svg-icon-miel"></i>
                         <span class="white label-svg-miel" id="punchin">{{Auth::user()->series}}</span>
                     </li>
-                    {{--@if(($msgCount =Auth::user()->unreadMessageCount()) > 0)--}}
-                        {{--<li class="hidden-xs">--}}
-                            {{--<a href="{{url('messages')}}">--}}
-                                {{--<i class="svg-icon svg-icon-notification"></i>--}}
-                                {{--<span class="white label-svg-notification">{{$msgCount}}</span>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                    {{--@else--}}
-                        {{--<li class="hidden-xs">--}}
-                            {{--<a href="{{url('messages')}}">--}}
-                                {{--<i class="svg-icon svg-icon-notification half-opacity"></i>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                    {{--@endif--}}
+                    @if(($msgCount =Auth::user()->unreadMessageCount()) > 0)
+                        <li class="hidden-xs">
+                            <a href="{{url('messages')}}">
+                                <i class="svg-icon svg-icon-notification"></i>
+                                <span class="white label-svg-notification">{{$msgCount}}</span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="hidden-xs">
+                            <a href="{{url('messages')}}">
+                                <i class="svg-icon svg-icon-notification half-opacity"></i>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
                 {{--                @if(Auth::guest())--}}

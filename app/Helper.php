@@ -36,19 +36,20 @@ class Helper
     }
 
     //convert second to 00:00:00.000
-    public static function reverseSecond($var) {
+    public static function reverseSecond($var)
+    {
         $hour = intval($var / 60 / 60);
-        $hour = $hour < 10 ? '0'.$hour : $hour;
+        $hour = $hour < 10 ? '0' . $hour : $hour;
         $min = intval($var / 60 - $hour * 60 * 60);
         $min = $min < 10 ? '0' . $min : $min;
         $sec = intval($var - $hour * 60 * 60 - $min * 60);
         $sec = $sec < 10 ? '0' . $sec : $sec;
         $micro = explode('.', $var);
-        if(isset($micro[1])) {
+        if (isset($micro[1])) {
             $micro = $micro[1];
             $micro = $micro < 10 ? '0' . $micro : $micro;
             $micro = $micro < 100 ? '0' . $micro : $micro;
-        } else{
+        } else {
             $micro = '000';
         }
         return "$hour:$min:$sec,$micro";
@@ -72,10 +73,11 @@ class Helper
         return $subStr;
     }
 
-    public static function extraFr($src) {
+    public static function extraFr($src)
+    {
         $subs = self::parseSubtitle($src);
         $result = '';
-        foreach($subs as $sub) {
+        foreach ($subs as $sub) {
             $result .= $sub->fr . "\r\n\r\n";
         }
         return $result;
@@ -166,7 +168,7 @@ class Helper
             }
             $fr .= $sub->fr;
             $zh .= $sub->zh;
-            if(!isset($sub->startTime)) {
+            if (!isset($sub->startTime)) {
                 dd($sub->fr . "\n" . $sub->zh);
             } else {
                 $points .= self::toSecond($sub->startTime);
@@ -200,7 +202,7 @@ class Helper
             }
         }
 
-        if($find) {
+        if ($find) {
             return $result->zh;
         } else {
             return $possibleSub->zh;
@@ -363,7 +365,8 @@ class Helper
         return $string;
     }
 
-    public static function filterSpecialChars($content) {
+    public static function filterSpecialChars($content)
+    {
         $content = str_replace('！', '!', $content);
         $content = str_replace('？', '?', $content);
         $content = str_replace('  ', ' ', $content);
@@ -381,5 +384,29 @@ class Helper
         $content = str_replace('–', '-', $content);
         $content = str_replace('♪', '', $content);
         return $content;
+    }
+
+
+    public static function isForeignIp($ip) {
+        $url = "http://api.wipmania.com/" . $ip;
+        $response = self::httpGet($url);
+        return !($response == 'CN' || $response == 'XX');
+    }
+
+    /**
+     * 取得对外api的结果
+     * @param $url
+     * @return mixed
+     */
+    public static function httpGet($url)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HEADER, 0); // 过滤HTTP头
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
     }
 }

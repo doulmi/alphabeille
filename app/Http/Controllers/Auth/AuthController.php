@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserLogin;
 use App\Events\UserRegister;
+use App\Helper;
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
@@ -100,7 +101,7 @@ class AuthController extends Controller
     }
 
     //防止用户重复登录
-    public function updateSession($user)
+    public function updateSession($request, $user)
     {
         $newSessionId = Session::getId();
         $lastSessionId = Session::getHandler()->read($user->last_session_id);
@@ -109,13 +110,16 @@ class AuthController extends Controller
         }
 
         $user->last_session_id = $newSessionId;
+        $user->last_ip = $request->ip();
+        $user->last_login_foreign = Helper::isForeignIp($user->last_ip);
         $user->save();
     }
 
     private function authenticated(Request $request, $user)
     {
-        $this->updateSession($user);
+        $this->updateSession($request, $user);
         event(new UserLogin());
+
 //        $redirectUrl = $request->get('redirect_url', '/');
         return redirect(Session::get('prevUrl', '/'));
     }

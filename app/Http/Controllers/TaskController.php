@@ -52,7 +52,8 @@ class TaskController extends Controller
     public function preview($videoId)
     {
         $readable = Video::findOrFail($videoId);
-        return view('tasks.preview', compact('readable'));
+        $youtube = Auth::user()->last_login_foreign;
+        return view('tasks.preview', compact('readable', 'youtube'));
     }
 
     public function translate($videoId)
@@ -77,7 +78,8 @@ class TaskController extends Controller
                 'content' => $readable->content,
             ]);
         }
-        return view('tasks.translate', compact('readable', 'task'));
+        $youtube = $user->last_login_foreign;
+        return view('tasks.translate', compact('readable', 'task', 'youtube'));
     }
 
     public function checkFr($videoId)

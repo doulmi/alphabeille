@@ -3901,6 +3901,8 @@ $seek-transition-time: 0.3s;
 .popover {
   max-width: 100%;
   width: 500px;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .fav-btn {

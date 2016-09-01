@@ -13,14 +13,17 @@
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7">
-                    {{--<div class="video-container">--}}
-                        {{--<div id="video-placeholder"></div>--}}
-                    {{--</div>--}}
-                    <video id="my_video" class="video-js vjs-default-skin"
-                           controls preload
-                           data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
-                        <source src="{{$readable->video_url}}" type='video/mp4'>
-                    </video>
+                    @if($youtube)
+                        <div class="video-container">
+                            <div id="video-placeholder"></div>
+                        </div>
+                    @else
+                        <video id="my_video" class="video-js vjs-default-skin"
+                               controls preload
+                               data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2] }'>
+                            <source src="{{$readable->video_url}}" type='video/mp4'>
+                        </video>
+                    @endif
 
                     <div class="subtitle">
                         <div class="center">
@@ -78,8 +81,11 @@
 @endsection
 
 @section('otherjs')
-    {{--<script src="https://www.youtube.com/iframe_api"></script>--}}
-    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    @if($youtube)
+        <script src="https://www.youtube.com/iframe_api"></script>
+    @else
+        <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
@@ -184,31 +190,33 @@
             }
         });
 
-        {{--$(function () {--}}
-            {{--function onYouTubeIframeAPIReady() {--}}
-                {{--player = new YT.Player('video-placeholder', {--}}
-                    {{--videoId: "{{$readable->originSrc}}",--}}
-                    {{--playerVars: {--}}
-                        {{--color: 'white'--}}
-                    {{--},--}}
-                    {{--events: {--}}
-                        {{--onReady: initialize,--}}
-                        {{--onError: showLocalPlayer--}}
-                    {{--}--}}
-                {{--});--}}
+        @if($youtube)
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('video-placeholder', {
+                    videoId: "{{$readable->originSrc}}",
+                    playerVars: {
+                        color: 'white',
+                        autoplay: 1,
+                        showinfo: 0,
+                        rel: 0
+                    },
+                    events: {
+                        onReady: initialize
+                    }
+                });
 
-                {{--function initialize() {--}}
-                    {{--setInterval(vm.timeupdate, 1000);--}}
-                    {{--player.currentTime = function (time) {--}}
-                        {{--if (time == undefined || time == '') {--}}
-                            {{--return player.getCurrentTime();--}}
-                        {{--} else {--}}
-                            {{--player.seekTo(time);--}}
-                        {{--}--}}
-                    {{--}--}}
-                {{--}--}}
-            {{--}--}}
-        {{--});--}}
+                function initialize() {
+                    setInterval(vm.timeupdate, 1000);
+                    player.currentTime = function (time) {
+                        if (time == undefined || time == '') {
+                            return player.getCurrentTime();
+                        } else {
+                            player.seekTo(time);
+                        }
+                    }
+                }
+            }
+        @else
         videojs("my_video").ready(function () {
             player = this;
 
@@ -216,6 +224,7 @@
             player.play();
             $('#my_video').show();
         });
+        @endif
 
         $(document).keydown(function (e) {
             switch (e.which) {

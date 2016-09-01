@@ -14,6 +14,8 @@ class AddSessionToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('last_session_id')->default('0000000000000000000000000000000000000000');
+            $table->string('last_ip');
+            $table->boolean('last_login_foreign');
         });
     }
 
@@ -25,8 +27,9 @@ class AddSessionToUser extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-
             $table->dropColumn('last_session_id');
+            $table->dropColumn('last_ip');
+            $table->dropColumn('last_login_foreign');
         });
     }
 }

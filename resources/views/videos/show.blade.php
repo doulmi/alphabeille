@@ -174,7 +174,6 @@
 @section('otherjs')
     @if($youtube)
         <script src="https://www.youtube.com/iframe_api"></script>
-
     @else
         <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     @endif
@@ -333,7 +332,10 @@
             player = new YT.Player('video-placeholder', {
                 videoId: "{{$readable->originSrc}}",
                 playerVars: {
-                    color: 'white'
+                    color: 'white',
+                    autoplay: 1,
+                    showinfo: 0,
+                    rel: 0
                 },
                 events: {
                     onReady: initialize
