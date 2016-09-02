@@ -104,7 +104,8 @@ class TaskController extends Controller
                 'content' => $readable->content,
             ]);
         }
-        return view('tasks.translate', compact('readable', 'task'));
+        $youtube = $user->last_login_foreign;
+        return view('tasks.translate', compact('readable', 'task', 'youtube'));
     }
 
     public function giveup($videoId)

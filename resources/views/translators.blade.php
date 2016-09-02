@@ -27,7 +27,7 @@
                         <div class="col-md-3">
                             <div class="media">
                                 <div class="media-left">
-                                    <a >
+                                    <a href="{{url('translator/' . $translator->id . '/videos')}}" >
                                         <img src="{{$translator->avatar}}" alt="{{$translator->name . '\'s avatar'}}"
                                              class="img-circle media-object" >
                                     </a>
@@ -35,7 +35,7 @@
 
                                 <div class="media-body">
                                     <h4 class="media-heading">
-                                        {{$translator->name}}
+                                        <a href="{{url('translator/' . $translator->id . '/videos')}}" >{{$translator->name}}</a>
                                     </h4>
                                     @lang('labels.translateVideos', ['num' => $translator->translatedNumber()])
                                 </div>

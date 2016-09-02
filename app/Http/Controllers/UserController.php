@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Collectable;
 use App\Lesson;
 use App\Minitalk;
+use App\Task;
 use App\User;
 use App\Video;
 use App\Word;
@@ -152,5 +153,12 @@ class UserController extends Controller
         });
 
         return view('translators', compact('translators'));
+    }
+
+    public function translateVideos($userId) {
+        $readables = Video::join('tasks', 'tasks.video_id', '=', 'videos.id')->where('tasks.user_id', $userId)->where('tasks.is_submit', 1)->orderby('videos.updated_at', 'DESC')->paginate(48, ['videos.id', 'avatar', 'title', 'slug', 'videos.created_at','level', 'free', 'state']);
+
+        $type = 'video';
+        return view('videos.index', compact('readables', 'type'));
     }
 }

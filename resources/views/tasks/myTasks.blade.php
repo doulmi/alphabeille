@@ -44,7 +44,7 @@
                                     <td>{{$video->originSrc}}</td>
                                 @endif
                                 <td scope="row"
-                                    class="{{$video->is_submit ? 'green' : 'red'}} ">{{$video->is_submit ? trans('labels.submitted') : trans('labels.onTranslate')}}</td>
+                                    class="state-color{{$video->state}}">@lang('labels.videos.state' . $video->state)</td>
                                 <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                                 <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a>
                                 </td>

@@ -71,6 +71,7 @@ Route::get('lessons/free', 'LessonController@free');
 //Route::get('lessons/collect', 'LessonController@myCollect');
 Route::get('lessons/{id}/{lan}', 'LessonController@show');
 Route::resource('lessons', 'LessonController');
+Route::get('translator/{user_id}/videos', 'UserController@translateVideos');
 
 //Route::get('talkshows/free', 'TalkshowController@free');
 //Route::resource('talkshows', 'TalkshowController');
