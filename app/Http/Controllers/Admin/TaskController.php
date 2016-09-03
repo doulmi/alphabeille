@@ -42,6 +42,10 @@ class TaskController extends Controller
             $builder->where('tasks.type', $reverse[$request->get('type')]);
         }
 
+        if($request->get('doubt', 0) != 0) {
+            $builder->where('tasks.trouble', 1);
+        }
+
         if ($request->has('user')) {
             $userId = $request->get('user');
             $builder->where('tasks.user_id', $userId);
@@ -51,6 +55,7 @@ class TaskController extends Controller
         $translators = DB::table('role_user')->leftJoin('users', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', '<>', '4')->get(['users.id', 'users.name']);
 
         $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'users.name', 'tasks.is_submit'])->orderBy('tasks.updated_at', 'DESC')->paginate(50)->appends($request->all());
+
 
         return view('admin.tasks.index', compact('videos', 'types', 'translators', 'trans'));
     }
@@ -125,5 +130,13 @@ class TaskController extends Controller
 
         Session::flash('successSubmit', '1');
         return redirect('admin/tasks');
+    }
+
+    public function doubt($task_id) {
+        $task = Task::find($task_id);
+        if($task) {
+            $task->trouble = !$task->trouble;
+            $task->save();
+        }
     }
 }

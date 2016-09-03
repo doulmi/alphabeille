@@ -2,11 +2,6 @@
 
 @section('title'){{ $readable->title }}@endsection
 
-<style>
-    .btn-toolbar .btn-group {
-        display: none;
-    }
-</style>
 @section('content')
     <div class="container-fluid grey">
         <div class="Header"></div>
@@ -44,6 +39,9 @@
                 </div>
 
                 <div class="row" style="margin-top : 20px;">
+                    <a href="#" data-tooltips="@lang('labels.favorite')" @click.stop.prevent="hasDoute">
+                        <div class="heart" style="position:fixed; top: 10%; right: 5%" v-bind:class="favorite"></div>
+                    </a>
                     <a href="#" onclick="submitForm()" style="margin-left : 10px;"
                        class="btn btn-primary pull-right">@lang('labels.submit')</a>
                     <a href="#" onclick="save()" class="btn btn-success pull-right">@lang('labels.save')</a>
@@ -59,8 +57,8 @@
 
 @section('otherjs')
     <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 
     <script>
         function save() {
@@ -102,6 +100,10 @@
                 change = true;
             });
 
+            $(".heart").on("click", function () {
+                $(this).toggleClass("is-active");
+            });
+
             //自动保存功能
             setInterval(function(){
                 autoSave();
@@ -128,6 +130,8 @@
                 zh: true,
                 pointsCount: 0,
                 favWord: 'glyphicon-heart-empty',
+                favorite: '{{$task->trouble ? 'is-active' : ''}}',
+                isFavorite: '{{$task->trouble}}',
                 played: [],    //  保存已经播放过的橘子
                 active: -1,
                 currentFr: "@lang('labels.startToSearchWord')",
@@ -199,6 +203,11 @@
                 saveNote() {
                     this.notes.push(this.newNote);
                     this.newNote = '';
+                },
+
+                hasDoute() {
+                    $.get('{{url("admin/tasks/doubt/" . $task->id )}}', function (response) {
+                    }.bind(this));
                 }
             }
         });

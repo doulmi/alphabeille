@@ -53,6 +53,25 @@
                 <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">
+                    @if(Request::get('doubt', ''))
+                        @lang('labels.trouble')
+                    @else
+                        @lang('labels.no')
+                    @endif
+                    <span class="caret"></span>
+                </a>
+
+                {{--完成度--}}
+                <ul class="dropdown-menu">
+                   <li><a onclick="filterDoubt(0)">@lang('labels.no')</a></li>
+                   <li><a onclick="filterDoubt(1)">@lang('labels.trouble')</a></li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
                     {{Request::get('userName') == '' ? 'ALL' : Request::get('userName') }}
                     <span class="caret"></span>
                 </a>
@@ -118,6 +137,7 @@
             <input type="hidden" id="type" name="type" value="{{Request::get('type', '')}}">
             <input type="hidden" id="user" name="user" value="{{Request::get('user', '')}}">
             <input type="hidden" id="userName" name="userName" value="{{Request::get('userName', '')}}">
+            <input type="hidden" id="doubt" name="doubt" value="{{Request::get('doubt', '')}}">
         </div>
     </form>
 @endsection
@@ -162,6 +182,7 @@
         var userNameInput = $('#userName');
         var typeInput = $('#type');
         var form = $('#taskForm');
+        var doubt = $('#doubt');
 
         var filterState = function (state) {
             stateInput.val(state);
@@ -176,6 +197,11 @@
         var filterUser = function (user, name) {
             userInput.val(user);
             userNameInput.val(name);
+            form.submit();
+        };
+
+        var filterDoubt = function($toggle) {
+            doubt.val($toggle);
             form.submit();
         }
     </script>

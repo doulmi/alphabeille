@@ -383,9 +383,9 @@ class Helper
         $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
         $content = str_replace('–', '-', $content);
         $content = str_replace('♪', '', $content);
+        $content = str_replace('°', '', $content);
         return $content;
     }
-
 
     public static function isForeignIp($ip) {
         $url = "http://api.wipmania.com/" . $ip;

@@ -361,6 +361,8 @@ return [
     'translateVideos' => '翻译<strong>:num</strong>篇',
     'group' => '翻译组',
     'giveup' => '放弃',
+    'trouble' => '尚有疑问',
+    'no' => '所有',
 ];
 
 

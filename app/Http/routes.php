@@ -159,6 +159,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::put('/minitalkComments/create/{minitalk_id}', 'Admin\CommentController@storeMinitalks');
 
     Route::get('/talkshowComments/create/{talkshow_id}', 'Admin\CommentController@createTalkshows');
+    Route::get('/tasks/doubt/{task_id}', 'Admin\TaskController@doubt');
     Route::put('/talkshowComments/create/{talkshow_id}', 'Admin\CommentController@storeTalkshows');
 
     Route::delete('/comments/{type}/{id}', 'Admin\CommentController@destroy');
