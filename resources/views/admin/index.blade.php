@@ -82,7 +82,7 @@
                 <i class="glyphicon glyphicon-play"></i>
                 @lang('labels.manageVideos')
             </a>
-            <a href="{{url('admin/tasks')}}" class="list-group-item item">
+            <a href="{{url('admin/tasks?state=1&&type=3')}}" class="list-group-item item">
                 <i class="glyphicon glyphicon-edit"></i>
                 @lang('labels.videos.state4')
             </a>

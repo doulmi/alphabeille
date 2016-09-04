@@ -175,11 +175,12 @@ class TaskController extends Controller
         $video->state = 2;
         $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
+
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
         $video->save();
 
         Session::flash('successSubmit', '1');
-        return redirect('translator/tasks?type=1');
+        return redirect('translator/tasks?type=3&&state=1');
     }
 
     public function submitForce(Request $request, $taskId)
