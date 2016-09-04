@@ -99,7 +99,7 @@
                     <th>@lang('labels.avatar')</th>
                     <th>@lang('labels.title')</th>
                     <th>@lang('labels.translator')</th>
-                    <th>@lang('labels.created_at')</th>
+                    <th>@lang('labels.updated_at')</th>
                     <th>@lang('labels.actions')</th>
                 </tr>
                 </thead>
@@ -112,7 +112,7 @@
                         <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                         <td><a href="{{url('videos/' . $video->video_id)}}" TARGET="_blank">{{$video->title}}</a></td>
                         <td>{{$video->name}}</td>
-                        <td>{{$video->created_at}}</td>
+                        <td>{{$video->updated_at}}</td>
                         <td>
                             <a class="btn btn-info"
                                href="{{url('admin/tasks/' . $video->id .'/translate')}}">@lang('labels.modify')</a>

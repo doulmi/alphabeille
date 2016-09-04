@@ -32,19 +32,35 @@ class AdminController extends Controller
     {
         $this->markdown = $markdown;
     }
+
     public function index()
     {
         return view('admin.index');
     }
 
-    public function saveParsedContent() {
-        $videos = Video::all();
+    public function parseVideos($start, $end) {
+        $videos = Video::where('id', '>=', $start)->where('id', '<=', $end)->get();
         foreach($videos as $video) {
-            $video->parsed_content = Helper::parsePointLink($this->markdown->parse($video->content));
-            $video->parsed_desc = Helper::parsePointLink($this->markdown->parse($video->description));
+            list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink(Helper::filterSpecialChars($video->content));
+            $video->parsed_desc = $this->markdown->parse($video->description);
+
             $video->save();
         }
+
     }
+
+    public function parseMinitalk() {
+
+
+        $minitalks = Minitalk::all();
+        foreach($minitalks as $minitalk) {
+
+            $minitalk->parsed_content = Helper::emberedWord($this->markdown->parse(Helper::filterSpecialChars($minitalk->content)));
+            $minitalk->parsed_wechat_part = $this->markdown->parse($minitalk->wechat_part);
+            $minitalk->save();
+        }
+    }
+
 
     public function uploadSql(Request $request) {
         $sql = $request->get('sql');
@@ -90,114 +106,19 @@ class AdminController extends Controller
         $minitalks = Minitalk::all();
         foreach($minitalks as $minitalk) {
             $old = Redis::get('minitalk:view:' . $minitalk->id);
-            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(40, 60) + $old);
+            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(2, 10) + $old);
         }
 
         $videos = Video::where('id', '>', $from)->get();
         foreach($videos as $video) {
             $old = Redis::get('video:view:' . $video->id);
-            Redis::set('video:view:' . $video->id, $faker->numberBetween(80, 120) + $old );
+            Redis::set('video:view:' . $video->id, $faker->numberBetween(8, 20) + $old );
         }
     }
 
-    public function readables() {
-        $entity = Lesson::find(1);
-        $readable = Readable::create([
-            'title' => $entity->title,
-            'description' => $entity->description,
-            'avatar' => $entity->avatar,
-            'free' => $entity->free,
-            'audio_url' => $entity->audio_url,
-            'download_url' => $entity->audio_url,
-            'duration' => $entity->duration,
-            'content' => $entity->content,
-            'keywords' => $entity->keywords,
-            'is_published' => $entity->is_published,
-            'publish_at' => $entity->publish_at,
-            'created_at' => $entity->created_at,
-            'updated_at' => $entity->updated_at
-        ]);
-//        $lessons = Lesson::all();
-//        foreach($lessons as $lesson) {
-//            Readable::create($lesson);
-//        }
-//
-//        $topics = Topic::all();
-//        foreach($topics as $topic) {
-//            $topic->save();
-//        }
-//
-//        $minitalks = Minitalk::all();
-//        foreach($minitalks as $minitalk) {
-//            $minitalk->save();
-//        }
-//
-//        $talkshows = Talkshow::all();
-//        foreach($talkshows as $talkshow) {
-//            $talkshow->save();
-//        }
-    }
-
-    public function slugs() {
-        $lessons = Lesson::all();
-        foreach($lessons as $lesson) {
-            $lesson->save();
-        }
-
-        $topics = Topic::all();
-        foreach($topics as $topic) {
-            $topic->save();
-        }
-
-        $minitalks = Minitalk::all();
-        foreach($minitalks as $minitalk) {
-            $minitalk->save();
-        }
-
-        $talkshows = Talkshow::all();
-        foreach($talkshows as $talkshow) {
-            $talkshow->save();
-        }
-    }
-
-    public function generateDict() {
-        Helper::generateDict();
-    }
-
-    public function videoLevels() {
-        $videos = Video::all();
-        foreach($videos as $video) {
-            $video->update([
-                'level' => 'beginner'
-            ]);
-        }
-    }
-
-    public function tmchange() {
-        $talkshows = Talkshow::all();
-        foreach($talkshows as $talkshow) {
-            Minitalk::create([
-                'title' => $talkshow->title,
-                'description' => $talkshow->description,
-                'avatar' => $talkshow->avatar,
-                'audio_url' => $talkshow->audio_url,
-                'download_url' => $talkshow->audio_url,
-                'content' => $talkshow->content,
-                'keywords' => $talkshow->keywords,
-                'wechat_part' => '',
-                'is_published' => 1,
-                'publish_at' => $talkshow->publish_at,
-                'likes' => 0,
-                'free' => 0,
-                'views' => 0,
-                'created_at' => $talkshow->created_at,
-                'updated_at' => $talkshow->updated_at,
-                'deleted_at' => $talkshow->deleted_at,
-                'slug' => $talkshow->slug,
-                'parsed_content' => $talkshow->parsed_content,
-                'parsed_wechat_part' => '',
-                'points' => ''
-            ]);
+    public function parse() {
+        $talks = Minitalk::all();
+        foreach($talks as $talk) {
         }
     }
 }

@@ -199,7 +199,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
     Route::get('/updateViews/{from}', 'Admin\AdminController@updateViews');
-    Route::get('/saveParsedContent', 'Admin\AdminController@saveParsedContent');
+    Route::get('/parseMinitalks', 'Admin\AdminController@parseMinitalk');
+    Route::get('/parseVideos/{start}/{end}', 'Admin\AdminController@parseVideos');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');

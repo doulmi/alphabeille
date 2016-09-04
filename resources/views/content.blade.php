@@ -6,11 +6,12 @@
 @endsection
 
 @section('content')
-    <meta property="og:title" content="{{$readable->title}}" />
-    <meta property="og:image" content="{{$readable->avatar}}" />
+    <meta property="og:title" content="{{$readable->title}}"/>
+    <meta property="og:image" content="{{$readable->avatar}}"/>
 
-    <div >
-        <?php $canRead = $readable->free || (!Auth::guest() && Auth::user()->level() > 1) ?>
+    <div>
+        <?php $canRead = $readable->free || (Auth::user() && (Auth::user()->can('videos.subs'))) ?>
+
         <div class="Header"></div>
 
         <div class="lesson-content">
@@ -34,32 +35,39 @@
             </div>
 
             @if($readable instanceof \App\Lesson)
-            <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
-            <a class="btn btn-label label-{{$readable->sex}}">@lang("labels.tags." . $readable->sex)</a>
+                <a href="{{url("topics/" . $topic->id )}}" class="btn btn-label label-topic">{{ $topic->title }}</a>
+                <a class="btn btn-label label-{{$readable->sex}}">@lang("labels.tags." . $readable->sex)</a>
             @endif
 
             {{--@if(!$readable instanceof \App\Video)--}}
-                <div class="playerPanel">
-                    <audio id='audio' preload="auto" controls hidden>
-                        <source src="{{$readable->audio_url}}"/>
-                    </audio>
-                </div>
+            <div class="playerPanel">
+                <audio id='audio' preload="auto" controls hidden>
+                    <source src="{{$readable->audio_url}}"/>
+                </audio>
+            </div>
 
-                <div class="shortcut hidden-xs">
-                    @lang('labels.shortcut.pausePlay') : <span
-                            class="label label-default">@lang('labels.shortcut.space')</span>&nbsp;|&nbsp;
-                    @lang('labels.shortcut.advance') : <span class="label label-default">→</span>&nbsp;|&nbsp;
-                    @lang('labels.shortcut.back') : <span class="label label-default">←</span>&nbsp;|&nbsp;
-                    @lang('labels.shortcut.volumeUp') :
-                    <span class="label label-default">Ctrl</span>
-                    <span class="label label-default">↑</span>&nbsp;|&nbsp;
+            <div class="shortcut hidden-xs">
+                @lang('labels.shortcut.pausePlay') : <span
+                        class="label label-default">@lang('labels.shortcut.space')</span>&nbsp;|&nbsp;
+                @lang('labels.shortcut.advance') : <span class="label label-default">→</span>&nbsp;|&nbsp;
+                @lang('labels.shortcut.back') : <span class="label label-default">←</span>&nbsp;|&nbsp;
+                @lang('labels.shortcut.volumeUp') :
+                <span class="label label-default">Ctrl</span>
+                <span class="label label-default">↑</span>&nbsp;|&nbsp;
 
-                    @lang('labels.shortcut.volumeDown') :
-                    <span class="label label-default">Ctrl</span>
-                    <span class="label label-default">↓</span>
-                </div>
+                @lang('labels.shortcut.volumeDown') :
+                <span class="label label-default">Ctrl</span>
+                <span class="label label-default">↓</span>
+            </div>
             <br/>
             <br/>
+            @if(!$canRead)
+                <center>
+                    <a href="{{url('menus')}}" class="btn btn-ads">@lang('labels.adBtnShort')</a><br/>
+                </center>
+            @endif
+
+
             @if($canRead)
                 <div class='markdown-content'>
                     {!! $content !!}
@@ -72,18 +80,16 @@
                 </div>
             @endif
 
-            @if(!$canRead)
-                @include('blockContent')
-            @endif
 
             @if(!Auth::guest())
                 <div class="center">
                     <a href="#" data-tooltips="@lang('labels.favorite')" @click.stop.prevent="favoriteEvent">
-                    <div class="heart" v-bind:class="favorite"></div>
+                        <div class="heart" v-bind:class="favorite"></div>
                     </a>
 
                     @if(!$punchin)
-                        <a id="punchinlink" class="hidden-xs fancy-button" href="#" data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
+                        <a id="punchinlink" class="hidden-xs fancy-button" href="#"
+                           data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
                             <div class="left-frills frills"></div>
                             <div class="button-frilles">@lang('labels.punchin')</div>
                             <div class="right-frills frills"></div>
@@ -95,7 +101,8 @@
                     </a>
 
                     @if(!$punchin)
-                        <a id="punchinlink" class="visible-xs fancy-button" href="#" data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
+                        <a id="punchinlink" class="visible-xs fancy-button" href="#"
+                           data-tooltips="@lang('labels.punchin')" @click.stop.prevent="punchinEvent">
                             <div class="left-frills frills"></div>
                             <div class="button-frilles">@lang('labels.punchin')</div>
                             <div class="right-frills frills"></div>
@@ -112,35 +119,35 @@
         <div class="Card-Collection">
             {{--同一主题内容--}}
             @if($readable instanceof \App\Lesson)
-            <div class="Header"></div>
-            <h2 class="Heading-Fancy row">
+                <div class="Header"></div>
+                <h2 class="Heading-Fancy row">
             <span class="Heading-Fancy-subtitle black">
                 @lang('labels.learnSlagon')
             </span>
-                <span class='title black'>{{ $topic->title }}</span>
-            </h2>
+                    <span class='title black'>{{ $topic->title }}</span>
+                </h2>
 
-            {{--<div class="Card-Collection">--}}
-            <table class="table lessons-table table-hover">
-                <tbody>
-                @foreach($topic->lessons()->get() as $i => $les)
-                    @if($les->id == $readable->id)
-                        <tr class="lesson-row active-row">
-                    @else
-                        <tr class="lesson-row">
-                            @endif
-                            <th scope="row">{{$i + 1}}.</th>
-                            <td onclick="window.document.location='{{url('lessons/' . $les->slug)}}'">
-                                {{$les->title}}
-                                @if($les->free)
-                                    <span class="free-label">@lang('labels.free')</span>
+                {{--<div class="Card-Collection">--}}
+                <table class="table lessons-table table-hover">
+                    <tbody>
+                    @foreach($topic->lessons()->get() as $i => $les)
+                        @if($les->id == $readable->id)
+                            <tr class="lesson-row active-row">
+                        @else
+                            <tr class="lesson-row">
                                 @endif
-                            </td>
-                            <td>{{$les->duration}}</td>
-                        </tr>
-                        @endforeach
-                </tbody>
-            </table>
+                                <th scope="row">{{$i + 1}}.</th>
+                                <td onclick="window.document.location='{{url('lessons/' . $les->slug)}}'">
+                                    {{$les->title}}
+                                    @if($les->free)
+                                        <span class="free-label">@lang('labels.free')</span>
+                                    @endif
+                                </td>
+                                <td>{{$les->duration}}</td>
+                            </tr>
+                            @endforeach
+                    </tbody>
+                </table>
             @endif
 
             {{--推荐部分--}}
@@ -162,15 +169,16 @@
             <div id="disqus_thread">
                 <h1 class="black">@lang('labels.comments')</h1>
                 @if(Auth::guest())
-                        <div class="center">
-                            <a href="{{url('login')}}">@lang('labels.login')</a>
-                            @lang('labels.loginToReply')
-                        </div>
+                    <div class="center">
+                        <a href="{{url('login')}}">@lang('labels.login')</a>
+                        @lang('labels.loginToReply')
+                    </div>
                 @else
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <img src="{{Auth::user()->avatar}}" alt="avatar" class="img-circle media-object avatar hidden-xs" >
+                                <img src="{{Auth::user()->avatar}}" alt="avatar"
+                                     class="img-circle media-object avatar hidden-xs">
                             </a>
                         </div>
 
@@ -179,7 +187,8 @@
                                   id="replyForm">
                                 {{csrf_field()}}
 
-                                <textarea name="content" data-provide="markdown" v-model="newPost.content"  placeholder="@lang('labels.addComment')" id="comment-content"></textarea>
+                                <textarea name="content" data-provide="markdown" v-model="newPost.content"
+                                          placeholder="@lang('labels.addComment')" id="comment-content"></textarea>
                                 <input type="hidden" name="id" value="{{$readable->id}}">
                                 <button type="submit" class="pull-right btn btn-submit">@lang('labels.reply')</button>
                             </form>
@@ -187,12 +196,13 @@
                     </div>
                 @endif
 
-                <div class="comments"  v-if="commentVisible">
+                <div class="comments" v-if="commentVisible">
                     <ul id="comments">
                         <li v-for="comment in comments" class="comment">
                             <div class="media">
                                 <a class="media-left">
-                                    <img v-bind:src="comment.avatar" alt="avatar" class="img-circle media-object avatar">
+                                    <img v-bind:src="comment.avatar" alt="avatar"
+                                         class="img-circle media-object avatar">
                                 </a>
 
                                 <div class="media-body">
@@ -243,7 +253,7 @@
             return strText.replace(regEx, "");
         }
 
-        $(function() {
+        $(function () {
             $(".heart").on("click", function () {
                 $(this).toggleClass("is-active");
             });
@@ -251,8 +261,8 @@
                 $(this).toggleClass("is-active");
             });
 
-            $(".fancy-button").mousedown(function(){
-                $(this).bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function(){
+            $(".fancy-button").mousedown(function () {
+                $(this).bind('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function () {
                     $(this).removeClass('active');
                 });
                 $(this).addClass("active");
@@ -291,7 +301,7 @@
                 }
             },
 
-            computed : {
+            computed: {
                 commentVisible() {
                     return this.comments instanceof Array && this.comments.length > 0;
                 }
@@ -337,7 +347,7 @@
 
                     this.$http.post("{{url('/'. $type .'Comments')}}", post, function (data) {
                         this.comments.unshift(comment);
-                        this.newPost.content= '';
+                        this.newPost.content = '';
 
                         toastr.success("@lang('labels.feelFreeToComment')", "@lang('labels.commentSuccess')");
                         comment = {

@@ -245,8 +245,7 @@ class Helper
     {
         $in = false;
         $dest = '';
-        $pattern = '/(\s|,|\.|-|;|:|《|》|\?|!|[|]|\(|\)|{|}|<|>|\')/';
-
+        $pattern = '/(\s|,|\.|;|:|《|》|\?|!|[|]|\(|\)|{|}|<|>|\/|\')/';
         $len = mb_strlen($src, 'utf8');
         for ($i = 0; $i < $len; $i++) {
             $char = mb_substr($src, $i, 1, 'utf-8');
@@ -267,14 +266,76 @@ class Helper
             }
         }
         $dest = preg_replace('/<span>([A-Za-z]*)<\/span>\'/', '$1\'', $dest);
-        $dest = str_replace('Aujourd\'<span>hui<\/span>', 'Aujourd\'hui', $dest);
         $dest = preg_replace('/<span>(p|code|blockquote|\/p|\/code|\/blockquote|»|«|strong|\/strong|br|hr|h\d|\/h\d)<\/span>/', '$1', $dest);
         preg_match_all('/<<span>img.*<\/span>>/', $dest, $data);
+        $dest = self::filterExpression($dest);
         if ($data[0]) {
             $img = preg_replace('/<\/?span>/', '', $data[0][0]);
             $dest = str_replace($data[0][0], $img, $dest);
         }
+
         return $dest;
+    }
+
+    public static function filterExpression($src)
+    {
+        $list = [
+            "([A|a]ujourd)'<span>hui<\/span>" => "$1'hui",
+            "([D|d])'<span>abord<\/span>" => "$1'abord",
+            "([D|d])'<span>accord<\/span>" => "$1'accord",
+            "([C|c])'<span>est-à-dire<\/span>" => "$1'est-à-dire",
+            "<span>([à|a|A])<\/span> <span>bientôt<\/span>" => "$1 bientôt",
+            "<span>([à|a|A])<\/span> <span>cause<\/span> <span>de<\/span>" => "$1 cause de",
+            "<span>([à|a|A])<\/span> <span>ce<\/span> <span>moment<\/span>" => "$1 ce moment",
+            "<span>([à|a|A])<\/span> <span>charge<\/span> <span>de<\/span>" => "$1 charge de",
+            "<span>([à|a|A])<\/span> <span>proportion<\/span> <span>de<\/span>" => "$1 proportion de",
+            "<span>([à|a|A])<\/span> <span>condition<\/span> <span>([de|que])<\/span>" => "$1 condition $2",
+            "<span>([à|a|A])<\/span> <span>peu<\/span> <span>près<\/span>" => "$1 peu près",
+            "<span>([à|a|A])<\/span> <span>son<\/span> <span>tour<\/span>" => "$1 son tour",
+            "<span>([à|a|A])<\/span> <span>côté<\/span> <span>de<\/span>" => "$1 côté de",
+            "<span>([à|a|A])<\/span> <span>côté<\/span>" => "$1 côté",
+            "<span>([à|a|A])<\/span> <span>demi<\/span>" => "$1 demi",
+            "<span>([à|a|A])<\/span> <span>table<\/span>" => "$1 table",
+            "<span>([à|a|A])<\/span> <span>font<\/span>" => "$1 font",
+            "<span>([n|N]')<span>importe<\/span> <span>quoi<\/span>" => "$1impofte quoi",
+            "<span>([à|a|A])<\/span> <span>point<\/span>" => "$1 point",
+            "<span>([à|a|A])<\/span> <span>regret<\/span>" => "$1 regret",
+            "<span>([à|a|A])<\/span> <span>part<\/span>" => "$1 part", "<span>([à|a|A])u<\/span> <span>début<\/span>" => "$1 début",
+            "<span>([à|a|A])<\/span> l'<span>aise<\/span>" => "$1 l'aise",
+            "<span>([à|a|A])<\/span> l'<span>avance<\/span>" => "$1 l'avance",
+            "<span>([à|a|A])<\/span> l'<span>avenir<\/span>" => "$1 l'avenir",
+            "<span>([à|a|A])<\/span> l'<span>époque<\/span>" => "$1 l'époque",
+            "<span>([à|a|A])<\/span> l'<span>envers<\/span>" => "$1 l'envers",
+            "<span>([i|I]l)<\/span> s'<span>agit<\/span> <span>de<\/span>" => "$1 s'agit de",
+            "<span>([à|a|A])<\/span> <span>la<\/span> <span>fin<\/span>" => "$1 la fin",
+            "<span>([à|a|A])<\/span> <span>longueur<\/span> <span>de<\/span>" => "$1 longueur de",
+            "<span>([à|a|A])<\/span> <span>mesure<\/span> <span>que<\/span>" => "$1 mesure que",
+            "<span>([à|a|A])<\/span> <span>mon<\/span> <span>avis<\/span>" => "$1 mon avis",
+            "<span>([à|a|A])<\/span> <span>noter<\/span> <span>que<\/span>" => "$1 noter que",
+            "<span>([à|a|A])<\/span> <span>partir<\/span> <span>de<\/span>" => "$1 partir de",
+            "<span>([a|A])fin<\/span> <span>([de|que])<\/span>" => "$1fin $2",
+            "<span>([a|A])u<\/span> <span>bord<\/span> <span>de<\/span>" => "$1u bord de",
+            "<span>([a|A])u<\/span> <span>sein<\/span> <span>de<\/span>" => "$1u sein de",
+            "<span>([a|A])u<\/span> <span>cours<\/span> <span>de<\/span>" => "$1u cours de",
+            "<span>([a|A])u<\/span> <span>lieu<\/span> <span>de<\/span>" => "$1u cours de",
+            "<span>([a|A])u<\/span> <span>point<\/span> <span>de<\/span> <span>vue<\/span>" => "$1u point de vue",
+            "<span>([a|A])u<\/span> <span>bout<\/span>" => "$1u bout",
+            "<span>([a|A])uprès<\/span> <span>de<\/span>" => "$1uprès de",
+            "<span>([a|A])utour<\/span> <span>de<\/span>" => "$1utour de",
+            "<span>([a|A])u<\/span> <span>revoir<\/span>" => "$1u revoir",
+            "<span>([a|A])u<\/span> <span>moins<\/span>" => "$1u moins",
+            "<span>([a|A])u<\/span> <span>hasard<\/span>" => "$1u hasard",
+            "<span>([a|A])u<\/span> <span>dedans<\/span>" => "$1u dedans",
+            "<span>([d|D])es<\/span> <span>que<\/span>" => "$1es que",
+            "<span>([c|C|ç])a<\/span> <span>y<\/span> <span>est<\/span>" => "$1a y est",
+            "<span>([a|A])u<\/span> <span>mesure<\/span> <span>et<\/span> <span>à<\/span>  <span>mesure<\/span>" => "$1u fur et à mesure",
+        ];
+        foreach ($list as $key => $value) {
+            $src = preg_replace('/' . $key . '/ui', "<span>" . $value . "</span>", $src);
+        }
+
+        //au lieu de
+        return $src;
     }
 
 
@@ -383,11 +444,13 @@ class Helper
         $content = str_replace(' ', ' ', $content);//特殊的空格,会被看做中文
         $content = str_replace('–', '-', $content);
         $content = str_replace('♪', '', $content);
+        $content = str_replace('°C', 'degrés', $content);
         $content = str_replace('°', '', $content);
         return $content;
     }
 
-    public static function isForeignIp($ip) {
+    public static function isForeignIp($ip)
+    {
         $url = "http://api.wipmania.com/" . $ip;
         $response = self::httpGet($url);
         return !($response == 'CN' || $response == 'XX');

@@ -44,10 +44,16 @@ class WordController extends Controller
     }
 
     public function getWord($src) {
+        $src = trim($src);
         $word = Word::where('word', $src)->first();
         $origin = false;
         if ($word) {
             $origin = true;
+        }
+
+        if (str_contains('\'', $src)) {
+            $src = explode('\'', $src)[1];
+            $word = Word::where('word', $src)->first();
         }
 
         //阳性,复数

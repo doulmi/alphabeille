@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Editor\Markdown\Markdown;
+use App\Helper;
 use App\UserTraces;
 use App\Video;
 
@@ -43,6 +44,9 @@ class VideoController extends ReadableController
                 'readable_type' => 'App\Video',
                 'readable_id' => $readable->id
             ]);
+            $youtube = $user->last_login_foreign;
+        } else {
+            $youtube = Helper::isForeignIp($request->ip());
         }
 
         $fr = explode('||', $readable->parsed_content);
@@ -51,7 +55,7 @@ class VideoController extends ReadableController
         list($like, $collect, $punchin) = $this->getStatus($readable);
 
         $type = 'video';
-        $youtube = $user->last_login_foreign;
+
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
     }
 
