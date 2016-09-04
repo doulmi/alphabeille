@@ -129,7 +129,7 @@ class TaskController extends Controller
         $video->save();
 
         Session::flash('successSubmit', '1');
-        return redirect('admin/tasks')->with(['state' => '4']);
+        return redirect('admin/tasks?state=1&&type=3');
     }
 
     public function doubt($task_id) {
