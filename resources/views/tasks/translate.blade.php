@@ -80,7 +80,14 @@
 
 @section('otherjs')
     @if($youtube)
-        <script src="https://www.youtube.com/iframe_api"></script>
+        {{--<script src="https://www.youtube.com/iframe_api"></script>--}}
+        <script>
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        </script>
     @endif
     <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
