@@ -63,7 +63,7 @@ class AlipayController extends Controller
                     ]);
 
                     $user = User::findOrFail($bodies[0]);
-                    $role = Role::findOrFail(3);
+                    $role = Role::findOrFail(4);
                     $user->attachRole($role);
                     $user->save();
                 });

@@ -162,6 +162,7 @@
                 seekTo(no) {
                     var time = this.points[no];
                     player.currentTime(time);
+                    player.playVideo();
                 },
 
                 timeupdate() {

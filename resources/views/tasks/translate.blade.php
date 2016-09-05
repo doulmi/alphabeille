@@ -176,6 +176,11 @@
                 seekTo(no) {
                     var time = this.points[no];
                     player.currentTime(time);
+                    @if($youtube)
+                    player.playVideo();
+                    @else
+                    player.play();
+                    @endif
                 },
 
                 timeupdate() {
@@ -269,12 +274,20 @@
                 case 32:    //空格，作为播放和停止的快捷键
                     var tag = e.target.tagName.toLowerCase();
                     if (tag != 'input' && tag != 'textarea') {
+                        @if($youtube)
+                        if (player.getPlayerState() == 2) {
+                            player.playVideo();
+                        } else {
+                            player.pauseVideo();
+                        }
+                        @else
                         if (player.paused()) {
                             player.play();
                         } else {
                             player.pause();
                         }
-                        e.preventDefault();
+                        @endif
+                    e.preventDefault();
                     }
             }
         });

@@ -245,7 +245,7 @@
 
                 @if($canRead)
                         this.linesFr = "{!!$readable->parsed_content!!}".split('||');
-                this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
+                        this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
             },
 
@@ -253,6 +253,11 @@
                 seekTo(no) {
                     var time = this.points[no];
                     player.currentTime(time);
+                    @if($youtube)
+                    player.playVideo();
+                    @else
+                    player.play();
+                    @endif
                 },
 
                 favoriteEvent() {
@@ -325,7 +330,6 @@
                     this.zh = !this.zh;
                 },
                 saveNote() {
-                    console.log(this.newNote);
                     this.notes.push(this.newNote);
                     this.newNote = '';
                 }
@@ -334,7 +338,6 @@
 
         @if($youtube)
         function onYouTubeIframeAPIReady() {
-            console.log("https://www.youtube.com/watch?v={{$readable->originSrc}}");
             player = new YT.Player('video-placeholder', {
                 videoId: "{{$readable->originSrc}}",
                 playerVars: {
@@ -353,14 +356,13 @@
             }
 
             player.currentTime = function (time) {
-                console.log(time);
                 if (time == undefined || time == '') {
-                    console.log(player.getCurrentTime);
                     return player.getCurrentTime();
                 } else {
                     player.seekTo(time);
                 }
-            }
+            };
+
         }
 
         @else
@@ -378,11 +380,19 @@
                 case 32:    //空格，作为播放和停止的快捷键
                     var tag = e.target.tagName.toLowerCase();
                     if (tag != 'input' && tag != 'textarea') {
+                        @if($youtube)
+                        if (player.getPlayerState() == 2) {
+                            player.playVideo();
+                        } else {
+                            player.pauseVideo();
+                        }
+                        @else
                         if (player.paused()) {
                             player.play();
                         } else {
                             player.pause();
                         }
+                        @endif
                         e.preventDefault();
                     }
             }

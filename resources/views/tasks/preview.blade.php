@@ -145,6 +145,11 @@
                 seekTo(no) {
                     var time = this.points[no];
                     player.currentTime(time);
+                    @if($youtube)
+                    player.playVideo();
+                    @else
+                    player.play();
+                    @endif
                 },
 
                 timeupdate() {
