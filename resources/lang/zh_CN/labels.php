@@ -322,7 +322,7 @@ return [
     'allVideos' => '所有视频',
     'points' => '断点',
     'economy' => '1个月套餐',
-
+    '24' => '2年套餐',
     'admin' => '后台',
     'allLevel' => '所有等级',
     //0: listen => 1: check fr => 2: need translate => 3: on translate => 4: chech zh => 5：done => 6 : publish
