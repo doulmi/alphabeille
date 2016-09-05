@@ -14,7 +14,7 @@
                 <h2 class="title">看视频学法语</h2>
                 <p class="texts">
                     短视频以生动活泼的方式学习地道法语表达<br/>
-                    内容涉及动画片，电影预告和短篇喜剧，新闻报道等生活的方方面面
+                    内容涉及动画，电影预告和短篇喜剧，新闻报道等生活的方方面面
                 </p>
             </div>
 
@@ -51,9 +51,9 @@
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon_enjoy_grammar"></use>
                     </svg>
                 </span>
-                <h2 class="title">新内容</h2>
+                <h2 class="title">永不断更</h2>
                 <p class="texts">
-                    每天我们将至少更新一期新的内容<br/>
+                    内容每天不断更新中<br/>
                 </p>
             </div>
         </div>
@@ -64,7 +64,7 @@
                 选择你的订阅
             </h2>
             @foreach($menus as $i => $menu)
-                @if($i == 1)
+                @if($i == 2)
                     <a href="{{url('alipay/pay/' . $menu->id)}}" class="subscribe-plan subscribe-plan--special">
                     <span class="subscribe-plan__special subscribe-plan__special--gold">
                         <span class="text">最热门</span>
@@ -75,13 +75,8 @@
                 <button class="plan-btn" href="">现在购买</button>
                 <p class="plan-length">@lang('labels.menu' . $menu->duration)</p>
                 <p class="plan-price">
-                    <span class="plan-price-value">总共 {{$menu->price}}元</span>
-                    {{--<span class="plan-price-month">/月</span>--}}
+                    <span class="plan-price-value">{{$menu->price}}元</span>
                 </p>
-
-                {{--<p class="plan-price-legend">--}}
-                    {{--总共 {{$menu->price}}元--}}
-                {{--</p>--}}
             </a>
             @endforeach
         </div>
