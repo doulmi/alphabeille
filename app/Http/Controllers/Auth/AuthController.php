@@ -165,7 +165,7 @@ class AuthController extends Controller
         return $socialite->driver('qq')->redirect();
     }
 
-    public function qqCallback()
+    public function qqCallback(Request $request)
     {
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('qq')->user();
@@ -194,6 +194,8 @@ class AuthController extends Controller
                 'last_login_at' => Carbon::now(),
             ]);
         }
+
+        $this->updateSession($request, $authUser);
         Auth::login($authUser);
         return redirect(Session::get('prevUrl', '/'));
     }

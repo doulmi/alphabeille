@@ -38,22 +38,21 @@ class UserLoginEvent
         $user = Auth::user();
         $user->last_login_at = Carbon::now();
 
-        $this->checkPunchin();
-        $this->checkSubscriptionExpired();
+        $this->checkPunchin($user);
+        $this->checkSubscriptionExpired($user);
 
         $user->save();
     }
 
-    private function checkPunchin() {
+    private function checkPunchin(&$user) {
         //检查用户的打卡是否需要归0
         $lastPunchin = UserPunchin::orderBy('created_at', 'DESC')->first();
         if ($lastPunchin && Carbon::today()->diffInDays($lastPunchin->created_at) > 1) {
-            Auth::user()->series = 0;
+            $user->series = 0;
         }
     }
 
-    private function checkSubscriptionExpired() {
-        $user = Auth::user();
+    private function checkSubscriptionExpired(&$user) {
         //检查用户订阅是否已经过期
         if($user->level() == 2) {
             $subscripition = UserSubscription::where('user_id', $user->id)->latest()->limit(1)->first(['expire_at']);
@@ -71,11 +70,8 @@ class UserLoginEvent
                 ]);
             }
             if ($subscripition->expire_at->lt(Carbon::now())) {
-
-                $role = Role::findOrFail(3);
                 //过期了
                 $user->detachAllRoles();
-                $user->attachRole($role);
             }
         }
     }

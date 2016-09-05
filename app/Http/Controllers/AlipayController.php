@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Subscription;
+use App\User;
 use App\UserSubscription;
+use Bican\Roles\Models\Role;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Omnipay\Omnipay;
@@ -50,13 +53,20 @@ class AlipayController extends Controller
                 $bodies = explode('_', Input::get('body'));
 
                 $subscription = Subscription::find($bodies[1]);
-                $us = UserSubscription::create([
-                    'user_id' => $bodies[0],
-                    'subscription_id' => $bodies[1],
-                    'expire_at' => Carbon::now()->addMonth($subscription->duration),
-                    'price' => $subscription->price
-                ]);
 
+                DB::transaction(function () use ($bodies, $subscription) {
+                    UserSubscription::create([
+                        'user_id' => $bodies[0],
+                        'subscription_id' => $bodies[1],
+                        'expire_at' => Carbon::now()->addMonth($subscription->duration),
+                        'price' => $subscription->price
+                    ]);
+
+                    $user = User::findOrFail($bodies[0]);
+                    $role = Role::findOrFail(3);
+                    $user->attachRole($role);
+                    $user->save();
+                });
                 return redirect('/');
             }
         }
