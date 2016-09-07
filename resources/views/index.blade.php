@@ -40,6 +40,8 @@
                         </video>
                     </div>
                 </div>
+                <div class="jumb-footer"></div>
+                <div class="jumb-bg3"></div>
             </div>
         </div>
         <div class="morning">

@@ -28,20 +28,32 @@
                         @endif
 
                         <div class="video-content grey translate-content">
-                            <table>
-                                <tbody>
-                                <tr v-for="no in pointsCount">
-                                    <td class='width40'>
-                                        <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)' class='seek-btn'
-                                           :class="played.indexOf($index) > -1 > 'active' : ''"></a>
-                                    </td>
-                                    <td>
-                                    <td>
-                                        <p>@{{{ linesFr[no] }}}</p>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="loading">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="after-loading">
+                                <table>
+                                    <tbody id="subs">
+                                    <tr v-for="no in pointsCount">
+                                        <td class='width40'>
+                                            <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
+                                               class='seek-btn'
+                                               :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                        </td>
+                                        <td>
+                                        <td>
+
+                                            <p>@{{{ linesFr[no] }}}</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -94,7 +106,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
     <script>
-
         function submitForm(type) {
             var form = $('#form');
             form.attr('action', "{{url('translator/tasks/' . $task->id )}}" + "/" + type);

@@ -8,11 +8,10 @@
 @endsection
 
 @section('content')
-    <div class="morning">
         <div class="Header"></div>
         <div class="Header"></div>
 
-        <h2 class="Heading-Fancy row">
+        <h2 class="Heading-Fancy">
             <span class="Heading-Fancy-subtitle">@lang('labels.minitalkSubtitle')</span>
             <span class='title'>@lang('labels.minitalks')</span>
         </h2>
@@ -21,7 +20,9 @@
             @include('components.readableList')
             @include('components.pageNavigator')
         </div>
-    </div>
+
+        <div class="Header"></div>
+        <div class="Header"></div>
 @endsection
 
 @section('otherjs')

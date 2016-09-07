@@ -7,7 +7,6 @@
 @section('header')
     <meta name="description" content="@lang('labels.login.description')">
     <meta name="Keywords" content="@lang('labels.login.keywords')">
-    <meta name="baidu-site-verification" content="4Y6Akg4Bz5"/>
 @endsection
 
 @section('text')
@@ -174,6 +173,7 @@
                 login: function () {
                     return this.isLogin ? 'login' : 'register';
                 },
+
                 eyeIcon: function () {
                     return this.openEye ? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close';
                 },

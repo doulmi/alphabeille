@@ -146,12 +146,21 @@ class UserController extends Controller
 
     public function translators() {
         $userIds = DB::table('role_user')->whereIn('role_id', [1, 5, 6])->distinct()->lists('user_id');
-        $translators = User::whereIn('id', $userIds)->get(['id', 'avatar', 'name']);
+        $result = User::whereIn('id', $userIds)->get(['id', 'avatar', 'name']);
 
-        $translators = $translators->sortByDesc(function($translator) {
-            return $translator->translatedNumber();
+        foreach($result as $translator) {
+            $translator->number = $translator->translatedNumber();
+        }
+
+        $result = $result->sortByDesc(function($translator) {
+            return $translator->number;
         });
 
+        foreach($result as $translator) {
+            if($translator->number > 0) {
+                $translators[] = $translator;
+            }
+        }
         return view('translators', compact('translators'));
     }
 

@@ -42,11 +42,13 @@
                             </div>
                         </div>
 
-                @if($i % 4 == 3)
+                @if($i++ % 4 == 3)
                     </div>
                 @endif
-                <?php $i ++ ?>
             @endforeach
+
+            <div class="Header"></div>
+            <div class="Header"></div>
 
             <div class="Header"></div>
             <div class="Header"></div>

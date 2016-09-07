@@ -37,8 +37,19 @@
                     <div class="subtitle">
                         <div class="center">
                             @if($canRead)
-                                <p v-show="fr">@{{{currentFr}}}</p>
-                                <p v-show="zh">@{{{currentZh}}}</p>
+                                <div class="loading">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                                <div class="after-loading">
+                                    <p v-show="fr">@{{{currentFr}}}</p>
+                                    <p v-show="zh">@{{{currentZh}}}</p>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -57,21 +68,32 @@
 
                 <div class="col-md-5">
                     @if($canRead)
-                        <div class="video-content grey">
-                            <table>
-                                <tbody>
-                                <tr v-for="no in pointsCount">
-                                    <td class='width40'>
-                                        <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)' class='seek-btn'
-                                           :class="played.indexOf($index) > -1 > 'active' : ''"></a>
-                                    </td>
-                                    <td>
-                                    <td>
-                                        <p>@{{{ linesFr[no] }}}</p>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="video-content grey" id='subPanel'>
+                            <div class="loading">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="after-loading">
+                                <table>
+                                    <tbody>
+                                    <tr v-for="no in pointsCount">
+                                        <td class='width40'>
+                                            <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
+                                               class='seek-btn'
+                                               :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                        </td>
+                                        <td>
+                                        <td>
+                                            <p>@{{{ linesFr[no] }}}</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         {{--<div class="notes">--}}
                         {{--<div class="form-group">--}}
@@ -168,29 +190,40 @@
 
         @include('components.comments')
     </div>
+    <div class="Header"></div>
     <div id='goTop'></div>
 @endsection
 
 @section('otherjs')
     @if($youtube)
         <script>
-        var tag = document.createElement('script');
+            var tag = document.createElement('script');
 
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         </script>
     @else
         <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 
+
     <script>
         $('#goTop').goTop();
 
+        var subPanel = $('#subPanel');
+        var videoPanel = $('#videoPanel');
+
         $('img.Card-image').lazyload();
 
+        $(window).resize(function () {
+            subPanel.height(videoPanel.height() - 22);
+        });
+
         $(function () {
+
+
             $(".heart").on("click", function () {
                 $(this).toggleClass("is-active");
             });
@@ -207,6 +240,10 @@
 
             @include('components.dict')
             $(".video-content span").click(activePopover)
+
+            if (videoPanel.height() >= 300) {
+                subPanel.height(videoPanel.height() - 22);
+            }
         });
 
         var player;
@@ -245,8 +282,11 @@
 
                 @if($canRead)
                         this.linesFr = "{!!$readable->parsed_content!!}".split('||');
-                        this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
+                this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
+
+                $('.after-loading').fadeIn();
+                $('.loading').hide();
             },
 
             methods: {

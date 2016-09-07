@@ -28,7 +28,15 @@
     @endif
 
     <div class="comments">
-        <ul id="comments">
+        <div class="loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="comments" class="after-loading">
             <li v-for="comment in comments" class="comment">
                 <div class="media">
                     <a class="media-left">
