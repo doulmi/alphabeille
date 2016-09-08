@@ -15,7 +15,15 @@
                         </div>
 
                         <div class="video-content grey translate-content">
-                            <table>
+                            <div class="loading">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <table class="after-loading">
                                 <tbody>
                                 <tr v-for="no in pointsCount">
                                     <td class='width40'>
@@ -53,6 +61,7 @@
     <div class="container video-show">
         <div class="Header"></div>
     </div>
+    <div class="Header"></div>
 @endsection
 
 @section('otherjs')
@@ -156,6 +165,9 @@
 
                 this.linesFr = "{!!$readable->parsed_content!!}".split('||');
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
+
+                $('.after-loading').fadeIn();
+                $('.loading').hide();
             },
 
             methods: {

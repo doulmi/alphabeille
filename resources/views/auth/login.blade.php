@@ -11,8 +11,18 @@
 
 @section('text')
     @include('navbar')
-    <div class="login fullscreen">
+    <div class="login fullscreen body">
         <div class="wrapper">
+
+            <div class="loading">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="after-loading">
             <div class="login-container">
                 @if ($errors->has('email'))
                     <div class="errors">@lang($errors->first('email'), ['attribute' => trans('labels.email')] )</div>
@@ -94,7 +104,7 @@
 
             <input type="hidden" id="login" v-model="isLogin" value="{{ Request::is('login') }}"/>
         </div>
-
+        </div>
     </div>
 @endsection
 
@@ -143,6 +153,11 @@
 
             created: function () {
                 window.addEventListener('keydown', this.next)
+            },
+
+            ready() {
+                $('.after-loading').fadeIn();
+                $('.loading').hide();
             },
 
             methods: {

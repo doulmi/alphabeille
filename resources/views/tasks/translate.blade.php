@@ -181,6 +181,9 @@
 
                 this.linesFr = "{!!$readable->parsed_content!!}".split('||');
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
+
+                $('.after-loading').fadeIn();
+                $('.loading').hide();
             },
 
             methods: {
