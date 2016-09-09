@@ -118,8 +118,8 @@ class AuthController extends Controller
 
     private function authenticated(Request $request, $user)
     {
-//        $this->updateSession($request, $user);
-//        event(new UserLogin());
+        $this->updateSession($request, $user);
+        event(new UserLogin());
 
 //        $redirectUrl = $request->get('redirect_url', '/');
         return redirect(Session::get('prevUrl', '/'));

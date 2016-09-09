@@ -54,7 +54,7 @@ class UserLoginEvent
 
     private function checkSubscriptionExpired(&$user) {
         //检查用户订阅是否已经过期
-        if($user->level() == 2) {
+        if($user->isVIP()) {
             $subscripition = UserSubscription::where('user_id', $user->id)->latest()->limit(1)->first(['expire_at']);
             //需要提醒用户
             if($subscripition->expire_at->addDays($this->expireNotificationDate)->lt(Carbon::now())) {
