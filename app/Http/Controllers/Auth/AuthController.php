@@ -112,14 +112,14 @@ class AuthController extends Controller
         $user->last_session_id = $newSessionId;
         $user->last_ip = $request->ip();
 
-//        $user->last_login_foreign = Helper::isForeignIp($user->last_ip);
+        $user->last_login_foreign = Helper::isForeignIp($user->last_ip);
         $user->save();
     }
 
     private function authenticated(Request $request, $user)
     {
-        $this->updateSession($request, $user);
-        event(new UserLogin());
+//        $this->updateSession($request, $user);
+//        event(new UserLogin());
 
 //        $redirectUrl = $request->get('redirect_url', '/');
         return redirect(Session::get('prevUrl', '/'));
