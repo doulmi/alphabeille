@@ -50,8 +50,6 @@ class AdminController extends Controller
     }
 
     public function parseMinitalk() {
-
-
         $minitalks = Minitalk::all();
         foreach($minitalks as $minitalk) {
 
@@ -60,7 +58,6 @@ class AdminController extends Controller
             $minitalk->save();
         }
     }
-
 
     public function uploadSql(Request $request) {
         $sql = $request->get('sql');
@@ -100,20 +97,39 @@ class AdminController extends Controller
 //    }
 
     //更新网站内容的观看次数
-    public function updateViews($from) {
+    public function updateViews($from = 0) {
         $faker = Factory::create();
 
-        $minitalks = Minitalk::all();
-        foreach($minitalks as $minitalk) {
-            $old = Redis::get('minitalk:view:' . $minitalk->id);
-            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(2, 10) + $old);
-        }
+//        $minitalks = Minitalk::all();
+//        foreach($minitalks as $minitalk) {
+//            $old = Redis::get('minitalk:view:' . $minitalk->id);
+//            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(2, 10) + $old);
+//        }
+//
+//        $videos = Video::where('id', '>', $from)->get();
+//        foreach($videos as $video) {
+//            $old = Redis::get('video:view:' . $video->id);
+//            Redis::set('video:view:' . $video->id, $faker->numberBetween(8, 20) + $old );
+//        }
 
         $videos = Video::where('id', '>', $from)->get();
         foreach($videos as $video) {
-            $old = Redis::get('video:view:' . $video->id);
-            Redis::set('video:view:' . $video->id, $faker->numberBetween(8, 20) + $old );
+            $video->update([
+                'views' => $faker->numberBetween(20, 100)
+            ]);
         }
+
+        Video::where('id', 1)->update([
+           'views' => 489
+        ]);
+
+        Video::where('id',638)->update([
+            'views' => 502
+        ]);
+
+        Video::where('id', 7)->update([
+            'views' => 563
+        ]);
     }
 
     public function parse() {

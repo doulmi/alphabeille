@@ -8,21 +8,25 @@
 @endsection
 
 @section('content')
-        <div class="Header"></div>
-        <div class="Header"></div>
+    <div class="Header"></div>
+    <div class="Header"></div>
 
-        <h2 class="Heading-Fancy">
-            <span class="Heading-Fancy-subtitle">@lang('labels.videosubtitle')</span>
-            <span class='title'>@lang('labels.videos')</span>
-        </h2>
+    <h2 class="Heading-Fancy">
+        <span class="Heading-Fancy-subtitle">@lang('labels.videosubtitle')</span>
+        <span class='title'>@lang('labels.videos')</span>
+    </h2>
 
-        <div class="Card-Collection">
-            @include('components.readableList')
-            @include('components.pageNavigator')
+    <div class="Card-Collection">
+        <div class="filter-container">
+        <a class="btn btn-default filter-btn {{(Request::get('orderBy') == '' || (request::get('orderBy') == 'latest')) ? 'current' : ''}}" href="{{url('videos?orderBy=latest')}}">@lang('labels.orderByLatest')</a>
+        <a class="btn btn-default filter-btn {{Request::get('orderBy') == 'views' ? 'current' : ''}}" href="{{url('videos?orderBy=views')}}">@lang('labels.orderByViews')</a>
         </div>
-
-        <div class="Header"></div>
-        <div class="Header"></div>
+        @include('components.readableList')
+        @include('components.pageNavigator')
+    </div>
+    <input type="hidden" name="orderBy" value="{{Request::get('orderBy')}}"/>
+    <div class="Header"></div>
+    <div class="Header"></div>
 @endsection
 
 @section('otherjs')

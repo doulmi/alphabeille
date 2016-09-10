@@ -10,16 +10,6 @@
         @foreach($readables as $readable)
             <div class="col-md-3 col-xs-6 col-sm-4">
                 <div class="Card">
-
-                    {{--@if($readable instanceof \App\Video)--}}
-                        {{--@if($readable->level)--}}
-                            {{--<span class="Card-difficulty {{$readable->level}}">--}}
-                            {{--@lang('labels.' . $readable->level)--}}
-                        {{--</span>--}}
-                        {{--@endif--}}
-                    {{--@endif--}}
-
-
                     @if($readable->free)
                         <span class="Card-new-status Label Label-x-small">
                             @lang('labels.free')
@@ -48,21 +38,22 @@
                         <div class="hidden-xs Card-footer-content">
                             <span class="topic-view">
                                 <i class="glyphicon glyphicon-headphones"></i>
-                                <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>
+{{--                                <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>--}}
+                                    <span class="g-font">{{ $readable->views }}</span>
                             </span>
                             @if($readable instanceof \App\Video)
                                 <div class="video-tags">
-                                    <span class="Card-difficulty {{$readable->level}}">
-                                        @lang('labels.' . $readable->level)
+                                    <span class="Card-difficulty {{$readable->level}} tooltips-top" data-tooltips="@lang('labels.' . $readable->level)">
+                                        @lang('labels.' . $readable->level . '_abbr')
                                     </span>
                                     @if($readable->state == 5 || $readable->state == 6)
-                                        <span class="Card-difficulty chinese">
-                                        @lang('labels.zh_CN')
+                                        <span class="Card-difficulty chinese tooltips-top" data-tooltips="@lang('labels.zh_CN')">
+                                        @lang('labels.zh_CN_abbr')
                                         </span>
                                     @endif
                                     @if($readable->state == 6)
-                                        <span class="Card-difficulty desc">
-                                        @lang('labels.notation')
+                                        <span class="Card-difficulty desc tooltips-top" data-tooltips="@lang('labels.notation')">
+                                        @lang('labels.notation_abbr')
                                         </span>
                                     @endif
                                 </div>

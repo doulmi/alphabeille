@@ -28,6 +28,9 @@ return [
     'intermediate' => '中级',
     'beginner' => '初级',
     'advanced' => '高级',
+    'intermediate_abbr' => '中级',
+    'beginner_abbr' => '初级',
+    'advanced_abbr' => '高级',
     'learnSlagon' => '每天一个番茄时间学法语',
     'joinus' => '加入我们',
     'basic' => '1个月套餐',
@@ -364,7 +367,13 @@ return [
     'group' => '翻译组',
     'giveup' => '放弃',
     'trouble' => '尚有疑问',
+    'zh_CN_abbr' => '中文',
+    'notation_abbr' => '注解',
     'no' => '所有',
+    'orderByLatest' => '按发布时间',
+    'orderByViews' => '按观看人数',
+    'orderBy' => '排序:',
+    'updated_at' => '最后更新',
 ];
 
 

@@ -50,15 +50,15 @@ body {
   .night .BlockMessage {
     color: rgba(0, 0, 0, 0.74); }
   .night .more {
-    color: #32CDFF;
-    border: 1px solid #32CDFF; }
+    color: #FF4366;
+    border: 1px solid #FF4366; }
   .night .more:hover {
     color: #F7F7F7;
-    background: #32CDFF; }
+    background: #FF4366; }
 
 .more {
-  color: #89CEDD;
-  border: 1px solid #89CEDD;
+  color: #FF4366;
+  border: 1px solid #FF4366;
   width: 100%;
   background: transparent;
   margin: 20px 0 80px 0;
@@ -67,7 +67,7 @@ body {
 
 .more:hover {
   color: #FFFFFF;
-  background: #89CEDD; }
+  background: #FF4366; }
 
 .night-fall {
   background-color: #FFF;
@@ -75,11 +75,11 @@ body {
   position: relative;
   color: #ccc; }
   .night-fall .more {
-    color: #32CDFF;
-    border: 1px solid #32CDFF; }
+    color: #FF4366;
+    border: 1px solid #FF4366; }
   .night-fall .more:hover {
-    color: #FFF;
-    background: #32CDFF; }
+    color: white;
+    background: #FF4366; }
 
 .morning {
   background-color: #F7F7F7;
@@ -87,11 +87,11 @@ body {
   position: relative;
   color: #2C4766; }
   .morning .more {
-    color: #32CDFF;
-    border: 1px solid #32CDFF; }
+    color: #FF4366;
+    border: 1px solid #FF4366; }
   .morning .more:hover {
-    color: #F7F7F7;
-    background: #32CDFF; }
+    color: white;
+    background: #FF4366; }
 
 .g-font {
   margin-bottom: 100px;
@@ -585,7 +585,6 @@ body {
 
 .Card {
   margin-bottom: 20px;
-  overflow: hidden;
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1); }
 
 .Card-footer {
@@ -1256,7 +1255,7 @@ body {
   --animation-delay: 1s; }
 
 @keyframes snake {
-  0% , 100% {
+  0%, 100% {
     opacity: .3;
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -1277,7 +1276,7 @@ body {
     -webkit-box-shadow: 0 20px 3px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0 20px 3px rgba(0, 0, 0, 0.05); } }
 @-webkit-keyframes snake {
-  0% , 100% {
+  0%, 100% {
     opacity: .3;
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -1298,7 +1297,7 @@ body {
     -webkit-box-shadow: 0 20px 3px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0 20px 3px rgba(0, 0, 0, 0.05); } }
 @-moz-keyframes snake {
-  0% , 100% {
+  0%, 100% {
     opacity: .3;
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -1319,7 +1318,7 @@ body {
     -webkit-box-shadow: 0 20px 3px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0 20px 3px rgba(0, 0, 0, 0.05); } }
 @-o-keyframes snake {
-  0% , 100% {
+  0%, 100% {
     opacity: .3;
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -3250,5 +3249,23 @@ body {
 
 .state-color3 {
   color: red; }
+
+.nextPage .glyphicon-chevron-right, .nextPage .glyphicon-chevron-left {
+  color: #FFD346; }
+  .nextPage .glyphicon-chevron-right:hover, .nextPage .glyphicon-chevron-left:hover {
+    color: #ffc713; }
+
+.filter-container {
+  margin-bottom: 20px; }
+  .filter-container .filter-btn {
+    border-radius: 0; }
+    .filter-container .filter-btn.current {
+      background: #FF4366;
+      color: white;
+      border-color: #FF4366; }
+    .filter-container .filter-btn:hover {
+      background: #FF4366;
+      color: white;
+      border-color: #FF4366; }
 
 /*# sourceMappingURL=app.css.map */

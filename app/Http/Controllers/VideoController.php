@@ -33,7 +33,8 @@ class VideoController extends ReadableController
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('video:view:' . $readable->id);
+//        Redis::incr('video:view:' . $readable->id);
+        $readable->increment('views');
 
         $readables = $this->random();
         $user = Auth::user();
@@ -62,15 +63,24 @@ class VideoController extends ReadableController
     public function level($level)
     {
         $pageLimit = config('params')['pageLimit'];
-        $readables = Video::where('level', $level)->published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state']);
+        $readables = Video::where('level', $level)->published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views']);
         $type = 'video';
         return view('videos.index', compact(['readables', 'type']));
     }
 
     public function index(Request $request) {
         $pageLimit = config('params')['pageLimit'];
-        $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state'];
-        $readables = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, $cols)->appends($request->all());
+        $orderBy = $request->get('orderBy', 'latest');
+        $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
+        $builder = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC');
+
+        if($orderBy == 'latest') {
+            $builder->latest();
+        } else {
+            $builder->orderBy('views', 'DESC');
+        }
+
+        $readables = $builder->paginate($pageLimit, $cols)->appends($request->all());
         $type = 'video';
         return view('videos.index', compact(['readables', 'type']));
     }

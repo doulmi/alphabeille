@@ -465,11 +465,20 @@ class Helper
     {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, 0); // 过滤HTTP头
+        curl_setopt($curl, CURLOPT_TIMEOUT_MS, 20000);    //20秒钟没有取得，则使用上次的值
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);// 显示输出结果
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
         $response = curl_exec($curl);
+
+        $curl_errno = curl_errno($curl);
+
         curl_close($curl);
-        return $response;
+
+        if($curl_errno > 0) {
+            return 'CN';
+        } else {
+            return $response;
+        }
     }
 }

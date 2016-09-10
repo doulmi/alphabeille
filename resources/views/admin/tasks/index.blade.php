@@ -112,6 +112,7 @@
                         <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                         <td><a href="{{url('videos/' . $video->video_id)}}" TARGET="_blank">{{$video->title}}</a></td>
                         <td>{{$video->name}}</td>
+                        <td>{{$video->duration}}</td>
                         <td>{{$video->updated_at}}</td>
                         <td>
                             <a class="btn btn-info"
