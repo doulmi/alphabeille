@@ -45,6 +45,9 @@ class VideoController extends ReadableController
                 'readable_type' => 'App\Video',
                 'readable_id' => $readable->id
             ]);
+            $user->update([
+                'mins' => Helper::str2Min($readable->duration) + $user->mins
+            ]);
             $youtube = $user->last_login_foreign;
         } else {
             $youtube = Helper::isForeignIp($request->ip());
@@ -60,6 +63,7 @@ class VideoController extends ReadableController
         //notes
         $notes = Note::where('user_id', Auth::id())->where('readable_id', $readable->id)->where('readable_type', 'App\Video')->get(['point', 'content', 'id'])->toJson();
         $notes = str_replace("'", "\'", $notes);
+
         return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube','notes']));
     }
 

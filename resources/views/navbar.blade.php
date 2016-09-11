@@ -99,7 +99,7 @@
                     <li data-tooltips="@lang('labels.series', ['days' => Auth::user()->series])"
                         class="li-miel tooltips-bottom hidden-xs">
                         <i class="svg-icon svg-icon-miel"></i>
-                        <span class="white label-svg-miel" id="punchin">{{Auth::user()->series}}</span>
+                        <span class="label-svg-miel" id="punchin">{{Auth::user()->series}}</span>
                     </li>
                     {{--@if(($msgCount =Auth::user()->unreadMessageCount()) > 0)--}}
                         {{--<li class="hidden-xs">--}}

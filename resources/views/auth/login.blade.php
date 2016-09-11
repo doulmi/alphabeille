@@ -91,11 +91,11 @@
                     </span>
                     </a>
 
-                    <a title="facebook" class="social-button facebook" href="{{url('facebook/login')}}">
-                    <span class="auth-container">
-                        <img src="/img/facebook.svg" alt="Facebook">
-                    </span>
-                    </a>
+                    {{--<a title="facebook" class="social-button facebook" href="{{url('facebook/login')}}">--}}
+                    {{--<span class="auth-container">--}}
+                        {{--<img src="/img/facebook.svg" alt="Facebook">--}}
+                    {{--</span>--}}
+                    {{--</a>--}}
                 </div>
 
                 <br/>

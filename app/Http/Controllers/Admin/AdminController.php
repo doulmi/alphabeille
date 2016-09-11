@@ -168,7 +168,6 @@ class AdminController extends Controller
     }
 
     public function updateAvatar() {
-
         $videos = Video::get();
         foreach($videos as $video) {
             $id = $video->originSrc;
@@ -182,6 +181,25 @@ class AdminController extends Controller
     {
         $talks = Minitalk::all();
         foreach ($talks as $talk) {
+        }
+    }
+
+    public function addMins() {
+        $users = User::get();
+        foreach($users as $user) {
+            $videos = $user->learnedVideos()->get(['id', 'duration']);
+            $mins = 0;
+            foreach($videos as $video) {
+                $mins += Helper::str2Min($video->duration);
+            }
+
+            $minitalks = $user->learnedMinitalks()->get(['duration']);
+            foreach($minitalks as $minitalk) {
+                $mins += Helper::str2Min($minitalk->duration);
+            }
+
+            $user->mins = $mins;
+            $user->update();
         }
     }
 }

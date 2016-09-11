@@ -3065,7 +3065,7 @@ body {
 .social-button {
   float: left;
   margin: 0 8px;
-  width: calc(50% - 16px);
+  width: calc(100% - 16px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 250ms ease-in-out;
   padding: 5px 15px;

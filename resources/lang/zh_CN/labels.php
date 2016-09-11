@@ -389,6 +389,7 @@ return [
     'emptyContent' => '写点什么吧',
     'clickToEdit' => '点击既可进行编辑',
     'hotSearch' => '热门搜索',
+    'hour' => '小时',
 ];
 
 

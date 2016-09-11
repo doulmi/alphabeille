@@ -5,6 +5,15 @@
 @section('header')
     <meta name="description" content="{{$readable->title}}">
     <meta name="Keywords" content="{{ $readable->keywords }}">
+    <meta property="og:url" content="{{Request::getUri()}}"/>
+    <meta property="og:title" content="{{$readable->title}}"/>
+    <meta property="og:type" content="video"/>
+    <meta property="og:image" content="{{$readable->avatar}}"/>
+    <meta name="weibo:type" content="video"/>
+    <meta name="weibo:video:url" content="{{$readable->url}}"/>
+    <meta name="weibo:video:title" content="{{$readable->title}}"/>
+    <meta name="weibo:video:image" content="{{$readable->avatar}}"/>
+    <meta name="weibo:video:description" content="{{$readable->title}}"/>
 @endsection
 
 @section('content')
@@ -97,9 +106,12 @@
                                                        @click.stop.prevent='seekToTime(note.point)' class='seek-btn'
                                                        :class="played.indexOf($index) > -1 > 'active' : ''"></a>
                                                 </td>
-                                                <td><p id="note-@{{ note.id }}" class="contenteditable tooltips-bottom" data-tooltips="@lang('labels.clickToEdit')" contenteditable="true" >@{{{ note.content }}}</p></td>
+                                                <td><p id="note-@{{ note.id }}" class="contenteditable tooltips-bottom"
+                                                       data-tooltips="@lang('labels.clickToEdit')"
+                                                       contenteditable="true">@{{{ note.content }}}</p></td>
                                                 <td><p><a href="" @click.stop.prevent="deleteNote($index, note.id)"
-                                                                    class="close vertical-center tooltips-left" data-tooltips="@lang('labels.delete')">x</a></p></td>
+                                                          class="close vertical-center tooltips-left"
+                                                          data-tooltips="@lang('labels.delete')">x</a></p></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -141,22 +153,31 @@
                 <a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier')
             </div>
 
-            <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
-                 data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}">
-                @lang('labels.share'):
-            </div>
+            @if(Auth::user())
+                <div class="share-component share-panel" data-sites="wechat, weibo, qzone, qq, douban"
+                     data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}"
+                     data-weibo-title="我正在Alphabeille看短视频学法语，已经坚持{{Auth::user()->series}}天，学习了{{Auth::user()->learnedVideos()->count()}}个视频，{{Auth::user()->learnedMinitalks()->count()}}个脱口秀，总计{{Auth::user()->mins()}}">
+                    @lang('labels.share'):
+                </div>
+            @else
+                <div class="share-component share-panel" data-sites="wechat, weibo, qzone, qq, douban"
+                     data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}"
+                     data-weibo-title="我正在Alphabeille看短视频学法语">
+                    @lang('labels.share'):
+                </div>
+            @endif
 
             <ul id="tabs" class="nav nav-tabs videoPart">
                 <li class="active"><a href="javascript:;">@lang('labels.videoDesc')</a></li>
                 <li><a href="javascript:;" onclick="scrollToTag('sugguest')">@lang('labels.suggestVideos')</a></li>
-                <li><a href="javascript:;" onclick="scrollToTag('disqus_thread')" >@lang('labels.comments')</a></li>
+                <li><a href="javascript:;" onclick="scrollToTag('disqus_thread')">@lang('labels.comments')</a></li>
             </ul>
         </div>
     </div>
 
     <div class="container video-show">
         @if($canRead)
-            <h3 ><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
+            <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
             <div class="row">
                 <div class="col-md-8">
                     {!! $readable->parsed_desc !!}
@@ -353,7 +374,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
 
-                this.notes = JSON.parse('{!! $notes !!}');
+                        this.notes = JSON.parse('{!! $notes !!}');
 
                 $('.after-loading').fadeIn();
                 $('.loading').hide();
@@ -445,7 +466,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 },
 
                 saveNote() {
-                    if(this.newNote.trim() == '') {
+                    if (this.newNote.trim() == '') {
                         toastr.warning("@lang('labels.emptyContent')");
                     }
                     saveNoteBtn.attr('disabled', 'disabled');
@@ -470,9 +491,9 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 },
                 showNoteDialog() {
                     @if(Auth::guest())
-                        this.showLoginDialog();
+                            this.showLoginDialog();
                     @else
-                        this.showNotePanel = !this.showNotePanel;
+                            this.showNotePanel = !this.showNotePanel;
                     @endif
                 },
 
@@ -496,7 +517,8 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 deleteNote(index, id) {
                     var note = {id: id};
                     this.notes.splice(index, 1);
-                    this.$http.delete("{{url('/notes')}}", note, function (data) {}.bind(this));
+                    this.$http.delete("{{url('/notes')}}", note, function (data) {
+                    }.bind(this));
                 }
             }
         });

@@ -28,6 +28,8 @@ class Readable extends Model {
         return $this->morphMany('App\Commentable', 'commentable');
     }
 
+
+
     public function collects()
     {
         return $this->morphMany('App\Collectable', 'collectable');

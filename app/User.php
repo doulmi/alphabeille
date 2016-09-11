@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Bican\Roles\Models\Role;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
@@ -18,7 +19,7 @@ class User extends Authenticatable implements HasRoleAndPermissionContract {
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'wechat', 'QQ', 'confirmed', 'confirmation_code', 'series', 'maxSeries', 'remember_token', 'qq_id', 'wechat_id', 'facebook_id', 'birthYear', 'location', 'sex', 'hasEmail', 'last_login_at'
+        'name', 'email', 'password', 'avatar', 'wechat', 'QQ', 'confirmed', 'confirmation_code', 'series', 'maxSeries', 'remember_token', 'qq_id', 'wechat_id', 'facebook_id', 'birthYear', 'location', 'sex', 'hasEmail', 'last_login_at', 'mins'
     ];
 
     /**
@@ -32,6 +33,17 @@ class User extends Authenticatable implements HasRoleAndPermissionContract {
 
     public function messages() {
         return (Message::where('to', $this->id)->orderBy('isRead')->get());
+    }
+
+
+    public function learnedVideos() {
+        $traces = UserTraces::where('user_id', $this->id)->where('readable_type', 'App\Video')->distinct()->get(['readable_id'])->toArray();
+        return Video::whereIn('id', $traces);
+    }
+
+    public function learnedMinitalks() {
+        $traces = UserTraces::where('user_id', $this->id)->where('readable_type', 'App\Minitalk')->distinct()->get(['readable_id'])->toArray();
+        return Minitalk::whereIn('id', $traces);
     }
 
     public function sendedMessages() {
@@ -56,6 +68,16 @@ class User extends Authenticatable implements HasRoleAndPermissionContract {
 
     public function checkFrNumber() {
         return Task::where('type', 1)->where('is_submit', 1)->where('user_id', $this->id)->count();
+    }
+
+    public function mins() {
+        $mins = $this->mins;
+
+        if($mins >= 1000) {
+            return round($mins / 60, 2) . trans('labels.hour');
+        } else {
+            return $mins . trans('labels.minute');
+        }
     }
 
 //    public function roles() {

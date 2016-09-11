@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserTraces extends Model
 {
-    protected $fillable = ['id', 'user_id','readable_type', 'readable_id'];
+    protected $fillable = ['id', 'user_id', 'readable_type', 'readable_id'];
 
-    public function user() {
+    public function user()
+    {
         return $this->hasOne(User::class);
     }
 }

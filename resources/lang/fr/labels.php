@@ -369,6 +369,7 @@ return [
     'emptyContent' => 'C\'est vide, écrivez quelque choses',
     'clickToEdit' => 'Cliquer pour éditer ce contenu',
     'hotSearch' => 'Hot search',
+    'hour' => '小时',
 ];
 
 

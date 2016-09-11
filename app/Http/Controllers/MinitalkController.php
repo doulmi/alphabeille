@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper;
 use App\Minitalk;
 use App\UserTraces;
 use Illuminate\Http\Request;
@@ -30,13 +31,15 @@ class MinitalkController extends ReadableController
         $content = $readable->parsed_content;
         $wechat_part = $readable->parsed_wechat_part;
 
-
         $user = Auth::user();
         if($user) {
             UserTraces::create([
                 'user_id' => $user->id,
                 'readable_type' => 'App\Minitalk',
                 'readable_id' => $readable->id
+            ]);
+            $user->update([
+                'mins' => Helper::str2Min($readable->duration) + $user->mins
             ]);
         }
 

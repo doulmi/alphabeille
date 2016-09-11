@@ -4,6 +4,7 @@ namespace App;
 
 
 use App\Http\Controllers\WordController;
+use Illuminate\Support\Facades\Redirect;
 
 class Helper
 {
@@ -169,7 +170,9 @@ class Helper
             $fr .= $sub->fr;
             $zh .= $sub->zh;
             if (!isset($sub->startTime)) {
-                dd($sub->fr . "\n" . $sub->zh);
+                var_dump($i . ':' . $sub->fr . "\n" . $sub->zh);
+                echo "<a: href='" . Redirect::getUrlGenerator()->previous() . "'>Back</a>";
+                exit;
             } else {
                 $points .= self::toSecond($sub->startTime);
             }

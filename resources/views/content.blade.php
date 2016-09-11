@@ -8,6 +8,9 @@
 @section('content')
     <meta property="og:title" content="{{$readable->title}}"/>
     <meta property="og:image" content="{{$readable->avatar}}"/>
+    <meta property="og:type" content="audio" />
+    <meta property="og:url" content="{{Request::getUri()}}" />
+    <meta property="og:description" content="{{$readable->description}}"/>
 
     <div>
         <?php $canRead = $readable->free || (Auth::user() && (Auth::user()->can('videos.subs'))) ?>
@@ -109,8 +112,8 @@
                         </a>
                     @endif
                 </div>
-                <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
-                     data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}">
+                <div class="share-component share-panel" data-sites="wechat, weibo, qzone, qq, douban"
+                     data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}" data-weibo-title="我正在Alphabeille看短视频学法语，已经坚持{{Auth::user()->series}}天，学习了{{Auth::user()->learnedVideos()->count()}}个视频，{{Auth::user()->learnedMinitalks()->count()}}个脱口秀，总计{{Auth::user()->mins()}}">
                     @lang('labels.share'):
                 </div>
             @endif

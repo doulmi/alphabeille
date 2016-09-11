@@ -81,15 +81,12 @@ class TaskController extends Controller
     {
         $task = Task::find($taskId);
         if ($task) {
-            $user = Auth::user();
-            if ($user->id == $task->user_id) {
-                $task->content = $request->get('content', '');
-                $task->save();
+            $task->content = $request->get('content', '');
+            $task->save();
 
-                return response()->json([
-                    'state' => 200,
-                ]);
-            }
+            return response()->json([
+                'state' => 200,
+            ]);
         }
         return response()->json([
             'state' => 403,

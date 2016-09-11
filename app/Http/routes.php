@@ -210,6 +210,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/parseVideos/{start}/{end}', 'Admin\AdminController@parseVideos');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
     Route::get('/updateAvatar', 'Admin\AdminController@updateAvatar');
+    Route::get('/addMins', 'Admin\AdminController@addMins');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');
 //    Route::get('videoLevels', 'Admin\AdminController@videoLevels');
