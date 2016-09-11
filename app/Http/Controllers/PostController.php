@@ -39,8 +39,8 @@ class PostController extends Controller
         $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views']);
 
         $videoCols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
-        $videos[] = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get($videoCols);
-        $videos[] = Video::published()->orderBy('views', 'DESC')->limit($num)->get($videoCols);
+        $videos[] = Video::orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get($videoCols);
+        $videos[] = Video::orderBy('views', 'DESC')->limit($num)->get($videoCols);
 
         return view('index', compact(['minitalks', 'videos']));
     }
