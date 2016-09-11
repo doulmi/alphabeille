@@ -127,8 +127,9 @@ class TaskController extends Controller
         $task->content = $request->get('content', '');
         $task->save();
         $readable = $task->video;
+        $youtube = Auth::user()->last_login_foreign ? true : false;
 
-        return view('tasks.translate', compact('readable', 'task'));
+        return view('tasks.translate', compact('readable', 'task', 'youtube'));
     }
 
     public function autoSave(Request $request, $taskId)

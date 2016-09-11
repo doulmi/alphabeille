@@ -142,17 +142,25 @@ class AuthController extends Controller
         return $socialite->driver('facebook')->redirect();
     }
 
-    public function facebookCallback()
+    public function facebookCallback(Request $request)
     {
         $socialite = new SocialiteManager(config('services'));
         $user = $socialite->driver('facebook')->user();
 
-        dd($user);
-        User::create([
-            'email' => $user->getEmail(),
-            'password' => bcrypt(str_random(16)),
-            'name' => $user->getNickname(),
-        ]);
+        $authUser = User::where('facebook_id', $user->getId())->first();
+        if(!$authUser) {
+            $authUser = User::create([
+                'email' => $user->getEmail(),
+                'password' => bcrypt(str_random(16)),
+                'name' => $user->getName(),
+                'avatar' => $user->getAvatar(),
+                'sex' => $user['original']['gender'],
+                'facebook_id' => $user->getId()
+            ]);
+        }
+
+        Auth::login($authUser);
+        return $this->authenticated($request, $authUser);
     }
 
     public function wechatLogin()
@@ -196,9 +204,12 @@ class AuthController extends Controller
             ]);
         }
 
-        $this->updateSession($request, $authUser);
         Auth::login($authUser);
-        return redirect(Session::get('prevUrl', '/'));
+        return $this->authenticated($request, $user);
+//        $this->updateSession($request, $authUser);
+//        Auth::login($authUser);
+//        event(new UserLogin());
+//        return redirect(Session::get('prevUrl', '/'));
     }
 
     public function githubLogin()

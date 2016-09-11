@@ -95,7 +95,7 @@
             }
         },
 
-        ready() {
+        ready : function() {
             this.$http.get('{{url($type . "Comments/" . $readable->id)}}', function (response) {
                 this.comments = response;
             }.bind(this));

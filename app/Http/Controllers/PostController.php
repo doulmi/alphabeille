@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Helper;
 use App\Minitalk;
+use App\SearchHistory;
 use App\Subscription;
 
 use App\Http\Requests;
 use App\Video;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -34,9 +36,12 @@ class PostController extends Controller
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];
-        $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free']);
+        $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views']);
 
-        $videos = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views']);
+        $videoCols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
+        $videos[] = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get($videoCols);
+        $videos[] = Video::published()->orderBy('views', 'DESC')->limit($num)->get($videoCols);
+
         return view('index', compact(['minitalks', 'videos']));
     }
 
@@ -54,15 +59,31 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
+        //record
+        $user = Auth::user();
+        if($user) {
+            //user is login
+            $userId = $user->id;
+        } else {
+            $userId = 1;    //super admin id
+        }
+
+        SearchHistory::create([
+            'user_id' => $user->id,
+            'search_text' => $request->get('keys')
+        ]);
+
         $keys = $request->get('keys', '');
         $page = $request->has('page') ? $request->page - 1 : 0;
         $limit = 48;
         $videos = Video::search($keys)->get();
+
         //Paginate bug in 5.2
         $total = $videos->count();
         $videos = $videos->slice($page * $limit, $limit);
         $videos = new \Illuminate\Pagination\LengthAwarePaginator($videos, $total, $limit);
         $videos->setPath('/search')->appends(['q' => $keys]);
+
         return view('search', compact('videos'));
     }
 

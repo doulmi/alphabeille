@@ -374,6 +374,21 @@ return [
     'orderByViews' => '按观看人数',
     'orderBy' => '排序:',
     'updated_at' => '最后更新',
+    'subtitles' => '字幕',
+    'notes' => '笔记',
+    'writeNote' => '记录你的笔记',
+    'noteSuccess' => '笔记添加成功',
+    'beMember' => '订阅',
+    'myNotes' => '我的笔记',
+    'noNoteYet' => '暂无笔记',
+    'loginToUse' => '登录后才能使用即时字典和记录笔记功能',
+    'autoSaveFailed' => '自动保存失败，请马上重新刷新该页面，以防数据丢失',
+    'noWordsSearched' => '还没有搜索过任何词汇',
+    'readable_src' => '来源',
+    'note' => '笔记',
+    'emptyContent' => '写点什么吧',
+    'clickToEdit' => '点击既可进行编辑',
+    'hotSearch' => '热门搜索',
 ];
 
 

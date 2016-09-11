@@ -25,58 +25,58 @@ var audioBtn = '<button type="button" class="audio-play-btn" id="audioBtn"><i cl
 
 //有缓存的情况下
 $(this).popover({
-placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
-title: function () {
-return $(this).html() + audioBtn + closeBtn;
-},
-content : function() {
-return result;
-}
+    placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
+    title: function () {
+    return $(this).html() + audioBtn + closeBtn;
+    },
+    content : function() {
+    return result;
+    }
 });
 $(this).popover('toggle');
 
 var src = localStorage.getItem('dict:fr:audio:' + word);
 
 var audio = $('<audio/>', {
-controls : 'controls'
+    controls : 'controls'
 });
 
 $('<source/>').attr('src', src).appendTo(audio);
 
 //添加查询次数
 $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/$type', function (response) {
-$('#audioBtn').click(function() {
-audio.appendTo('body');
-audio.trigger('play');
-});
+    $('#audioBtn').click(function() {
+    audio.appendTo('body');
+    audio.trigger('play');
+    });
 });
 
 } else {
-//无缓存则从服务器获取信息
+    //无缓存则从服务器获取信息
 
-var audioBtn = '<button type="button" class="audio-play-btn" id="audioBtn"><i class="glyphicon glyphicon-volume-up"></i></button>';
-$(this).popover({
-placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
-title: function () {
-return $(this).html() + audioBtn + closeBtn;
-},
-content : function() {
-$.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/$type', function (response) {
-$(".popover-content").html(response['msg']);
-//                                audioBtn = '<button type="button" class="audio-play-btn" onclick="playWordAudio(\'' + audio + '\')"><i class="glyphicon glyphicon-volume-up"></i></button>';
-if (response['status'] == 200) {
-localStorage.setItem('dict:fr:' + word, response['msg']);
-localStorage.setItem('dict:fr:audio:' + word, response['audio']);
-var src = response['audio'];
+    var audioBtn = '<button type="button" class="audio-play-btn" id="audioBtn"><i class="glyphicon glyphicon-volume-up"></i></button>';
+    $(this).popover({
+    placement: 'bottom', trigger: 'focus', delay: {show: 10, hide: 100}, html: true,
+    title: function () {
+    return $(this).html() + audioBtn + closeBtn;
+    },
+    content : function() {
+    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/$type', function (response) {
+    $(".popover-content").html(response['msg']);
+    //                                audioBtn = '<button type="button" class="audio-play-btn" onclick="playWordAudio(\'' + audio + '\')"><i class="glyphicon glyphicon-volume-up"></i></button>';
+    if (response['status'] == 200) {
+    localStorage.setItem('dict:fr:' + word, response['msg']);
+    localStorage.setItem('dict:fr:audio:' + word, response['audio']);
+    var src = response['audio'];
 
-var audio = $('<audio/>', {
-controls : 'controls'
-});
+    var audio = $('<audio/>', {
+    controls : 'controls'
+    });
 
-$('<source/>').attr('src', src).appendTo(audio);
-$('#audioBtn').click(function() {
-audio.appendTo('body');
-audio.trigger('play');
+    $('<source/>').attr('src', src).appendTo(audio);
+    $('#audioBtn').click(function() {
+    audio.appendTo('body');
+    audio.trigger('play');
 });
 }
 return response['msg'];

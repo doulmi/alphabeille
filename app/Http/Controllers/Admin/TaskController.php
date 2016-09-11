@@ -85,6 +85,7 @@ class TaskController extends Controller
             if ($user->id == $task->user_id) {
                 $task->content = $request->get('content', '');
                 $task->save();
+
                 return response()->json([
                     'state' => 200,
                 ]);

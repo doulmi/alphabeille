@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Redis;
 class AdminController extends Controller
 {
     private $markdown;
+
     /**
      * @param $makrdown
      */
@@ -38,9 +39,10 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function parseVideos($start, $end) {
+    public function parseVideos($start, $end)
+    {
         $videos = Video::where('id', '>=', $start)->where('id', '<=', $end)->get();
-        foreach($videos as $video) {
+        foreach ($videos as $video) {
             list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink(Helper::filterSpecialChars($video->content));
             $video->parsed_desc = $this->markdown->parse($video->description);
 
@@ -49,9 +51,10 @@ class AdminController extends Controller
 
     }
 
-    public function parseMinitalk() {
+    public function parseMinitalk()
+    {
         $minitalks = Minitalk::all();
-        foreach($minitalks as $minitalk) {
+        foreach ($minitalks as $minitalk) {
 
             $minitalk->parsed_content = Helper::emberedWord($this->markdown->parse(Helper::filterSpecialChars($minitalk->content)));
             $minitalk->parsed_wechat_part = $this->markdown->parse($minitalk->wechat_part);
@@ -59,7 +62,8 @@ class AdminController extends Controller
         }
     }
 
-    public function uploadSql(Request $request) {
+    public function uploadSql(Request $request)
+    {
         $sql = $request->get('sql');
 
         $destinationPath = '/var/www/sql/';
@@ -67,12 +71,13 @@ class AdminController extends Controller
         file_put_contents($filename, $sql);
     }
 
-    public function changeDate() {
+    public function changeDate()
+    {
         $users = User::all();
 
         $faker = Factory::create();
         foreach ($users as $user) {
-            if($user->id >= 9) {
+            if ($user->id >= 9) {
                 $user->created_at = $faker->dateTimeBetween('-21 days', 'now');
                 $user->save();
             }
@@ -80,9 +85,10 @@ class AdminController extends Controller
     }
 
     //重新解析所有Video的Description，并保存
-    public function parseDesc() {
+    public function parseDesc()
+    {
         $videos = Video::all();
-        foreach($videos as $video) {
+        foreach ($videos as $video) {
             $video->parsed_desc = $this->markdown->parse($video->description);
             $video->update();
         }
@@ -96,8 +102,23 @@ class AdminController extends Controller
 //        }
 //    }
 
+    public function updateViewsMinitalks($from = 0)
+    {
+        $faker = Factory::create();
+
+        $minitalks = Minitalk::all();
+        foreach ($minitalks as $minitalk) {
+//            $old = Redis::get('minitalk:view:' . $minitalk->id);
+//            Redis::set('minitalk:view:' . $minitalk->id, $faker->numberBetween(2, 10) + $old);
+            $minitalk->update([
+                'views' => $faker->numberBetween(50, 200)
+            ]);
+        }
+    }
+
     //更新网站内容的观看次数
-    public function updateViews($from = 0) {
+    public function updateViews($from = 0)
+    {
         $faker = Factory::create();
 
 //        $minitalks = Minitalk::all();
@@ -113,17 +134,31 @@ class AdminController extends Controller
 //        }
 
         $videos = Video::where('id', '>', $from)->get();
-        foreach($videos as $video) {
+        foreach ($videos as $video) {
+            switch($video->state) {
+                case 1 :
+                case 7:
+                    $views = $faker->numberBetween(1, 10);
+                    break;
+                case 2 :
+                case 3 :
+                case 4 :
+                    $views = $faker->numberBetween(10, 30);
+                    break;
+                case 5:
+                case 6:
+                    $views = $faker->numberBetween(30, 140);
+            }
             $video->update([
-                'views' => $faker->numberBetween(20, 100)
+                'views' => $views
             ]);
         }
 
         Video::where('id', 1)->update([
-           'views' => 489
+            'views' => 489
         ]);
 
-        Video::where('id',638)->update([
+        Video::where('id', 638)->update([
             'views' => 502
         ]);
 
@@ -132,9 +167,21 @@ class AdminController extends Controller
         ]);
     }
 
-    public function parse() {
+    public function updateAvatar() {
+
+        $videos = Video::get();
+        foreach($videos as $video) {
+            $id = $video->originSrc;
+            $video->update([
+                'avatar' => "http://o9dnc9u2v.bkt.clouddn.com/videos/$id-1.jpg"
+            ]);
+        }
+    }
+
+    public function parse()
+    {
         $talks = Minitalk::all();
-        foreach($talks as $talk) {
+        foreach ($talks as $talk) {
         }
     }
 }

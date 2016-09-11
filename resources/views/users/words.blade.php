@@ -1,8 +1,6 @@
 @extends('app')
 
-@section('title')
-    @lang('labels.myWords')
-@endsection
+@section('title')@lang('labels.myWords')@endsection
 
 @section('content')
     <div class="">
@@ -12,8 +10,8 @@
             <div class="row">
                 <div class="col-md-12">
                     @if(count($wordss) == 0)
-                        <div class="fullscreen">
-                            No word searched
+                        <div>
+                            @lang('labels.noWordsSearched')
                         </div>
                     @else
                         @foreach($wordss as $date => $words)

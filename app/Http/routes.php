@@ -5,24 +5,24 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@
 Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
 
 Route::get('/', 'PostController@index');
-Route::get('basicCourses', 'PostController@basicCourses');
-Route::get('oralFormation', 'PostController@oralFormation');
-Route::get('privateCourses', 'PostController@privateCourses');
+//Route::get('basicCourses', 'PostController@basicCourses');
+//Route::get('oralFormation', 'PostController@oralFormation');
+//Route::get('privateCourses', 'PostController@privateCourses');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('chat', 'ChatController');
+//    Route::resource('chat', 'ChatController');
     Route::get('users/words', 'UserController@words');
     Route::post('api/wordFav/{wordFavId}/delete', 'WordController@destroy');
+    Route::get('users/notes', 'UserController@notes');
+//    Route::get('lessons/collect', 'LessonController@collects');
+//    Route::post('lessons/{id}/favorite', 'LessonController@favorite');
+//    Route::post('lessons/{id}/punchin', 'LessonController@punchin');
+//    Route::post('lessons/{id}/collect', 'LessonController@collect');
 
-    Route::get('lessons/collect', 'LessonController@collects');
-    Route::post('lessons/{id}/favorite', 'LessonController@favorite');
-    Route::post('lessons/{id}/punchin', 'LessonController@punchin');
-    Route::post('lessons/{id}/collect', 'LessonController@collect');
-
-    Route::get('talkshows/collect', 'TalkshowController@collects');
-    Route::post('talkshows/{id}/favorite', 'TalkshowController@favorite');
-    Route::post('talkshows/{id}/punchin', 'TalkshowController@punchin');
-    Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
+//    Route::get('talkshows/collect', 'TalkshowController@collects');
+//    Route::post('talkshows/{id}/favorite', 'TalkshowController@favorite');
+//    Route::post('talkshows/{id}/punchin', 'TalkshowController@punchin');
+//    Route::post('talkshows/{id}/collect', 'TalkshowController@collect');
 
     Route::post('minitalks/{id}/punchin', 'MinitalkController@punchin');
     Route::get('minitalks/collect', 'MinitalkController@collects');
@@ -40,10 +40,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('uploadAvatar', 'UserController@uploadAvatar');
     Route::post('modifyPwd', 'UserController@modifyPwd');
     Route::post('comments', 'CommentController@store');
-    Route::post('lessonComments', 'LessonController@addComment');
-    Route::post('talkshowComments', 'TalkshowController@addComment');
+//    Route::post('lessonComments', 'LessonController@addComment');
+//    Route::post('talkshowComments', 'TalkshowController@addComment');
     Route::post('minitalkComments', 'MinitalkController@addComment');
     Route::post('videoComments', 'VideoController@addComment');
+
+    Route::post('videoNotes', 'VideoController@addNote');
+    Route::put('notes', 'VideoController@updateNote');
+    Route::delete('notes', 'VideoController@deleteNote');
+
     Route::get('subscription/{id}', 'PostController@subscription');
     Route::get('alipay/pay/{id}', 'AlipayController@pay');
     Route::get('alipay/result', 'AlipayController@result');
@@ -57,8 +62,8 @@ Route::get('images', function () {
     return view('images');
 });
 
-Route::get('lessonComments/{lesson_id}', 'LessonController@comments');
-Route::get('talkshowComments/{talkshow_id}', 'MinitalkController@comments');
+//Route::get('lessonComments/{lesson_id}', 'LessonController@comments');
+//Route::get('talkshowComments/{talkshow_id}', 'MinitalkController@comments');
 Route::get('minitalkComments/{minitalk_id}', 'MinitalkController@comments');
 Route::get('videoComments/{video_id}', 'VideoController@comments');
 
@@ -67,15 +72,16 @@ Route::auth();
 
 Route::resource('topics', 'TopicController');
 //Route::post('topics/{ids}/delete', 'TopicController@multiDestroy')->where(['id' => '[0-9]+']);
-Route::get('lessons/free', 'LessonController@free');
+//Route::get('lessons/free', 'LessonController@free');
 //Route::get('lessons/collect', 'LessonController@myCollect');
-Route::get('lessons/{id}/{lan}', 'LessonController@show');
-Route::resource('lessons', 'LessonController');
+//Route::get('lessons/{id}/{lan}', 'LessonController@show');
+//Route::resource('lessons', 'LessonController');
 Route::get('translator/{user_id}/videos', 'UserController@translateVideos');
+
 
 //Route::get('talkshows/free', 'TalkshowController@free');
 //Route::resource('talkshows', 'TalkshowController');
-Route::resource('talkshows', 'MinitalkController');
+//Route::resource('talkshows', 'MinitalkController');
 
 //Route::get('videos/free', 'VideoController@free');
 Route::resource('videos', 'VideoController');
@@ -106,8 +112,8 @@ Route::get('wechat/login', 'Auth\AuthController@wechatLogin');
 Route::get('qq/login', 'Auth\AuthController@qqLogin');
 Route::get('qq/callback', 'Auth\AuthController@qqCallback');
 
-Route::get('github/login', 'Auth\AuthController@githubLogin');
-Route::get('github/callback', 'Auth\AuthController@githubCallback');
+//Route::get('github/login', 'Auth\AuthController@githubLogin');
+//Route::get('github/callback', 'Auth\AuthController@githubCallback');
 //Route::get('test', 'PostController@test');
 Route::get('words', 'WordController@index');
 Route::get('translators', 'UserController@translators');
@@ -199,9 +205,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/addUsers', 'Admin\AdminController@addUsers');
     Route::get('/changeDate', 'Admin\AdminController@changeDate');
     Route::get('/updateViews/{from}', 'Admin\AdminController@updateViews');
+    Route::get('/updateViewsMinitalks/{from}', 'Admin\AdminController@updateViewsMinitalks');
     Route::get('/parseMinitalks', 'Admin\AdminController@parseMinitalk');
     Route::get('/parseVideos/{start}/{end}', 'Admin\AdminController@parseVideos');
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
+    Route::get('/updateAvatar', 'Admin\AdminController@updateAvatar');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');
 //    Route::get('videoLevels', 'Admin\AdminController@videoLevels');

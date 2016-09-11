@@ -103,6 +103,8 @@
                     if (response['state'] == 200) {
                         toastr.success("@lang('labels.autoSaveSuccess')");
                         change = false;
+                    } else {
+                        toastr.error("@lang('labels.autoSaveFailed')");
                     }
                 });
             }

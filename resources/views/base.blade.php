@@ -14,8 +14,9 @@
     <meta id="token" name="token" value="{{csrf_token()}}">
     @yield('header')
     @yield('othercss' )
+
 </head>
-<body>
+<body >
 
 {{--<div class="sky hidden-xs">--}}
     {{--<div class="cloud variant-1"></div>--}}

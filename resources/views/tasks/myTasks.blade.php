@@ -78,6 +78,8 @@
                     {!! $videos->links() !!}
                 </div>
                 <div class="Header"></div>
+                <div class="Header"></div>
+                <div class="Header"></div>
             </div>
         </div>
     </div>

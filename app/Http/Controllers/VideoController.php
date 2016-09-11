@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Editor\Markdown\Markdown;
 use App\Helper;
+use App\Note;
 use App\UserTraces;
 use App\Video;
 
@@ -33,7 +34,6 @@ class VideoController extends ReadableController
     {
         $readable = Video::findByIdOrSlugOrFail($idOrSlug);
 
-//        Redis::incr('video:view:' . $readable->id);
         $readable->increment('views');
 
         $readables = $this->random();
@@ -57,7 +57,10 @@ class VideoController extends ReadableController
 
         $type = 'video';
 
-        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube']));
+        //notes
+        $notes = Note::where('user_id', Auth::id())->where('readable_id', $readable->id)->where('readable_type', 'App\Video')->get(['point', 'content', 'id'])->toJson();
+        $notes = str_replace("'", "\'", $notes);
+        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube','notes']));
     }
 
     public function level($level)
@@ -70,12 +73,12 @@ class VideoController extends ReadableController
 
     public function index(Request $request) {
         $pageLimit = config('params')['pageLimit'];
-        $orderBy = $request->get('orderBy', 'latest');
+        $orderBy = $request->get('orderBy', 'views');
         $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
-        $builder = Video::published()->orderBy('free', 'DESC')->orderBy('state', 'DESC');
+        $builder = Video::published()->orderBy('free', 'DESC');//->orderBy('state', 'DESC');
 
         if($orderBy == 'latest') {
-            $builder->latest();
+            $builder->orderBy('created_at', 'DESC');
         } else {
             $builder->orderBy('views', 'DESC');
         }
@@ -83,5 +86,27 @@ class VideoController extends ReadableController
         $readables = $builder->paginate($pageLimit, $cols)->appends($request->all());
         $type = 'video';
         return view('videos.index', compact(['readables', 'type']));
+    }
+
+    public function updateNote(Request $request) {
+        $id = $request->get('id');
+        $content = $request->get('content');
+
+        Note::where('id', $id)->where('user_id', Auth::id())->update([
+            'content' => $content
+        ]);
+
+        return response()->json([
+            'status' => 200
+        ]);
+    }
+
+    public function deleteNote(Request $request) {
+        $id = $request->get('noteId');
+        Note::where('id', $id)->where('user_id', Auth::id())->delete();
+
+        return response()->json([
+            'status' => 200
+        ]);
     }
 }

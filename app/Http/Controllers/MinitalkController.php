@@ -23,8 +23,9 @@ class MinitalkController extends ReadableController
     {
         $readable = Minitalk::findByIdOrSlugOrFail($idOrSlug);
 
-        Redis::incr('minitalk:view:' . $readable->id);
+//        Redis::incr('minitalk:view:' . $readable->id);
 
+        $readable->increment('views');
 //        $comments = $readable->comments;
         $content = $readable->parsed_content;
         $wechat_part = $readable->parsed_wechat_part;

@@ -113,7 +113,7 @@
                 <tr id="row-{{$word->id}}">
                     <td scope="row">{{$word->id}}</td>
                     <td>{{$word->word}}</td>
-                    <td>{{$word->explication}}</td>
+                    <td>{!! $word->explication !!}</td>
                     <td>{{$word->frequency}}</td>
                     <td>{{$word->audio ? '有' : '无'}}</td>
                     <td>

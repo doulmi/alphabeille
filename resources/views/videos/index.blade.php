@@ -18,8 +18,8 @@
 
     <div class="Card-Collection">
         <div class="filter-container">
-        <a class="btn btn-default filter-btn {{(Request::get('orderBy') == '' || (request::get('orderBy') == 'latest')) ? 'current' : ''}}" href="{{url('videos?orderBy=latest')}}">@lang('labels.orderByLatest')</a>
-        <a class="btn btn-default filter-btn {{Request::get('orderBy') == 'views' ? 'current' : ''}}" href="{{url('videos?orderBy=views')}}">@lang('labels.orderByViews')</a>
+        <a class="btn btn-default filter-btn {{(Request::get('orderBy') == '' || Request::get('orderBy') == 'views') ? 'current' : ''}}" href="{{url('videos?orderBy=views')}}">@lang('labels.orderByViews')</a>
+            <a class="btn btn-default filter-btn {{ request::get('orderBy') == 'latest' ? 'current' : ''}}" href="{{url('videos?orderBy=latest')}}">@lang('labels.orderByLatest')</a>
         </div>
         @include('components.readableList')
         @include('components.pageNavigator')

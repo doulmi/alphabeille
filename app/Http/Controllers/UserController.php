@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Collectable;
 use App\Lesson;
 use App\Minitalk;
+use App\Note;
 use App\Task;
 use App\User;
 use App\Video;
@@ -126,8 +127,8 @@ class UserController extends Controller
         $minitalksIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Minitalk')->lists('collectable_id')->toArray();
         $videosIds = Collectable::where('user_id', $userId)->where('collectable_type', 'App\Video')->lists('collectable_id')->toArray();
 
-        $minitalks = Minitalk::whereIn('id', $minitalksIds)->get(['id', 'avatar', 'title', 'slug']);
-        $videos = Video::whereIn('id', $videosIds)->get(['id', 'avatar', 'title', 'slug']);
+        $minitalks = Minitalk::whereIn('id', $minitalksIds)->get(['id', 'avatar', 'title', 'slug', 'views']);
+        $videos = Video::whereIn('id', $videosIds)->get(['id', 'avatar', 'title', 'slug', 'views']);
 
         return view('users.collect', compact(['minitalks', 'videos']));
     }
@@ -165,9 +166,34 @@ class UserController extends Controller
     }
 
     public function translateVideos($userId) {
-        $readables = Video::join('tasks', 'tasks.video_id', '=', 'videos.id')->where('tasks.user_id', $userId)->where('tasks.is_submit', 1)->orderby('videos.updated_at', 'DESC')->paginate(48, ['videos.id', 'avatar', 'title', 'slug', 'videos.created_at','level', 'free', 'state']);
+        $readables = Video::join('tasks', 'tasks.video_id', '=', 'videos.id')->where('tasks.user_id', $userId)->where('tasks.is_submit', 1)->orderby('videos.updated_at', 'DESC')->paginate(48, ['videos.id', 'avatar', 'title', 'slug', 'videos.created_at','level', 'free', 'state', 'views']);
 
         $type = 'video';
         return view('videos.index', compact('readables', 'type'));
+    }
+
+    public function notes() {
+        $notes = Note::where('user_id', Auth::id())->paginate(10);
+
+        foreach($notes as $note) {
+            switch($note->readable_type) {
+                case 'App\Video' :
+                    $readable = Video::findOrFail($note->readable_id, ['slug', 'title', 'avatar']);
+                    $note->url = 'videos/' . $readable->slug;
+                    //TODO : 例句功能：在记录单词的时候，需要获得当前点击句子的index,然后再此取得该句子,并将该词标红, 如果该词没有标记，则取该文章的第一次出现该词汇的地方，并记录，在Admin中进行一次修改
+                    $note->type = 'video';
+                    break;
+
+                case 'App\Minitalk' :
+                    $readable = Minitalk::findOrFail($note->readable_id, ['slug',  'title', 'avatar']);
+                    $note->url = 'minitalks' . $readable->slug;
+                    $note->type = 'minitalk';
+                    break;
+            }
+            $note->avatar = $readable->avatar;
+            $note->title = $readable->title;
+        }
+
+        return view('users.notes', compact('notes'));
     }
 }

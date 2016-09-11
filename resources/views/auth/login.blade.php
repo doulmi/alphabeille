@@ -155,7 +155,7 @@
                 window.addEventListener('keydown', this.next)
             },
 
-            ready() {
+            ready : function() {
                 $('.after-loading').fadeIn();
                 $('.loading').hide();
             },

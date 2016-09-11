@@ -3,7 +3,7 @@
 @section('title'){{ $readable->title }}@endsection
 
 @section('header')
-    <meta name="description" content="{{$readable->description}}">
+    <meta name="description" content="{{$readable->title}}">
     <meta name="Keywords" content="{{ $readable->keywords }}">
 @endsection
 
@@ -15,13 +15,15 @@
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7" id="videoPanel">
-                    <a href="{{url('videos/level/' . $readable->level)}}"><span
-                                class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span></a>
+                    <div class="video-state">
+                        <a href="{{url('videos/level/' . $readable->level)}}">
+                            <span class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span>
+                        </a>
                     <span class="">
                         <i class="glyphicon glyphicon-headphones"></i>
-{{--                        <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>--}}
-                            <span class="g-font">{{ $readable->views }}</span>
+                        <span class="g-font">{{ $readable->views }}</span>
                     </span>
+                    </div>
                     @if($youtube)
                         {{--<div id="video-placeholder"></div>--}}
                         <div class="video-container">
@@ -69,6 +71,11 @@
 
                 <div class="col-md-5">
                     @if($canRead)
+                        <ul id="tabs" class="nav nav-tabs hidden-xs" data-tabs="tabs">
+                            <li class="active"><a href="#subtitles" data-toggle="tab">@lang('labels.subtitles')</a></li>
+                            <li><a href="#notes" data-toggle="tab">@lang('labels.notes')</a></li>
+                        </ul>
+
                         <div class="video-content grey" id='subPanel'>
                             <div class="loading">
                                 <span></span>
@@ -79,37 +86,43 @@
                                 <span></span>
                             </div>
                             <div class="after-loading">
-                                <table>
-                                    <tbody>
-                                    <tr v-for="no in pointsCount">
-                                        <td class='width40'>
-                                            <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
-                                               class='seek-btn'
-                                               :class="played.indexOf($index) > -1 > 'active' : ''"></a>
-                                        </td>
-                                        <td>
-                                        <td>
-                                            <p>@{{{ linesFr[no] }}}</p>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div id="my-tab-content" class="tab-content">
+                                    <div id="notes" class="tab-pane">
+                                        <div v-if="notes.length == 0">@lang('labels.noNoteYet')</div>
+                                        <table class="note-table" v-else>
+                                            <tbody>
+                                            <tr v-for="note in notes">
+                                                <td class="width40">
+                                                    <a href='#@{{note.point}}'
+                                                       @click.stop.prevent='seekToTime(note.point)' class='seek-btn'
+                                                       :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                                </td>
+                                                <td><p id="note-@{{ note.id }}" class="contenteditable tooltips-bottom" data-tooltips="@lang('labels.clickToEdit')" contenteditable="true" >@{{{ note.content }}}</p></td>
+                                                <td><p><a href="" @click.stop.prevent="deleteNote($index, note.id)"
+                                                                    class="close vertical-center tooltips-left" data-tooltips="@lang('labels.delete')">x</a></p></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="subtitles" class="tab-pane active">
+                                        <table>
+                                            <tbody>
+                                            <tr v-for="no in pointsCount">
+                                                <td class='width40'>
+                                                    <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
+                                                       class='seek-btn'
+                                                       :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                                </td>
+                                                <td>
+                                                    <p>@{{{ linesFr[no] }}}</p>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        {{--<div class="notes">--}}
-                        {{--<div class="form-group">--}}
-                        {{--<div class="input-group">--}}
-                        {{--<input type="text" class="note-input form-control" placeholder="@lang('labels.addNote')" v-model="newNote">--}}
-                        {{--<a href="#" @click.stop.prevent="saveNote" class="input-group-addon navbar-note-btn"><span class="glyphicon glyphicon glyphicon-plus"></span></a>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<table  class="table table-striped">--}}
-                        {{--<tr v-for="note in notes">--}}
-                        {{--<td>@{{ $index }}</td>--}}
-                        {{--<td>@{{{note}}}</td> </tr>--}}
-                        {{--</table>--}}
-                        {{--</div>--}}
                     @else
                         @include('blockContent')
                     @endif
@@ -127,18 +140,28 @@
                 ,
                 <a href="{{url('users/' . $readable->verifier->id)}}">{{$readable->verifier->name}}</a>@lang('labels.verifier')
             </div>
+
+            <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
+                 data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}">
+                @lang('labels.share'):
+            </div>
+
+            <ul id="tabs" class="nav nav-tabs videoPart">
+                <li class="active"><a href="javascript:;">@lang('labels.videoDesc')</a></li>
+                <li><a href="javascript:;" onclick="scrollToTag('sugguest')">@lang('labels.suggestVideos')</a></li>
+                <li><a href="javascript:;" onclick="scrollToTag('disqus_thread')" >@lang('labels.comments')</a></li>
+            </ul>
         </div>
     </div>
 
     <div class="container video-show">
         @if($canRead)
-            <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
+            <h3 ><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
             <div class="row">
                 <div class="col-md-8">
                     {!! $readable->parsed_desc !!}
                 </div>
                 <div class="col-md-4">
-
                 </div>
             </div>
         @endif
@@ -174,28 +197,50 @@
                     </a>
                 @endif
             </div>
-            <div class="share-component share-panel" data-sites="wechat, weibo ,facebook"
-                 data-description="@lang('labels.shareTo')" data-image="{{$readable->avatar}}">
-                @lang('labels.share'):
-            </div>
+
         @endif
     </div>
 
-    <div class="Card-Collection">
+    <div class="Card-Collection" id="sugguest">
         {{--推荐部分--}}
         <div class="Header"></div>
         <h2 class="Heading-Fancy row">
             <span class='title black'>{{ trans('labels.suggestVideos')}}</span>
         </h2>
         @include('components.readableList')
-
         @include('components.comments')
     </div>
     <div class="Header"></div>
+    <div class="login-dialog" id="login-container" v-show="showLoginPanel" transition="bounce">
+        <p>@lang('labels.loginToUse')</p>
+        <div class="login-footer center">
+            <a href="{{url('login')}}" class="btn login-btn">@lang('labels.login')</a>
+            <a href="" class="btn btn-default" @click.stop.prevent="closeLogin">@lang('labels.close')</a>
+        </div>
+    </div>
+
+    <div class="note-container" id="note-container" v-show="showNotePanel" transition="bounce">
+        <textarea data-provide="markdown" rows="5" cols="50" id="note-content" title="Note"
+                  placeholder="@lang('labels.writeNote')" v-model="newNote"></textarea>
+        <div class="note-footer pull-right">
+            <a href="" class="btn login-btn" id="saveNoteBtn" @click.stop.prevent="saveNote">@lang('labels.save')</a>
+            <a href="" class="btn btn-default" @click.stop.prevent="closeNote">@lang('labels.close')</a>
+        </div>
+    </div>
+    <div class="fixed-action-btn hidden-xs">
+        <a class="btn-floating waves-effect waves-light red " @click="showNoteDialog">
+        <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR
+oPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik
+0xOSAxM2gtNnY2aC0ydi02SDV2LTJoNlY1aDJ2Nmg2djJ6Ii8+CiAgICA8cGF0aCBkPSJNMCAwa
+DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
+        </a>
+    </div>
     <div id='goTop'></div>
+    <div class="Header"></div>
 @endsection
 
 @section('otherjs')
+
     @if($youtube)
         <script>
             var tag = document.createElement('script');
@@ -208,10 +253,15 @@
         <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script>
         $('#goTop').goTop();
+
+        function scrollToTag(tag) {
+            $('html, body').animate({
+                scrollTop: $("#" + tag).offset().top
+            }, 2000);
+        }
 
         var subPanel = $('#subPanel');
         var videoPanel = $('#videoPanel');
@@ -219,11 +269,11 @@
         $('img.Card-image').lazyload();
 
         $(window).resize(function () {
-            subPanel.height(videoPanel.height() - 22);
+            subPanel.height(videoPanel.height() - 52);
         });
 
         $(function () {
-
+            $('#tabs').tab();
 
             $(".heart").on("click", function () {
                 $(this).toggleClass("is-active");
@@ -240,15 +290,30 @@
             });
 
             @include('components.dict')
-            $(".video-content span").click(activePopover)
 
+            @if(Auth::guest())
+            $(".video-content span").click(function () {
+                vm.showLoginDialog();
+            });
+            @else
+            $(".video-content span").click(activePopover);
+            @endif
             if (videoPanel.height() >= 300) {
-                subPanel.height(videoPanel.height() - 22);
+                subPanel.height(videoPanel.height() - 52);
             }
+
+            $('.contenteditable').blur(function () {
+                var id = $(this).attr('id').substr(5);
+                var content = $(this).html();
+                vm.updateNote(id, content);
+            });
         });
 
         var player;
         var currentTime;
+        var noteContainer = $('#note-container');
+        var loginContainer = $('#login-container');
+        var saveNoteBtn = $('#saveNoteBtn');
 
         // 注册 partial
         var vm = new Vue({
@@ -273,10 +338,12 @@
                 lineActive: '',
                 repeatOne: -1,  //>=0 则说明循环开启
                 newNote: '',
-                notes: []
+                notes: [],
+                showNotePanel: false,
+                showLoginPanel: false
             },
 
-            ready() {
+            ready: function () {
                 var pointStr = '{{$readable->points}}';
                 this.points = pointStr.split(',');
                 this.pointsCount = this.points.length;
@@ -286,6 +353,8 @@
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
 
+                this.notes = JSON.parse('{!! $notes !!}');
+
                 $('.after-loading').fadeIn();
                 $('.loading').hide();
             },
@@ -293,6 +362,10 @@
             methods: {
                 seekTo(no) {
                     var time = this.points[no];
+                    this.seekToTime(time);
+                },
+
+                seekToTime(time) {
                     player.currentTime(time);
                     @if($youtube)
                     player.playVideo();
@@ -370,9 +443,60 @@
                 toggleZh() {
                     this.zh = !this.zh;
                 },
+
                 saveNote() {
-                    this.notes.push(this.newNote);
+                    if(this.newNote.trim() == '') {
+                        toastr.warning("@lang('labels.emptyContent')");
+                    }
+                    saveNoteBtn.attr('disabled', 'disabled');
+                    var note = {
+                        id: '{{$readable->id}}',
+                        content: this.newNote.replace('\n', '<br/>'),
+                        point: player.currentTime()
+                    };
+
+                    this.$http.post("{{url('/'. $type .'Notes')}}", note, function (data) {
+                        this.notes.push(note);
+                        this.newNote = '';
+                        toastr.success("@lang('labels.noteSuccess')");
+                        this.showNotePanel = false;
+                        saveNoteBtn.removeAttr('disabled');
+                    }.bind(this));
+                },
+
+                closeNote() {
                     this.newNote = '';
+                    this.showNotePanel = false;
+                },
+                showNoteDialog() {
+                    @if(Auth::guest())
+                        this.showLoginDialog();
+                    @else
+                        this.showNotePanel = !this.showNotePanel;
+                    @endif
+                },
+
+                closeLogin() {
+                    this.showLoginPanel = false;
+                },
+
+                showLoginDialog() {
+                    this.showLoginPanel = true;
+                },
+
+                updateNote(id, content) {
+                    var note = {
+                        id: id,
+                        content: content
+                    };
+                    this.$http.put("{{url('notes')}}", note, function (data) {
+                    }.bind(this));
+                },
+
+                deleteNote(index, id) {
+                    var note = {id: id};
+                    this.notes.splice(index, 1);
+                    this.$http.delete("{{url('/notes')}}", note, function (data) {}.bind(this));
                 }
             }
         });
@@ -420,7 +544,7 @@
             switch (e.which) {
                 case 32:    //空格，作为播放和停止的快捷键
                     var tag = e.target.tagName.toLowerCase();
-                    if (tag != 'input' && tag != 'textarea') {
+                    if (tag != 'input' && tag != 'textarea' && tag != 'p') {
                         @if($youtube)
                         if (player.getPlayerState() == 2) {
                             player.playVideo();

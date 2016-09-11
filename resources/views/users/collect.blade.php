@@ -15,7 +15,7 @@
 
     @else
         @if( count($minitalks) != 0)
-            <h2 class="Heading-Fancy row">
+            <h2 class="Heading-Fancy">
                 <span class='title'>@lang('labels.collectMinitalks')</span>
             </h2>
             <div class="Card-Collection">

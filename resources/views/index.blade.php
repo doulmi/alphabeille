@@ -28,6 +28,21 @@
                                 class="glyphicon glyphicon-search "></span></span>
                                 </div>
                             </div>
+                            <div class="search-suggest hidden-xs">
+                                <div class="search-suggest-row">
+                                    <a class="searchTag" href="{{url('search?keys=Avez+vous+déjà+vu')}}">Avez vous déjà vu</a>
+                                    <a class="searchTag" href="{{url('search?keys=Cyprien')}}">Cyprien</a>
+                                    <a class="searchTag" href="{{url('search?keys=Excuse')}}">Excuse</a>
+                                    <a class="searchTag" href="{{url('search?keys=Un+gars+et+une+fille')}}">Un gars et une fille</a>
+                                </div>
+
+                                <div class="search-suggest-row">
+                                    <a class="searchTag" href="{{url('search?keys=Bloqués')}}">Bloqués</a>
+                                    <a class="searchTag" href="{{url('search?keys=Golden+Moustache')}}">Golden Moustache</a>
+                                    <a class="searchTag" href="{{url('search?keys=Palmashow')}}">Palmashow</a>
+
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-6 video-panel">
@@ -51,8 +66,23 @@
                 <h2 class="Heading-Fancy ">
                     <span class='title'>@lang('labels.videos')</span>
                 </h2>
-                <?php $readables = $videos; $type = 'video' ?>
-                @include('components.readableList')
+
+                <ul id="tabs" class="nav nav-tabs hidden-xs" data-tabs="tabs">
+                    <li class="active"><a href="#mostViews" data-toggle="tab">@lang('labels.orderByViews')</a></li>
+                    <li><a href="#latest" data-toggle="tab">@lang('labels.orderByLatest')</a></li>
+                </ul>
+
+                <div id="my-tab-content" class="tab-content">
+                    <div id="mostViews" class="tab-pane active">
+                        <?php $readables = $videos[1]; $type = 'video' ?>
+                        @include('components.readableList')
+                    </div>
+
+                    <div id="latest" class="tab-pane ">
+                        <?php $readables = $videos[0]; $type = 'video' ?>
+                        @include('components.readableList')
+                    </div>
+                </div>
                 <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
             </div>
         </div>

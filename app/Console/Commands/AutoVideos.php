@@ -126,7 +126,7 @@ class AutoVideos extends Command
             $requestData = [];
             $requestData['originSrc'] = $id;
             $requestData['title'] = $title;
-            $requestData['avatar'] = "http://o9dnc9u2v.bkt.clouddn.com/videos/$id.jpg";
+            $requestData['avatar'] = "http://o9dnc9u2v.bkt.clouddn.com/videos/$id-1.jpg";
             $requestData['video_url'] = "http://o9dnc9u2v.bkt.clouddn.com/videos/$id.mp4";
             $requestData['download_url'] = "http://o9dnc9u2v.bkt.clouddn.com/videos/$id.mp4";
             $requestData['free'] = 0;

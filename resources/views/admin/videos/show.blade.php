@@ -150,7 +150,7 @@
                             },
 
                             jpg() {
-                                return 'http://o9dnc9u2v.bkt.clouddn.com/videos/' + this.youtubeId + '.jpg'
+                                return 'http://o9dnc9u2v.bkt.clouddn.com/videos/' + this.youtubeId + '-1.jpg'
                             }
                         },
 

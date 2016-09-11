@@ -56,7 +56,10 @@
                         {{--<li><a href="{{ url('/oralFormation') }}">@lang('labels.oralFormation')</a>--}}
                     {{--</ul>--}}
                 {{--</li>--}}
-                <li><a href="{{url('translators')}}">@lang('labels.group')</a></li>
+                <li><a href="{{url('translators')}}" class="hidden-xs">@lang('labels.group')</a></li>
+                @if(Auth::guest() || !(Auth::user()->can('videos.subs')))
+                <li><a href="{{url('menus')}}" class="hidden-xs">@lang('labels.beMember')</a></li>
+                @endif
             </ul>
 
             <ul class="nav navbar-nav navbar-right " id="menu-xs">
@@ -85,6 +88,7 @@
                                 <li><a href="{{ url('/translator/tasks/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks')</strong></a></li>
                             @endif
 
+                            <li><a href="{{ url('/users/notes') }}"><strong>@lang('labels.myNotes')</strong></a>
                             <li><a href="{{ url('/users/words') }}"><strong>@lang('labels.myWords')</strong></a>
                             <li><a href="{{ url('/users/collect') }}"><strong>@lang('labels.myCollect')</strong></a>
                             <li><a href="{{ url('/logout') }}"><strong>@lang('labels.disconnect')</strong></a>
@@ -97,20 +101,20 @@
                         <i class="svg-icon svg-icon-miel"></i>
                         <span class="white label-svg-miel" id="punchin">{{Auth::user()->series}}</span>
                     </li>
-                    @if(($msgCount =Auth::user()->unreadMessageCount()) > 0)
-                        <li class="hidden-xs">
-                            <a href="{{url('messages')}}">
-                                <i class="svg-icon svg-icon-notification"></i>
-                                <span class="white label-svg-notification">{{$msgCount}}</span>
-                            </a>
-                        </li>
-                    @else
-                        <li class="hidden-xs">
-                            <a href="{{url('messages')}}">
-                                <i class="svg-icon svg-icon-notification half-opacity"></i>
-                            </a>
-                        </li>
-                    @endif
+                    {{--@if(($msgCount =Auth::user()->unreadMessageCount()) > 0)--}}
+                        {{--<li class="hidden-xs">--}}
+                            {{--<a href="{{url('messages')}}">--}}
+                                {{--<i class="svg-icon svg-icon-notification"></i>--}}
+                                {{--<span class="white label-svg-notification">{{$msgCount}}</span>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@else--}}
+                        {{--<li class="hidden-xs">--}}
+                            {{--<a href="{{url('messages')}}">--}}
+                                {{--<i class="svg-icon svg-icon-notification half-opacity"></i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@endif--}}
                 @endif
 
                 {{--                @if(Auth::guest())--}}

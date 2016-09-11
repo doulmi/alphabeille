@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Collectable;
 use App\Commentable;
 use App\Likeable;
+use App\Note;
 use App\UserPunchin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,6 +46,24 @@ class ReadableController extends Controller
      */
     private function getType() {
         return lcfirst(str_replace('Controller', '', class_basename(get_class($this))));
+    }
+
+    public function addNote(Request $request) {
+        $model = $this->getModel();
+        $classStr = $model;
+        $readable = $model::findOrFail($request->get('id'));
+
+        Note::create([
+            'readable_id' => $readable->id,
+            'user_id' => Auth::id(),
+            'point' => $request->get('point'),
+            'content' => str_replace("\n", '<br/>', $request->get('content')),
+            'readable_type' => $classStr
+        ]);
+
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
     public function addComment(Request $request) {
@@ -192,7 +211,7 @@ class ReadableController extends Controller
         $model = $this->getModel();
         $type = $this->getType();
         $pageLimit = config('params')['pageLimit'];
-        $cols = ['id', 'avatar', 'title', 'slug', 'created_at', 'free'];
+        $cols = ['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views'];
         $readables = $model::published()->orderBy('free', 'DESC')->latest()->paginate($pageLimit, $cols)->appends($request->all());
         return view($type . 's.index', compact(['readables', 'type']));
     }
