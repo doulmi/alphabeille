@@ -75,7 +75,7 @@ class VideoController extends ReadableController
         $pageLimit = config('params')['pageLimit'];
         $orderBy = $request->get('orderBy', 'views');
         $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
-        $builder = Video::published()->orderBy('free', 'DESC');//->orderBy('state', 'DESC');
+        $builder = Video::orderBy('free', 'DESC');//->orderBy('state', 'DESC');
 
         if($orderBy == 'latest') {
             $builder->orderBy('created_at', 'DESC');
