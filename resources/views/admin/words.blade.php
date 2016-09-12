@@ -2,6 +2,11 @@
 
 @section('content')
         <!-- Modal -->
+<style>
+    .contenteditable {
+        border: 1px solid #DDDDDD;
+    }
+</style>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -113,7 +118,7 @@
                 <tr id="row-{{$word->id}}">
                     <td scope="row">{{$word->id}}</td>
                     <td>{{$word->word}}</td>
-                    <td>{!! $word->explication !!}</td>
+                    <td id="word-{{$word->id}}" class="contenteditable" contenteditable="true">{!! $word->explication !!}</td>
                     <td>{{$word->frequency}}</td>
                     <td>{{$word->audio ? '有' : '无'}}</td>
                     <td>
@@ -150,6 +155,24 @@
             });
         }
 
+        $(function () {
+            $('.contenteditable').blur(function () {
+                var id = $(this).attr('id').substring(5);
+                var content = $(this).html();
+                updateWord(id, content);
+            });
+
+            function updateWord(id, content) {
+                var word  = {
+                    '_token': '{{csrf_token()}}',
+                    'explication': content,
+                    '_method': 'put'
+                };
+
+                $.post("{{url('admin/words')}}" + "/" + id, word, function (data) {});
+            }
+        });
+
         var modifyForm = $('#mform');
         var word = $('#m-word');
         var explication = $('#m-explication');
@@ -161,8 +184,6 @@
             var _word = $(tds[1]).html();
             var _explication = $(tds[2]).html();
             var _pronounce = $(tds[3]).html();
-
-            console.log(modifyForm.attr('action'));
 
             modifyForm.attr('action', '{{url('admin/words')}}' + '/' + id);
             mid.val(_id);

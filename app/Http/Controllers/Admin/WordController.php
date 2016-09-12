@@ -91,7 +91,10 @@ class WordController extends Controller
     {
         $word = Word::findOrFail($id);
         $word->update($request->all());
-        return redirect('admin/words');
+//        return redirect('admin/words');
+        return response()->json([
+            'status' => 200
+        ]);
     }
 
     /**
