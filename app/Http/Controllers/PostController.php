@@ -69,7 +69,7 @@ class PostController extends Controller
         }
 
         SearchHistory::create([
-            'user_id' => $user->id,
+            'user_id' => $userId,
             'search_text' => $request->get('keys')
         ]);
 
