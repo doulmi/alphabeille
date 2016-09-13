@@ -4,6 +4,7 @@ if (!target.hasClass('popover')
 && !target.hasClass('pop')
 && !target.hasClass('popover-content')
 && !target.hasClass('audio-play-btn')
+&& !target.hasClass('audio-icon')
 && !target.hasClass('popover-title')
 && !target.hasClass('glyphicon')
 && !target.hasClass('arrow')) {
@@ -21,7 +22,7 @@ $('.popover-content').html("@lang('labels.loading')");
 
 var result = localStorage.getItem('dict:fr:' + word);
 if (result && result != '') {
-var audioBtn = '<button type="button" class="audio-play-btn" id="audioBtn"><i class="glyphicon glyphicon-volume-up"></i></button>';
+var audioBtn = '<button type="button" class="audio-play-btn" id="audioBtn"><img class="audio-icon" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMzIyRTMzIiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR oPSIxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik 0zIDl2Nmg0bDUgNVY0TDcgOUgzem0xMy41IDNjMC0xLjc3LTEuMDItMy4yOS0yLjUtNC4wM3Y4L jA1YzEuNDgtLjczIDIuNS0yLjI1IDIuNS00LjAyek0xNCAzLjIzdjIuMDZjMi44OS44NiA1IDMu NTQgNSA2Ljcxcy0yLjExIDUuODUtNSA2LjcxdjIuMDZjNC4wMS0uOTEgNy00LjQ5IDctOC43N3M tMi45OS03Ljg2LTctOC43N3oiLz4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+"/></button>';
 
 //有缓存的情况下
 $(this).popover({

@@ -83,7 +83,7 @@
                         @include('components.readableList')
                     </div>
                 </div>
-                <a class="btn btn-default more" href="{{url('/videos')}}">@lang('labels.more')</a>
+                <a class="btn btn-default more more-margin" href="{{url('/videos')}}">@lang('labels.more')</a>
             </div>
         </div>
 
@@ -96,7 +96,7 @@
                 </h2>
                 <?php $readables = $minitalks; $type = 'minitalk' ?>
                 @include('components.readableList')
-                <a class="btn btn-default more" href="{{url('/minitalks')}}">@lang('labels.more')</a>
+                <a class="btn btn-default more more-margin" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
         </div>
         @include('subscribe')

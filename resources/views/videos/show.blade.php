@@ -96,15 +96,14 @@
                             </div>
                             <div class="after-loading">
                                 <div id="my-tab-content" class="tab-content">
-                                    <div id="notes" class="tab-pane">
+                                    <div id="notes" class="tab-pane fade in">
                                         <div v-if="notes.length == 0">@lang('labels.noNoteYet')</div>
                                         <table class="note-table" v-else>
                                             <tbody>
                                             <tr v-for="note in notes">
                                                 <td class="width40">
                                                     <a href='#@{{note.point}}'
-                                                       @click.stop.prevent='seekToTime(note.point)' class='seek-btn'
-                                                       :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                                       @click.stop.prevent='seekToTime(note.point)' class='seek-btn'></a>
                                                 </td>
                                                 <td><p id="note-@{{ note.id }}" class="contenteditable tooltips-bottom"
                                                        data-tooltips="@lang('labels.clickToEdit')"
@@ -116,7 +115,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div id="subtitles" class="tab-pane active">
+                                    <div id="subtitles" class="tab-pane active fade in">
                                         <table>
                                             <tbody>
                                             <tr v-for="no in pointsCount">
@@ -248,15 +247,14 @@
             <a href="" class="btn btn-default" @click.stop.prevent="closeNote">@lang('labels.close')</a>
         </div>
     </div>
-    <div class="fixed-action-btn hidden-xs">
-        <a class="btn-floating waves-effect waves-light red " @click="showNoteDialog">
+    <div class="fixed-action-btn hidden-xs tooltips-left" data-tooltips="@lang('labels.clickToAddNote')">
+        <a class="btn-floating waves-effect waves-light red "  @click="showNoteDialog" >
         <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR
 oPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik
 0xOSAxM2gtNnY2aC0ydi02SDV2LTJoNlY1aDJ2Nmg2djJ6Ii8+CiAgICA8cGF0aCBkPSJNMCAwa
 DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
         </a>
     </div>
-    <div id='goTop'></div>
     <div class="Header"></div>
 @endsection
 
@@ -276,11 +274,10 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script>
-        $('#goTop').goTop();
 
         function scrollToTag(tag) {
             $('html, body').animate({
-                scrollTop: $("#" + tag).offset().top
+                scrollTop: $("#" + tag).offset().top - 50
             }, 2000);
         }
 
@@ -361,7 +358,8 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 newNote: '',
                 notes: [],
                 showNotePanel: false,
-                showLoginPanel: false
+                showLoginPanel: false,
+                originPlayerState : ''
             },
 
             ready: function () {
@@ -468,7 +466,9 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 saveNote() {
                     if (this.newNote.trim() == '') {
                         toastr.warning("@lang('labels.emptyContent')");
+                        return;
                     }
+                    player.play();
                     saveNoteBtn.attr('disabled', 'disabled');
                     var note = {
                         id: '{{$readable->id}}',
@@ -488,8 +488,11 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 closeNote() {
                     this.newNote = '';
                     this.showNotePanel = false;
+                    player.play();
                 },
+
                 showNoteDialog() {
+                    player.pause();
                     @if(Auth::guest())
                             this.showLoginDialog();
                     @else
@@ -550,6 +553,12 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 }
             };
 
+            player.pause = function() {
+                player.pauseVideo();
+            };
+            player.play = function() {
+                player.playVideo();
+            };
         }
 
         @else

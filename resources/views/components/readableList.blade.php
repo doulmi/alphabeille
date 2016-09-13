@@ -28,6 +28,9 @@
                                 <i class="glyphicon glyphicon-play-circle"></i>
                             </div>
                         </a>
+                        <div class="time-panel">
+                            {{$readable->duration}}
+                        </div>
                     </div>
                     <div class="Card-details">
                         <h3 class="Card-title">
@@ -38,7 +41,6 @@
                         <div class="Card-footer-content">
                             <span class="topic-view">
                                 <i class="glyphicon glyphicon-headphones"></i>
-{{--                                <span class="g-font">{{ Redis::get($type . ':view:' . $readable->id) }}</span>--}}
                                     <span class="g-font">{{ $readable->views }}</span>
                             </span>
                             @if($readable instanceof \App\Video)

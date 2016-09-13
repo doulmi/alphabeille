@@ -370,6 +370,7 @@ return [
     'clickToEdit' => 'Cliquer pour éditer ce contenu',
     'hotSearch' => 'Hot search',
     'hour' => '小时',
+    'clickToAddNote' => 'Ajouter une nouvelle note',
 ];
 
 

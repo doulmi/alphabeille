@@ -211,7 +211,7 @@ class ReadableController extends Controller
         $model = $this->getModel();
         $type = $this->getType();
         $pageLimit = config('params')['pageLimit'];
-        $cols = ['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views'];
+        $cols = ['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views', 'duration'];
         $readables = $model::published()->orderBy('free', 'DESC')->latest()->paginate($pageLimit, $cols)->appends($request->all());
         return view($type . 's.index', compact(['readables', 'type']));
     }

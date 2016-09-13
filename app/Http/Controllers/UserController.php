@@ -135,7 +135,7 @@ class UserController extends Controller
 
     public function words() {
         $user = Auth::user();
-        $words = Word::join('word_favorites', 'words.id', '=', 'word_favorites.word_id')->where('user_id', $user->id)->latest()->paginate(50, ['word_favorites.created_at', 'word_favorites.times', 'words.word', 'words.explication', 'words.id', 'word_favorites.updated_at', 'word_favorites.readable_id', 'word_favorites.readable_type']);
+        $words = Word::join('word_favorites', 'words.id', '=', 'word_favorites.word_id')->where('user_id', $user->id)->latest()->paginate(50, ['word_favorites.created_at', 'word_favorites.times', 'words.word', 'words.explication', 'words.id', 'word_favorites.updated_at', 'word_favorites.readable_id', 'word_favorites.readable_type', 'word_favorites.id']);
 
         $wordss = [];
         foreach($words as $word) {

@@ -1,6 +1,6 @@
 @if($readables->currentPage() > 1)
     {{--<div >--}}
-    <div class="prePage" ><a href="{{$readables->previousPageUrl()}}" class="glyphicon glyphicon-chevron-left pre-page-icon"></a></div>
+    <div class="prePage" ><a href="{{$readables->previousPageUrl()}}"><span class="glyphicon glyphicon-chevron-left pre-page-icon"></span></a></div>
 @endif
 {{--</div>--}}
 

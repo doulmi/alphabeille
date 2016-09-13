@@ -102,7 +102,7 @@
 
                             <div class="form-group">
                                 <div class="col-sm-10 col-sm-offset-2">
-                                    <button type="submit" class="btn btn-save">@lang('labels.save')</button>
+                                    <button type="submit" class="btn more">@lang('labels.save')</button>
                                 </div>
                             </div>
                         </form>
@@ -135,7 +135,7 @@
 
                             <div class="form-group">
                                 <div class="col-sm-10 col-sm-offset-2">
-                                    <button type="submit" class="btn btn-save">@lang('labels.modifyPwd')</button>
+                                    <button type="submit" class="btn more">@lang('labels.modifyPwd')</button>
                                 </div>
                             </div>
                         </form>

@@ -390,6 +390,5 @@ return [
     'clickToEdit' => '点击既可进行编辑',
     'hotSearch' => '热门搜索',
     'hour' => '小时',
+    'clickToAddNote' => '点我添加笔记',
 ];
-
-

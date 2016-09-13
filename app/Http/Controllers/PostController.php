@@ -36,9 +36,9 @@ class PostController extends Controller
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];
-        $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views']);
+        $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views', 'duration']);
 
-        $videoCols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
+        $videoCols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views', 'duration'];
         $videos[] = Video::orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get($videoCols);
         $videos[] = Video::orderBy('views', 'DESC')->limit($num)->get($videoCols);
 
@@ -85,10 +85,6 @@ class PostController extends Controller
         $videos->setPath('/search')->appends(['q' => $keys]);
 
         return view('search', compact('videos'));
-    }
-
-    public function free()
-    {
     }
 
     public function subscription($id)

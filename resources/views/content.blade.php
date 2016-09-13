@@ -230,7 +230,6 @@
             </div>
         </div>
         <div class="Header hidden-xs"></div>
-        <div id='goTop'></div>
     </div>
 
     {{--    @include('smallBeach')--}}
@@ -245,7 +244,6 @@
     <script>
         $('img.Card-image').lazyload();
 
-        $('#goTop').goTop();
         function reply(userId, userName) {
             window.location.href = "#replyForm";
             ue.setContent('<a href="/users/' + userId + '">@' + userName + '</a>', false);

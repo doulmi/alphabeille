@@ -70,7 +70,7 @@ class VideoController extends ReadableController
     public function level($level)
     {
         $pageLimit = config('params')['pageLimit'];
-        $readables = Video::where('level', $level)->published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views']);
+        $readables = Video::where('level', $level)->published()->orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->paginate($pageLimit, ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views', 'duration']);
         $type = 'video';
         return view('videos.index', compact(['readables', 'type']));
     }
@@ -78,7 +78,7 @@ class VideoController extends ReadableController
     public function index(Request $request) {
         $pageLimit = config('params')['pageLimit'];
         $orderBy = $request->get('orderBy', 'views');
-        $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views'];
+        $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views', 'duration'];
         $builder = Video::orderBy('free', 'DESC');//->orderBy('state', 'DESC');
 
         if($orderBy == 'latest') {

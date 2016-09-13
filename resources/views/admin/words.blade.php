@@ -124,7 +124,7 @@
                     <td>
                         <a href="#" class="btn btn-success" data-toggle="modal"
                            data-target="#modifyModal" onclick="modify({{$word->id}})">@lang('labels.modify')</a>
-                        <a href="#" onclick="deleteTalkshow('{{$word->id}}')" class="btn btn-danger">@lang('labels.delete')</a>
+                        <a href="javascript:;" onclick="deleteTalkshow('{{$word->id}}')" class="btn btn-danger">@lang('labels.delete')</a>
                     </td>
                 </tr>
             @endforeach
