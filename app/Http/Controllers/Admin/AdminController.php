@@ -81,48 +81,61 @@ class AdminController extends Controller
 
     public function task2Trace()
     {
-        $tasks = Task::get();
-        foreach ($tasks as $task) {
-            if ($task->type == 1) {//checkFr
-                echo $task->id . ' checkFr<br>';
+        $tasks = Task::where('type', 2)->where('is_submit', 1)->lists('id')->toArray();
+        $videos = Video::whereIn('id', $tasks)->whereIn('state', [5, 6])->get();
+        foreach ($videos as $video) {
+            $trace = UserTraces::where('readable_id', $video->id)->where('user_id', 3)->where('action', ActionType::$validTranslate)->first();
+            if (!$trace) {
                 UserTraces::create([
                     'readable_type' => 'App\Video',
-                    'readable_id' => $task->video_id,
-                    'user_id' => $task->user_id,
-                    'action' => ActionType::$checkFr,
-                    'created_at' => $task->created_at
+                    'readable_id' => $video->id,
+                    'user_id' => 3,
+                    'action' => ActionType::$validTranslate,
+                    'created_at' => $video->updated_at
                 ]);
-                if ($task->is_submit) {
-                    UserTraces::create([
-                        'readable_type' => 'App\Video',
-                        'readable_id' => $task->video_id,
-                        'user_id' => $task->user_id,
-                        'action' => ActionType::$submitCheckFr,
-                        'created_at' => $task->updated_at
-                    ]);
-                    echo $task->id . ' subcheckFr<br>';
-                }
-            } else {    //type = 2, tranlate
-                UserTraces::create([
-                    'readable_type' => 'App\Video',
-                    'readable_id' => $task->video_id,
-                    'user_id' => $task->user_id,
-                    'action' => ActionType::$translate,
-                    'created_at' => $task->created_at
-                ]);
-                echo $task->id . ' traskalte<br/>';
-                if ($task->is_submit) {
-                    UserTraces::create([
-                        'readable_type' => 'App\Video',
-                        'readable_id' => $task->video_id,
-                        'user_id' => $task->user_id,
-                        'action' => ActionType::$submitTranslate,
-                        'created_at' => $task->updated_at
-                    ]);
-                    echo $task->id . ' subtraskalte<br>';
-                }
             }
         }
+//        foreach ($tasks as $task) {
+//            if ($task->type == 1) {//checkFr
+//                echo $task->id . ' checkFr<br>';
+//                UserTraces::create([
+//                    'readable_type' => 'App\Video',
+//                    'readable_id' => $task->video_id,
+//                    'user_id' => $task->user_id,
+//                    'action' => ActionType::$checkFr,
+//                    'created_at' => $task->created_at
+//                ]);
+//                if ($task->is_submit) {
+//                    UserTraces::create([
+//                        'readable_type' => 'App\Video',
+//                        'readable_id' => $task->video_id,
+//                        'user_id' => $task->user_id,
+//                        'action' => ActionType::$submitCheckFr,
+//                        'created_at' => $task->updated_at
+//                    ]);
+//                    echo $task->id . ' subcheckFr<br>';
+//                }
+//            } else {    //type = 2, tranlate
+//                UserTraces::create([
+//                    'readable_type' => 'App\Video',
+//                    'readable_id' => $task->video_id,
+//                    'user_id' => $task->user_id,
+//                    'action' => ActionType::$translate,
+//                    'created_at' => $task->created_at
+//                ]);
+//                echo $task->id . ' traskalte<br/>';
+//                if ($task->is_submit) {
+//                    UserTraces::create([
+//                        'readable_type' => 'App\Video',
+//                        'readable_id' => $task->video_id,
+//                        'user_id' => $task->user_id,
+//                        'action' => ActionType::$submitTranslate,
+//                        'created_at' => $task->updated_at
+//                    ]);
+//                    echo $task->id . ' subtraskalte<br>';
+//                }
+//            }
+//        }
     }
 
     public function parseVideos($start, $end)
@@ -131,10 +144,8 @@ class AdminController extends Controller
         foreach ($videos as $video) {
             list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink(Helper::filterSpecialChars($video->content));
             $video->parsed_desc = $this->markdown->parse($video->description);
-
             $video->save();
         }
-
     }
 
     public function parseMinitalk()
