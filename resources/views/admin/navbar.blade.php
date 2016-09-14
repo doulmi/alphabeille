@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default ">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -8,7 +8,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
             <a class="navbar-brand" href="{{ url('/') }}" data-toggle="tooltip" data-placement="bottom" title="@lang('labels.backIndex')"  target="_blank">
                 <i class="svg-icon svg-logo" id="icon-white"></i>
             </a>

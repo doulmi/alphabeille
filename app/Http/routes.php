@@ -126,11 +126,13 @@ Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function(
     Route::get('tasks/{video_id}/checkFr', 'TaskController@checkFr');
     Route::post('tasks/{task_id}/save', 'TaskController@save');
     Route::get('tasks/{video_id}/giveup', 'TaskController@giveup');
-    Route::post('tasks/{task_id}/autoSave', 'TaskController@autoSave');
     Route::post('tasks/{task_id}/submit', 'TaskController@submit');
     Route::post('tasks/{task_id}/submitFr', 'TaskController@submitFr');
     Route::post('tasks/{task_id}/submitForce', 'TaskController@submitForce');
 });
+
+Route::post('translator/tasks/{task_id}/autoSave', 'TaskController@autoSave');
+Route::post('admin/tasks/{task_id}/autoSave', 'Admin\TaskController@autoSave');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
@@ -196,7 +198,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('tasks', 'Admin\TaskController@index');
     Route::get('tasks/{task_id}/translate', 'Admin\TaskController@translate');
     Route::post('tasks/{task_id}/save', 'Admin\TaskController@save');
-    Route::post('tasks/{task_id}/autoSave', 'Admin\TaskController@autoSave');
     Route::post('tasks/{task_id}/submit', 'Admin\TaskController@submit');
     Route::post('tasks/{task_id}/submitForce', 'Admin\TaskController@submitForce');
 
@@ -211,6 +212,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/transferComment', 'Admin\AdminController@transferComment');
     Route::get('/updateAvatar', 'Admin\AdminController@updateAvatar');
     Route::get('/addMins', 'Admin\AdminController@addMins');
+    Route::get('task2Trace', 'Admin\AdminController@task2Trace');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');
 //    Route::get('videoLevels', 'Admin\AdminController@videoLevels');

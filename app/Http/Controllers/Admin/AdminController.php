@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Commentable;
+use App\ActionType;
 use App\Editor\Markdown\Markdown;
 use App\Helper;
 use App\Lesson;
-use App\LessonComment;
 use App\Minitalk;
-use App\MinitalkComment;
-use App\Readable;
-use App\Talkshow;
-use App\TalkshowComment;
+use App\Task;
 use App\Topic;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\UserTraces;
 use App\Video;
 use Faker\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -36,7 +33,96 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.index');
+        $today = date('Y-m-d') . ' 00:00:00';
+        /*视频数据*/
+        //今天新增的视频数量
+        $todayNewVideosNum = Video::where('created_at', '>=', $today)->count();
+        //所有的视频数量
+        $videosNum = Video::count();
+
+        //今日提交的翻译视频个数
+        $todayTranslateNum = UserTraces::where('action', ActionType::$submitTranslate)->where('created_at', '>=', $today)->count();
+        //所有提交的翻译视频视频个数
+        $translateNum = UserTraces::where('action', ActionType::$submitTranslate)->count();
+
+        //今天提交的法语校对视频个数
+        $todayCheckFrNum = UserTraces::where('action', ActionType::$submitCheckFr)->where('created_at', '>=', $today)->count();
+        //所有已校对视频个数
+        $checkFrNum = UserTraces::where('action', ActionType::$submitCheckFr)->count();
+
+        //今天确认的法语翻译
+        $todayValidNum = UserTraces::where('action', ActionType::$validTranslate)->where('created_at', '>=', $today)->count();
+        //所有确认的法语翻译
+        $validNum = UserTraces::where('action', ActionType::$validTranslate)->count();
+
+        //所有已完成视频
+        $publishedVideoNum = Video::where('state', 6)->count();
+
+        //今天播放量
+        $todayVideoViews = UserTraces::where('action', ActionType::$view)->where('readable_type', 'App\Video')->where('created_at', '>=', $today)->count();
+
+        //所有播放量
+        $videoViews = UserTraces::where('action', ActionType::$view)->where('readable_type', 'App\Video')->count();
+
+        /*用户数据*/
+        //今日新用户
+        $todayUserNum = User::where('created_at', '>=', $today)->count();
+        //所有用户
+        $userNum = User::count();
+
+        //今天新增VIP
+        $todayVipNum = DB::table('role_user')->where('role_id', 4)->where('updated_at', '>=', $today)->count();
+        //所有VIP
+        $vipNum = DB::table('role_user')->where('role_id', 4)->count();
+
+        $translatorsNum = DB::table('role_user')->where('role_id', 5)->count();
+        return view('admin.statistics', compact('todayNewVideosNum', 'videosNum', 'todayTranslateNum', 'translateNum', 'todayCheckFrNum', 'checkFrNum', 'todayValidNum', 'validNum', 'publishedVideoNum', 'todayVideoViews', 'videoViews', 'todayVipNum', 'vipNum', 'todayUserNum', 'userNum', 'translatorsNum'));
+    }
+
+    public function task2Trace()
+    {
+        $tasks = Task::get();
+        foreach ($tasks as $task) {
+            if ($task->type == 1) {//checkFr
+                echo $task->id . ' checkFr<br>';
+                UserTraces::create([
+                    'readable_type' => 'App\Video',
+                    'readable_id' => $task->video_id,
+                    'user_id' => $task->user_id,
+                    'action' => ActionType::$checkFr,
+                    'created_at' => $task->created_at
+                ]);
+                if ($task->is_submit) {
+                    UserTraces::create([
+                        'readable_type' => 'App\Video',
+                        'readable_id' => $task->video_id,
+                        'user_id' => $task->user_id,
+                        'action' => ActionType::$submitCheckFr,
+                        'created_at' => $task->updated_at
+                    ]);
+                    echo $task->id . ' subcheckFr<br>';
+                }
+            } else {    //type = 2, tranlate
+                UserTraces::create([
+                    'readable_type' => 'App\Video',
+                    'readable_id' => $task->video_id,
+                    'user_id' => $task->user_id,
+                    'action' => ActionType::$translate,
+                    'created_at' => $task->created_at
+                ]);
+                echo $task->id . ' traskalte<br/>';
+                if ($task->is_submit) {
+                    UserTraces::create([
+                        'readable_type' => 'App\Video',
+                        'readable_id' => $task->video_id,
+                        'user_id' => $task->user_id,
+                        'action' => ActionType::$submitTranslate,
+                        'created_at' => $task->updated_at
+                    ]);
+                    echo $task->id . ' subtraskalte<br>';
+                }
+            }
+        }
     }
 
     public function parseVideos($start, $end)
@@ -135,7 +221,7 @@ class AdminController extends Controller
 
         $videos = Video::where('id', '>', $from)->get();
         foreach ($videos as $video) {
-            switch($video->state) {
+            switch ($video->state) {
                 case 1 :
                 case 7:
                     $views = $faker->numberBetween(1, 10);
@@ -167,9 +253,10 @@ class AdminController extends Controller
         ]);
     }
 
-    public function updateAvatar() {
+    public function updateAvatar()
+    {
         $videos = Video::get();
-        foreach($videos as $video) {
+        foreach ($videos as $video) {
             $id = $video->originSrc;
             $video->update([
                 'avatar' => "http://o9dnc9u2v.bkt.clouddn.com/videos/$id-1.jpg"
@@ -184,17 +271,18 @@ class AdminController extends Controller
         }
     }
 
-    public function addMins() {
+    public function addMins()
+    {
         $users = User::get();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $videos = $user->learnedVideos()->get(['id', 'duration']);
             $mins = 0;
-            foreach($videos as $video) {
+            foreach ($videos as $video) {
                 $mins += Helper::str2Min($video->duration);
             }
 
             $minitalks = $user->learnedMinitalks()->get(['duration']);
-            foreach($minitalks as $minitalk) {
+            foreach ($minitalks as $minitalk) {
                 $mins += Helper::str2Min($minitalk->duration);
             }
 

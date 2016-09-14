@@ -96,10 +96,11 @@
 
         function autoSave() {
             if(change) {
-                $.post("{{url('translator/tasks/' . $task->id . '/autoSave')}}", {
+                $.post("{{url('admin/tasks/' . $task->id . '/autoSave')}}", {
                     content: content.val(),
                     _token: "{{csrf_token()}}"
                 }, function (response) {
+                    console.log(response);
                     if (response['state'] == 200) {
                         toastr.success("@lang('labels.autoSaveSuccess')");
                         change = false;

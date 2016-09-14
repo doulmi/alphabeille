@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper;
 use App\Task;
+use App\UserTraces;
 use App\Video;
 
 use App\Http\Requests;
@@ -18,12 +19,12 @@ class TaskController extends Controller
     {
         $levels = ['beginner', 'intermediate', 'advanced'];
 
-        if($request->has('type')) {
+        if ($request->has('type')) {
             $builder = Video::where('state', 1);
         } else {
             $builder = Video::where('state', 2);
         }
-        if($request->has('level')) {
+        if ($request->has('level')) {
             $builder->where('level', $request->get('level'));
         }
         $videos = $builder->select(['slug', 'originSrc', 'duration', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50)->appends($request->all());;
@@ -37,7 +38,7 @@ class TaskController extends Controller
         if ($request->has('type')) {
             //0: listen, 1: checkfr, 2: translate, 3: checkzh
             $type = $request->get('type');
-            if(!is_numeric($type) || $type < 0 || $type > 4) {
+            if (!is_numeric($type) || $type < 0 || $type > 4) {
                 abort(404);
             }
             $builder->where('tasks.type', $type);
@@ -61,12 +62,14 @@ class TaskController extends Controller
         $readable = Video::findOrFail($videoId);
         $user = Auth::user();
         $task = Task::where('video_id', $videoId)->where('type', 2)->first();
-        if($task) {
+        if ($task) {
             if ($task->user_id != $user->id) {
                 Session::flash('hasTranslator', 'hasTranslator');
                 return redirect('translator/tasks');
             }
         } else {
+            UserTraces::translate('App\Video', $videoId);
+
             $readable->translator_id = $user->id;
             $readable->state = 3;
 
@@ -87,12 +90,14 @@ class TaskController extends Controller
         $readable = Video::findOrFail($videoId);
         $user = Auth::user();
         $task = Task::where('video_id', $videoId)->first();
-        if($task) {
+        if ($task) {
             if ($task->user_id != $user->id) {
                 Session::flash('hasListener', 'hasListener');
                 return redirect('translator/tasks?type=1');
             }
         } else {
+            UserTraces::checkFr('App\Video', $videoId);
+
             $readable->listener_id = $user->id;
             $readable->state = 7;
             $readable->save();
@@ -112,7 +117,7 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         $task = Task::where('video_id', $videoId)->where('user_id', $user->id)->first();
-        if($task) {
+        if ($task) {
             $video = Video::find($videoId);
             $video->state = 2;
             $video->save();
@@ -134,17 +139,20 @@ class TaskController extends Controller
 
     public function autoSave(Request $request, $taskId)
     {
-        $task = Task::find($taskId);
-        if ($task) {
-            $user = Auth::user();
-            if ($user->id == $task->user_id) {
-                $task->content = $request->get('content', '');
-                $task->save();
-                return response()->json([
-                    'state' => 200,
-                ]);
+        if (Auth::user() && (Auth::user()->isTranslator() || Auth::user()->can('videos.translate'))) {
+            $task = Task::find($taskId);
+            if ($task) {
+                $user = Auth::user();
+                if ($user->id == $task->user_id) {
+                    $task->content = $request->get('content', '');
+                    $task->save();
+                    return response()->json([
+                        'state' => 200,
+                    ]);
+                }
             }
         }
+
         return response()->json([
             'state' => 403,
         ]);
@@ -161,6 +169,7 @@ class TaskController extends Controller
         $video->state = 4;
         $video->save();
 
+        UserTraces::submitTranslate('App\Video', $video->id);
         Session::flash('successSubmit', '1');
         return redirect('translator/tasks');
     }
@@ -174,9 +183,11 @@ class TaskController extends Controller
 
         $video = $task->video;
         $video->state = 2;
+
         $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
 
+        UserTraces::submitCheckFr('App\Video', $video->id);
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
         $video->save();
 
@@ -197,6 +208,8 @@ class TaskController extends Controller
         $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
 
+        UserTraces::translate('App\Video', $video->id);
+        UserTraces::validTranslate('App\Video', $video->id);
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
         $video->save();
 

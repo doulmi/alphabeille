@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Task;
 use App\User;
+use App\UserTraces;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class TaskController extends Controller
             $builder->where('tasks.type', $reverse[$request->get('type')]);
         }
 
-        if($request->get('doubt', 0) != 0) {
+        if ($request->get('doubt', 0) != 0) {
             $builder->where('tasks.trouble', 1);
         }
 
@@ -79,15 +80,18 @@ class TaskController extends Controller
 
     public function autoSave(Request $request, $taskId)
     {
-        $task = Task::find($taskId);
-        if ($task) {
-            $task->content = $request->get('content', '');
-            $task->save();
+        if (Auth::user() && Auth::user()->isAdmin()) {
+            $task = Task::find($taskId);
+            if ($task) {
+                $task->content = $request->get('content', '');
+                $task->save();
 
-            return response()->json([
-                'state' => 200,
-            ]);
+                return response()->json([
+                    'state' => 200,
+                ]);
+            }
         }
+
         return response()->json([
             'state' => 403,
         ]);
@@ -105,6 +109,7 @@ class TaskController extends Controller
         $video->state = 4;
         $video->save();
 
+        UserTraces::submitTranslate('App\Video', $video->id);
         Session::flash('successSubmit', '1');
         return redirect('admin/tasks');
     }
@@ -123,6 +128,7 @@ class TaskController extends Controller
         $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
 
+        UserTraces::validTranslate('App\Video', $video->id);
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
         $video->save();
 
@@ -130,9 +136,10 @@ class TaskController extends Controller
         return redirect('admin/tasks?state=1&&type=3');
     }
 
-    public function doubt($task_id) {
+    public function doubt($task_id)
+    {
         $task = Task::find($task_id);
-        if($task) {
+        if ($task) {
             $task->trouble = !$task->trouble;
             $task->save();
         }

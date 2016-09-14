@@ -382,7 +382,7 @@ return [
     'myNotes' => '我的笔记',
     'noNoteYet' => '暂无笔记',
     'loginToUse' => '登录后才能使用即时字典和记录笔记功能',
-    'autoSaveFailed' => '自动保存失败，请马上重新刷新该页面，以防数据丢失',
+    'autoSaveFailed' => '自动保存失败，请在复制文本后，重新刷新该页面，以防数据丢失',
     'noWordsSearched' => '还没有搜索过任何词汇',
     'readable_src' => '来源',
     'note' => '笔记',

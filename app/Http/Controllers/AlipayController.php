@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Subscription;
 use App\User;
 use App\UserSubscription;
+use App\UserTraces;
 use Bican\Roles\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -67,9 +68,12 @@ class AlipayController extends Controller
                     $user->attachRole($role);
                     $user->save();
                 });
+
+                UserTraces::subscribe('App\Subscription', $bodies[1]);
                 return redirect('/');
             }
         }
+
         Session::flash('payFailed', 'payFailed');
         return redirect('menus');
     }

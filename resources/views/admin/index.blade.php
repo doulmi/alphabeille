@@ -32,7 +32,7 @@
 <div class="container-fluid">
     <div class="col-md-2 sidebar">
         <div class="list-group">
-            <a class="list-group-item category" href="{{url('/')}}">
+            <a class="list-group-item category" href="{{url('admin/')}}">
                 <i class="glyphicon glyphicon-home"></i>@lang('titles.index')
             </a>
         </div>
