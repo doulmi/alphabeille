@@ -13,9 +13,13 @@
         <tbody>
         @foreach($words as $word)
             <tr>
-                <td>{{$word->id}}</td>
-                <td>{{$word->word->word}}</td>
-                <td>{!! $word->word->explication !!}</td>
+                @if($word->word)
+                    <td>{{$word->id}}</td>
+                    <td>{{$word->word->word}}</td>
+                    <td>{!! $word->word->explication !!}</td>
+                @else
+                    {{$word->id}} not exist
+                @endif
             </tr>
         @endforeach
         </tbody>
