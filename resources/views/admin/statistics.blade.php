@@ -53,7 +53,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 statistics soft">
                 <div class="details">
                     <div class="number">
-                        <span >{{ $translatedVideoNum / $publishedVideoNum}}</span>
+                        <span >{{ $translatedVideoNum . '/'.  $publishedVideoNum}}</span>
                     </div>
                     <div class="desc">已翻译/已发布视频</div>
                 </div>
