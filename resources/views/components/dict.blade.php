@@ -45,7 +45,7 @@ var audio = $('<audio/>', {
 $('<source/>').attr('src', src).appendTo(audio);
 
 //添加查询次数
-$.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/$type', function (response) {
+$.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id . '/' . $type}}', function (response) {
     $('#audioBtn').click(function() {
     audio.appendTo('body');
     audio.trigger('play');
@@ -62,7 +62,7 @@ $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/$type', function
     return $(this).html() + audioBtn + closeBtn;
     },
     content : function() {
-    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id}}/$type', function (response) {
+    $.get("{{url('api/words')}}" + "/" + word + '/{{$readable->id . '/' . $type}}', function (response) {
     $(".popover-content").html(response['msg']);
     //                                audioBtn = '<button type="button" class="audio-play-btn" onclick="playWordAudio(\'' + audio + '\')"><i class="glyphicon glyphicon-volume-up"></i></button>';
     if (response['status'] == 200) {

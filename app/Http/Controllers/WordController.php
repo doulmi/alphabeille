@@ -198,6 +198,10 @@ class WordController extends Controller
                     break;
                 case 'lesson' :
                     $readable_type = 'App\Lesson';
+                    break;
+                default :
+                    $readable_type = 'App\Video';
+                    break;
             }
 
             $wf = WordFavorite::where('user_id', $user->id)->where('word_id', $word->id)->first();

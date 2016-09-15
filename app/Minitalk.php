@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Config;
 class Minitalk extends Readable
 {
     protected $fillable = [
-        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'audio_url', 'download_url', 'keywords', 'is_published', 'publish_at', 'free', 'wechat_part', 'content', 'slug', 'parsed_content', 'parsed_wechat_part'
+        'title', 'description', 'avatar', 'likes', 'views', 'avatar', 'audio_url', 'download_url', 'keywords', 'is_published', 'publish_at', 'free', 'wechat_part', 'content', 'slug', 'parsed_content', 'parsed_wechat_part', 'duration'
     ];
 
     public static function findByIdOrSlugOrFail($idOrSlug)
