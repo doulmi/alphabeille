@@ -14,11 +14,11 @@
         @foreach($words as $word)
             <tr>
                 @if($word->word)
-                    <td>{{$word->id}}</td>
+                    <td>{{$word->word->id}}</td>
                     <td>{{$word->word->word}}</td>
                     <td>{!! $word->word->explication !!}</td>
                 @else
-                    {{$word->id}} not exist
+                    {{$word->word->id}} not exist
                 @endif
             </tr>
         @endforeach
