@@ -88,6 +88,7 @@
                                 <li><a href="{{ url('/translator/tasks/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks')</strong></a></li>
                             @endif
 
+{{--                            <li><a href="{{ url('/users/statistique') }}"><strong>@lang('labels.statistique')</strong></a>--}}
                             <li><a href="{{ url('/users/notes') }}"><strong>@lang('labels.myNotes')</strong></a>
                             <li><a href="{{ url('/users/words') }}"><strong>@lang('labels.myWords')</strong></a>
                             <li><a href="{{ url('/users/collect') }}"><strong>@lang('labels.myCollect')</strong></a>

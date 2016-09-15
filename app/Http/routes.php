@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/words', 'UserController@words');
     Route::post('api/wordFav/{wordFavId}/delete', 'WordController@destroy');
     Route::get('users/notes', 'UserController@notes');
+    Route::get('users/statistique', 'UserController@statistique');
 //    Route::get('lessons/collect', 'LessonController@collects');
 //    Route::post('lessons/{id}/favorite', 'LessonController@favorite');
 //    Route::post('lessons/{id}/punchin', 'LessonController@punchin');
@@ -213,6 +214,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/updateAvatar', 'Admin\AdminController@updateAvatar');
     Route::get('/addMins', 'Admin\AdminController@addMins');
     Route::get('task2Trace', 'Admin\AdminController@task2Trace');
+    Route::get('wordHistory', 'Admin\WordController@history');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');
 //    Route::get('videoLevels', 'Admin\AdminController@videoLevels');

@@ -391,4 +391,5 @@ return [
     'hotSearch' => '热门搜索',
     'hour' => '小时',
     'clickToAddNote' => '点我添加笔记',
+    'statistique' => '学习记录',
 ];

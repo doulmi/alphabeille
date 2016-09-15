@@ -57,6 +57,7 @@ class AdminController extends Controller
 
         //所有已完成视频
         $publishedVideoNum = Video::where('state', 6)->count();
+        $translatedVideoNum = Video::where('state',5)->count();
 
         //今天播放量
         $todayVideoViews = UserTraces::where('action', ActionType::$view)->where('readable_type', 'App\Video')->where('created_at', '>=', $today)->count();
@@ -76,13 +77,13 @@ class AdminController extends Controller
         $vipNum = DB::table('role_user')->where('role_id', 4)->count();
 
         $translatorsNum = DB::table('role_user')->where('role_id', 5)->count();
-        return view('admin.statistics', compact('todayNewVideosNum', 'videosNum', 'todayTranslateNum', 'translateNum', 'todayCheckFrNum', 'checkFrNum', 'todayValidNum', 'validNum', 'publishedVideoNum', 'todayVideoViews', 'videoViews', 'todayVipNum', 'vipNum', 'todayUserNum', 'userNum', 'translatorsNum'));
+        return view('admin.statistics', compact('todayNewVideosNum', 'videosNum', 'todayTranslateNum', 'translateNum', 'todayCheckFrNum', 'checkFrNum', 'todayValidNum', 'validNum', 'publishedVideoNum', 'todayVideoViews', 'videoViews', 'todayVipNum', 'vipNum', 'todayUserNum', 'userNum', 'translatorsNum', 'translatedVideoNum'));
     }
 
     public function task2Trace()
     {
         $tasks = Task::where('type', 2)->where('is_submit', 1)->lists('id')->toArray();
-        $videos = Video::whereIn('id', $tasks)->whereIn('state', [5, 6])->get();
+        $videos = Video::whereIn('id', $tasks)->whereIn('state', [4])->get();
         foreach ($videos as $video) {
             $trace = UserTraces::where('readable_id', $video->id)->where('user_id', 3)->where('action', ActionType::$validTranslate)->first();
             if (!$trace) {

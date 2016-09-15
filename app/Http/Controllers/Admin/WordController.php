@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Word;
+use App\WordFavorite;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -110,5 +111,10 @@ class WordController extends Controller
         return response()->json([
             'status' => 200
         ]);
+    }
+
+    public function history() {
+        $words = WordFavorite::with('word')->paginate(100);
+        return view('admin.wordHistory', compact('words'));
     }
 }
