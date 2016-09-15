@@ -129,7 +129,7 @@ class WordController extends Controller
         list($word, $origin) = $this->getWord($src);
 
         if ($word) {
-            $this->favorite($word, $readable_id, $readable_type);
+            $this->favorite($src, $word, $readable_id, $readable_type);
             if (!$origin) {
                 $word->explication = $word->word . '<br/>' . $word->explication;
             }
@@ -182,7 +182,7 @@ class WordController extends Controller
         $word->delete();
     }
 
-    private function favorite($word, $readable_id, $readable_type)
+    private function favorite($src, $word, $readable_id, $readable_type)
     {
         $user = Auth::user();
         if ($user) {
@@ -216,6 +216,7 @@ class WordController extends Controller
                     'word_id' => $word->id,
                     'readable_type' => $readable_type,
                     'times' => 1,
+                    'src' => $src,
                     'readable_id' => $readable_id
                 ]);
             }
