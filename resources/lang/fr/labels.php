@@ -372,6 +372,7 @@ return [
     'hour' => '小时',
     'clickToAddNote' => 'Ajouter une nouvelle note',
     'statistique' => 'Historique',
+    'addAudio' => 'Ajouter Audio',
 ];
 
 

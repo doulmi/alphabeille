@@ -180,6 +180,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('minitalks/preview', 'Admin\MinitalkController@preview');
 
     Route::resource('words', 'Admin\WordController');
+    Route::put('words/addAudio/{word}', 'Admin\WordController@addAudio');
 
     Route::get('download/{video_id}', 'Admin\VideoController@download');
     Route::resource('videos', 'Admin\VideoController');

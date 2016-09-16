@@ -392,4 +392,5 @@ return [
     'hour' => '小时',
     'clickToAddNote' => '点我添加笔记',
     'statistique' => '学习记录',
+    'addAudio' => '添加音频'
 ];

@@ -35,18 +35,20 @@
             <tr>
                 <th>#</th>
                 <th>Word</th>
+                <th>Explication</th>
+                <th>audio</th>
                 <th>@lang('labels.actions')</th>
             </tr>
         </thead>
     @foreach($words as $i => $word)
         <tr>
             <td>{{$i + 1}}</td>
-            <td>{{$word}}</td>
+            <td>{{$word->word}}</td>
+            <td>{!! str_limit($word->explication, 100) !!}</td>
+            <td id="row-{{$i}}">{{$word->audio}}</td>
             <td>
-                <button type="button" class="btn btn-info"
-                        {{--data-toggle="modal"--}}
-                                onclick="showModal('{{$word}}')"
-                        data-target="#myModal">@lang('labels.addWord')</button>
+                <button type="button" class="btn btn-info" onclick="showModal('{{$word->word}}')" data-target="#myModal">@lang('labels.addWord')</button>
+                <button type="button" class="btn btn-warning" onclick="addAudio('{{$word->word}}', '{{$i}}')">@lang('labels.addAudio')</button>
             </td>
         </tr>
     @endforeach
@@ -58,6 +60,18 @@
         function showModal(word) {
             $('#word').val(word);
             $('#myModal').modal('show');
+        }
+
+        function addAudio(word, id) {
+            var params = {
+                '_token': '{{csrf_token()}}',
+                '_method': 'put'
+            };
+
+
+            $.post("{{url('admin/words/addAudio')}}" + "/" + word, params, function (data) {
+                $('#row-' + id).html('');
+            });
         }
     </script>
 @endsection

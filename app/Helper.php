@@ -387,22 +387,36 @@ class Helper
         $words = array_unique($out);
         $out = [];
         $controller = new WordController();
+        $needToAdd = [];
         foreach ($words as $word) {
-//            $isInDict = Word::where('word', 'like', $word)->first();
-            $result = $controller->getWord($word)[0];
-            if (!$result) {
-                $out[] = $word;
+            if ($word != '') {
+                $result = $controller->getWord($word)[0];
+                if (!$result) {
+                    //need explicaton
+                    $out[] = [$word, 'explication'];
+                    continue;
+                } else {
+                    if (!$result->audio) {
+                        //need audio
+                        $out[] = [$word, 'audio'];
+                        continue;
+                    }
+                }
             }
+            $out[] = [$word, 'ok'];
         }
+
         return $out;
     }
 
-    private static function getFrAccent()
+    private
+    static function getFrAccent()
     {
         return 'ùûüÿ€àâæçéèêëïîôœÉÈÊËÀÂÎÏÇÔÙÛ《》';
     }
 
-    private static function strtolowerFr(&$string)
+    private
+    static function strtolowerFr(&$string)
     {
         //There's a bug when upper '€'
         $string = str_replace('€', '##_128', $string);
@@ -429,7 +443,8 @@ class Helper
         return $string;
     }
 
-    public static function filterSpecialChars($content)
+    public
+    static function filterSpecialChars($content)
     {
         $content = str_replace('！', '!', $content);
         $content = str_replace('？', '?', $content);
@@ -452,7 +467,8 @@ class Helper
         return $content;
     }
 
-    public static function isForeignIp($ip)
+    public
+    static function isForeignIp($ip)
     {
         $url = "http://api.wipmania.com/" . $ip;
         $response = self::httpGet($url);
@@ -464,7 +480,8 @@ class Helper
      * @param $url
      * @return mixed
      */
-    public static function httpGet($url)
+    public
+    static function httpGet($url)
     {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, 0); // 过滤HTTP头
@@ -478,7 +495,7 @@ class Helper
 
         curl_close($curl);
 
-        if($curl_errno > 0) {
+        if ($curl_errno > 0) {
             return 'CN';
         } else {
             return $response;

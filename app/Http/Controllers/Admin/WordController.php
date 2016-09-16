@@ -117,4 +117,15 @@ class WordController extends Controller
         $words = WordFavorite::with('word')->paginate(100);
         return view('admin.wordHistory', compact('words'));
     }
+
+    public function addAudio($src) {
+        $word = Word::where('word', $src)->first();
+        if($word) {
+            $word->audio = 'http://oc2ggunnp.bkt.clouddn.com/' . md5($src) . '.mp3';
+            $word->update();
+        }
+        return response()->json([
+            'status' => 200
+        ]);
+    }
 }

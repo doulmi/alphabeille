@@ -31,7 +31,7 @@
                                         <td>{{$word->times}}</td>
                                         <td id="td-{{$i}}">
                                             @if(strlen($word->explication) > 100)
-                                                {!! substr($word->explication, 0, 100) !!}
+                                                {!! str_limit($word->explication, 100) !!}
                                                 <br/>
                                                 <button class="btn-link" onclick='more("{{$i}}", "{{str_replace("\r\n", '', $word->explication)}}")'>@lang('labels.more')</button>
                                             @else
@@ -47,6 +47,9 @@
                     @endif
                 </div>
             </div>
+            <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
         </div>
     </div>
 @endsection

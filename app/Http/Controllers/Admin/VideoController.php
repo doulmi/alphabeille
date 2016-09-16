@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Editor\Markdown\Markdown;
 use App\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\WordController;
 use App\Http\Requests;
 use App\Video;
+use App\Word;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -205,7 +207,38 @@ class VideoController extends Controller
     public function unknownWords($id)
     {
         $video = Video::findOrFail($id);
-        $words = Helper::getWordsNotInDict($video->content);
+        $results = Helper::getWordsNotInDict($video->content);
+
+        $controller = new WordController();
+        $words = [];
+        foreach($results as $result) {
+            $word = null;
+            if($result[1] == 'ok') {
+                $word = $controller->getWord($result[0])[0];
+            } else if ($result[1] == 'audio') {
+                $word = $controller->getWord($result[0])[0];
+            }
+
+            if(!$word) {
+                $word = new Word();
+                $word->audio = md5($result[0]) . '.mp3';
+                $word->word = $result[0];
+                $word->explication = $result[0];
+            } else {
+                $word->explication = $result[0] . '<br/>' . $word->explication;
+                if($result[1] == 'audio') {
+                    $word->audio = md5($result[0]) . '.mp3';
+                } else {
+                    $word->audio = '';
+                }
+            }
+
+
+            $words[] = $word;
+        }
+//        $words = array_filter($words, function($e) {
+//            return $e != null;
+//        });
         return view('admin.unknown', compact('words'));
     }
 
