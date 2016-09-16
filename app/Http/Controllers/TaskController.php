@@ -54,7 +54,8 @@ class TaskController extends Controller
     {
         $readable = Video::findOrFail($videoId);
         $youtube = Auth::user()->last_login_foreign;
-        return view('tasks.preview', compact('readable', 'youtube'));
+        $type = 'video';
+        return view('tasks.preview', compact('readable', 'youtube', 'type'));
     }
 
     public function translate($videoId)
