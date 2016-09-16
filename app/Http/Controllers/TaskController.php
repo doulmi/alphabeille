@@ -113,7 +113,7 @@ class TaskController extends Controller
         }
         $type = 'video';
         $youtube = $user->last_login_foreign;
-        return view('tasks.translate', compact('readable', 'task', 'youtube', 'video'));
+        return view('tasks.translate', compact('readable', 'task', 'youtube', 'type'));
     }
 
     public function giveup($videoId)
