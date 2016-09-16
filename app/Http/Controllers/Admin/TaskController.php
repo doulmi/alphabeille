@@ -65,7 +65,8 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($taskId);
         $readable = Video::findOrFail($task->video_id);
-        return view('admin.tasks.translate', compact('readable', 'task'));
+        $type = 'video';
+        return view('admin.tasks.translate', compact('readable', 'task', 'type'));
     }
 
     public function save(Request $request, $taskId)
@@ -74,8 +75,9 @@ class TaskController extends Controller
         $task->content = $request->get('content', '');
         $task->save();
         $readable = $task->video;
+        $type = 'video';
 
-        return view('admin.tasks.translate', compact('readable', 'task'));
+        return view('admin.tasks.translate', compact('readable', 'task', 'type'));
     }
 
     public function autoSave(Request $request, $taskId)

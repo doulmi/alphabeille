@@ -82,7 +82,8 @@ class TaskController extends Controller
             ]);
         }
         $youtube = $user->last_login_foreign;
-        return view('tasks.translate', compact('readable', 'task', 'youtube'));
+        $type = 'video';
+        return view('tasks.translate', compact('readable', 'task', 'youtube', 'type'));
     }
 
     public function checkFr($videoId)
@@ -109,8 +110,9 @@ class TaskController extends Controller
                 'content' => $readable->content,
             ]);
         }
+        $type = 'video';
         $youtube = $user->last_login_foreign;
-        return view('tasks.translate', compact('readable', 'task', 'youtube'));
+        return view('tasks.translate', compact('readable', 'task', 'youtube', 'video'));
     }
 
     public function giveup($videoId)
@@ -134,7 +136,8 @@ class TaskController extends Controller
         $readable = $task->video;
         $youtube = Auth::user()->last_login_foreign ? true : false;
 
-        return view('tasks.translate', compact('readable', 'task', 'youtube'));
+        $type = 'video';
+        return view('tasks.translate', compact('readable', 'task', 'youtube', 'type'));
     }
 
     public function autoSave(Request $request, $taskId)

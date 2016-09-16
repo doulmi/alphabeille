@@ -6,6 +6,7 @@
         <thead>
         <tr>
             <th>Id</th>
+            <th>Src</th>
             <th>Word</th>
             <th>Explication</th>
         </tr>
@@ -15,6 +16,7 @@
             <tr>
                 @if($word->word)
                     <td>{{$word->word->id}}</td>
+                    <td>{{$word->src}}</td>
                     <td>{{$word->word->word}}</td>
                     <td>{!! $word->word->explication !!}</td>
                 @else
