@@ -32,10 +32,10 @@ class TaskController extends Controller
                     $builder->where('tasks.is_submit', 0);
                     break;
                 case 1 :
-                    $builder->where('tasks.is_submit', 1)->where('videos.state', '<>', 5);
+                    $builder->where('tasks.is_submit', 1)->where('videos.state', 4);
                     break;
                 case 2 :
-                    $builder->where('videos.state', 5);
+                    $builder->whereIn('videos.state', [5, 6]);
                     break;
             }
         }
@@ -43,7 +43,7 @@ class TaskController extends Controller
             $builder->where('tasks.type', $reverse[$request->get('type')]);
         }
 
-        if ($request->get('doubt', 0) != 0) {
+        if ($request->get('doubt')) {
             $builder->where('tasks.trouble', 1);
         }
 
@@ -57,13 +57,12 @@ class TaskController extends Controller
 
         $videos = $builder->select(['tasks.id', 'video_id', 'videos.slug', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.updated_at', 'users.name', 'videos.duration', 'tasks.is_submit'])->orderBy('tasks.updated_at', 'DESC')->paginate(50)->appends($request->all());
 
-
         return view('admin.tasks.index', compact('videos', 'types', 'translators', 'trans'));
     }
 
     public function translate($taskId)
     {
-        $task = Task::findOrFail($taskId);
+        $task = Task::with('user')->findOrFail($taskId);
         $readable = Video::findOrFail($task->video_id);
         $type = 'video';
         return view('admin.tasks.translate', compact('readable', 'task', 'type'));

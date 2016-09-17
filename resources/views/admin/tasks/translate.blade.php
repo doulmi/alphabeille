@@ -14,6 +14,7 @@
                             <div id="video-placeholder"></div>
                         </div>
 
+                        <strong>@lang('translator') : {{$task->user->name}}</strong>
                         <div class="video-content grey translate-content">
                             <div class="loading">
                                 <span></span>
@@ -38,6 +39,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
 
                     <div class="col-md-7">
