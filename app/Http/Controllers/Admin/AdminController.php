@@ -58,7 +58,7 @@ class AdminController extends Controller
 
         //所有已完成视频
         $publishedVideoNum = Video::where('state', 6)->count();
-        $translatedVideoNum = Video::where('state',5)->count();
+        $translatedVideoNum = Video::where('state', 5)->count();
 
         //今天播放量
         $todayVideoViews = UserTraces::where('action', ActionType::VIEW)->where('readable_type', 'App\Video')->where('created_at', '>=', $today)->count();
@@ -304,17 +304,20 @@ class AdminController extends Controller
         }
     }
 
-    public function validNumbers() {
-        $videos = Video::whereIn('state', [Video::OK, Video::PUBLISHED]);
-        foreach($videos as $video) {
+    public function validNumbers()
+    {
+        $videos = Video::whereIn('state', [Video::OK, Video::PUBLISHED])->get();
+        foreach ($videos as $video) {
             $task = Task::where('user_id', 3)->where('video_id', $video->id)->where('type', Task::CHECK_ZH)->first();
-            Task::create([
-                'user_id' => 3,
-                'video_id' => $video->id,
-                'type' => Task::CHECK_ZH,
-                'is_submit' => 1,
-                'content' => $video->content,
-            ]);
+            if (!$task) {
+                Task::create([
+                    'user_id' => 3,
+                    'video_id' => $video->id,
+                    'type' => Task::CHECK_ZH,
+                    'is_submit' => 1,
+                    'content' => $video->content,
+                ]);
+            }
         }
     }
 }
