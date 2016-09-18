@@ -89,12 +89,11 @@ class VideoController extends ReadableController
         $pageLimit = config('params')['pageLimit'];
         $orderBy = $request->get('orderBy', 'views');
         $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views', 'duration'];
-        $builder = Video::orderBy('free', 'DESC');//->orderBy('state', 'DESC');
 
         if($orderBy == 'latest') {
-            $builder->orderBy('created_at', 'DESC');
+            $builder = Video::orderBy('created_at', 'DESC');
         } else {
-            $builder->orderBy('views', 'DESC');
+            $builder = Video::orderBy('views', 'DESC');
         }
 
         $readables = $builder->paginate($pageLimit, $cols)->appends($request->all());
@@ -116,7 +115,7 @@ class VideoController extends ReadableController
     }
 
     public function deleteNote(Request $request) {
-        $id = $request->get('noteId');
+        $id = $request->get('id');
         Note::where('id', $id)->where('user_id', Auth::id())->delete();
 
         return response()->json([

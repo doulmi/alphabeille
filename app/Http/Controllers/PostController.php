@@ -19,27 +19,15 @@ use TomLingham\Searchy\Facades\Searchy;
 
 class PostController extends Controller
 {
-    public function test() {
-//        $root = HtmlDomParser::file_get_html("https://www.youtube.com/watch?v=dyrq5gq9Iao");
-//        $title = $root->
 
-
-//        $title = $root->find('title');
-//        echo $title->plaintext;
-
-//        $descr = $root->find('meta[description]');
-//        echo $descr->plaintext;
-//        $title = $root->find("title", 1);
-//        dd($title->innertext);
-    }
 
     public function index()
     {
         $num = Config::get('params')['indexPageLimit'];
-        $minitalks = Minitalk::published()->orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views', 'duration']);
+        $minitalks = Minitalk::orderBy('free', 'DESC')->latest()->limit($num)->get(['id', 'avatar', 'title', 'slug', 'created_at', 'free', 'views', 'duration']);
 
         $videoCols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views', 'duration'];
-        $videos[] = Video::orderBy('free', 'DESC')->orderBy('state', 'DESC')->latest()->limit($num)->get($videoCols);
+        $videos[] = Video::orderBy('state', 'DESC')->latest()->limit($num)->get($videoCols);
         $videos[] = Video::orderBy('views', 'DESC')->limit($num)->get($videoCols);
 
         return view('index', compact(['minitalks', 'videos']));
