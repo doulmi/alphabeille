@@ -155,6 +155,7 @@ class UserController extends Controller
 
         foreach($result as $translator) {
             $translator->number = $translator->translatedNumber();
+            $translator->validNumber = $translator->checkZhNumber();
         }
 
         $result = $result->sortByDesc(function($translator) {

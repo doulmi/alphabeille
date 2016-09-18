@@ -59,13 +59,13 @@
                                                href="{{url('translator/tasks/' . $video->video_id .'/translate')}}">@lang('labels.translate')</a>
 
                                             <a class="btn btn-danger"
-                                               href="{{url('translator/tasks/' . $video->id.'/giveup')}}">@lang('labels.giveup')</a>
+                                               href="{{url('translator/tasks/' . $video->id.'/giveupTranslate')}}">@lang('labels.giveup')</a>
                                         @else
                                             <a class="btn btn-info"
                                                href="{{url('translator/tasks/' . $video->video_id .'/checkZh')}}">@lang('labels.verifier')</a>
 
                                             <a class="btn btn-danger"
-                                               href="{{url('translator/tasks/' . $video->id.'/giveup')}}">@lang('labels.giveup')</a>
+                                               href="{{url('translator/tasks/' . $video->id.'/giveupCheckZh')}}">@lang('labels.giveup')</a>
                                         @endif
                                     @endif
                                 </td>

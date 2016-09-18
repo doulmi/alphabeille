@@ -62,12 +62,16 @@ class User extends Authenticatable implements HasRoleAndPermissionContract {
         return $this->hasMany(Video::class, 'id', 'video_id');
     }
 
+    public function checkZhNumber() {
+        return Task::where('type', Task::CHECK_ZH)->where('is_submit', 1)->where('user_id', $this->id)->count();
+    }
+
     public function translatedNumber() {
-        return Task::where('type', 2)->where('is_submit', 1)->where('user_id', $this->id)->count();
+        return Task::where('type', Task::TRANSLATE)->where('is_submit', 1)->where('user_id', $this->id)->count();
     }
 
     public function checkFrNumber() {
-        return Task::where('type', 1)->where('is_submit', 1)->where('user_id', $this->id)->count();
+        return Task::where('type', Task::CHECK_FR)->where('is_submit', 1)->where('user_id', $this->id)->count();
     }
 
     public function mins() {

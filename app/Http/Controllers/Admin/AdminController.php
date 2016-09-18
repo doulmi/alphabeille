@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\UserTraces;
 use App\Video;
+use Auth;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -300,6 +301,20 @@ class AdminController extends Controller
 
             $user->mins = $mins;
             $user->update();
+        }
+    }
+
+    public function validNumbers() {
+        $videos = Video::whereIn('state', [Video::OK, Video::PUBLISHED]);
+        foreach($videos as $video) {
+            $task = Task::where('user_id', 3)->where('video_id', $video->id)->where('type', Task::CHECK_ZH)->first();
+            Task::create([
+                'user_id' => 3,
+                'video_id' => $video->id,
+                'type' => Task::CHECK_ZH,
+                'is_submit' => 1,
+                'content' => $video->content,
+            ]);
         }
     }
 }

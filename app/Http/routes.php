@@ -133,7 +133,8 @@ Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function(
     Route::get('tasks/{video_id}/checkZh', 'TaskController@checkZh');
     Route::get('tasks/{video_id}/checkZh/preview', 'TaskController@previewZh');
     Route::post('tasks/{task_id}/save', 'TaskController@save');
-    Route::get('tasks/{video_id}/giveup', 'TaskController@giveup');
+    Route::get('tasks/{task_id}/giveupTranslate', 'TaskController@giveupTranslate');
+    Route::get('tasks/{task_id}/giveupCheckZh', 'TaskController@giveupCheckZh');
     Route::post('tasks/{task_id}/submit', 'TaskController@submit');
     Route::post('tasks/{task_id}/submitFr', 'TaskController@submitFr');
     Route::post('tasks/{task_id}/submitZh', 'TaskController@submitZh');
@@ -223,6 +224,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/addMins', 'Admin\AdminController@addMins');
     Route::get('task2Trace', 'Admin\AdminController@task2Trace');
     Route::get('wordHistory', 'Admin\WordController@history');
+    Route::get('valid', 'Admin\AdminController@validNumbers');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');
 //    Route::get('videoLevels', 'Admin\AdminController@videoLevels');

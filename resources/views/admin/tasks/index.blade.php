@@ -98,7 +98,9 @@
                     <th>@lang('labels.state')</th>
                     <th>@lang('labels.avatar')</th>
                     <th>@lang('labels.title')</th>
+                    <th>@lang('labels.tasks.type')</th>
                     <th>@lang('labels.translator')</th>
+                    <th>@lang('labels.duration')</th>
                     <th>@lang('labels.updated_at')</th>
                     <th>@lang('labels.actions')</th>
                 </tr>
@@ -111,6 +113,7 @@
                         <td>@lang('labels.videos.state' . $video->state)</td>
                         <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                         <td><a href="{{url('videos/' . $video->video_id)}}" TARGET="_blank">{{$video->title}}</a></td>
+                        <td>@lang('labels.tasks.type' . $video->type)</td>
                         <td>{{$video->name}}</td>
                         <td>{{$video->duration}}</td>
                         <td>{{$video->updated_at}}</td>
