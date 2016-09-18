@@ -51,15 +51,21 @@
                                 <td scope="row">{{$video->created_at}}</td>
                                 <td>
                                     @if(!$video->is_submit)
-                                        @if(Request::has('type'))
+                                        @if(str_contains(Request::getRequestUri(), 'checkFr'))
                                             <a class="btn btn-info"
                                                href="{{url('translator/tasks/' . $video->video_id .'/checkFr')}}">@lang('labels.beFrChecker')</a>
-                                        @else
+                                        @elseif(str_contains(Request::getRequestUri(), 'translate'))
                                             <a class="btn btn-info"
                                                href="{{url('translator/tasks/' . $video->video_id .'/translate')}}">@lang('labels.translate')</a>
 
                                             <a class="btn btn-danger"
-                                               href="{{url('translator/tasks/' . $video->video_id .'/giveup')}}">@lang('labels.giveup')</a>
+                                               href="{{url('translator/tasks/' . $video->id.'/giveup')}}">@lang('labels.giveup')</a>
+                                        @else
+                                            <a class="btn btn-info"
+                                               href="{{url('translator/tasks/' . $video->video_id .'/checkZh')}}">@lang('labels.verifier')</a>
+
+                                            <a class="btn btn-danger"
+                                               href="{{url('translator/tasks/' . $video->id.'/giveup')}}">@lang('labels.giveup')</a>
                                         @endif
                                     @endif
                                 </td>
@@ -68,19 +74,14 @@
 
                         </tbody>
                     </table>
-                    @if(count($videos) < 8)
-                        @for($i = 0 ; $i< 8 - count($videos); $i+=3)
-                            <div class="Header"></div>
-                        @endfor
-                    @endif
                 </div>
                 <div class="center">
                     {!! $videos->links() !!}
                 </div>
-                <div class="Header"></div>
-                <div class="Header"></div>
-                <div class="Header"></div>
             </div>
+
+            <div class="Header"></div>
+            <div class="Header"></div>
         </div>
     </div>
 @endsection

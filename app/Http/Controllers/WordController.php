@@ -129,7 +129,7 @@ class WordController extends Controller
         list($word, $origin) = $this->getWord($src);
 
         if ($word) {
-            $this->favorite($src, $word, $readable_id, $readable_type);
+            $wf = $this->favorite($src, $word, $readable_id, $readable_type);
             if (!$origin) {
                 $word->explication = $word->word . '<br/>' . $word->explication;
             }
@@ -138,6 +138,7 @@ class WordController extends Controller
                 'status' => 200,
                 'msg' => $word->explication,
                 'audio' => $word->audio,
+                'id' => $wf ? $wf->id : -1,
                 'freq' => $word->frequency
             ]);
         } else {
@@ -211,7 +212,7 @@ class WordController extends Controller
                 $wf->readable_id = $readable_id;
                 $wf->save();
             } else {
-                WordFavorite::create([
+                $wf = WordFavorite::create([
                     'user_id' => $user->id,
                     'word_id' => $word->id,
                     'readable_type' => $readable_type,
@@ -220,6 +221,16 @@ class WordController extends Controller
                     'readable_id' => $readable_id
                 ]);
             }
+            return $wf;
+        }
+        return null;
+    }
+
+    public function deleteWordFavorites(Request $request) {
+        $favoriteId = $request->get('id');
+        $word = WordFavorite::where('readable_type', 'App\Video')->where('user_id', Auth::id())->where('id', $favoriteId)->first();
+        if($word) {
+            $word->delete();
         }
     }
 }

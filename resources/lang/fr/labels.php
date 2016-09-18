@@ -373,6 +373,8 @@ return [
     'clickToAddNote' => 'Ajouter une nouvelle note',
     'statistique' => 'Historique',
     'addAudio' => 'Ajouter Audio',
+    'words' => 'Vocabulaires',
+    'noWordYet' => 'Aucun vocabulaire',
 ];
 
 

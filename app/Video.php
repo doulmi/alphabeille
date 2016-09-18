@@ -7,6 +7,16 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Video extends Readable
 {
+    const WAIT_LISTEN = 0;
+    const WAIT_CHECK_FR = 1;
+    const WAIT_TRANSLATE = 2;
+    const ON_TRANSLATE = 3;
+    const WAIT_CHECK_ZH = 4;
+    const OK = 5;
+    const PUBLISHED = 6;
+    const ON_CHECK_FR = 7;
+    const ON_CHECK_ZH = 8;
+
     protected $fillable = [
         'id', 'title', 'description', 'likes', 'views', 'avatar', 'free', 'download_url', 'video_url', 'content', 'parsed_content','keywords', 'is_published', 'publish_at','slug', 'parsed_content_zh', 'points', 'level', 'translator_id', 'listener_id', 'verifier_id', 'lastMonthViews', 'originSrc', 'parsed_desc', 'state', 'duration'
     ];

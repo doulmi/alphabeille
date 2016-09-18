@@ -79,16 +79,20 @@
                                 <li><a href="{{ url('/admin') }}"><strong>@lang('labels.admin')</strong></a>
                             @endif
                             @if(Auth::user()->can('videos.listen'))
-                                <li><a href="{{ url('/translator/tasks?type=1') }}"><strong>@lang('labels.tasks.checkFr')</strong></a>
-                                <li><a href="{{ url('/translator/tasks/' . Auth::user()->id . '?type=1') }}"><strong>@lang('labels.myTasks.checkFr')</strong></a></li>
+                                <li><a href="{{ url('/translator/tasks/checkFr') }}"><strong>@lang('labels.tasks.checkFr')</strong></a>
+                                <li><a href="{{ url('/translator/tasks/checkFr/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks.checkFr')</strong></a></li>
+                            @endif
+
+                            @if(Auth::user()->can('videos.verify'))
+                                <li><a href="{{ url('/translator/tasks/checkZh') }}"><strong>@lang('labels.tasks.checkZh')</strong></a>
+                                <li><a href="{{ url('/translator/tasks/checkZh/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks.checkZh')</strong></a></li>
                             @endif
 
                             @if(Auth::user()->can('videos.translate'))
-                                <li><a href="{{ url('/translator/tasks') }}"><strong>@lang('labels.tasks')</strong></a>
-                                <li><a href="{{ url('/translator/tasks/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks')</strong></a></li>
+                                <li><a href="{{ url('/translator/tasks/translate') }}"><strong>@lang('labels.tasks.translate')</strong></a>
+                                <li><a href="{{ url('/translator/tasks/translate/' . Auth::user()->id) }}"><strong>@lang('labels.myTasks.translate')</strong></a></li>
                             @endif
 
-{{--                            <li><a href="{{ url('/users/statistique') }}"><strong>@lang('labels.statistique')</strong></a>--}}
                             <li><a href="{{ url('/users/notes') }}"><strong>@lang('labels.myNotes')</strong></a>
                             <li><a href="{{ url('/users/words') }}"><strong>@lang('labels.myWords')</strong></a>
                             <li><a href="{{ url('/users/collect') }}"><strong>@lang('labels.myCollect')</strong></a>

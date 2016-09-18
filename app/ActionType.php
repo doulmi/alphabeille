@@ -2,12 +2,14 @@
 
 namespace App;
 
-class ActionType {
-    public static $translate = 'Translate';
-    public static $checkFr = 'CheckFr';
-    public static $validTranslate = 'ValidTranslate';
-    public static $submitTranslate = 'SubmitTranslate';
-    public static $submitCheckFr = 'SubmitCheckFr';
-    public static $subscribe = 'Subscribe';
-    public static $view = 'View';
+class ActionType
+{
+    const TRANSLATE = 'Translate';
+    const CHECK_FR = 'CheckFr';
+    const CHECK_ZH = 'CheckZh';
+    const VALID_TRANSLATE = 'ValidTranslate';
+    const SUBMIT_TRANLSATE = 'SubmitTranslate';
+    const SUBMIT_CHECK_FR = 'SubmitCheckFr';
+    const SUBSCRIBE = 'Subscribe';
+    const VIEW = 'View';
 }

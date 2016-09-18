@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    const CHECK_FR = 1;
+    const TRANSLATE = 2;
+    const CHECK_ZH = 3;
+
     protected $fillable = ['user_id', 'video_id', 'content', 'is_submit', 'type'];
 
     public function video() {

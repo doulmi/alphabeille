@@ -64,22 +64,23 @@
                 </div>
 
                 <div class="row" style="margin-top : 20px;">
-                    @if(Auth::user()->isAdmin())
-                        <a href="#" onclick="submitForm('submitForce')" style="margin-left : 10px"
-                           class="btn btn-success pull-right">@lang('labels.submitForce')</a>
+                    @if(Auth::user()->can('videos.verify') && $task->type == \App\Task::CHECK_ZH)
+                        <a href="#" onclick="submitForm('submitZh')" style="margin-left : 10px"
+                           class="btn btn-success pull-right">@lang('labels.submitZh')</a>
                     @endif
 
-                    @if(Auth::user()->can('videos.listen'))
+                    @if(Auth::user()->can('videos.listen') && $task->type == \App\Task::CHECK_FR)
                         <a href="#" onclick="submitForm('submitFr')" style="margin-left : 10px"
                            class="btn btn-success pull-right">@lang('labels.submitFr')</a>
                     @endif
 
-                    @if(Auth::user()->can('videos.translate'))
+                    @if(Auth::user()->can('videos.translate') && $task->type == \App\Task::TRANSLATE)
                         <a href="#" onclick="submitForm('submit')" style="margin-left : 10px;"
-                           @endif
                            class="btn btn-primary pull-right">@lang('labels.submit')</a>
+                    @endif
                         <a href="#" onclick="submitForm('save')"
                            class="btn btn-success pull-right">@lang('labels.save')</a>
+
                 </div>
             </form>
         </div>

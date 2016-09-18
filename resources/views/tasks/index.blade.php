@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title')@lang('labels.tasks')@endsection
+@section('title')@lang('labels.tasks' . $type)@endsection
 
 @section('content')
     <div class="">
@@ -67,15 +67,22 @@
                                 <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a> </td>
                                 <td>{{$video->duration}}</td>
                                 <td>
-                                    @if(Auth::user()->can('videos.listen') && Request::has('type'))
+{{--                                    {{dd($type, \App\Video::WAIT_CHECK_FR, \App\Video::WAIT_CHECK_ZH, \App\Video::WAIT_TRANSLATE)}}--}}
+                                    @if($type == \App\Video::WAIT_CHECK_FR)
                                         <a class="btn btn-info"
                                            href="{{url('translator/tasks/' . $video->id .'/checkFr')}}">@lang('labels.beFrChecker')</a>
                                     @endif
-                                    @if(Auth::user()->can('videos.translate') && !Request::has('type'))
+
+                                    @if($type == \App\Video::WAIT_TRANSLATE)
                                         <a class="btn btn-info"
                                            href="{{url('translator/tasks/' . $video->id .'/preview')}}">@lang('labels.preview')</a>
                                         <a class="btn btn-info"
                                            href="{{url('translator/tasks/' . $video->id .'/translate')}}">@lang('labels.beTranslator')</a>
+                                    @endif
+
+                                    @if($type == \App\Video::WAIT_CHECK_ZH)
+                                        <a class="btn btn-info"
+                                           href="{{url('translator/tasks/' . $video->id .'/checkZh')}}">@lang('labels.beZhChecker')</a>
                                     @endif
                                     @if(Auth::user()->id == 1)
                                         <a class="btn btn-info" href="{{url('admin/download/' . $video->id)}}">@lang('labels.download')</a>

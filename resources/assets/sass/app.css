@@ -265,7 +265,7 @@ body {
   height: 500px; }
 
 .Header {
-  height: 80px; }
+  height: 100px; }
 
 .margin-top {
   height: 50px; }
@@ -1839,12 +1839,17 @@ body {
   color: white;
   font-size: 1.5rem; }
 
+.ads-btns-login {
+  padding: 60px 125px;
+  margin-top: 150px; }
+
 .ads-btns {
   position: relative;
   top: -350px;
   padding: 60px 125px; }
 
 .blockcontent {
+  text-align: center;
   margin-top: 23px;
   height: 100px; }
 

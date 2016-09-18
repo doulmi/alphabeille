@@ -41,29 +41,29 @@ class AdminController extends Controller
         $videosNum = Video::count();
 
         //今日提交的翻译视频个数
-        $todayTranslateNum = UserTraces::where('action', ActionType::$submitTranslate)->where('created_at', '>=', $today)->count();
+        $todayTranslateNum = UserTraces::where('action', ActionType::SUBMIT_TRANLSATE)->where('created_at', '>=', $today)->count();
         //所有提交的翻译视频视频个数
-        $translateNum = UserTraces::where('action', ActionType::$submitTranslate)->count();
+        $translateNum = UserTraces::where('action', ActionType::SUBMIT_TRANLSATE)->count();
 
         //今天提交的法语校对视频个数
-        $todayCheckFrNum = UserTraces::where('action', ActionType::$submitCheckFr)->where('created_at', '>=', $today)->count();
+        $todayCheckFrNum = UserTraces::where('action', ActionType::SUBMIT_CHECK_FR)->where('created_at', '>=', $today)->count();
         //所有已校对视频个数
-        $checkFrNum = UserTraces::where('action', ActionType::$submitCheckFr)->count();
+        $checkFrNum = UserTraces::where('action', ActionType::SUBMIT_CHECK_FR)->count();
 
         //今天确认的法语翻译
-        $todayValidNum = UserTraces::where('action', ActionType::$validTranslate)->where('created_at', '>=', $today)->count();
+        $todayValidNum = UserTraces::where('action', ActionType::VALID_TRANSLATE)->where('created_at', '>=', $today)->count();
         //所有确认的法语翻译
-        $validNum = UserTraces::where('action', ActionType::$validTranslate)->count();
+        $validNum = UserTraces::where('action', ActionType::VALID_TRANSLATE)->count();
 
         //所有已完成视频
         $publishedVideoNum = Video::where('state', 6)->count();
         $translatedVideoNum = Video::where('state',5)->count();
 
         //今天播放量
-        $todayVideoViews = UserTraces::where('action', ActionType::$view)->where('readable_type', 'App\Video')->where('created_at', '>=', $today)->count();
+        $todayVideoViews = UserTraces::where('action', ActionType::VIEW)->where('readable_type', 'App\Video')->where('created_at', '>=', $today)->count();
 
         //所有播放量
-        $videoViews = UserTraces::where('action', ActionType::$view)->where('readable_type', 'App\Video')->count();
+        $videoViews = UserTraces::where('action', ActionType::VIEW)->where('readable_type', 'App\Video')->count();
 
         /*用户数据*/
         //今日新用户
@@ -85,13 +85,13 @@ class AdminController extends Controller
         $tasks = Task::where('type', 2)->where('is_submit', 1)->lists('id')->toArray();
         $videos = Video::whereIn('id', $tasks)->whereIn('state', [4])->get();
         foreach ($videos as $video) {
-            $trace = UserTraces::where('readable_id', $video->id)->where('user_id', 3)->where('action', ActionType::$validTranslate)->first();
+            $trace = UserTraces::where('readable_id', $video->id)->where('user_id', 3)->where('action', ActionType::VALID_TRANSLATE)->first();
             if (!$trace) {
                 UserTraces::create([
                     'readable_type' => 'App\Video',
                     'readable_id' => $video->id,
                     'user_id' => 3,
-                    'action' => ActionType::$validTranslate,
+                    'action' => ActionType::VALID_TRANSLATE,
                     'created_at' => $video->updated_at
                 ]);
             }

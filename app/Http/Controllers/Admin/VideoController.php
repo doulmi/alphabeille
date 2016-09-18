@@ -41,13 +41,7 @@ class VideoController extends Controller
         $search = Input::get('search', '');
         $state = Input::get('state', '');
 
-        $builder = Video::orderBy($orderBy, $dir);
-//        if($zh != 0) {
-//            $builder->where('parsed_content_zh', '');
-//        }
-//        if ($desc != 0) {
-//            $builder->where('parsed_desc', '');
-//        }
+        $builder = Video::with('translator')->orderBy($orderBy, $dir);
         if($state != '') {
             $builder->where('state', $state);
         }

@@ -8,6 +8,7 @@ use App\Note;
 use App\UserTraces;
 use App\Video;
 
+use App\WordFavorite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
@@ -49,6 +50,9 @@ class VideoController extends ReadableController
                 'mins' => Helper::str2Min($readable->duration) + $user->mins
             ]);
             $youtube = $user->last_login_foreign;
+            if($user->freeTime >= 0) {
+                $user->decrement('freeTime');
+            }
         } else {
             $youtube = Helper::isForeignIp($request->ip());
         }
@@ -60,11 +64,17 @@ class VideoController extends ReadableController
 
         $type = 'video';
 
+
         //notes
         $notes = Note::where('user_id', Auth::id())->where('readable_id', $readable->id)->where('readable_type', 'App\Video')->get(['point', 'content', 'id'])->toJson();
         $notes = str_replace("'", "\'", $notes);
 
-        return view('videos.show', compact(['readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube','notes']));
+        $words = WordFavorite::with('word')->where('user_id', Auth::id())->where('readable_type', 'App\Video')->where('readable_id', $readable->id)->get()->toJson();
+        $words = str_replace("\\", "\\\\", $words);
+        $words = str_replace("/", "\/", $words);
+        $words = str_replace("'", "\'", $words);
+
+        return view('videos.show', compact('readables', 'type', 'readable', 'fr', 'zh', 'like', 'collect', 'punchin', 'youtube','notes', 'words'));
     }
 
     public function level($level)

@@ -15,36 +15,58 @@ use Illuminate\Support\Facades\Session;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
+    public function __construct()
+    {
+        $this->middleware('verifier', ['checkZhIndex', 'checkZh', 'submitZh']);
+    }
+
+    public function index(Request $request, $type)
     {
         $levels = ['beginner', 'intermediate', 'advanced'];
+        $builder = Video::where('state', $type);
 
-        if ($request->has('type')) {
-            $builder = Video::where('state', 1);
-        } else {
-            $builder = Video::where('state', 2);
-        }
         if ($request->has('level')) {
             $builder->where('level', $request->get('level'));
         }
         $videos = $builder->select(['slug', 'originSrc', 'duration', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50)->appends($request->all());;
 
-        return view('tasks.index', compact('videos', 'levels'));
+        return view('tasks.index', compact('videos', 'levels', 'type'));
     }
 
-    public function show(Request $request, $userId)
+    public function checkZhIndex(Request $request)
+    {
+        return $this->index($request, VIDEO::WAIT_CHECK_ZH);
+    }
+
+    public function translateIndex(Request $request)
+    {
+        return $this->index($request, VIDEO::WAIT_TRANSLATE);
+    }
+
+    public function checkFrIndex(Request $request)
+    {
+        return $this->index($request, VIDEO::WAIT_CHECK_FR);
+    }
+
+    public function checkFrTasks(Request $request, $userId)
+    {
+        return $this->show($request, $userId, Task::CHECK_FR);
+    }
+
+    public function checkZhTasks(Request $request, $userId)
+    {
+        return $this->show($request, $userId, Task::CHECK_ZH);
+    }
+
+    public function translateTasks(Request $request, $userId)
+    {
+        return $this->show($request, $userId, Task::TRANSLATE);
+    }
+
+    public function show(Request $request, $userId, $type)
     {
         $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->where('tasks.user_id', $userId);
-        if ($request->has('type')) {
-            //0: listen, 1: checkfr, 2: translate, 3: checkzh
-            $type = $request->get('type');
-            if (!is_numeric($type) || $type < 0 || $type > 4) {
-                abort(404);
-            }
-            $builder->where('tasks.type', $type);
-        } else {
-            $builder->where('tasks.type', '2');
-        }
+        $builder->where('tasks.type', $type);
         $videos = $builder->orderBy('videos.state')->orderBy('tasks.id')->select(['tasks.id', 'videos.slug', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit', 'videos.originSrc'])->paginate(50)->appends($request->all());;
 
         return view('tasks.myTasks', compact('videos'));
@@ -66,22 +88,61 @@ class TaskController extends Controller
         if ($task) {
             if ($task->user_id != $user->id) {
                 Session::flash('hasTranslator', 'hasTranslator');
-                return redirect('translator/tasks');
+                return redirect('translator/tasks/translate');
             }
         } else {
             UserTraces::translate('App\Video', $videoId);
 
             $readable->translator_id = $user->id;
-            $readable->state = 3;
+            $readable->state = Video::ON_TRANSLATE;
 
             $readable->save();
             $task = Task::create([
                 'video_id' => $videoId,
                 'user_id' => $user->id,
-                'type' => 2,
+                'type' => Task::TRANSLATE,
                 'content' => $readable->content,
             ]);
         }
+        $youtube = $user->last_login_foreign;
+        $type = 'video';
+        return view('tasks.translate', compact('readable', 'task', 'youtube', 'type'));
+    }
+
+    public function checkZh($videoId)
+    {
+        $user = Auth::user();
+        $task = Task::where('video_id', $videoId)->where('type', Task::CHECK_ZH)->first();
+        $readable = Video::where('id', $videoId)->first();
+
+        if ($task) { //已经存在了
+            if($task->user_id != $user->id) {   //但任务归属人并不是此人
+                Session::flash('hasTranslator', 'hasVerifier');
+                return redirect('translator/tasks/checkZh');
+            }
+        } else {    //还不存在，需要创建一个新任务
+            $task = Task::where('video_id', $videoId)->where('type', Task::TRANSLATE)->first();
+            $readable = Video::where('id', $videoId)->first();
+
+            if ($task) {
+                $content = $task->content;
+            } else {
+                $content = $readable->content;
+            }
+
+            UserTraces::checkZh('App\Video', $videoId);
+            $readable->verifier_id = $user->id;
+            $readable->state = Video::ON_CHECK_ZH;
+            $readable->save();
+
+            $task = Task::create([
+                'video_id' => $videoId,
+                'user_id' => Auth::id(),
+                'type' => Task::CHECK_ZH,
+                'content' => $content
+            ]);
+        }
+
         $youtube = $user->last_login_foreign;
         $type = 'video';
         return view('tasks.translate', compact('readable', 'task', 'youtube', 'type'));
@@ -101,13 +162,13 @@ class TaskController extends Controller
             UserTraces::checkFr('App\Video', $videoId);
 
             $readable->listener_id = $user->id;
-            $readable->state = 7;
+            $readable->state = Video::ON_CHECK_FR;
             $readable->save();
 
             $task = Task::create([
                 'video_id' => $videoId,
                 'user_id' => $user->id,
-                'type' => 1,
+                'type' => Task::CHECK_FR,
                 'content' => $readable->content,
             ]);
         }
@@ -122,7 +183,7 @@ class TaskController extends Controller
         $task = Task::where('video_id', $videoId)->where('user_id', $user->id)->first();
         if ($task) {
             $video = Video::find($videoId);
-            $video->state = 2;
+            $video->state = Video::WAIT_TRANSLATE;
             $video->save();
             $task->delete();
         }
@@ -162,6 +223,7 @@ class TaskController extends Controller
         ]);
     }
 
+
     public function submit(Request $request, $taskId)
     {
         $task = Task::findOrFail($taskId);
@@ -170,12 +232,12 @@ class TaskController extends Controller
         $task->save();
 
         $video = $task->video;
-        $video->state = 4;
+        $video->state = Video::WAIT_CHECK_ZH;
         $video->save();
 
         UserTraces::submitTranslate('App\Video', $video->id);
         Session::flash('successSubmit', '1');
-        return redirect('translator/tasks');
+        return redirect('translator/tasks/translate');
     }
 
     public function submitFr(Request $request, $taskId)
@@ -186,7 +248,7 @@ class TaskController extends Controller
         $task->save();
 
         $video = $task->video;
-        $video->state = 2;
+        $video->state = Video::WAIT_TRANSLATE;
 
         $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
@@ -196,10 +258,10 @@ class TaskController extends Controller
         $video->save();
 
         Session::flash('successSubmit', '1');
-        return redirect('translator/tasks?type=3&&state=1');
+        return redirect('translator/tasks/checkFr');
     }
 
-    public function submitForce(Request $request, $taskId)
+    public function submitZh(Request $request, $taskId)
     {
         $task = Task::findOrFail($taskId);
         $task->content = $request->get('content', '');
@@ -207,17 +269,16 @@ class TaskController extends Controller
         $task->save();
 
         $video = $task->video;
-        $video->state = 5;
+        $video->state = Video::OK;
 
         $content = Helper::filterSpecialChars($task->content);
         $video->content = $content;
 
-        UserTraces::translate('App\Video', $video->id);
         UserTraces::validTranslate('App\Video', $video->id);
         list($video->parsed_content, $video->parsed_content_zh, $video->points) = Helper::parsePointLink($content);
         $video->save();
 
         Session::flash('successSubmit', '1');
-        return redirect('translator/tasks');
+        return redirect('translator/tasks/checkZh');
     }
 }

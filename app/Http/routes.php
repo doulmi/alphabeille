@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('api/wordFav/{wordFavId}/delete', 'WordController@destroy');
     Route::get('users/notes', 'UserController@notes');
     Route::get('users/statistique', 'UserController@statistique');
+    Route::delete('wordFavorites', 'WordController@deleteWordFavorites');
 //    Route::get('lessons/collect', 'LessonController@collects');
 //    Route::post('lessons/{id}/favorite', 'LessonController@favorite');
 //    Route::post('lessons/{id}/punchin', 'LessonController@punchin');
@@ -120,16 +121,22 @@ Route::get('words', 'WordController@index');
 Route::get('translators', 'UserController@translators');
 
 Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function() {
-    Route::get('tasks', 'TaskController@index');
-    Route::get('tasks/{user_id}', 'TaskController@show');
+    Route::get('tasks/checkFr', 'TaskController@checkFrIndex');
+    Route::get('tasks/translate', 'TaskController@translateIndex');
+    Route::get('tasks/checkZh', 'TaskController@checkZhIndex');
+    Route::get('tasks/checkFr/{user_id}', 'TaskController@checkFrTasks');
+    Route::get('tasks/translate/{user_id}', 'TaskController@translateTasks');
+    Route::get('tasks/checkZh/{user_id}', 'TaskController@checkZhTasks');
     Route::get('tasks/{video_id}/preview', 'TaskController@preview');
     Route::get('tasks/{video_id}/translate', 'TaskController@translate');
     Route::get('tasks/{video_id}/checkFr', 'TaskController@checkFr');
+    Route::get('tasks/{video_id}/checkZh', 'TaskController@checkZh');
+    Route::get('tasks/{video_id}/checkZh/preview', 'TaskController@previewZh');
     Route::post('tasks/{task_id}/save', 'TaskController@save');
     Route::get('tasks/{video_id}/giveup', 'TaskController@giveup');
     Route::post('tasks/{task_id}/submit', 'TaskController@submit');
     Route::post('tasks/{task_id}/submitFr', 'TaskController@submitFr');
-    Route::post('tasks/{task_id}/submitForce', 'TaskController@submitForce');
+    Route::post('tasks/{task_id}/submitZh', 'TaskController@submitZh');
 });
 
 Route::post('translator/tasks/{task_id}/autoSave', 'TaskController@autoSave');

@@ -20,7 +20,7 @@
     <div class="container-fluid grey">
         <div class="Header"></div>
         {{-- 1.免费 or 2.有权限 or 3.自己翻译的 --}}
-        <?php $canRead = $readable->free || (Auth::user() && (Auth::user()->can('videos.subs') || $readable->translator_id == Auth::user()->id)) ?>
+        <?php $canRead = Auth::check() && (Auth::user()->can('videos.subs') || $readable->translator_id == Auth::user()->id || Auth::user()->freeTime >= 0) ?>
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7" id="videoPanel">
@@ -83,6 +83,7 @@
                         <ul id="tabs" class="nav nav-tabs hidden-xs" data-tabs="tabs">
                             <li class="active"><a href="#subtitles" data-toggle="tab">@lang('labels.subtitles')</a></li>
                             <li><a href="#notes" data-toggle="tab">@lang('labels.notes')</a></li>
+                            <li><a href="#words" data-toggle="tab">@lang('labels.words')</a></li>
                         </ul>
 
                         <div class="video-content grey" id='subPanel'>
@@ -96,6 +97,23 @@
                             </div>
                             <div class="after-loading">
                                 <div id="my-tab-content" class="tab-content">
+                                    <div id="subtitles" class="tab-pane active fade in">
+                                        <table>
+                                            <tbody>
+                                            <tr v-for="no in pointsCount">
+                                                <td class='width40'>
+                                                    <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
+                                                       class='seek-btn'
+                                                       :class="played.indexOf($index) > -1 > 'active' : ''"></a>
+                                                </td>
+                                                <td>
+                                                    <p>@{{{ linesFr[no] }}}</p>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <div id="notes" class="tab-pane fade in">
                                         <div v-if="notes.length == 0">@lang('labels.noNoteYet')</div>
                                         <table class="note-table" v-else>
@@ -115,18 +133,17 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div id="subtitles" class="tab-pane active fade in">
-                                        <table>
+
+                                    <div id="words" class="tab-pane fade in">
+                                        <div v-if="words.length == 0">@lang('labels.noWordYet')</div>
+                                        <table class="note-table" v-else>
                                             <tbody>
-                                            <tr v-for="no in pointsCount">
-                                                <td class='width40'>
-                                                    <a href='#@{{ $index }}' @click.stop.prevent='seekTo($index)'
-                                                       class='seek-btn'
-                                                       :class="played.indexOf($index) > -1 > 'active' : ''"></a>
-                                                </td>
-                                                <td>
-                                                    <p>@{{{ linesFr[no] }}}</p>
-                                                </td>
+                                            <tr v-for="word in words" id="word-@{{ word.word.id }}">
+                                                <td><p>@{{ word.word.word }}</p></td>
+                                                <td><p>@{{{ word.word.explication }}}</p></td>
+                                                <td><p><a href="" @click.stop.prevent="deleteWord($index, word.id)"
+                                                          class="close vertical-center tooltips-left"
+                                                          data-tooltips="@lang('labels.delete')">x</a></p></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -357,6 +374,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 repeatOne: -1,  //>=0 则说明循环开启
                 newNote: '',
                 notes: [],
+                words : [],
                 showNotePanel: false,
                 showLoginPanel: false,
                 originPlayerState : ''
@@ -372,7 +390,10 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
 
-                        this.notes = JSON.parse('{!! $notes !!}');
+                try {
+                    this.notes = JSON.parse('{!! $notes !!}');
+                    this.words = JSON.parse('{!! $words !!}');
+                }catch (err) {console.log('parse error')}
 
                 $('.after-loading').fadeIn();
                 $('.loading').hide();
@@ -522,6 +543,12 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     this.notes.splice(index, 1);
                     this.$http.delete("{{url('/notes')}}", note, function (data) {
                     }.bind(this));
+                },
+
+                deleteWord(index, id) {
+                    var word = {id: id};
+                    this.words.splice(index, 1);
+                    this.$http.delete("{{url('/wordFavorites')}}", word, function (data) {}.bind(this));
                 }
             }
         });
