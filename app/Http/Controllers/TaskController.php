@@ -17,7 +17,7 @@ class TaskController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('verifier', ['checkZhIndex', 'checkZh', 'submitZh']);
+//        $this->middleware('verifier', ['checkZhIndex', 'checkZh', 'submitZh']);
     }
 
     public function index(Request $request, $type)
@@ -35,7 +35,11 @@ class TaskController extends Controller
 
     public function checkZhIndex(Request $request)
     {
-        return $this->index($request, VIDEO::WAIT_CHECK_ZH);
+        if(Auth::check() && Auth::user()->can('videos.verify')) {
+            return $this->index($request, VIDEO::WAIT_CHECK_ZH);
+        } else {
+            abort(404);
+        }
     }
 
     public function translateIndex(Request $request)
@@ -45,17 +49,29 @@ class TaskController extends Controller
 
     public function checkFrIndex(Request $request)
     {
-        return $this->index($request, VIDEO::WAIT_CHECK_FR);
+        if (Auth::check() && Auth::user()->can('videos.listen')) {
+            return $this->index($request, VIDEO::WAIT_CHECK_FR);
+        } else {
+            abort(404);
+        }
     }
 
     public function checkFrTasks(Request $request, $userId)
     {
-        return $this->show($request, $userId, Task::CHECK_FR);
+        if (Auth::check() && Auth::user()->can('videos.listen')) {
+            return $this->show($request, $userId, Task::CHECK_FR);
+        } else {
+            abort(404);
+        }
     }
 
     public function checkZhTasks(Request $request, $userId)
     {
-        return $this->show($request, $userId, Task::CHECK_ZH);
+        if(Auth::check() && Auth::user()->can('videos.verify')) {
+            return $this->show($request, $userId, Task::CHECK_ZH);
+        } else {
+            abort(404);
+        }
     }
 
     public function translateTasks(Request $request, $userId)
