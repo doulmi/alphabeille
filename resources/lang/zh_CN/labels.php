@@ -409,4 +409,5 @@ return [
     'words' => '生词',
     'noWordYet' => '暂无生词',
     'beZhChecker' => '校对',
+    'hasWrong' => '字幕错误?',
 ];

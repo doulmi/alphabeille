@@ -51,6 +51,9 @@
                             <th>@lang('labels.level')</th>
                             <th>@lang('labels.avatar')</th>
                             <th>@lang('labels.title')</th>
+                            @if($type == \App\Video::WAIT_CHECK_ZH)
+                            <th>@lang('labels.translator')</th>
+                            @endif
                             <th>@lang('labels.duration')</th>
                             <th>@lang('labels.actions')</th>
                         </tr>
@@ -65,6 +68,10 @@
                                 <td>@lang('labels.' . $video->level)</td>
                                 <td scope="row"><img src="{{$video->avatar}}" alt="" width="50px" height="50px"></td>
                                 <td><a href="{{url('videos/' . $video->slug)}}" TARGET="_blank">{{$video->title}}</a> </td>
+
+                                @if($type == \App\Video::WAIT_CHECK_ZH)
+                                <td>{{$video->translator->name}}</td>
+                                @endif
                                 <td>{{$video->duration}}</td>
                                 <td>
 {{--                                    {{dd($type, \App\Video::WAIT_CHECK_FR, \App\Video::WAIT_CHECK_ZH, \App\Video::WAIT_TRANSLATE)}}--}}

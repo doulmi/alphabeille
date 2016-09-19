@@ -16,7 +16,7 @@
         </div>
     @else
         <div class="ads-btns">
-            <a href="{{url('register')}}" class="btn btn-ads">@lang('labels.loginRightNow')</a><br/>
+            <a href="{{url('login')}}" class="btn btn-ads">@lang('labels.loginRightNow')</a><br/>
         </div>
     @endif
 </div>

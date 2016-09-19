@@ -27,6 +27,9 @@
                             </video>
                         @endif
 
+                        @if($task->type == \App\Task::CHECK_ZH)
+                        <div><strong>@lang('labels.translator') : {{$readable->translator->name}}</strong></div>
+                        @endif
                         <div class="video-content grey translate-content">
                             <div class="loading">
                                 <span></span>

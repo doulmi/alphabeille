@@ -25,10 +25,9 @@ class WordController extends Controller
         $search = trim(Input::get('search', ''));
 
         if ($search != '') {
-//            $words = Searchy::words(['word', 'explication'])->query($search)->get();
             $words= Word::where('word', 'like', $search)->paginate($limit);
         } else {
-            $words = Word::paginate($limit);
+            $words = Word::orderBy('frequency', 'DESC')->paginate($limit);
         }
         return view('admin.words', compact(['words']));
     }

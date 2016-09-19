@@ -23,12 +23,12 @@ class TaskController extends Controller
     public function index(Request $request, $type)
     {
         $levels = ['beginner', 'intermediate', 'advanced'];
-        $builder = Video::where('state', $type);
+        $builder = Video::with('translator')->where('state', $type);
 
         if ($request->has('level')) {
             $builder->where('level', $request->get('level'));
         }
-        $videos = $builder->select(['slug', 'originSrc', 'duration', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50)->appends($request->all());;
+        $videos = $builder->select(['slug', 'translator_id', 'originSrc', 'duration', 'level', 'id', 'state', 'avatar', 'title', 'created_at'])->paginate(50)->appends($request->all());
 
         return view('tasks.index', compact('videos', 'levels', 'type'));
     }
@@ -65,9 +65,9 @@ class TaskController extends Controller
 
     public function show(Request $request, $userId, $type)
     {
-        $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->where('tasks.user_id', $userId);
+        $builder = DB::table('tasks')->join('videos', 'videos.id', '=', 'tasks.video_id')->join('users', 'users.id', '=', 'tasks.user_id')->where('tasks.user_id', $userId);
         $builder->where('tasks.type', $type);
-        $videos = $builder->orderBy('videos.state')->orderBy('tasks.id')->select(['tasks.id', 'videos.slug', 'video_id', 'user_id', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit', 'videos.originSrc'])->paginate(50)->appends($request->all());;
+        $videos = $builder->orderBy('videos.state')->orderBy('tasks.id')->select(['tasks.id', 'videos.slug', 'video_id', 'user_id', 'users.name', 'videos.state', 'videos.avatar', 'title', 'tasks.created_at', 'tasks.is_submit', 'videos.originSrc'])->paginate(50)->appends($request->all());;
 
         return view('tasks.myTasks', compact('videos'));
     }
@@ -122,7 +122,7 @@ class TaskController extends Controller
             }
         } else {    //还不存在，需要创建一个新任务
             $task = Task::where('video_id', $videoId)->where('type', Task::TRANSLATE)->first();
-            $readable = Video::where('id', $videoId)->first();
+            $readable = Video::with('translator')->where('id', $videoId)->first();
 
             if ($task) {
                 $content = $task->content;

@@ -84,6 +84,7 @@
                             <li class="active"><a href="#subtitles" data-toggle="tab">@lang('labels.subtitles')</a></li>
                             <li><a href="#notes" data-toggle="tab">@lang('labels.notes')</a></li>
                             <li><a href="#words" data-toggle="tab">@lang('labels.words')</a></li>
+                            <a href="#" @click.prevent.default="hasProblem" class="btn btn-default pull-right">@lang('labels.hasWrong')</a>
                         </ul>
 
                         <div class="video-content grey" id='subPanel'>
@@ -377,6 +378,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 words : [],
                 showNotePanel: false,
                 showLoginPanel: false,
+                hasWrong : false,
                 originPlayerState : ''
             },
 
@@ -549,6 +551,9 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     var word = {id: id};
                     this.words.splice(index, 1);
                     this.$http.delete("{{url('/wordFavorites')}}", word, function (data) {}.bind(this));
+                },
+
+                hasProblem() {
                 }
             }
         });
