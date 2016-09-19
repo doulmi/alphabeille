@@ -205,7 +205,7 @@ class AuthController extends Controller
         }
 
         Auth::login($authUser);
-        return $this->authenticated($request, $user);
+        return $this->authenticated($request, $authUser);
 //        $this->updateSession($request, $authUser);
 //        Auth::login($authUser);
 //        event(new UserLogin());
