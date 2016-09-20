@@ -31,14 +31,17 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <?php $types = [
+                                    App\Video::WAIT_CHECK_FR=> 'checkFr',
+                                    App\Video::WAIT_TRANSLATE => 'translate',
+                                    App\Video::WAIT_CHECK_ZH => 'checkZh'
+                                  ];
+                            ?>
                             @foreach($levels as $level)
                                 <li>
-                                    <a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') . '&' : '') . 'level=' . $level)}}">@lang('labels.' . $level)</a>
+                                    <a href="{{url('translator/tasks/' . $types[$type] .'?level=' . $level)}}">@lang('labels.' . $level)</a>
                                 </li>
                             @endforeach
-                            <li>
-                                <a href="{{url('translator/tasks?' . (Request::has('type') ? 'type=' . Request::get('type') : ''))}}">@lang('labels.allLevel')</a>
-                            </li>
                         </ul>
                     </div>
 
