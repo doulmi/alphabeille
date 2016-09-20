@@ -402,12 +402,12 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
             },
 
             methods: {
-                seekTo(no) {
+                seekTo : function(no) {
                     var time = this.points[no];
                     this.seekToTime(time);
                 },
 
-                seekToTime(time) {
+                seekToTime : function(time) {
                     player.currentTime(time);
                     @if($youtube)
                     player.playVideo();
@@ -416,17 +416,17 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     @endif
                 },
 
-                favoriteEvent() {
+                favoriteEvent : function() {
                     this.$http.post('{{url("/" . $type . "s/" . $readable->id . '/favorite')}}', function (response) {
                     }.bind(this));
                 },
 
-                collectEvent() {
+                collectEvent : function() {
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/collect')}}', function (response) {
                     }.bind(this));
                 },
 
-                punchinEvent() {
+                punchinEvent : function() {
                     var punchin = $('#punchin');
 
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/punchin')}}', function (response) {
@@ -442,7 +442,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }.bind(this));
                 },
 
-                timeupdate() {
+                timeupdate : function() {
                     var currentTime = player.currentTime();
                     for (var i = 0; i < this.points.length; i++) {
                         if (this.repeatOne >= 0) {   //repeatOne is open
@@ -458,19 +458,19 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }
                 },
 
-                prev() {
+                prev : function() {
                     if (this.active - 1 >= 0) {
                         player.currentTime(this.points[this.active - 1]);
                     }
                 },
 
-                next() {
+                next : function() {
                     if (this.active + 1 < this.pointsCount) {
                         player.currentTime(this.points[this.active + 1]);
                     }
                 },
 
-                repeat() {
+                repeat : function() {
                     if (this.repeatOne >= 0) {
                         this.repeatOne = -1;
                     } else {
@@ -478,15 +478,15 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }
                 },
 
-                toggleFr() {
+                toggleFr : function() {
                     this.fr = !this.fr;
                 },
 
-                toggleZh() {
+                toggleZh : function() {
                     this.zh = !this.zh;
                 },
 
-                saveNote() {
+                saveNote : function() {
                     if (this.newNote.trim() == '') {
                         toastr.warning("@lang('labels.emptyContent')");
                         return;
@@ -508,13 +508,13 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }.bind(this));
                 },
 
-                closeNote() {
+                closeNote : function() {
                     this.newNote = '';
                     this.showNotePanel = false;
                     player.play();
                 },
 
-                showNoteDialog() {
+                showNoteDialog : function() {
                     player.pause();
                     @if(Auth::guest())
                             this.showLoginDialog();
@@ -523,15 +523,15 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     @endif
                 },
 
-                closeLogin() {
+                closeLogin : function() {
                     this.showLoginPanel = false;
                 },
 
-                showLoginDialog() {
+                showLoginDialog : function() {
                     this.showLoginPanel = true;
                 },
 
-                updateNote(id, content) {
+                updateNote : function(id, content) {
                     var note = {
                         id: id,
                         content: content
@@ -540,20 +540,20 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }.bind(this));
                 },
 
-                deleteNote(index, id) {
+                deleteNote : function(index, id) {
                     var note = {id: id};
                     this.notes.splice(index, 1);
                     this.$http.delete("{{url('/notes')}}", note, function (data) {
                     }.bind(this));
                 },
 
-                deleteWord(index, id) {
+                deleteWord : function(index, id) {
                     var word = {id: id};
                     this.words.splice(index, 1);
                     this.$http.delete("{{url('/wordFavorites')}}", word, function (data) {}.bind(this));
                 },
 
-                hasProblem() {
+                hasProblem : function() {
                 }
             }
         });

@@ -164,7 +164,7 @@
                 notes: []
             },
 
-            ready() {
+            ready: function() {
                 var pointStr = '{{$readable->points}}';
                 this.points = pointStr.split(',');
                 this.pointsCount = this.points.length;
@@ -177,13 +177,13 @@
             },
 
             methods: {
-                seekTo(no) {
+                seekTo : function(no) {
                     var time = this.points[no];
                     player.currentTime(time);
                     player.playVideo();
                 },
 
-                timeupdate() {
+                timeupdate : function() {
                     var currentTime = player.currentTime();
                     for (var i = 0; i < this.points.length; i++) {
                         if (this.repeatOne >= 0) {   //repeatOne is open
@@ -199,19 +199,19 @@
                     }
                 },
 
-                prev() {
+                prev : function() {
                     if (this.active - 1 >= 0) {
                         player.currentTime(this.points[this.active - 1]);
                     }
                 },
 
-                next() {
+                next : function() {
                     if (this.active + 1 < this.pointsCount) {
                         player.currentTime(this.points[this.active + 1]);
                     }
                 },
 
-                repeat() {
+                repeat : function() {
                     if (this.repeatOne >= 0) {
                         this.repeatOne = -1;
                     } else {
@@ -219,19 +219,19 @@
                     }
                 },
 
-                toggleFr() {
+                toggleFr : function() {
                     this.fr = !this.fr;
                 },
 
-                toggleZh() {
+                toggleZh : function() {
                     this.zh = !this.zh;
                 },
-                saveNote() {
+                saveNote : function() {
                     this.notes.push(this.newNote);
                     this.newNote = '';
                 },
 
-                hasDoute() {
+                hasDoute : function() {
                     $.get('{{url("admin/tasks/doubt/" . $task->id )}}', function (response) {
                     }.bind(this));
                 }

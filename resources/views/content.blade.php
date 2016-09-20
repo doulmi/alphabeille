@@ -303,22 +303,22 @@
             },
 
             computed: {
-                commentVisible() {
+                commentVisible : function() {
                     return this.comments instanceof Array && this.comments.length > 0;
                 }
             },
             methods: {
-                favoriteEvent() {
+                favoriteEvent : function() {
                     this.$http.post('{{url("/" . $type . "s/" . $readable->id . '/favorite')}}', function (response) {
                     }.bind(this));
                 },
 
-                collectEvent() {
+                collectEvent : function() {
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/collect')}}', function (response) {
                     }.bind(this));
                 },
 
-                punchinEvent() {
+                punchinEvent : function() {
                     var punchin = $('#punchin');
 
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/punchin')}}', function (response) {
