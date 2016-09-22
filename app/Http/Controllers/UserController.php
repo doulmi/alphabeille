@@ -150,7 +150,7 @@ class UserController extends Controller
     }
 
     public function translators() {
-        $userIds = DB::table('role_user')->whereIn('role_id', [1, 5, 6])->distinct()->lists('user_id');
+        $userIds = DB::table('role_user')->whereIn('role_id', [1, 5, 6, 7])->distinct()->lists('user_id');
         $result = User::whereIn('id', $userIds)->get(['id', 'avatar', 'name']);
 
         foreach($result as $translator) {

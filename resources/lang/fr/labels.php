@@ -375,6 +375,9 @@ return [
     'addAudio' => 'Ajouter Audio',
     'words' => 'Vocabulaires',
     'noWordYet' => 'Aucun vocabulaire',
+    'correctSub' => 'Corriger le sous-titre',
+    'reportSuccess' => 'Succès de reporter',
+    'reportError' => 'Raté de reporter',
 ];
 
 

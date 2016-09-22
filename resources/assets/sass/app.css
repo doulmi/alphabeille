@@ -2750,14 +2750,22 @@ body {
   text-align: center;
   margin-bottom: 40px; }
 
+.report-col {
+  display: none; }
+
 .video-show {
   height: auto;
   position: relative;
   padding-top: 2%; }
   .video-show tr {
     vertical-align: middle; }
-    .video-show tr td:first-child {
-      vertical-align: top; }
+    .video-show tr td:first-child, .video-show tr td:nth-child(2) {
+      vertical-align: top;
+      font-size: 20px; }
+  .video-show .report-btn {
+    color: #2c3e50; }
+    .video-show .report-btn:hover {
+      color: #3e5871; }
   .video-show blockquote {
     background: #EBF7FE;
     border-left: 4px solid #59A3D3; }
@@ -3431,6 +3439,18 @@ body {
 .note-container .btn-toolbar {
   display: none !important; }
 
+.report-dialog {
+  z-index: 998;
+  display: none;
+  margin: auto;
+  position: fixed;
+  border-radius: 5px;
+  padding: 15px 30px;
+  width: 20%;
+  top: 40%;
+  left: 40%;
+  background: white; }
+
 .login-dialog {
   z-index: 998;
   display: none;
@@ -3586,5 +3606,8 @@ a.searchTag {
     background: #F7CA18; }
   .statistics.soft {
     background: #C8D046; }
+
+.note-table td {
+  text-align: left; }
 
 /*# sourceMappingURL=app.css.map */

@@ -68,6 +68,8 @@
         Route::get('users/notes', 'UserController@notes');
         Route::get('users/statistique', 'UserController@statistique');
         Route::delete('wordFavorites', 'WordController@deleteWordFavorites');
+
+        Route::post('reportSubError/{video_id}', 'SubErrorController@store');
 //    Route::get('lessons/collect', 'LessonController@collects');
 //    Route::post('lessons/{id}/favorite', 'LessonController@favorite');
 //    Route::post('lessons/{id}/punchin', 'LessonController@punchin');

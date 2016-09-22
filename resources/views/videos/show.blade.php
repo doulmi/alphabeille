@@ -16,6 +16,12 @@
     <meta name="weibo:video:description" content="{{$readable->title}}"/>
 @endsection
 
+@section('othercss')
+{{--    @if(Auth::guest())--}}
+        {{--<link rel="stylesheet" href="{{asset('css/joyride-2.1.css')}}">--}}
+    {{--@endif--}}
+@endsection
+
 @section('content')
     <div class="container-fluid grey">
         <div class="Header"></div>
@@ -68,12 +74,12 @@
                     <div class="control-panel">
                         <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
                                     class="glyphicon glyphicon-chevron-left"></i></a>
-                        <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' ">重复单句</a>
+                        <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' " id="repeatBtn">@lang('labels.repeat')</a>
                         <a href="#" :disabled="active == pointsCount - 1 " @click.stop.prevent='next'><i
                                     class="glyphicon glyphicon-chevron-right"></i></a>
 
-                        <a href="#" @click.stop.prevent='toggleFr' :class="fr ? 'active' : ''">法</a>
-                        <a href="#" @click.stop.prevent='toggleZh' :class="zh ? 'active' : ''">中</a>
+                        <a href="#" @click.stop.prevent='toggleFr' :class="fr ? 'active' : ''">@lang('labels.fr_abbr')</a>
+                        <a href="#" id="zhBtn" @click.stop.prevent='toggleZh' :class="zh ? 'active' : ''">@lang('labels.zh_abbr')</a>
                     </div>
                 </div>
 
@@ -82,9 +88,9 @@
                     @if($canRead)
                         <ul id="tabs" class="nav nav-tabs hidden-xs" data-tabs="tabs">
                             <li class="active"><a href="#subtitles" data-toggle="tab">@lang('labels.subtitles')</a></li>
-                            <li><a href="#notes" data-toggle="tab">@lang('labels.notes')</a></li>
+                            <li><a href="#notes" id="note-tab" data-toggle="tab">@lang('labels.notes')</a></li>
                             <li><a href="#words" data-toggle="tab">@lang('labels.words')</a></li>
-                            {{--<a href="#" @click.prevent.default="hasProblem" class="btn btn-default pull-right">@lang('labels.hasWrong')</a>--}}
+                            <a href="#" @click.prevent.default="hasProblem" class="btn btn-default pull-right">@lang('labels.hasWrong')</a>
                         </ul>
 
                         <div class="video-content grey" id='subPanel'>
@@ -107,6 +113,13 @@
                                                        class='seek-btn'
                                                        :class="played.indexOf($index) > -1 > 'active' : ''"></a>
                                                 </td>
+                                                <td class='width40 ' v-show="hasWrong">
+                                                    <a href='#@{{ $index }}' @click.stop.prevent='reportError($index)'
+                                                       class='report-btn'
+                                                       :class="played.indexOf($index) > -1 > 'active' : ''">
+                                                        <i class="glyphicon glyphicon-bell"></i>
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     <p>@{{{ linesFr[no] }}}</p>
                                                 </td>
@@ -121,8 +134,7 @@
                                             <tbody>
                                             <tr v-for="note in notes">
                                                 <td class="width40">
-                                                    <a href='#@{{note.point}}'
-                                                       @click.stop.prevent='seekToTime(note.point)' class='seek-btn'></a>
+                                                    <a href='#@{{note.point}}' @click.stop.prevent='seekToTime(note.point)' class='seek-btn'></a>
                                                 </td>
                                                 <td><p id="note-@{{ note.id }}" class="contenteditable tooltips-bottom"
                                                        data-tooltips="@lang('labels.clickToEdit')"
@@ -266,7 +278,7 @@
         </div>
     </div>
     <div class="fixed-action-btn hidden-xs tooltips-left" data-tooltips="@lang('labels.clickToAddNote')">
-        <a class="btn-floating waves-effect waves-light red "  @click="showNoteDialog" >
+        <a class="btn-floating waves-effect waves-light red "  id="addNoteBtn" @click="showNoteDialog" >
         <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR
 oPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik
 0xOSAxM2gtNnY2aC0ydi02SDV2LTJoNlY1aDJ2Nmg2djJ6Ii8+CiAgICA8cGF0aCBkPSJNMCAwa
@@ -291,6 +303,48 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
     @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+        {{--<ol id="joyRideTipContent">--}}
+            {{--<li data-id="addNoteBtn" data-button="Next" data-options="tipLocation:bottom">--}}
+                {{--<h2>1.@lang('labels.addNoteTitle')</h2>--}}
+                {{--<p>@lang('labels.addNoteDesc')</p>--}}
+            {{--</li>--}}
+            {{--<li data-id="subPanel" data-text="Next" data-options="tipLocation:left">--}}
+                {{--<h2>3.@lang('labels.consultWord')</h2>--}}
+                {{--<p>@lang('labels.consultWordDesc')</p>--}}
+            {{--</li>--}}
+            {{--<li data-id="repeatBtn" data-button="Next" data-options="tipLocation:bottom">--}}
+                {{--<h2>4.@lang('labels.repeatTitle')</h2>--}}
+                {{--<p>@lang('labels.repeatTitleDesc')</p>--}}
+            {{--</li>--}}
+            {{--<li data-id="zhBtn" data-button="Next" data-options="tipLocation:bottom">--}}
+                {{--<h2>5.@lang('labels.closeZh')</h2>--}}
+                {{--<p>@lang('labels.closeZhDesc')</p>--}}
+            {{--</li>--}}
+            {{--<li data-id="note-tab" data-button="Next" data-options="tipLocation:bottom">--}}
+                {{--<h2>2.@lang('labels.noteListTitle')</h2>--}}
+                {{--<p>@lang('labels.noteListDesc')</p>--}}
+            {{--</li>--}}
+        {{--</ol>--}}
+
+        {{--<script type="text/javascript" src="{{asset('js/jquery.cookie.js')}}"></script>--}}
+        {{--<script type="text/javascript" src="{{asset('js/modernizr.mq.js')}}"></script>--}}
+        {{--<script type="text/javascript" src="{{asset('js/jquery.joyride-2.1.js')}}"></script>--}}
+        {{--<script>--}}
+            {{--$(window).load(function() {--}}
+                {{--$('#joyRideTipContent').joyride({--}}
+                    {{--autoStart : true,--}}
+                    {{--postStepCallback : function (index, tip) {--}}
+                        {{--if (index == 2) {--}}
+                            {{--$(this).joyride('set_li', false, 1);--}}
+                        {{--}--}}
+                    {{--},--}}
+                    {{--modal:true,--}}
+                    {{--expose: true--}}
+                {{--});--}}
+            {{--});--}}
+        {{--</script>--}}
+
     <script>
 
         function scrollToTag(tag) {
@@ -361,6 +415,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 linesZh: [],
                 fr: true,
                 zh: true,
+                targetLine : 0,
                 pointsCount: 0,
                 favWord: 'glyphicon-heart-empty',
                 played: [],    //  保存已经播放过的橘子
@@ -554,6 +609,25 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 },
 
                 hasProblem : function() {
+                    this.hasWrong = !this.hasWrong;
+                },
+
+                reportError : function(line) {
+                    @if(Auth::check())
+                    var content = {
+                        line : line,
+                        subtitle : this.linesFr[line],
+                        translate : this.linesZh[line],
+                        video_id : "{{$readable->id}}"
+                    };
+                    this.$http.post("{{url('reportSubError/' . $readable->id)}}", content, function(data){
+                        if(data.status = 200) {
+                            toastr.success("@lang('labels.reportSuccess')");
+                        } else {
+                            toastr.error("@lang('labels.reportError')");
+                        }
+                    });
+                    @endif
                 }
             }
         });
