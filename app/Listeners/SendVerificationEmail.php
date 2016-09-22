@@ -27,15 +27,15 @@ class SendVerificationEmail
      */
     public function handle(UserRegister $event)
     {
-        $user = $event->user;
-        $data = [
-            'confirmation_code' => $user->confirmation_code,
-        ];
-
-        $subject = 'Confirmation your email';
-
-        Mail::queue('emails.register', $data, function($message) use ($user, $subject) {
-            $message->to($user->email)->subject($subject);
-        });
+//        $user = $event->user;
+//        $data = [
+//            'confirmation_code' => $user->confirmation_code,
+//        ];
+//
+//        $subject = 'Confirmation your email';
+//
+//        Mail::queue('emails.register', $data, function($message) use ($user, $subject) {
+//            $message->to($user->email)->subject($subject);
+//        });
     }
 }
