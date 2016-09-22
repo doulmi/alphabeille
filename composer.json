@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.39",
+        "laravel/framework": "5.2.*",
         "overtrue/laravel-lang": "1.0.*",
         "predis/predis": "^1.0",
         "doctrine/dbal": "^2.5",

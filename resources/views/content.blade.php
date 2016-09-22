@@ -229,7 +229,9 @@
                 </div>
             </div>
         </div>
-        <div class="Header hidden-xs"></div>
+        <div class="Header"></div>
+            <div class="Header"></div>
+            <div class="Header"></div>
     </div>
 
     {{--    @include('smallBeach')--}}

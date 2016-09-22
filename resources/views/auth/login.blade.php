@@ -1,8 +1,6 @@
 @extends('base')
 
-@section('title')
-    @lang('labels.login.title')
-@endsection
+@section('title')@lang('labels.login.title')@endsection
 
 @section('header')
     <meta name="description" content="@lang('labels.login.description')">
@@ -55,7 +53,9 @@
                     <br/>
                     <br/>
                     <a class="link link-left" href="{{ url('/password/reset') }}">@lang('labels.forgetPwd')</a>
-                    <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+
+{{--                    <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>--}}
                     <br/>
                 </form>
 
@@ -73,7 +73,7 @@
                     <button type="submit" id="register-button">@lang('labels.register')</button>
                     <br/>
                     <br/>
-                    <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>
+{{--                    <input type="hidden" value="{{Request::get('redirect_url')}}" name="redirect_url"/>--}}
                 </form>
 
                                 <div class="oauth-login">
