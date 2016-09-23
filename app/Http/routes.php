@@ -1,6 +1,4 @@
 <?php
-
-
     Route::auth();
     Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
@@ -32,13 +30,13 @@
     Route::resource('messages', 'MessageController');
     Route::resource('discussions', 'DiscussionController');
     Route::get('menus', 'PostController@menus');
+    Route::get('videos/level/{level}', 'VideoController@level');
 
     Route::get('checkEmail', function () {
         return view('emails.checkEmail');
     })->name('checkEmail');
 
-    Route::get('users/{id}', 'UserController@show');
-    Route::get('comments/like/{commentId}', 'CommentController@like');
+
 
     Route::put('users', 'UserController@update');
     Route::get('search', 'PostController@search');
@@ -130,7 +128,8 @@
         Route::post('tasks/{task_id}/submitZh', 'TaskController@submitZh');
     });
 
-
+Route::get('users/{id}', 'UserController@show');
+Route::get('comments/like/{commentId}', 'CommentController@like');
     Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/', 'Admin\AdminController@index');
         Route::get('/users', 'Admin\UserController@index')->name('adminUsers');

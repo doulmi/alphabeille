@@ -4668,3 +4668,16 @@ a.searchTag {
     background: #C8D046;
   }
 }
+
+.navbar-search-index .form-control:first-child {
+
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-radius:0;
+}
+
+.search-btn {
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-radius:0;
+}

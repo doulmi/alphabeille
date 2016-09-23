@@ -3607,7 +3607,14 @@ a.searchTag {
   .statistics.soft {
     background: #C8D046; }
 
-.note-table td {
-  text-align: left; }
+.navbar-search-index .form-control:first-child {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
+
+.search-btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0; }
 
 /*# sourceMappingURL=app.css.map */
