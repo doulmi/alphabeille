@@ -57,7 +57,6 @@ class VideoController extends ReadableController
             $youtube = Helper::isForeignIp($request->ip());
         }
 
-        $youtube = 1;
         $fr = explode('||', $readable->parsed_content);
         $zh = explode('||', $readable->parsed_content_zh);
 
