@@ -378,6 +378,7 @@ return [
     'correctSub' => 'Corriger le sous-titre',
     'reportSuccess' => 'Succès de reporter',
     'reportError' => 'Raté de reporter',
+    'copyLastSaved' => 'Copier le dernière contenu',
 ];
 
 

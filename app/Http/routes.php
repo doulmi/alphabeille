@@ -1,9 +1,7 @@
 <?php
     Route::auth();
     Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
-
     Route::get('register/confirmation/{confirmation_code}', 'UserController@confirmEmail');
-
     Route::get('/', 'PostController@index');
 //Route::get('basicCourses', 'PostController@basicCourses');
 //Route::get('oralFormation', 'PostController@oralFormation');
@@ -103,9 +101,10 @@
         Route::put('notes', 'VideoController@updateNote');
         Route::delete('notes', 'VideoController@deleteNote');
 
-        Route::get('subscription/{id}', 'PostController@subscription');
-        Route::get('alipay/pay/{id}', 'AlipayController@pay');
-        Route::get('alipay/result', 'AlipayController@result');
+        //付费模块路由
+//        Route::get('subscription/{id}', 'PostController@subscription');
+//        Route::get('alipay/pay/{id}', 'AlipayController@pay');
+//        Route::get('alipay/result', 'AlipayController@result');
     });
 
     Route::group(['prefix' => 'translator', 'middleware' => 'translator'], function () {

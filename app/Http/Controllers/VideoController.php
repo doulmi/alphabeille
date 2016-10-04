@@ -57,6 +57,7 @@ class VideoController extends ReadableController
             $youtube = Helper::isForeignIp($request->ip());
         }
 
+        $youtube = 1;
         $fr = explode('||', $readable->parsed_content);
         $zh = explode('||', $readable->parsed_content_zh);
 
@@ -91,9 +92,9 @@ class VideoController extends ReadableController
         $cols = ['id', 'avatar', 'title', 'slug', 'created_at','level', 'free', 'state', 'views', 'duration'];
 
         if($orderBy == 'latest') {
-            $builder = Video::orderBy('created_at', 'DESC');
+            $builder = Video::orderBy('free', 'DESC')->orderBy('created_at', 'DESC');
         } else {
-            $builder = Video::orderBy('views', 'DESC');
+            $builder = Video::orderBy('free', 'DESC')->orderBy('views', 'DESC');
         }
 
         $readables = $builder->paginate($pageLimit, $cols)->appends($request->all());

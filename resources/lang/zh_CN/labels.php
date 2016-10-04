@@ -96,6 +96,7 @@ return [
     'welcomeJoinUs' => '感谢您加入Alphabeille',
     'copyright' => 'Copyright © 2016 - 2018 Alphabeiile All Rights Reserved.',
     'free' => '免费',
+    'recommend' => '今日推荐',
 //    'adText' => 'Alphabeille每天都会更新课程内容：周一到周五每天一篇生活小短文，讲述法国人的日常生活经历并附带相应的音频以及中法讲解。周末我们将上传相对轻松的法语脱口秀，时尚的主题，全法语的环境，穿插游戏、笑话，让你轻松学习地道法语。',
     'adText' => '成为会员，即可获得Alphabeille法语提供的所有内容字幕及额外服务！',
     'backToLearn' => '马上成为法语达人',
@@ -428,5 +429,7 @@ return [
     'repeat' => '单句重复',
     'fr_abbr' => '法',
     'zh_abbr' => '中',
-
+    'copySuccess' => '已成功复制内容到剪切板，按Ctrl + V进行粘贴',
+    'nothingToCopy' => '没有东西可复制的',
+    'copyLastSaved' => '复制最后提交的内容',
 ];

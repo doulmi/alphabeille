@@ -16,17 +16,13 @@
     <meta name="weibo:video:description" content="{{$readable->title}}"/>
 @endsection
 
-@section('othercss')
-{{--    @if(Auth::guest())--}}
-        {{--<link rel="stylesheet" href="{{asset('css/joyride-2.1.css')}}">--}}
-    {{--@endif--}}
-@endsection
-
 @section('content')
+    <?php $needGuide = Auth::guest() ?>
     <div class="container-fluid grey">
         <div class="Header"></div>
-        {{-- 1.免费 or 2.有权限 or 3.自己翻译的 --}}
-        <?php $canRead = Auth::check() && (Auth::user()->can('videos.subs') || $readable->translator_id == Auth::user()->id || Auth::user()->freeTime >= 0) ?>
+    {{-- 1.免费 or 2.有权限 or 3.自己翻译的 --}}
+    <!--        --><?php //$canRead = Auth::check() && (Auth::user()->can('videos.subs') || $readable->translator_id == Auth::user()->id || Auth::user()->freeTime >= 0) ?>
+        <?php $canRead = true ?>
         <div class="container">
             <div class="row video-show">
                 <div class="col-md-7" id="videoPanel">
@@ -34,7 +30,7 @@
                         <a href="{{url('videos/level/' . $readable->level)}}">
                             <span class="label label-success {{$readable->level}}">@lang('labels.' . $readable->level)</span>
                         </a>
-                    <span class="">
+                        <span class="">
                         <i class="glyphicon glyphicon-headphones"></i>
                         <span class="g-font">{{ $readable->views }}</span>
                     </span>
@@ -74,12 +70,15 @@
                     <div class="control-panel">
                         <a href="#" :disabled="active == 0" @click.stop.prevent='prev'><i
                                     class="glyphicon glyphicon-chevron-left"></i></a>
-                        <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' " id="repeatBtn">@lang('labels.repeat')</a>
+                        <a href="#" @click.stop.prevent='repeat' :class="repeatOne >= 0? 'active' : '' "
+                           id="repeatBtn">@lang('labels.repeat')</a>
                         <a href="#" :disabled="active == pointsCount - 1 " @click.stop.prevent='next'><i
                                     class="glyphicon glyphicon-chevron-right"></i></a>
 
-                        <a href="#" @click.stop.prevent='toggleFr' :class="fr ? 'active' : ''">@lang('labels.fr_abbr')</a>
-                        <a href="#" id="zhBtn" @click.stop.prevent='toggleZh' :class="zh ? 'active' : ''">@lang('labels.zh_abbr')</a>
+                        <a href="#" id="zhBtn" @click.stop.prevent='toggleFr'
+                           :class="fr ? 'active' : ''">@lang('labels.fr_abbr')</a>
+                        <a href="#" @click.stop.prevent='toggleZh'
+                           :class="zh ? 'active' : ''">@lang('labels.zh_abbr')</a>
                     </div>
                 </div>
 
@@ -90,7 +89,8 @@
                             <li class="active"><a href="#subtitles" data-toggle="tab">@lang('labels.subtitles')</a></li>
                             <li><a href="#notes" id="note-tab" data-toggle="tab">@lang('labels.notes')</a></li>
                             <li><a href="#words" data-toggle="tab">@lang('labels.words')</a></li>
-                            <a href="#" @click.prevent.default="hasProblem" class="btn btn-default pull-right">@lang('labels.hasWrong')</a>
+                            <a href="#" @click.prevent.default="hasProblem"
+                               class="btn btn-default pull-right">@lang('labels.hasWrong')</a>
                         </ul>
 
                         <div class="video-content grey" id='subPanel'>
@@ -134,7 +134,9 @@
                                             <tbody>
                                             <tr v-for="note in notes">
                                                 <td class="width40">
-                                                    <a href='#@{{note.point}}' @click.stop.prevent='seekToTime(note.point)' class='seek-btn'></a>
+                                                    <a href='#@{{note.point}}'
+                                                       @click.stop.prevent='seekToTime(note.point)'
+                                                       class='seek-btn'></a>
                                                 </td>
                                                 <td><p id="note-@{{ note.id }}" class="contenteditable tooltips-bottom"
                                                        data-tooltips="@lang('labels.clickToEdit')"
@@ -197,7 +199,9 @@
             @endif
 
             <ul id="tabs" class="nav nav-tabs videoPart">
-                <li class="active"><a href="javascript:;">@lang('labels.videoDesc')</a></li>
+                @if($readable->parsed_desc != '')
+                    <li class="active"><a href="javascript:;">@lang('labels.videoDesc')</a></li>
+                @endif
                 <li><a href="javascript:;" onclick="scrollToTag('sugguest')">@lang('labels.suggestVideos')</a></li>
                 <li><a href="javascript:;" onclick="scrollToTag('disqus_thread')">@lang('labels.comments')</a></li>
             </ul>
@@ -205,7 +209,7 @@
     </div>
 
     <div class="container video-show">
-        @if($canRead)
+        @if($canRead && $readable->parsed_desc != '')
             <h3><i class="glyphicon glyphicon-film"></i>@lang('labels.videoDesc')</h3>
             <div class="row">
                 <div class="col-md-8">
@@ -278,7 +282,7 @@
         </div>
     </div>
     <div class="fixed-action-btn hidden-xs tooltips-left" data-tooltips="@lang('labels.clickToAddNote')">
-        <a class="btn-floating waves-effect waves-light red "  id="addNoteBtn" @click="showNoteDialog" >
+        <a class="btn-floating waves-effect waves-light red " id="addNoteBtn" @click="showNoteDialog" >
         <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRkZGRkZGIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR
 oPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik
 0xOSAxM2gtNnY2aC0ydi02SDV2LTJoNlY1aDJ2Nmg2djJ6Ii8+CiAgICA8cGF0aCBkPSJNMCAwa
@@ -289,62 +293,56 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
 @endsection
 
 @section('otherjs')
-
     @if($youtube)
         <script>
-            var tag = document.createElement('script');
-
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            $(function () {
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            });
         </script>
     @else
         <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
     @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    @if($needGuide)
+        <ol id="joyRideTipContent">
+            <li data-id="addNoteBtn" data-button="Next" data-options="tipLocation:left">
+                <h2>1.@lang('labels.addNoteTitle')</h2>
+                <p>@lang('labels.addNoteDesc')</p>
+            </li>
+            <li data-id="subPanel" data-button="Next" data-options="tipLocation:left">
+                <h2>2.@lang('labels.consultWord')</h2>
+                <p>@lang('labels.consultWordDesc')</p>
+            </li>
+            <li data-id="repeatBtn" data-button="Next" data-options="tipLocation:top">
+                <h2>3.@lang('labels.repeatTitle')</h2>
+                <p>@lang('labels.repeatTitleDesc')</p>
+            </li>
+            <li data-id="zhBtn" data-button="Next" data-options="tipLocation:top">
+                <h2>4.@lang('labels.closeZh')</h2>
+                <p>@lang('labels.closeZhDesc')</p>
+            </li>
+            <li data-id="note-tab" data-button="Next" data-options="tipLocation:bottom">
+                <h2>5.@lang('labels.noteListTitle')</h2>
+                <p>@lang('labels.noteListDesc')</p>
+            </li>
+        </ol>
 
-        {{--<ol id="joyRideTipContent">--}}
-            {{--<li data-id="addNoteBtn" data-button="Next" data-options="tipLocation:bottom">--}}
-                {{--<h2>1.@lang('labels.addNoteTitle')</h2>--}}
-                {{--<p>@lang('labels.addNoteDesc')</p>--}}
-            {{--</li>--}}
-            {{--<li data-id="subPanel" data-text="Next" data-options="tipLocation:left">--}}
-                {{--<h2>3.@lang('labels.consultWord')</h2>--}}
-                {{--<p>@lang('labels.consultWordDesc')</p>--}}
-            {{--</li>--}}
-            {{--<li data-id="repeatBtn" data-button="Next" data-options="tipLocation:bottom">--}}
-                {{--<h2>4.@lang('labels.repeatTitle')</h2>--}}
-                {{--<p>@lang('labels.repeatTitleDesc')</p>--}}
-            {{--</li>--}}
-            {{--<li data-id="zhBtn" data-button="Next" data-options="tipLocation:bottom">--}}
-                {{--<h2>5.@lang('labels.closeZh')</h2>--}}
-                {{--<p>@lang('labels.closeZhDesc')</p>--}}
-            {{--</li>--}}
-            {{--<li data-id="note-tab" data-button="Next" data-options="tipLocation:bottom">--}}
-                {{--<h2>2.@lang('labels.noteListTitle')</h2>--}}
-                {{--<p>@lang('labels.noteListDesc')</p>--}}
-            {{--</li>--}}
-        {{--</ol>--}}
-
-        {{--<script type="text/javascript" src="{{asset('js/jquery.cookie.js')}}"></script>--}}
-        {{--<script type="text/javascript" src="{{asset('js/modernizr.mq.js')}}"></script>--}}
         {{--<script type="text/javascript" src="{{asset('js/jquery.joyride-2.1.js')}}"></script>--}}
-        {{--<script>--}}
-            {{--$(window).load(function() {--}}
-                {{--$('#joyRideTipContent').joyride({--}}
-                    {{--autoStart : true,--}}
-                    {{--postStepCallback : function (index, tip) {--}}
-                        {{--if (index == 2) {--}}
-                            {{--$(this).joyride('set_li', false, 1);--}}
-                        {{--}--}}
-                    {{--},--}}
-                    {{--modal:true,--}}
-                    {{--expose: true--}}
-                {{--});--}}
-            {{--});--}}
-        {{--</script>--}}
-
+        <script>
+            $(window).load(function () {
+                $('#joyRideTipContent').joyride({
+                    autoStart: true,
+                    modal: true,
+                    scroll: false,
+                    expose: true
+                });
+            });
+        </script>
+    @endif
     <script>
 
         function scrollToTag(tag) {
@@ -415,7 +413,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 linesZh: [],
                 fr: true,
                 zh: true,
-                targetLine : 0,
+                targetLine: 0,
                 pointsCount: 0,
                 favWord: 'glyphicon-heart-empty',
                 played: [],    //  保存已经播放过的橘子
@@ -430,11 +428,11 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 repeatOne: -1,  //>=0 则说明循环开启
                 newNote: '',
                 notes: [],
-                words : [],
+                words: [],
                 showNotePanel: false,
                 showLoginPanel: false,
-                hasWrong : false,
-                originPlayerState : ''
+                hasWrong: false,
+                originPlayerState: ''
             },
 
             ready: function () {
@@ -447,41 +445,43 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 this.linesZh = "{!!$readable->parsed_content_zh!!}".split('||');
                 @endif
 
-                try {
+                        try {
                     this.notes = JSON.parse('{!! $notes !!}');
                     this.words = JSON.parse('{!! $words !!}');
-                }catch (err) {console.log('parse error')}
+                } catch (err) {
+                    console.log('parse error')
+                }
 
                 $('.after-loading').fadeIn();
                 $('.loading').hide();
             },
 
             methods: {
-                seekTo : function(no) {
+                seekTo: function (no) {
                     var time = this.points[no];
                     this.seekToTime(time);
                 },
 
-                seekToTime : function(time) {
+                seekToTime: function (time) {
                     player.currentTime(time);
-                    @if($youtube)
+                    @if($youtube )
                     player.playVideo();
                     @else
                     player.play();
                     @endif
                 },
 
-                favoriteEvent : function() {
+                favoriteEvent: function () {
                     this.$http.post('{{url("/" . $type . "s/" . $readable->id . '/favorite')}}', function (response) {
                     }.bind(this));
                 },
 
-                collectEvent : function() {
+                collectEvent: function () {
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/collect')}}', function (response) {
                     }.bind(this));
                 },
 
-                punchinEvent : function() {
+                punchinEvent: function () {
                     var punchin = $('#punchin');
 
                     this.$http.post('{{url("/". $type . "s/" . $readable->id . '/punchin')}}', function (response) {
@@ -497,7 +497,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }.bind(this));
                 },
 
-                timeupdate : function() {
+                timeupdate: function () {
                     var currentTime = player.currentTime();
                     for (var i = 0; i < this.points.length; i++) {
                         if (this.repeatOne >= 0) {   //repeatOne is open
@@ -513,19 +513,19 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }
                 },
 
-                prev : function() {
+                prev: function () {
                     if (this.active - 1 >= 0) {
                         player.currentTime(this.points[this.active - 1]);
                     }
                 },
 
-                next : function() {
+                next: function () {
                     if (this.active + 1 < this.pointsCount) {
                         player.currentTime(this.points[this.active + 1]);
                     }
                 },
 
-                repeat : function() {
+                repeat: function () {
                     if (this.repeatOne >= 0) {
                         this.repeatOne = -1;
                     } else {
@@ -533,15 +533,15 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }
                 },
 
-                toggleFr : function() {
+                toggleFr: function () {
                     this.fr = !this.fr;
                 },
 
-                toggleZh : function() {
+                toggleZh: function () {
                     this.zh = !this.zh;
                 },
 
-                saveNote : function() {
+                saveNote: function () {
                     if (this.newNote.trim() == '') {
                         toastr.warning("@lang('labels.emptyContent')");
                         return;
@@ -563,13 +563,13 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }.bind(this));
                 },
 
-                closeNote : function() {
+                closeNote: function () {
                     this.newNote = '';
                     this.showNotePanel = false;
                     player.play();
                 },
 
-                showNoteDialog : function() {
+                showNoteDialog: function () {
                     player.pause();
                     @if(Auth::guest())
                             this.showLoginDialog();
@@ -578,15 +578,15 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     @endif
                 },
 
-                closeLogin : function() {
+                closeLogin: function () {
                     this.showLoginPanel = false;
                 },
 
-                showLoginDialog : function() {
+                showLoginDialog: function () {
                     this.showLoginPanel = true;
                 },
 
-                updateNote : function(id, content) {
+                updateNote: function (id, content) {
                     var note = {
                         id: id,
                         content: content
@@ -595,33 +595,34 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                     }.bind(this));
                 },
 
-                deleteNote : function(index, id) {
+                deleteNote: function (index, id) {
                     var note = {id: id};
                     this.notes.splice(index, 1);
                     this.$http.delete("{{url('/notes')}}", note, function (data) {
                     }.bind(this));
                 },
 
-                deleteWord : function(index, id) {
+                deleteWord: function (index, id) {
                     var word = {id: id};
                     this.words.splice(index, 1);
-                    this.$http.delete("{{url('/wordFavorites')}}", word, function (data) {}.bind(this));
+                    this.$http.delete("{{url('/wordFavorites')}}", word, function (data) {
+                    }.bind(this));
                 },
 
-                hasProblem : function() {
+                hasProblem: function () {
                     this.hasWrong = !this.hasWrong;
                 },
 
-                reportError : function(line) {
-                    @if(Auth::check())
+                reportError: function (line) {
+                            @if(Auth::check())
                     var content = {
-                        line : line,
-                        subtitle : this.linesFr[line],
-                        translate : this.linesZh[line],
-                        video_id : "{{$readable->id}}"
-                    };
-                    this.$http.post("{{url('reportSubError/' . $readable->id)}}", content, function(data){
-                        if(data.status = 200) {
+                                line: line,
+                                subtitle: this.linesFr[line],
+                                translate: this.linesZh[line],
+                                video_id: "{{$readable->id}}"
+                            };
+                    this.$http.post("{{url('reportSubError/' . $readable->id)}}", content, function (data) {
+                        if (data.status = 200) {
                             toastr.success("@lang('labels.reportSuccess')");
                         } else {
                             toastr.error("@lang('labels.reportError')");
@@ -638,7 +639,7 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 videoId: "{{$readable->originSrc}}",
                 playerVars: {
                     color: 'white',
-                    autoplay: 1,
+//                    autoplay: 1,
                     showinfo: 0,
                     rel: 0
                 },
@@ -649,6 +650,9 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
 
             function initialize() {
                 setInterval(vm.timeupdate, 1000);
+                @if(!$needGuide)
+                    player.play();
+                @endif
             }
 
             player.currentTime = function (time) {
@@ -659,10 +663,10 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
                 }
             };
 
-            player.pause = function() {
+            player.pause = function () {
                 player.pauseVideo();
             };
-            player.play = function() {
+            player.play = function () {
                 player.playVideo();
             };
         }
@@ -672,7 +676,9 @@ DI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPg==">
             player = this;
 
             player.on('timeupdate', vm.timeupdate);
+            @if(!$needGuide)
             player.play();
+            @endif
             $('#my_video').show();
         });
         @endif

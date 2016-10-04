@@ -20,19 +20,19 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav center-nav" id="menu-xs">
-                <li class="dropdown profile-btn hidden-xs">
-                    <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="true">
-                        <span>@lang('labels.channels')</span>
-                        <i class="glyphicon glyphicon-menu-down"></i>
-                    </a>
+                <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
+                <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
+                {{--<li class="dropdown profile-btn hidden-xs">--}}
+                    {{--<a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--}}
+                       {{--aria-expanded="true">--}}
+                        {{--<span>@lang('labels.channels')</span>--}}
+                        {{--<i class="glyphicon glyphicon-menu-down"></i>--}}
+                    {{--</a>--}}
 
-                    <ul class="dropdown-menu bullet" role="menu">
-                        <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
-                        <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
-                    </ul>
+                    {{--<ul class="dropdown-menu bullet" role="menu">--}}
+                    {{--</ul>--}}
 
-                </li>
+                {{--</li>--}}
                 <li class="dropdown profile-btn hidden-xs">
                     <a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="true">
@@ -58,7 +58,7 @@
                 {{--</li>--}}
                 <li><a href="{{url('translators')}}" class="hidden-xs">@lang('labels.group')</a></li>
                 @if(Auth::guest() || !(Auth::user()->can('videos.subs')))
-                <li><a href="{{url('menus')}}" class="hidden-xs">@lang('labels.beMember')</a></li>
+                {{--<li><a href="{{url('menus')}}" class="hidden-xs">@lang('labels.beMember')</a></li>--}}
                 @endif
             </ul>
 

@@ -160,6 +160,7 @@ return [
         Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider::class,
 //        Stevebauman\Location\LocationServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -220,6 +221,7 @@ return [
         'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
         'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];

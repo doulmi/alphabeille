@@ -98,8 +98,10 @@
                 @include('components.readableList')
                 <a class="btn btn-default more more-margin" href="{{url('/minitalks')}}">@lang('labels.more')</a>
             </div>
+            <div class="Header"></div>
+            <div class="Header"></div>
         </div>
-        @include('subscribe')
+{{--        @include('subscribe')--}}
     </div>
 @endsection
 

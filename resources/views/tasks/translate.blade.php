@@ -49,8 +49,6 @@
                                                :class="played.indexOf($index) > -1 > 'active' : ''"></a>
                                         </td>
                                         <td>
-                                        <td>
-
                                             <p>@{{{ linesFr[no] }}}</p>
                                         </td>
                                     </tr>
@@ -81,6 +79,8 @@
                         <a href="#" onclick="submitForm('submit')" style="margin-left : 10px;"
                            class="btn btn-primary pull-right">@lang('labels.submit')</a>
                     @endif
+
+                        <a href="#" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal">@lang('labels.copyLastSaved')</a>
                         <a href="#" onclick="submitForm('save')"
                            class="btn btn-success pull-right">@lang('labels.save')</a>
 
@@ -95,11 +95,29 @@
 
     <div class="Header"></div>
     <div class="Header"></div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Clipboard</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 @endsection
 
 @section('otherjs')
     @if($youtube)
-        {{--<script src="https://www.youtube.com/iframe_api"></script>--}}
         <script>
             var tag = document.createElement('script');
 
@@ -113,9 +131,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
     <script>
+        function copyOld() {
+            var saved = localStorage.getItem('lastSaved');
+            if(saved == '') {
+                toastr.error("@lang('labels.nothingToCopy')");
+            } else {
+            }
+        }
+
         function submitForm(type) {
             var form = $('#form');
             form.attr('action', "{{url('translator/tasks/' . $task->id )}}" + "/" + type);
+            console.log($('#content').val() );
+            localStorage.setItem('lastSaved', $('#content').val() );
             form.submit();
         }
 
