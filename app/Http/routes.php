@@ -23,7 +23,7 @@
 
     Route::resource('videos', 'VideoController');
 
-    Route::resource('minitalks', 'MinitalkController');
+//    Route::resource('minitalks', 'MinitalkController');
 
     Route::resource('messages', 'MessageController');
     Route::resource('discussions', 'DiscussionController');

@@ -85,22 +85,22 @@
                 </div>
                 <a class="btn btn-default more more-margin" href="{{url('/videos')}}">@lang('labels.more')</a>
             </div>
-        </div>
-
-        <div class="night-fall">
-            <div class="Header"></div>
-
-            <div class="Card-Collection row">
-                <h2 class="Heading-Fancy row">
-                    <span class='title'>@lang('labels.minitalks')</span>
-                </h2>
-                <?php $readables = $minitalks; $type = 'minitalk' ?>
-                @include('components.readableList')
-                <a class="btn btn-default more more-margin" href="{{url('/minitalks')}}">@lang('labels.more')</a>
-            </div>
             <div class="Header"></div>
             <div class="Header"></div>
         </div>
+
+        {{--<div class="night-fall">--}}
+            {{--<div class="Header"></div>--}}
+
+            {{--<div class="Card-Collection row">--}}
+                {{--<h2 class="Heading-Fancy row">--}}
+                    {{--<span class='title'>@lang('labels.minitalks')</span>--}}
+                {{--</h2>--}}
+                {{--<?php $readables = $minitalks; $type = 'minitalk' ?>--}}
+                {{--@include('components.readableList')--}}
+                {{--<a class="btn btn-default more more-margin" href="{{url('/minitalks')}}">@lang('labels.more')</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 {{--        @include('subscribe')--}}
     </div>
 @endsection

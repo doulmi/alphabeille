@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
             <ul class="nav navbar-nav center-nav" id="menu-xs">
                 <li><a href="{{ url('/videos') }}">@lang('labels.videos')</a>
-                <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>
+{{--                <li><a href="{{ url('/minitalks') }}">@lang('labels.minitalks')</a>--}}
                 {{--<li class="dropdown profile-btn hidden-xs">--}}
                     {{--<a href="#" class="top15 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"--}}
                        {{--aria-expanded="true">--}}
