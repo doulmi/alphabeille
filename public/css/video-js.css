@@ -1681,11 +1681,25 @@ body {
     color: #32cdff;
     border-bottom: 1px solid #32cdff;
     padding: 0 5px;
-    margin: 0 0 10px;
+    margin: 0 0 5px;
+}
+
+.explication blockquote p {
+    margin-bottom: 5px;
+}
+
+.explication p {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.explication h3 {
+    margin-top: 50px;
+    margin-bottom: 0;
 }
 
 .explication strong {
-    font-size: 24px;
+    color: #BC002D;
     margin-top: 15px;
 }
 
@@ -2013,6 +2027,9 @@ body {
     margin-bottom: 50px;
 }
 
+.Row-1 {
+    height: 40px;
+}
 .Row-3 {
     height: 120px;
 }
@@ -2215,3 +2232,8 @@ body {
 .social-share .icon-wechat:hover .wechat-qrcode {
     display: block
 }
+
+.explication code {
+    color: rgb(33, 150, 243);
+}
+

@@ -33,6 +33,7 @@
          data-description="@lang('labels.shareTo')" >
         @lang('labels.share'):
     </div>
+
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             @if($article->type == 'video')
@@ -50,9 +51,15 @@
 
             <div class='explication'>
                 {!! $article->parsedContent !!}
+
+                <div class="Row-1"></div>
+                1. 务必有效练习<strong>50</strong>次以上再提交，草率提交三次则被视为缺席一天<br/>
+                2. 每人每天最多只能发送三次语音，前两次可以撤销，累计超过三次则不予点评<br/>
+                3. 每天作业提交时间为自己所在时区的<strong>21:30</strong>，之后则视为缺席<br/>
             </div>
 
             <div class="Row-3"></div>
+
         </div>
     </div>
 </div>
