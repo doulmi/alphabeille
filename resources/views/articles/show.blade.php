@@ -27,6 +27,9 @@
     <h1 class="center">90天法语背诵群</h1>
     <h3 class="center">{{$article->reciteAt}}</h3>
     <h3 class="center">Alphabeille蜂言法语</h3>
+    <div id='wx_pic' style='margin:0 auto;display:none;'>
+        <img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon">
+    </div>
     <center><img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon"></center>
     <div class="share-component share-panel hidden-xs hidden-md hidden-sm" data-sites="wechat"
          data-description="@lang('labels.shareTo')" >
@@ -46,7 +49,6 @@
                         <source src="{{$article->url}}"/>
                     </audio>
                 </div>
-                <div class="Row-1"></div>
             @endif
 
             <div class='explication'>
