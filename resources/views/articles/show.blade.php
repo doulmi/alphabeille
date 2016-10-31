@@ -9,8 +9,6 @@
     <title>90天法语背诵群：{{$article->reciteAt}}</title>
     <meta name="description" content="90天法语背诵群:{{$article->reciteAt}}"/>
     <meta name="Keywords" content="90天法语背诵群:{{$article->reciteAt}}">
-    <meta property="og:url" content="{{Request::getUri()}}"/>
-    <meta property="og:title" content="90天法语背诵群:{{$article->reciteAt}}"/>
     <script type="text/javascript">
         //        // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
         //        var useragent = navigator.userAgent;
@@ -55,7 +53,7 @@
                 <div class="Row-1"></div>
                 1. 务必有效练习<strong>50</strong>次以上再提交，草率提交三次则被视为缺席一天<br/>
                 2. 每人每天最多只能发送三次语音，前两次可以撤销，累计超过三次则不予点评<br/>
-                3. 每天作业提交时间为自己所在时区的<strong>21:30</strong>，之后则视为缺席<br/>
+                3. 每天作业提交时间为自己所在时区的<strong>21:30之前</strong>，之后提交的则视为缺席<br/>
             </div>
 
             <div class="Row-3"></div>
