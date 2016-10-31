@@ -9,7 +9,6 @@
     <title>90天法语背诵群：{{$article->reciteAt}}</title>
     <meta name="description" content="90天法语背诵群:{{$article->reciteAt}}"/>
     <meta name="Keywords" content="90天法语背诵群:{{$article->reciteAt}}">
-    <meta property="og:image" content="{{$readable->avatar}}"/>
     <script type="text/javascript">
         //        // 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
         //        var useragent = navigator.userAgent;
