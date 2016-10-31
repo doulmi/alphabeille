@@ -47,6 +47,7 @@
                         <source src="{{$article->url}}"/>
                     </audio>
                 </div>
+                <div class="Row-1"></div>
             @endif
 
             <div class='explication'>
