@@ -7,6 +7,7 @@
 //Route::get('oralFormation', 'PostController@oralFormation');
 //Route::get('privateCourses', 'PostController@privateCourses');
 
+    Route::get('/articles/{id}', 'ArticleController@show');
     Route::get('verifyEmail/{confirmation_code}', function ($confirmation_code) {
         return view('emails.register', compact('confirmation_code'));
     });
@@ -169,6 +170,8 @@ Route::get('comments/like/{commentId}', 'CommentController@like');
 
         Route::resource('talkshows', 'Admin\TalkshowController');
         Route::get('talkshows/preview', 'Admin\TalkshowController@preview');
+
+        Route::resource('articles', 'Admin\ArticleController');
 
         Route::resource('minitalks', 'Admin\MinitalkController');
         Route::get('minitalks/preview', 'Admin\MinitalkController@preview');

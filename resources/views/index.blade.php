@@ -46,13 +46,13 @@
                         </form>
                     </div>
                     <div class="col-md-6 video-panel">
-                        <div class="top-48"></div>
-                        <video id="my_video" class="video-js vjs-default-skin"
-                               controls preload data-setup='{ "aspectRatio":"1920:1080" }'
-                               data-setup='{"language":"fr"}'>
-                            <source src="http://o9dnc9u2v.bkt.clouddn.com/videos/howToUse.mp4"
-                                    type='video/mp4'>
-                        </video>
+                        {{--<div class="top-48"></div>--}}
+                        {{--<video id="my_video" class="video-js vjs-default-skin"--}}
+                               {{--controls preload data-setup='{ "aspectRatio":"1920:1080" }'--}}
+                               {{--data-setup='{"language":"fr"}'>--}}
+                            {{--<source src="http://o9dnc9u2v.bkt.clouddn.com/videos/howToUse.mp4"--}}
+                                    {{--type='video/mp4'>--}}
+                        {{--</video>--}}
                     </div>
                 </div>
                 <div class="jumb-footer"></div>
@@ -107,12 +107,12 @@
 
 @section('otherjs')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
-    <script src="http://vjs.zencdn.net/5.10.7/video.js"></script>
+    {{--<script src="http://vjs.zencdn.net/5.10.7/video.js"></script>--}}
     <script>
         $('img.Card-image').lazyload();
 
-        videojs("my_video").ready(function () {
-            $('#my_video').show();
-        });
+//        videojs("my_video").ready(function () {
+//            $('#my_video').show();
+//        });
     </script>
 @endsection
