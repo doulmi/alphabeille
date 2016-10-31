@@ -8,6 +8,9 @@
 //Route::get('privateCourses', 'PostController@privateCourses');
 
     Route::get('/articles/{id}', 'ArticleController@show');
+    Route::get('/MP_verify_6vPxgEsBPhKvVHZa.txt', function() {
+        return "6vPxgEsBPhKvVHZa";
+    });
     Route::get('verifyEmail/{confirmation_code}', function ($confirmation_code) {
         return view('emails.register', compact('confirmation_code'));
     });
