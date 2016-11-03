@@ -27,7 +27,6 @@
         </tr>
         </thead>
         <tbody>
-        @for($i = 0; $i < 10; $i ++)
         @foreach($users as $name => $results)
             <tr>
                 <td>{{$name}}</td>
@@ -37,7 +36,6 @@
                 <td></td>
             </tr>
         @endforeach
-        @endfor
         </tbody>
     </table>
 </div>
