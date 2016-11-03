@@ -82,6 +82,14 @@
                 <i class="glyphicon glyphicon-play"></i>
                 @lang('labels.manageVideos')
             </a>
+            <a href="{{url('admin/articles')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-education"></i>
+                @lang('labels.manageArticles')
+            </a>
+             <a href="{{url('admin/90days')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-education"></i>
+                @lang('labels.checkupSystem')
+            </a>
             <a href="{{url('admin/tasks?state=1&&type=3')}}" class="list-group-item item">
                 <i class="glyphicon glyphicon-edit"></i>
                 @lang('labels.videos.state4')

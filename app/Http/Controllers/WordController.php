@@ -118,6 +118,28 @@ class WordController extends Controller
         }
         return [$word, $origin];
     }
+
+    public function fetch($src) {
+        list($word, $origin) = $this->getWord($src);
+
+        if ($word) {
+            if (!$origin) {
+                $word->explication = $word->word . '<br/>' . $word->explication;
+            }
+
+            return response()->json([
+                'status' => 200,
+                'msg' => $word->explication,
+                'audio' => $word->audio,
+                'freq' => $word->frequency
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'msg' => 'notFoundWord'
+            ]);
+        }
+    }
     /*
      * Display the specified resource.
      *

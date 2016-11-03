@@ -432,4 +432,8 @@ return [
     'copySuccess' => '已成功复制内容到剪切板，按Ctrl + V进行粘贴',
     'nothingToCopy' => '没有东西可复制的',
     'copyLastSaved' => '复制最后提交的内容',
+    'checkupSystem' => '打卡管理',
+    'manageArticles' => '每日背诵管理',
+    'score' => '评分',
+    'addFailed' => '添加失败',
 ];
