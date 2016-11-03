@@ -98,15 +98,19 @@
                     this.score = score;
                 },
 
-                filter: function () {
-                    var student = this.student;
-                    this.isLoading = true;
-                    if (this.student.trim() != '') {
-                        this.filterStudents = this.students.filter(function (stu) {
-                            return stu.name.indexOf(student) > -1 || stu.nickname.indexOf(student) > -1;
-                        });
+                filter: function (e) {
+                    if(e.keyCode == 13) {
+                        this.select(this.filterStudents[0].name);
                     } else {
-                        this.filterStudents = this.students;
+                        var student = this.student.toLowerCase();
+                        this.isLoading = true;
+                        if (this.student.trim() != '') {
+                            this.filterStudents = this.students.filter(function (stu) {
+                                return stu.name.toLowerCase().indexOf(student) > -1 || stu.nickname.toLowerCase().indexOf(student) > -1;
+                            });
+                        } else {
+                            this.filterStudents = this.students;
+                        }
                     }
                 },
 
