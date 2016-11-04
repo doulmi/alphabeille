@@ -10,7 +10,13 @@
             left: 15px;
         }
     </style>
+
     <div class="form-group">
+        <label for="today">Name</label>
+        <input class="form-control" v-model="today" id="today"/>
+    </div>
+    <div class="form-group">
+
         <label for="studentList">Name</label>
         <input list="student" id="studentList" class="form-control" v-on:keyup="filter" v-model="student"
                v-on:click="filter">
@@ -68,6 +74,15 @@
             el: 'body',
             ready: function () {
                 var that = this;
+                var day = new Date();
+                var dd = day.getDate();
+                dd = dd < 10? '0' + dd : dd;
+                var mm = day.getMonth() + 1;
+                mm = mm < 10 ? '0' + mm : mm;
+                var yyyy = day.getFullYear();
+
+                this.today = "" + yyyy + mm + dd;
+
                 $.ajax({
                     type: "get",
                     url: '{{url('admin/api/90days/students')}}',
@@ -83,6 +98,7 @@
                 isLoading: true,
                 filterStudents: [],
                 score: 3,
+                today: '',
                 scores: [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
                 comment: ''
             },
@@ -99,7 +115,7 @@
                 },
 
                 filter: function (e) {
-                    if(e.keyCode == 13) {
+                    if (e.keyCode == 13) {
                         this.select(this.filterStudents[0].name);
                     } else {
                         var student = this.student.toLowerCase();
@@ -120,7 +136,7 @@
                 },
 
                 onSubmit: function () {
-                    if(this.student.trim() === '' || this.comment.trim() === '' ) {
+                    if (this.student.trim() === '' || this.comment.trim() === '') {
                         toastr.error("@lang('labels.addFailed')");
                         return;
                     }
@@ -128,7 +144,7 @@
                     $.ajax({
                         type: "post",
                         url: '{{url('admin/90days/students')}}',
-                        data: {name: this.student, comment: this.comment, score: this.score},
+                        data: {name: this.student, comment: this.comment, score: this.score, today: this.today},
                         headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
                         success: function () {
                             toastr.success("@lang('labels.addSuccess')");

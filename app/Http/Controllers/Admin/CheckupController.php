@@ -154,7 +154,8 @@ class CheckupController extends Controller
      */
     public function store(Request $request)
     {
-        $today = date('Ymd');
+//        $today = date('Ymd');
+        $today = $request->get('today');
         $prefix = $today . ":" . $request->get('name') . ':';
         Redis::set($prefix . 'score', $request->get('score'));
         Redis::set($prefix . 'comment', $request->get('comment'));
