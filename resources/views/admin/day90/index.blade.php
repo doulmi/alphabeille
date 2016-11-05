@@ -10,37 +10,53 @@
             left: 15px;
         }
     </style>
+    <div class="container">
+        <div class="row">
 
-    <div class="form-group">
-        <label for="today">Name</label>
-        <input class="form-control" v-model="today" id="today"/>
-    </div>
-    <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="today">Name</label>
+                    <input class="form-control" v-model="today" id="today"/>
+                </div>
+                <div class="form-group">
 
-        <label for="studentList">Name</label>
-        <input list="student" id="studentList" class="form-control" v-on:keyup="filter" v-model="student"
-               v-on:click="filter">
-        <ul class="dropdown-menu filter-list" v-if="showList">
-            <li v-for="stu in filterStudents"><a href="#"
-                                                 v-on:click="select(stu.name)">@{{ stu.name + ' - ' + stu.nickname }}</a>
-            </li>
-        </ul>
-    </div>
+                    <label for="studentList">Name</label>
+                    <input list="student" id="studentList" class="form-control" v-on:keyup="filter" v-model="student"
+                           v-on:click="filter">
+                    <ul class="dropdown-menu filter-list" v-if="showList">
+                        <li v-for="stu in filterStudents"><a href="#"
+                                                             v-on:click="select(stu)">@{{ stu.name + ' - ' + stu.nickname }}</a>
+                        </li>
+                    </ul>
+                </div>
 
-    <div class="form-group">
-        <label for="score">@lang('labels.score'):</label> @{{ score }}<br/>
+                <div class="form-group">
+                    <label for="score">@lang('labels.score'):</label> @{{ score }}<br/>
 
-        <div class="btn-group" role="group" aria-label="Score group">
-            <button type="button" class="btn btn-default" v-for="sc in scores"
-                    v-on:click="setScore(sc)">@{{ sc }}</button>
+                    <div class="btn-group" role="group" aria-label="Score group">
+                        <button type="button" class="btn btn-default" v-for="sc in scores"
+                                v-on:click="setScore(sc)">@{{ sc }}</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">@lang('labels.content')</label>
+
+                    <textarea class="name-input form-control" rows="10" id="content" data-provide="markdown"
+                              name="content"
+                              v-model="comment"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li v-for="h in history">
+                        <strong>@{{ h.date }}:</strong><br/>
+                        @{{ h.score }}: <br/>
+                        @{{ h.comment }} <br/><br/>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <label for="content">@lang('labels.content')</label>
-
-        <textarea class="name-input form-control" rows="10" id="content" data-provide="markdown" name="content"
-                  v-model="comment"></textarea>
     </div>
 
     <a href="#" class="btn btn-primary pull-right" @click.stop.prevent="onSubmit">提交</a>
@@ -76,7 +92,7 @@
                 var that = this;
                 var day = new Date();
                 var dd = day.getDate();
-                dd = dd < 10? '0' + dd : dd;
+                dd = dd < 10 ? '0' + dd : dd;
                 var mm = day.getMonth() + 1;
                 mm = mm < 10 ? '0' + mm : mm;
                 var yyyy = day.getFullYear();
@@ -98,6 +114,7 @@
                 isLoading: true,
                 filterStudents: [],
                 score: 3,
+                history: [],
                 today: '',
                 scores: [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
                 comment: ''
@@ -130,8 +147,9 @@
                     }
                 },
 
-                select: function (name) {
-                    this.student = name;
+                select: function (stu) {
+                    this.student = stu.name;
+                    this.history = stu.info;
                     this.isLoading = false;
                 },
 

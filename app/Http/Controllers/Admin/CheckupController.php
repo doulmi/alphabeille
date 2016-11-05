@@ -137,7 +137,7 @@ class CheckupController extends Controller
             if ($score != '') {
                 $comment = Redis::get($today . ':' . $name . ':comment');
                 $users[] = [
-                    'name' => $name,
+                    'name' => Redis::get($key),
                     'score' => $score,
                     'comment' => $comment
                 ];
@@ -208,15 +208,27 @@ class CheckupController extends Controller
 
     public function students()
     {
+
         $prefix = '90days:students:';
         $students = Redis::keys($prefix . '*');
         $len = strlen($prefix);
         $names = array_map(function ($student) use ($len, $prefix) {
             $wechatName = substr($student, $len);
             $nickName = Redis::get($prefix . $wechatName);
+            $scores = Redis::keys('*:' . $wechatName . ':score');
+            $infos = [];
+            foreach($scores as $score) {
+                $date = substr($score, 0, 8);
+                $infos[] = [
+                    'date' => $date,
+                    'score' => Redis::get($score),
+                    'comment' => Redis::get($date . ':' . $wechatName . ':comment')
+                ];
+            }
             return [
                 'name' => $wechatName,
-                'nickname' => $nickName
+                'nickname' => $nickName,
+                'info' => $infos
             ];
         }, $students);
         return response()->json($names);
