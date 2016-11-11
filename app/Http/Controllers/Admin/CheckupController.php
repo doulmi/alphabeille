@@ -129,6 +129,8 @@ class CheckupController extends Controller
     {
         if($date == null) {
             $today = date('Ymd');
+        } else {
+            $today = $date;
         }
         $keys = Redis::keys('90days:students:*');
         $users = [];
