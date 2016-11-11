@@ -125,9 +125,11 @@ class CheckupController extends Controller
     /**
      * 日报
      */
-    public function daily()
+    public function daily($date = null)
     {
-        $today = date('Ymd');
+        if($date == null) {
+            $today = date('Ymd');
+        }
         $keys = Redis::keys('90days:students:*');
         $users = [];
         $preLen = strlen('90days:students:');

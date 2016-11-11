@@ -220,7 +220,7 @@ Route::get('comments/like/{commentId}', 'CommentController@like');
         Route::get('api/90days/students', 'Admin\CheckupController@students');
         Route::post('90days/students', 'Admin\CheckupController@store');
         Route::get('90days/init', 'Admin\CheckupController@create');
-        Route::get('90days/daily', 'Admin\CheckupController@daily');
+        Route::get('90days/daily/date', 'Admin\CheckupController@daily');
         Route::get('90days/weekly', 'Admin\CheckupController@weekly');
 //    Route::get('testHelper', 'Admin\VideoController@testHelper');
 //    Route::get('generateDict', 'Admin\AdminController@generateDict');
