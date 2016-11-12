@@ -39,13 +39,13 @@
     <div class="row">
         <div class="col-sm-12 col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             @if($article->type == 'video')
-                <video id="my_video" class="video-js vjs-default-skin" controls preload
+                <video id="my_video" class="video-js vjs-default-skin" controls preload loop
                        data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5, 0.75, 1, 1.25] }'>
                     <source src="{{$article->url}}" type='video/mp4'>
                 </video>
             @else
                 <div class="playerPanel">
-                    <audio id='audio' preload="auto" controls hidden>
+                    <audio id='audio' preload="auto" controls hidden loop>
                         <source src="{{$article->url}}"/>
                     </audio>
                 </div>
