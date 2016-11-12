@@ -9,6 +9,11 @@
             overflow: auto;
             left: 15px;
         }
+
+        .fullHeihgt {
+            max-height: 600px;
+            overflow: auto;
+        }
     </style>
     <div class="container">
         <div class="row">
@@ -47,7 +52,7 @@
                               v-model="comment"></textarea>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 fullHeihgt" >
                 <ul>
                     <li v-for="h in history">
                         <strong>@{{ h.date }}:</strong><br/>
@@ -60,6 +65,7 @@
     </div>
 
     <a href="#" class="btn btn-primary pull-right" @click.stop.prevent="onSubmit">提交</a>
+    <a href="{{url('admin/90days/students')}}" class="btn btn-info">查看所有学生</a>
     <a href="{{url('admin/90days/daily')}}" class="btn btn-success" @click.stop.prevent="onGenerate">生成今日报告</a>
     <a href="{{url('admin/90days/weekly')}}" class="btn btn-danger" @click.stop.prevent="onGenerate">生成本周报告</a>
 @endsection

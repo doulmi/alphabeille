@@ -18,6 +18,53 @@ class CheckupController extends Controller
         return view('admin.day90.index');
     }
 
+    public function studentIndex() {
+        $prefix = '90days:students:';
+        $students = Redis::keys($prefix . '*');
+        $len = strlen($prefix);
+        $names = array_map(function ($student) use ($len, $prefix) {
+            $wechatName = substr($student, $len);
+            $nickName = Redis::get($prefix . $wechatName);
+            $scores = Redis::keys('*:' . $wechatName . ':score');
+            $infos = [];
+            foreach($scores as $score) {
+                $date = substr($score, 0, 8);
+                $infos[] = [
+                    'date' => $date,
+                    'score' => Redis::get($score),
+                    'comment' => Redis::get($date . ':' . $wechatName . ':comment')
+                ];
+            }
+            return [
+                'name' => $wechatName,
+                'nickname' => $nickName,
+                'info' => $infos
+            ];
+        }, $students);
+        return view('admin.day90.students', compact('names'));
+    }
+
+    public function studentShow($name) {
+        $scores = Redis::keys('*:' . $name . ':score');
+        $infos = [];
+        foreach($scores as $score) {
+            $date = substr($score, 0, 8);
+            $infos[] = [
+                'date' => $date,
+                'score' => Redis::get($score),
+                'comment' => Redis::get($date . ':' . $name. ':comment')
+            ];
+        }
+
+        return view('admin.day90.show', compact('infos', 'name'));
+    }
+
+    public function deleteComment($name, $date) {
+        Redis::del($date . ':' . $name . ':score');
+        Redis::del($date . ':' . $name . ':comment');
+        return redirect('admin/90days/students/'. $name);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
