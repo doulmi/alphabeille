@@ -8,6 +8,7 @@
 //Route::get('privateCourses', 'PostController@privateCourses');
 
     Route::get('/articles/{id}', 'ArticleController@show');
+    Route::get('/articles', 'ArticleController@index');
     Route::get('/MP_verify_6vPxgEsBPhKvVHZa.txt', function() {
         return "6vPxgEsBPhKvVHZa";
     });

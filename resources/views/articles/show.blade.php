@@ -58,6 +58,8 @@
                 1. 务必有效练习<strong>50</strong>次以上再提交，草率提交三次则被视为缺席一天<br/>
                 2. 每人每天最多只能发送三次语音，前两次可以撤销，累计超过三次则不予点评<br/>
                 3. 每天作业提交时间为自己所在时区的<strong>21:30之前</strong>，之后提交的则视为缺席<br/>
+                <div class="Row-1"></div>
+                <a href="{{url('articles')}}">往期内容</a><br/>
             </div>
 
             <div class="Row-3"></div>
