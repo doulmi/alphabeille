@@ -246,6 +246,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
   Route::post('uploadSql', 'Admin\AdminController@uploadSql');
 });
 
+Route::get('/api/words/{word}', 'WordController@fetch');
+
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
   $api->group(['namespace' => 'App\Http\Controllers\Api\Controllers', 'middleware' => 'cors'], function ($api) {
