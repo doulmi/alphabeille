@@ -161,6 +161,7 @@ return [
 //        Stevebauman\Location\LocationServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
         /*
          * Application Service Providers...
