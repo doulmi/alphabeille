@@ -35,6 +35,10 @@ class CheckupController extends Controller
                     'comment' => Redis::get($date . ':' . $wechatName . ':comment')
                 ];
             }
+            array_sort($infos, function($info, $info2) {
+              return $info < $info2;
+            });
+
             return [
                 'name' => $wechatName,
                 'nickname' => $nickName,

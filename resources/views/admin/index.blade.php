@@ -94,6 +94,12 @@
                 <i class="glyphicon glyphicon-edit"></i>
                 @lang('labels.videos.state4')
             </a>
+
+            <a href="{{url('admin/vocabularies')}}" class="list-group-item item">
+                <i class="glyphicon glyphicon-edit"></i>
+                @lang('labels.vocabularies')
+            </a>
+
             {{--<a href="{{url('admin/videos?desc=1')}}" class="list-group-item item">--}}
                 {{--<i class="glyphicon glyphicon-comment"></i>--}}
                 {{--@lang('labels.videosNoDesc')--}}

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Input;
 
 class VideoController extends BaseApiController
 {
-    private $selectedCols = ['id', 'title', 'avatar', 'state', 'free', 'level', 'views', 'likes', 'duration', 'originSrc'];
+    private $selectedCols = ['id', 'title', 'avatar', 'state', 'free', 'level', 'views', 'likes', 'duration', 'originSrc', 'slug'];
 
     /**
      * Display a listing of the resource.
@@ -56,48 +56,50 @@ class VideoController extends BaseApiController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param  int $idOrSlug
+//     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idOrSulg)
     {
-        $video = Video::find($id, ['id', 'title', 'state', 'level', 'likes', 'views', 'free', 'avatar', 'duration', 'parsed_desc', 'parsed_content', 'parsed_content_zh', 'points', 'originSrc']);
+        $video = Video::findByIdOrSlugOrFail($idOrSulg, ['id', 'title', 'state', 'level', 'likes', 'views', 'free', 'avatar', 'duration', 'parsed_desc', 'parsed_content', 'parsed_content_zh', 'points', 'originSrc', 'slug']);
         if(!$video){
             $this->response->errorNotFound();
         }
 
-        $result = [
-            'id' => $video->id,
-            'title' => $video->title,
-            'likes' => $video->likes,
-            'views' => $video->views,
-            'free' => $video->free,
-            'avatar' => $video->avatar,
-            'duration' => $video->duration,
-            'youtubeId' => $video->originSrc,
-        ];
+//        $result = [
+//            'id' => $video->id,
+//            'title' => $video->title,
+//            'likes' => $video->likes,
+//            'views' => $video->views,
+//            'free' => $video->free,
+//            'avatar' => $video->avatar,
+//            'slug' => $video->slug,
+//            'duration' => $video->duration,
+//            'youtubeId' => $video->originSrc,
+//        ];
 
-        $payContent = [
-            'parsed_desc' => $video->parsed_desc,
-            'parsed_content' => $video->parsed_content,
-            'parsed_content_zh' => $video->parsed_content_zh,
-            'points' => $video->points,
-        ];
+//        $payContent = [
+//            'parsed_desc' => $video->parsed_desc,
+//            'parsed_content' => $video->parsed_content,
+//            'parsed_content_zh' => $video->parsed_content_zh,
+//            'points' => $video->points,
+//        ];
 
-        if($video->free) {
-            return array_merge($result, $payContent);
-        }
+//        if($video->free) {
+//            return array_merge($result, $payContent);
+//        }
 
-        $token = Input::get('token');
+//        $token = Input::get('token');
 
-        if($token) {
-            $user = JWTAuth::toUser($token);
-            if ($user->can('videos.subs')) {
-                return array_merge($result,$payContent);
-            }
-        }
+//        if($token) {
+//            $user = JWTAuth::toUser($token);
+//            if ($user->can('videos.subs')) {
+//                return array_merge($result,$payContent);
+//            }
+//        }
 
-        return $result;
+//        return $result;
+      return $video;
     }
 
     /**
