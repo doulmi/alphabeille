@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="col-md-6 col-xs-12">
+  <div class="col-md-6 col-md-offset-3 col-xs-12">
     <a class="btn btn-primary btn-check" id="check-btn">
       打卡
     </a>

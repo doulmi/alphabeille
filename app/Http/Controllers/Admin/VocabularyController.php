@@ -49,9 +49,7 @@ class VocabularyController extends Controller
   {
     $data = $request->all();
     $data['parsedContent'] = $this->markdonw->parse($data['content']);
-    dd(preg_replace("/<audio src='(.*)' />/",
-      "<audio><source src='$1'></audio>",
-      $data['parsedContent']));
+    $data['parsedContent'] = preg_replace('/{(.*)\/}/U', "<audio id='audio' controls hidden loop preload='auto' src='http://o9dnc9u2v.bkt.clouddn.com/vocabulary/$1.mp3'></audio>", html_entity_decode($data['parsedContent']));
     $data['hash'] = md5($data['date']);
     Vocabulary::create($data);
     return redirect('admin/vocabularies');
@@ -94,11 +92,6 @@ class VocabularyController extends Controller
     $data = $request->all();
     $data['parsedContent'] = $this->markdonw->parse($data['content']);
 
-//    $data['parsedContent'] = preg_replace_callback('/{(.*)\/}/U',
-//      function ($matches) {
-//        return "<audio preload='auto' id='$matches[1]' src='http://oc2ggunnp.bkt.clouddn.com/" . md5($matches[1]) . ".mp3'> </audio>";
-//      },
-//      html_entity_decode($data['parsedContent']));
     $data['parsedContent'] = preg_replace('/{(.*)\/}/U', "<audio id='audio' controls hidden loop preload='auto' src='http://o9dnc9u2v.bkt.clouddn.com/vocabulary/$1.mp3'></audio>", html_entity_decode($data['parsedContent']));
     $data['hash'] = md5($data['date']);
     $article->update($data);
