@@ -170,11 +170,16 @@
                         url: '{{url('admin/90days/students')}}',
                         data: {name: this.student, comment: this.comment, score: this.score, today: this.today},
                         headers: {'X-CSRF-TOKEN': '{{csrf_token()}}'},
-                        success: function () {
-                            toastr.success("@lang('labels.addSuccess')");
-                            that.student = '';
-                            that.comment = '';
-                            that.score = 3;
+                        success: function (response) {
+                            console.log(response);
+                            if(response.success == true) {
+                                toastr.success("@lang('labels.addSuccess')");
+                                that.student = '';
+                                that.comment = '';
+                                that.score = 3;
+                            } else {
+                                toastr.error("@lang('labels.addFailed')");
+                            }
                         }
                     });
                 }
