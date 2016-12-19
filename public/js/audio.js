@@ -228,4 +228,8 @@
   };
 })(jQuery, window, document);
 
-var audio = $('#audio').audioPlayer();
+var audios = document.querySelectorAll('#audio');
+for(var audio_i = 0; audio_i < audios.length; audio_i ++) {
+  console.log(audio_i);
+  $(audios[audio_i]).audioPlayer();
+}

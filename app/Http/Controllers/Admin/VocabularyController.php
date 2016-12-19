@@ -51,6 +51,10 @@ class VocabularyController extends Controller
     $data = $request->all();
     $data['parsedContent'] = $this->markdonw->parse($data['content']);
     $data['parsedContent'] = Helper::emberedWord($data['parsedContent']);
+
+    $data['parsedContent'] = preg_replace('/{<span>(.*)<\/span>\/<span>(.*)<\/span>\/}/U', '{$1/$2/}', $data['parsedContent']);
+    $data['parsedContent'] = preg_replace('/<;hr\/>;/', '<hr/>', $data['parsedContent']);
+
     $data['parsedContent'] = preg_replace('/{(.*)\/}/U', "<audio id='audio' controls hidden loop preload='auto' src='http://o9dnc9u2v.bkt.clouddn.com/vocabulary/$1.mp3'></audio>", html_entity_decode($data['parsedContent']));
     $data['hash'] = md5($data['date']);
     Vocabulary::create($data);
@@ -95,7 +99,7 @@ class VocabularyController extends Controller
     $data['parsedContent'] = $this->markdonw->parse($data['content']);
     $data['parsedContent'] = Helper::emberedWord(html_entity_decode($data['parsedContent']));
 
-    $data['parsedContent'] = preg_replace('/{<span>(.*)<\/span>\/<span>(.*)<\/span>\/}/', '{$1/$2/}', $data['parsedContent']);
+    $data['parsedContent'] = preg_replace('/{<span>(.*)<\/span>\/<span>(.*)<\/span>\/}/U', '{$1/$2/}', $data['parsedContent']);
     $data['parsedContent'] = preg_replace('/<;hr\/>;/', '<hr/>', $data['parsedContent']);
     $data['parsedContent'] = preg_replace('/{(.*)\/}/U', "<audio id='audio' controls hidden loop preload='auto' src='http://o9dnc9u2v.bkt.clouddn.com/vocabulary/$1.mp3'></audio>", $data['parsedContent']);
     $data['hash'] = md5($data['date']);
