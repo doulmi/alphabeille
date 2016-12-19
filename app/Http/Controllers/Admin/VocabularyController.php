@@ -51,7 +51,6 @@ class VocabularyController extends Controller
     $data = $request->all();
     $data['parsedContent'] = $this->markdonw->parse($data['content']);
     $data['parsedContent'] = Helper::emberedWord($data['parsedContent']);
-    dd($data['parsedContent']);
     $data['parsedContent'] = preg_replace('/{(.*)\/}/U', "<audio id='audio' controls hidden loop preload='auto' src='http://o9dnc9u2v.bkt.clouddn.com/vocabulary/$1.mp3'></audio>", html_entity_decode($data['parsedContent']));
     $data['hash'] = md5($data['date']);
     Vocabulary::create($data);
