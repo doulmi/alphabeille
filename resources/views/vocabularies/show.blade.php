@@ -27,9 +27,12 @@
   <h3 class="center">{{$vocabulary->date->format('Y-m-d')}}</h3>
   <h3 class="center">Alphabeille蜂言法语</h3>
   <div id='wx_pic' style='margin:0 auto;display:none;'>
-    <img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon">
+{{--    <img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon">--}}
+        <img src="{{asset('img/chrismas.png')}}" alt="icon" class="icon">
   </div>
-  <center><img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon"></center>
+{{--  <center><img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon"></center>--}}
+  <center><img src="{{asset('img/chrismas.png')}}" alt="icon" class="icon"></center>
+</div>
   <div class="share-component share-panel hidden-xs hidden-md hidden-sm" data-sites="wechat"
        data-description="@lang('labels.shareTo')">
     @lang('labels.share'):
