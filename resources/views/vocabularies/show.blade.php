@@ -27,12 +27,11 @@
   <h3 class="center">{{$vocabulary->date->format('Y-m-d')}}</h3>
   <h3 class="center">Alphabeille蜂言法语</h3>
   <div id='wx_pic' style='margin:0 auto;display:none;'>
-{{--    <img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon">--}}
-        <img src="{{asset('img/chrismas.png')}}" alt="icon" class="icon">
+    {{--    <img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon">--}}
+    <img src="{{asset('img/chrismas.png')}}" alt="icon" class="icon">
   </div>
-{{--  <center><img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon"></center>--}}
+  {{--  <center><img src="{{asset('img/168x168.jpg')}}" alt="icon" class="icon"></center>--}}
   <center><img src="{{asset('img/chrismas.png')}}" alt="icon" class="icon"></center>
-</div>
   <div class="share-component share-panel hidden-xs hidden-md hidden-sm" data-sites="wechat"
        data-description="@lang('labels.shareTo')">
     @lang('labels.share'):
@@ -60,7 +59,8 @@
       <div style="margin-top: 30px;">
         <span class="word" id="dictWord"></span>
         <span class="prononce" id="dictPrononce">
-          <button type="button" class="audio-play-btn" id="audioBtn"><img class="audio-icon" src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMzIyRTMzIiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR oPSIxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik 0zIDl2Nmg0bDUgNVY0TDcgOUgzem0xMy41IDNjMC0xLjc3LTEuMDItMy4yOS0yLjUtNC4wM3Y4L jA1YzEuNDgtLjczIDIuNS0yLjI1IDIuNS00LjAyek0xNCAzLjIzdjIuMDZjMi44OS44NiA1IDMu NTQgNSA2Ljcxcy0yLjExIDUuODUtNSA2LjcxdjIuMDZjNC4wMS0uOTEgNy00LjQ5IDctOC43N3M tMi45OS03Ljg2LTctOC43N3oiLz4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+"/></button>
+          <button type="button" class="audio-play-btn" id="audioBtn"><img class="audio-icon"
+                                                                          src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMzIyRTMzIiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHR oPSIxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik 0zIDl2Nmg0bDUgNVY0TDcgOUgzem0xMy41IDNjMC0xLjc3LTEuMDItMy4yOS0yLjUtNC4wM3Y4L jA1YzEuNDgtLjczIDIuNS0yLjI1IDIuNS00LjAyek0xNCAzLjIzdjIuMDZjMi44OS44NiA1IDMu NTQgNSA2Ljcxcy0yLjExIDUuODUtNSA2LjcxdjIuMDZjNC4wMS0uOTEgNy00LjQ5IDctOC43N3M tMi45OS03Ljg2LTctOC43N3oiLz4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+"/></button>
         </span>
       </div>
       <div class="explication" id="dictEx">
@@ -122,11 +122,11 @@
       dictEx.html('加载中...');
       $.get('{{url('/api/words')}}' + '/' + word, function (response) {
         var src = response['audio'];
-        if(src == '') {
+        if (src == '') {
           audioBtn.hide();
         } else {
           audioBtn.show();
-          audio = $('<audio/>', { });
+          audio = $('<audio/>', {});
           $('<source/>').attr('src', src).appendTo(audio);
         }
 
